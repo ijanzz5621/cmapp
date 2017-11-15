@@ -159,6 +159,8 @@
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\datepicker.css" />
+    <Content Include="Content\jquery-confirm.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
@@ -170,10 +172,23 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="images\bg-cover.png" />
+    <Content Include="images\Coming-Soon.png" />
+    <Content Include="images\login-title.png" />
+    <Content Include="images\login_bg.png" />
+    <Content Include="images\Microchip_logo.png" />
+    <Content Include="images\view.png" />
+    <Content Include="MainPage.aspx" />
+    <Content Include="Scripts\ie9\html5shiv.js" />
+    <Content Include="Scripts\ie9\respond.min.js" />
+    <Content Include="Scripts\jquery-confirm.js" />
     <Content Include="x64\Oracle.ManagedDataAccessDTC.dll" />
     <Content Include="x64\Oracle.ManagedDataAccessIOP.dll" />
     <Content Include="x86\Oracle.ManagedDataAccessDTC.dll" />
     <Content Include="x86\Oracle.ManagedDataAccessIOP.dll" />
+    <Content Include="images\bg-cover.psd" />
+    <Content Include="images\login_bg.psd" />
+    <Content Include="images\Microchip_logo.psd" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -233,6 +248,13 @@
     </Compile>
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="MainPage.aspx.designer.vb">
+      <DependentUpon>MainPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MainPage.aspx.vb">
+      <DependentUpon>MainPage.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

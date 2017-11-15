@@ -5,8 +5,12 @@
 <html lang="en">
 <head runat="server">
     <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><%: Page.Title %> - CMAPP</title>
+
+    <link href="/Content/jquery-confirm.css" rel="stylesheet" />
+    <link href="/Content/datepicker.css" rel="stylesheet" />    
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -102,5 +106,10 @@
         </div>
 
     </form>
+
+    <script src="/Scripts/ie9/html5shiv.js"></script>
+    <script src="/Scripts/ie9/respond.min.js"></script>    
+    <script src="/Scripts/jquery-confirm.js"></script>
+
 </body>
 </html>
