@@ -14,6 +14,7 @@ Public Class TestTimeUpdate
     Private cnnOraString As String = ""
 
     Private dtSiteCount As DataTable
+    Private dtSiteCount1 As DataTable
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
@@ -169,6 +170,13 @@ Public Class TestTimeUpdate
             popupTestTime_txtDevice.Text = selRowCount.Cells(7).Text
             popupTestTime_txtTemp.Text = selRowCount.Cells(8).Text
             popupTestTime_txtEffDate.Text = selRowCount.Cells(9).Text
+
+            ' Get Test Time for Site Count 1 from database
+            dtSiteCount1 = GetSiteCount1Info(popupTestTime_txtProgID.Text, popupTestTime_txtRev.Text, popupTestTime_txtTesterType.Text, popupTestTime_txtProgName.Text, popupTestTime_txtProgExec.Text, popupTestTime_txtDevice.Text, popupTestTime_txtTemp.Text, popupTestTime_txtEffDate.Text)
+            If dtSiteCount1.Rows.Count > 0 Then
+                popupTestTime_txtSiteCount1TestTime.Text = dtSiteCount1.Rows(0)("TESTTIME").ToString
+            End If
+
             EnableDisableTestTimeForm("Disable")
 
             gvSiteCountList.DataSource = dtSiteCount
@@ -244,29 +252,75 @@ Public Class TestTimeUpdate
 
     Protected Sub popupTestTime_btnCalc_Click(sender As Object, e As EventArgs)
 
-        'Dim modal As ModalCaller = New ModalCaller()
-        'modal.ShowPopupMessage(wucPopupInfo, "Calculating.... Please wait")
+        Dim modal As ModalCaller = New ModalCaller()
 
-        dtSiteCount = New DataTable
 
-        ' Get Test Time for Site Count 1 from database
-        ' TODO
+        dtSiteCount = New DataTable()
+        dtSiteCount1 = New DataTable()
 
-        For item As Integer = 1 To Integer.Parse(popupTestTime_txtSiteCount.Text)
-            dtSiteCount.Columns.Add("x" & item & "(s)", GetType(String))
-        Next
+        If popupTestTime_txtSiteCount1TestTime.Text <> "" Then
 
-        Dim values(Integer.Parse(popupTestTime_txtSiteCount.Text) - 1) As String
-        For item As Integer = 0 To Integer.Parse(popupTestTime_txtSiteCount.Text) - 1
-            values(item) = "1"
-        Next
+            For item As Integer = 1 To Integer.Parse(popupTestTime_txtSiteCount.Text)
+                dtSiteCount.Columns.Add("x" & item & " (s)", GetType(String))
+            Next
 
-        dtSiteCount.Rows.Add(values)
+            Dim values(Integer.Parse(popupTestTime_txtSiteCount.Text) - 1) As String
+            For item As Integer = 0 To Integer.Parse(popupTestTime_txtSiteCount.Text) - 1
 
-        gvSiteCountList.DataSource = dtSiteCount
-        gvSiteCountList.DataBind()
+                Dim siteCountTestTime As Double = Double.Parse(popupTestTime_txtSiteCount1TestTime.Text) + ((Double.Parse(popupTestTime_txtOverhead.Text) / 100) * item * Double.Parse(popupTestTime_txtSiteCount1TestTime.Text))
+                values(item) = siteCountTestTime.ToString("F2")
+            Next
+
+            dtSiteCount.Rows.Add(values)
+
+            gvSiteCountList.DataSource = dtSiteCount
+            gvSiteCountList.DataBind()
+
+        Else
+
+            modal.ShowPopupMessage(wucPopupInfo, "No Site Count 1 Test Time found!")
+
+        End If
+
+
 
         mpePopupTestTime.Show()
 
     End Sub
+
+    Private Function GetSiteCount1Info(testProgID As String, rev As String, testerType As String, programName As String, programExec As String, device As String, temp As String, effDate As String) As DataTable
+
+        Dim strQuery As String
+        Dim dsResult As DataSet = New DataSet
+
+        Try
+
+            GetAppConfig()
+            OpenConnection()
+
+            strQuery = "Select * from cmtesttime "
+            strQuery = strQuery & "where "
+            strQuery = strQuery & "SITECOUNT = 1 "
+            strQuery = strQuery & "and TESTPROGID = '" & testProgID & "' "
+            strQuery = strQuery & "and TESTPROGIDREV = '" & rev & "' "
+            strQuery = strQuery & "and TESTERTYPE = '" & testerType & "' "
+            strQuery = strQuery & "and TESTPROGMAINSOURCE = '" & programName & "' "
+            strQuery = strQuery & "and TESTPROGEXECUTABLE = '" & programExec & "' "
+            strQuery = strQuery & "and DEVICE = '" & device & "' "
+            strQuery = strQuery & "and TESTSTEPTEMP = '" & temp & "' "
+            strQuery = strQuery & "and to_char(TESTTIMEEFFDATE,'mm/dd/yyyy') = '" & effDate & "' "
+            dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
+
+        Catch ex As Exception
+            Dim exMsg = ex.Message
+        Finally
+
+            CloseConnection()
+
+        End Try
+
+        Return dsResult.Tables(0)
+
+    End Function
+
 End Class

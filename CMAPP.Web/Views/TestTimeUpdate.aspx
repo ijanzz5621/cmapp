@@ -166,6 +166,10 @@
                     <asp:Label runat="server" AssociatedControlID="popupTestTime_txtEffDate">Effective Date</asp:Label><br />
                     <asp:TextBox ID="popupTestTime_txtEffDate" runat="server" CssClass="form-control" />
                 </div>
+                <div class="col-md-3">
+                    <asp:Label runat="server" AssociatedControlID="popupTestTime_txtSiteCount1TestTime">Site Count 1 Test Time</asp:Label><br />
+                    <asp:TextBox ID="popupTestTime_txtSiteCount1TestTime" runat="server" CssClass="form-control" />
+                </div>
 
             </div>
 
@@ -178,7 +182,7 @@
                 </div>
                 <div class="col-md-2">
                     <asp:Label runat="server" AssociatedControlID="popupTestTime_txtOverhead">Overhead</asp:Label><br />
-                    <asp:TextBox ID="popupTestTime_txtOverhead" runat="server" CssClass="form-control" TextMode="Number" />
+                    <asp:TextBox ID="popupTestTime_txtOverhead" runat="server" CssClass="form-control" />
                 </div>
                 <div class="col-md-1">
                     <asp:Label Text="" runat="server" /><br />
@@ -195,7 +199,10 @@
                             <asp:PostBackTrigger ControlID="popupTestTime_btnCalc" />
                         </Triggers>
                         <ContentTemplate>
-                            <asp:GridView ID="gvSiteCountList" runat="server" ShowHeaderWhenEmpty="true" CssClass="table table-responsive table-bordered">
+                            <asp:GridView ID="gvSiteCountList" runat="server" ShowHeaderWhenEmpty="true" CssClass="table table-responsive table-bordered"
+                                HeaderStyle-BackColor="#1e1e1e" HeaderStyle-ForeColor="#ffffff"
+                                AlternatingRowStyle-BackColor="#fafafa" SelectedRowStyle-BackColor="#e10005" SelectedRowStyle-ForeColor="#ffffff"
+                                >
                             </asp:GridView>
                         </ContentTemplate>
                     </asp:UpdatePanel>
