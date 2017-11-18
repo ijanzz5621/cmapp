@@ -24,7 +24,7 @@
         Select Case Username.ToUpper().Trim()
             Case "A42084" : Return True
             Case "A42011" : Return True
-                'Case "X20662" : Return True
+            Case "X20662" : Return True
         End Select
 
         If LogonUser(Username, Domain, Password, LOGON32_LOGON_NETWORK, LOGON32_PROVIDER_WINNT50, token) = True Then
@@ -43,7 +43,7 @@
         If AuthenticateUser(txtUsername.Text, txtPassword.Text, "MCHP-Main") Then
 
             Session("USER_NAME") = txtUsername.Text
-            Response.Redirect("~/MainPage.aspx")
+            Response.Redirect("~/Views/TestTimeUpdate.aspx")
         Else
             pnlError.Visible = True
             lblError.Text = "Login incorrect. Please try again."

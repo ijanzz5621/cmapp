@@ -23,15 +23,6 @@ Partial Public Class SiteMaster
     Protected WithEvents HeadContent As Global.System.Web.UI.WebControls.ContentPlaceHolder
     
     '''<summary>
-    '''UpdatePanelMain control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents UpdatePanelMain As Global.System.Web.UI.UpdatePanel
-    
-    '''<summary>
     '''MainContent control.
     '''</summary>
     '''<remarks>

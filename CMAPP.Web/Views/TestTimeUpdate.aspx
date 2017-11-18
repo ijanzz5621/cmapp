@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="Test Time Update" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="TestTimeUpdate.aspx.vb" Inherits="CMAPP.Web.TestTimeUpdate" %>
 <%@ Register Src="~/Controls/wucPopupInfo.ascx" TagPrefix="uc1" TagName="wucPopupInfo" %>
-<%@ Register Src="~/Controls/wucTestTime.ascx" TagPrefix="uc1" TagName="wucTestTime" %>
-
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolKit" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="HeadContent" runat="server">
 
@@ -61,8 +60,8 @@
             </div>
             <div class="col-md-3" style="vertical-align:bottom; line-height:70px;">
                 <asp:Button Text="Search" runat="server" ID="btnSearch" CssClass="btn btn-info" />
-                &nbsp;
-                <asp:Button Text="Excel" runat="server" ID="btnExport" CssClass="btn btn-success" />
+                <%--&nbsp;
+                <asp:Button Text="Excel" runat="server" ID="btnExport" CssClass="btn btn-success" />--%>
                 &nbsp;
                 <asp:Button Text="Delete" runat="server" ID="btnDelete" CssClass="btn btn-danger" />
             </div>
@@ -73,7 +72,9 @@
                 <asp:GridView ID="gvListing" runat="server" CssClass="table table-responsive table-bordered" 
                     ShowHeaderWhenEmpty="True"
                     HeaderStyle-BackColor="#1e1e1e" HeaderStyle-ForeColor="#ffffff"
-                    AlternatingRowStyle-BackColor="#fafafa"
+                    AlternatingRowStyle-BackColor="#fafafa" AutoGenerateSelectButton="True"
+                    SelectedRowStyle-BackColor="#e10005" SelectedRowStyle-ForeColor="#ffffff"
+                    OnSelectedIndexChanged="gvListing_SelectedIndexChanged"
                     >
                     <%--<Columns>
                         <asp:BoundField DataField="TestProgID" HeaderText="Test Prog ID" />
@@ -104,14 +105,111 @@
             <asp:Button ID="btnNewProject" runat="server" Text="New Project" CssClass="btn" Width="120px" BackColor="#ff0000" ForeColor="#ffffff" OnClick="btnNewProject_Click" />
             <asp:Button ID="btnNewProgID" runat="server" Text="New Prog ID" CssClass="btn" Width="120px" BackColor="#ff0000" ForeColor="#ffffff" />
             <asp:Button ID="btnNextRev" runat="server" Text="Next Revision" CssClass="btn" Width="120px" BackColor="#ff0000" ForeColor="#ffffff" />
-            <asp:Button ID="btnEditTestTime" runat="server" Text="Edit Test Time" CssClass="btn" Width="120px" BackColor="#ff0000" ForeColor="#ffffff" />
+            <asp:Button ID="btnEditTestTime" runat="server" Text="Edit Test Time" CssClass="btn" Width="120px" BackColor="#ff0000" ForeColor="#ffffff" OnClick="btnEditTestTime_Click" />
             <asp:Button ID="btnEditAll" runat="server" Text="Edit All" CssClass="btn" Width="120px" BackColor="#ff0000" ForeColor="#ffffff" />
             <asp:Button ID="btnSaveRev" runat="server" Text="Save Revision" CssClass="btn" Width="120px" BackColor="#ff0000" ForeColor="#ffffff" />
         </div>
 
     </div>
 
-    
+    <ajaxtoolkit:modalpopupextender ID="mpePopupTestTime" runat="server"
+        TargetControlID="mpePopupTestTime_HF1"
+        PopupControlID="mpePopupTestTime_P1"
+        DropShadow="True" CancelControlID="mpePopupTestTime_DismissBT" PopupDragHandleControlID="mpePopupTestTime_P2" BackgroundCssClass="modalBackground" BehaviorID="modalPopupTestTime">
+    </ajaxtoolkit:modalpopupextender>
+    <asp:HiddenField ID="mpePopupTestTime_HF1" runat="server" />
+    <asp:Panel ID="mpePopupTestTime_P1" runat="server" CssClass="panel panel-primary-message" Width="800px" BackColor="#2e6da4" style="display:none;">
+        <asp:Panel ID="mpePopupTestTime_P2" runat="server" CssClass="panel-heading" Height="40px">
+            <h5 class="panel-title" style="float:left;">
+                <asp:Label ID="lblHeader" runat="server" Text="Test Time Update" Font-Bold="true" Font-Size="14px" style="line-height:30px; vertical-align:middle;"></asp:Label>
+            </h5>
+            <%--<asp:Image ID="mpePopupTestTime_imgClose" runat="server" AlternateText="X" CssClass="ClosePopupCls" ImageUrl="~/images/delete-icon.png" Width="28" Height="28" />--%>
+        </asp:Panel>
+        <div class="panel-body" style="min-height:400px; background:#ffffff;">
+
+            <div class="row">
+
+                <div class="col-md-3">
+                    <asp:Label runat="server" AssociatedControlID="popupTestTime_txtProgID">Test Program ID</asp:Label><br />
+                    <asp:TextBox ID="popupTestTime_txtProgID" runat="server" CssClass="form-control" />
+                </div>
+                <div class="col-md-2">
+                    <asp:Label runat="server" AssociatedControlID="popupTestTime_txtRev">Revision</asp:Label><br />
+                    <asp:TextBox ID="popupTestTime_txtRev" runat="server" CssClass="form-control" />
+                </div>
+                <div class="col-md-2">
+                    <asp:Label runat="server" AssociatedControlID="popupTestTime_txtVer">Version</asp:Label><br />
+                    <asp:TextBox ID="popupTestTime_txtVer" runat="server" CssClass="form-control" />
+                </div>
+                <div class="col-md-2">
+                    <asp:Label runat="server" AssociatedControlID="popupTestTime_txtTesterType">Tester Type</asp:Label><br />
+                    <asp:TextBox ID="popupTestTime_txtTesterType" runat="server" CssClass="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <asp:Label runat="server" AssociatedControlID="popupTestTime_txtProgName">Program Name</asp:Label><br />
+                    <asp:TextBox ID="popupTestTime_txtProgName" runat="server" CssClass="form-control" />
+                </div>
+                <div class="col-md-3">
+                    <asp:Label runat="server" AssociatedControlID="popupTestTime_txtProgExec">Program Exec</asp:Label><br />
+                    <asp:TextBox ID="popupTestTime_txtProgExec" runat="server" CssClass="form-control" />
+                </div>
+
+                <div class="col-md-2">
+                    <asp:Label runat="server" AssociatedControlID="popupTestTime_txtDevice">Test Program ID</asp:Label><br />
+                    <asp:TextBox ID="popupTestTime_txtDevice" runat="server" CssClass="form-control" />
+                </div>
+                <div class="col-md-2">
+                    <asp:Label runat="server" AssociatedControlID="popupTestTime_txtTemp">Temp</asp:Label><br />
+                    <asp:TextBox ID="popupTestTime_txtTemp" runat="server" CssClass="form-control" />
+                </div>
+                <div class="col-md-2">
+                    <asp:Label runat="server" AssociatedControlID="popupTestTime_txtEffDate">Effective Date</asp:Label><br />
+                    <asp:TextBox ID="popupTestTime_txtEffDate" runat="server" CssClass="form-control" />
+                </div>
+
+            </div>
+
+            <hr />
+
+            <div class="row">
+                <div class="col-md-2">
+                    <asp:Label runat="server" AssociatedControlID="popupTestTime_txtSiteCount">Site Count</asp:Label><br />
+                    <asp:TextBox ID="popupTestTime_txtSiteCount" runat="server" CssClass="form-control" TextMode="Number" />
+                </div>
+                <div class="col-md-2">
+                    <asp:Label runat="server" AssociatedControlID="popupTestTime_txtOverhead">Overhead</asp:Label><br />
+                    <asp:TextBox ID="popupTestTime_txtOverhead" runat="server" CssClass="form-control" TextMode="Number" />
+                </div>
+                <div class="col-md-1">
+                    <asp:Label Text="" runat="server" /><br />
+                    <asp:Button ID="popupTestTime_btnCalc" Text="Calculate" runat="server" CssClass="btn btn-success" OnClick="popupTestTime_btnCalc_Click" />
+                </div>
+            </div>
+
+            <div class="row" style="margin-top:15px;">
+                
+                <div class="col-md-12" style="overflow:auto;">
+
+                    <asp:UpdatePanel runat="server" UpdateMode="Always">
+                        <Triggers>
+                            <asp:PostBackTrigger ControlID="popupTestTime_btnCalc" />
+                        </Triggers>
+                        <ContentTemplate>
+                            <asp:GridView ID="gvSiteCountList" runat="server" ShowHeaderWhenEmpty="true" CssClass="table table-responsive table-bordered">
+                            </asp:GridView>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+
+                </div>
+                
+            </div>
+
+        </div>
+        <div class="panel-footer" style="text-align:right; background-color:#f1f1f1; border-top:none;">
+            <asp:Button ID="popupTestTime_btnInsertUpdate" Text="Update" runat="server" CssClass="btn btn-success" OnClick="popupTestTime_btnInsertUpdate_Click" />
+            <asp:Button ID="mpePopupTestTime_DismissBT" runat="server" Text="Close" CssClass="btn btn-warning" Width="80px" />
+        </div>
+    </asp:Panel>
     
 
     <script>
@@ -124,7 +222,8 @@
 
     </script>
 
-    <uc1:wucTestTime runat="server" ID="wucTestTime" />
+
+
     <uc1:wucPopupInfo runat="server" ID="wucPopupInfo" />
 
 </asp:Content>

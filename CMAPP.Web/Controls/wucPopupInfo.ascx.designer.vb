@@ -59,15 +59,6 @@ Partial Public Class wucPopupInfo
     Protected WithEvents lblHeader As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''imgClose control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents imgClose As Global.System.Web.UI.WebControls.Image
-    
-    '''<summary>
     '''lblMessage control.
     '''</summary>
     '''<remarks>

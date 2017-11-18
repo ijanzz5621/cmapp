@@ -26,7 +26,7 @@
         <h5 class="panel-title" style="float:left;">
             <asp:Label ID="lblHeader" runat="server" Text="Message" Font-Bold="true" Font-Size="14px"></asp:Label>
         </h5>
-        <asp:Image ID="imgClose" runat="server" AlternateText="X" CssClass="ClosePopupCls" ImageUrl="~/images/delete-icon.png" Width="28" Height="28" />
+        <%--<asp:Image ID="imgClose" runat="server" AlternateText="X" CssClass="ClosePopupCls" ImageUrl="~/images/delete-icon.png" Width="28" Height="28" />--%>
     </asp:Panel>
     <div class="panel-body" style="min-height:80px; background:#ffffff;">
 
@@ -40,9 +40,9 @@
 
 <script>
     $(document).ready(function () {
-        $('#<%=imgClose.ClientID%>').on('click', function () {
+        <%--$('#<%=imgClose.ClientID%>').on('click', function () {
             $find('modalPopupMessage').hide();
             
-        });
+        });--%>
     });
 </script>
