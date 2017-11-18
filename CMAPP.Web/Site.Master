@@ -19,6 +19,9 @@
     <webopt:BundleReference runat="server" Path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+
 </head>
 <body>
     <form runat="server">
@@ -97,12 +100,17 @@
 
         <%--<div class="container body-content">--%>
         <div class="body-content">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server">
-            </asp:ContentPlaceHolder>
-            <hr />
-            <footer>
+            <asp:UpdatePanel ID="UpdatePanelMain" runat="server">
+                <ContentTemplate>
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                    </asp:ContentPlaceHolder>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+            
+            
+            <%--<hr /><footer>
                 <p>&copy; <%: DateTime.Now.Year %> - CMAPP - Microchip Operations Malaysia</p>
-            </footer>
+            </footer>--%>
         </div>
 
     </form>

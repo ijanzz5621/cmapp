@@ -13,13 +13,16 @@ Public Class Oracle
     Public Sub OpenOraConnection(ByRef cnnOra As OracleConnection, ByVal cnnString As String)
         cnnOra = New OracleConnection()
         cnnOra.ConnectionString = cnnString
-
         Try
 Retry:
-            If cnnOra.State = ConnectionState.Closed Then cnnOra.Open()
+            If cnnOra.State = ConnectionState.Closed Then
+                cnnOra.Open()
+            End If
 
         Catch ex As Exception
-            If IsConnectionTimeout(ex.ToString) Then GoTo Retry
+            If IsConnectionTimeout(ex.ToString) Then
+                GoTo Retry
+            End If
             Throw New Exception("Error : " & ex.ToString, ex)
         End Try
     End Sub
@@ -40,6 +43,7 @@ Retry:
         Try
 Retry:
             cmd = New OracleCommand(sSQL, cn)
+            cmd.CommandTimeout = 16000
             da = New OracleDataAdapter(cmd)
             Dim ds As DataSet = New DataSet()
             da.Fill(ds)

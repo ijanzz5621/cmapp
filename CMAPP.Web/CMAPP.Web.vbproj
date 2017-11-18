@@ -47,6 +47,9 @@
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=17.1.1.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <HintPath>..\packages\AjaxControlToolkit.17.1.1.0\lib\net40\AjaxControlToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -162,6 +165,8 @@
     <Content Include="Content\datepicker.css" />
     <Content Include="Content\jquery-confirm.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Controls\wucPopupInfo.ascx" />
+    <Content Include="Controls\wucTestTime.ascx" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -172,8 +177,9 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="images\bg-cover.png" />
+    <Content Include="images\bg-cover.jpg" />
     <Content Include="images\Coming-Soon.png" />
+    <Content Include="images\delete-icon.png" />
     <Content Include="images\login-title.png" />
     <Content Include="images\login_bg.png" />
     <Content Include="images\Microchip_logo.png" />
@@ -186,7 +192,6 @@
     <Content Include="x64\Oracle.ManagedDataAccessIOP.dll" />
     <Content Include="x86\Oracle.ManagedDataAccessDTC.dll" />
     <Content Include="x86\Oracle.ManagedDataAccessIOP.dll" />
-    <Content Include="images\bg-cover.psd" />
     <Content Include="images\login_bg.psd" />
     <Content Include="images\Microchip_logo.psd" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -239,6 +244,21 @@
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Controls\ModalCaller.vb" />
+    <Compile Include="Controls\wucPopupInfo.ascx.designer.vb">
+      <DependentUpon>wucPopupInfo.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\wucPopupInfo.ascx.vb">
+      <DependentUpon>wucPopupInfo.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\wucTestTime.ascx.designer.vb">
+      <DependentUpon>wucTestTime.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\wucTestTime.ascx.vb">
+      <DependentUpon>wucTestTime.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Default.aspx.vb">
       <SubType>ASPXCodeBehind</SubType>
       <DependentUpon>Default.aspx</DependentUpon>
@@ -249,6 +269,7 @@
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="GlobalVar.vb" />
     <Compile Include="MainPage.aspx.designer.vb">
       <DependentUpon>MainPage.aspx</DependentUpon>
     </Compile>

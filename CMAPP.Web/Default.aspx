@@ -22,7 +22,7 @@
     <style>
 
         body{
-            background: #23828e url(../images/bg-cover.png) no-repeat center center fixed; 
+            background: #23828e url(../images/bg-cover.jpg) no-repeat center center fixed; 
             /*background-color:#fff;*/
             -webkit-background-size: cover;
             -moz-background-size: cover;
@@ -69,7 +69,7 @@
             <div class="jumbotron" style="text-align:center;">
                 <%--<h1 style="text-align:center;">Machine Database System</h1>--%>
                 <%--<img id="logo-title" src="images/login-title.png" style="text-align:center; margin: 0 auto;" class="img-responsive" />--%>
-                <span style="font-size:80px; color:#171717; font-weight:normal; font-family:Arial; color:#fff;">CMAPP</span>
+                <span style="font-size:80px; color:#171717; font-weight:bold; font-family:Arial; color:#000;">CMAPP</span>
             </div>
 
             <div class="row">
@@ -84,8 +84,8 @@
                                 <span id="reauth-email" class="reauth-email"></span>
                                 <span style="color:#fff;">Domain: <strong>MCHP-MAIN</strong></span>
                                 <br /><br />                                
-                                <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control" placeholder="User Name" required autofocus style="margin-bottom:15px;"></asp:TextBox>
-                                <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="form-control" placeholder="Password" required></asp:TextBox>
+                                <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control" placeholder="User Name" required autofocus style="margin-bottom:15px;" Text="A42084"></asp:TextBox>
+                                <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="form-control" placeholder="Password"></asp:TextBox>
                                 <div id="remember" class="checkbox">
                                     <%--<label>
                                         <input type="checkbox" value="remember-me"> Remember me
