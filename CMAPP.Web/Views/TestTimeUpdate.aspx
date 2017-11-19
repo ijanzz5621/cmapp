@@ -37,7 +37,7 @@
             <div class="col-lg-1 col-md-2">
                 <asp:Label Text="text" runat="server" AssociatedControlID="txtRevision">Revision</asp:Label>
                 <asp:TextBox runat="server" CssClass="form-control" ID="txtRevision" />
-                <asp:DropDownList ID="ddlRevision" runat="server" CssClass="form-control"></asp:DropDownList>
+                <%--<asp:DropDownList ID="ddlRevision" runat="server" CssClass="form-control"></asp:DropDownList>--%>
             </div>
             <div class="col-lg-1 col-md-2">
                 <asp:Label Text="text" runat="server" AssociatedControlID="txtVersion">Version</asp:Label>
@@ -59,20 +59,16 @@
                 <asp:Label Text="text" runat="server" AssociatedControlID="txtTemp">Temp</asp:Label>
                 <asp:TextBox runat="server" CssClass="form-control" ID="txtTemp" />
             </div>
-            <div class="col-md-3" style="vertical-align:bottom; line-height:70px;">
-                <div style="float:left;">
+            <div class="col-md-6" style="vertical-align:bottom; line-height:70px;">
                     <asp:Button Text="Search" runat="server" ID="btnSearch" CssClass="btn btn-info" />
                     <%--&nbsp;
                     <asp:Button Text="Excel" runat="server" ID="btnExport" CssClass="btn btn-success" />--%>
                     &nbsp;
                     <asp:Button Text="Delete" runat="server" ID="btnDelete" CssClass="btn btn-danger" />
-                </div>
-                <div style="float: left;">
                     &nbsp;&nbsp;
-                    <asp:Button ID="btnNewProgID" runat="server" Text="New Prog ID" CssClass="btn" Width="120px" BackColor="#ff0000" ForeColor="#ffffff" />
+                    <asp:Button ID="btnNewProgID" runat="server" Text="New Prog ID" CssClass="btn btn-success" ForeColor="#ffffff" OnClick="btnNewProgID_Click" />
                     &nbsp;
-                    <asp:Button ID="btnEditTestTime" runat="server" Text="Edit Test Time" CssClass="btn" Width="120px" BackColor="#ff0000" ForeColor="#ffffff" OnClick="btnEditTestTime_Click" />
-                </div>
+                    <asp:Button ID="btnEditTestTime" runat="server" Text="Edit Test Time" CssClass="btn btn-warning" ForeColor="#ffffff" OnClick="btnEditTestTime_Click" />
             </div>
         </div>
 
@@ -164,7 +160,7 @@
                 </div>
 
                 <div class="col-md-2">
-                    <asp:Label runat="server" AssociatedControlID="popupTestTime_txtDevice">Test Program ID</asp:Label><br />
+                    <asp:Label runat="server" AssociatedControlID="popupTestTime_txtDevice">Device</asp:Label><br />
                     <asp:TextBox ID="popupTestTime_txtDevice" runat="server" CssClass="form-control" />
                 </div>
                 <div class="col-md-2">

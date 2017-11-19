@@ -32,15 +32,6 @@ Partial Public Class TestTimeUpdate
     Protected WithEvents txtRevision As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''ddlRevision control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ddlRevision As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
     '''txtVersion control.
     '''</summary>
     '''<remarks>
