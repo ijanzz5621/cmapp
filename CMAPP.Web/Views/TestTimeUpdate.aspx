@@ -225,7 +225,7 @@
                                             <div>
 
                                                 <label><%# Eval("Label") %></label>
-                                                <input type="text" name="txtTestTime" value="<%# Eval("TestTime") %>" class="form-control" style="width:80px" />
+                                                <asp:TextBox runat="server" Text='<%# Eval("TestTime") %>' ID="txtTestTime" CssClass="form-control" Width="80px"></asp:TextBox>
 
                                             </div>
                                         

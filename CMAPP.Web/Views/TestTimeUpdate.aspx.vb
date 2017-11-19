@@ -238,6 +238,19 @@ Public Class TestTimeUpdate
 
         'End If
 
+        For Each item In rptSiteCountList.Items
+
+            Dim input As TextBox = item.FindControl("txtTestTime")
+            If input IsNot Nothing Then
+
+                ' Call a function to save or update the test time 1 by 1
+                ' TODO
+                UpdateTestTime(popupTestTime_txtProgID.Text)
+
+            End If
+
+        Next
+
     End Sub
 
     Private Sub UpdateTestTime(testProgID As String)
