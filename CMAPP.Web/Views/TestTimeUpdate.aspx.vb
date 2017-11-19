@@ -26,6 +26,28 @@ Public Class TestTimeUpdate
 
     End Sub
 
+    Private Sub GetBUList(_progID As String)
+        Dim strQuery As String
+
+        Try
+
+            GetAppConfig()
+            OpenConnection()
+
+            strQuery = "select distinct TESTPROGIDREV from cmtesttime where TESTPROGID = '" & _progID & "';"
+            Dim dsResult As DataSet = oOra.OraExecuteQuery(strQuery, cnnOra)
+
+
+
+        Catch ex As Exception
+            Dim exMsg = ex.Message
+        Finally
+
+            CloseConnection()
+
+        End Try
+    End Sub
+
     Private Sub GetListing(p_strTestProgID As String, p_strTestProgIDRev As String, p_strTestProgIDVers As String, p_strTestStepTemp As String,
                            p_strDevice As String, p_strTesterType As String, p_strProgMainSource As String, p_strProgExec As String)
 
@@ -113,11 +135,11 @@ Public Class TestTimeUpdate
 
     Protected Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
 
-        If txtProgramID.Text = "" Or txtRevision.Text = "" Then
+        If txtProgramID.Text = "" Then
 
             'Call popup here...
             Dim modal As ModalCaller = New ModalCaller()
-            modal.ShowPopupMessage(wucPopupInfo, "Please enter Program ID and Revision")
+            modal.ShowPopupMessage(wucPopupInfo, "Please enter Program ID to search")
 
             Return
 
@@ -179,8 +201,8 @@ Public Class TestTimeUpdate
 
             EnableDisableTestTimeForm("Disable")
 
-            gvSiteCountList.DataSource = dtSiteCount
-            gvSiteCountList.DataBind()
+            'gvSiteCountList.DataSource = dtSiteCount
+            'gvSiteCountList.DataBind()
 
             mpePopupTestTime.Show()
         Else
@@ -194,23 +216,27 @@ Public Class TestTimeUpdate
     End Sub
 
     Protected Sub popupTestTime_btnInsertUpdate_Click(sender As Object, e As EventArgs)
-
+        Dim modal As ModalCaller = New ModalCaller()
         Dim testProgramID = popupTestTime_txtProgID.Text
 
-        If gvSiteCountList.Rows.Count > 0 Then
+        'If gvSiteCountList.Rows.Count > 0 Then
 
-            Dim row As GridViewRow = gvSiteCountList.Rows(0)
+        '    Dim row As GridViewRow = gvSiteCountList.Rows(0)
 
-            For col As Integer = 1 To gvSiteCountList.Columns.Count
+        '    For col As Integer = 1 To gvSiteCountList.Columns.Count
 
-                ' Loop and update database here
-                Dim colVal As String = row.Cells(col).Text
+        '        ' Loop and update database here
+        '        Dim colVal As String = row.Cells(col).Text
 
-                UpdateTestTime(popupTestTime_txtProgID.Text)
+        '        UpdateTestTime(popupTestTime_txtProgID.Text)
 
-            Next
+        '    Next
+        'Else
 
-        End If
+        '    modal.ShowPopupMessage(wucPopupInfo, "Please calculate the Site Count before proceed with save or update")
+        '    mpePopupTestTime.Show()
+
+        'End If
 
     End Sub
 
@@ -254,35 +280,60 @@ Public Class TestTimeUpdate
 
         Dim modal As ModalCaller = New ModalCaller()
 
+        If popupTestTime_txtSiteCount.Text.Trim = "" Then
+
+            modal.ShowPopupMessage(wucPopupInfo, "Please enter number of site count to generate")
+            mpePopupTestTime.Show()
+            Return
+
+        End If
 
         dtSiteCount = New DataTable()
         dtSiteCount1 = New DataTable()
 
-        If popupTestTime_txtSiteCount1TestTime.Text <> "" Then
 
-            For item As Integer = 1 To Integer.Parse(popupTestTime_txtSiteCount.Text)
-                dtSiteCount.Columns.Add("x" & item & " (s)", GetType(String))
-            Next
+        'For item As Integer = 1 To Integer.Parse(popupTestTime_txtSiteCount.Text)
+        '    dtSiteCount.Columns.Add("x" & item & " (s)", GetType(String))
+        'Next
 
-            Dim values(Integer.Parse(popupTestTime_txtSiteCount.Text) - 1) As String
-            For item As Integer = 0 To Integer.Parse(popupTestTime_txtSiteCount.Text) - 1
+        'Dim values(Integer.Parse(popupTestTime_txtSiteCount.Text) - 1) As String
+        'For item As Integer = 0 To Integer.Parse(popupTestTime_txtSiteCount.Text) - 1
 
+        '    Dim siteCountTestTime As Double = Double.Parse(popupTestTime_txtSiteCount1TestTime.Text) + ((Double.Parse(popupTestTime_txtOverhead.Text) / 100) * item * Double.Parse(popupTestTime_txtSiteCount1TestTime.Text))
+        '    values(item) = siteCountTestTime.ToString("F2")
+        'Next
+
+        'dtSiteCount.Rows.Add(values)
+
+        dtSiteCount.Columns.Add("Label", GetType(String))
+        dtSiteCount.Columns.Add("TestTime", GetType(String))
+        For item As Integer = 0 To Integer.Parse(popupTestTime_txtSiteCount.Text) - 1
+            Dim dr = dtSiteCount.NewRow
+            dr("Label") = (item + 1).ToString + "x (s)"
+
+            If popupTestTime_txtOverhead.Text.Trim <> "" And popupTestTime_txtSiteCount1TestTime.Text.Trim <> "" Then
                 Dim siteCountTestTime As Double = Double.Parse(popupTestTime_txtSiteCount1TestTime.Text) + ((Double.Parse(popupTestTime_txtOverhead.Text) / 100) * item * Double.Parse(popupTestTime_txtSiteCount1TestTime.Text))
-                values(item) = siteCountTestTime.ToString("F2")
-            Next
+                dr("TestTime") = siteCountTestTime.ToString("F2")
 
-            dtSiteCount.Rows.Add(values)
+            ElseIf popupTestTime_txtOverhead.Text <> "" And popupTestTime_txtSiteCount1TestTime.Text.Trim = "" Then
 
-            gvSiteCountList.DataSource = dtSiteCount
-            gvSiteCountList.DataBind()
+                modal.ShowPopupMessage(wucPopupInfo, "Please enter Site Count 1 Test Time to use the formula")
+                mpePopupTestTime.Show()
+                Return
+            Else
 
-        Else
+                dr("TestTime") = "0.00"
 
-            modal.ShowPopupMessage(wucPopupInfo, "No Site Count 1 Test Time found!")
-
-        End If
+            End If
 
 
+            dtSiteCount.Rows.Add(dr)
+        Next
+
+        'gvSiteCountList.DataSource = dtSiteCount
+        'gvSiteCountList.DataBind()
+        rptSiteCountList.DataSource = dtSiteCount
+        rptSiteCountList.DataBind()
 
         mpePopupTestTime.Show()
 
@@ -320,6 +371,38 @@ Public Class TestTimeUpdate
         End Try
 
         Return dsResult.Tables(0)
+
+    End Function
+
+    Public Function NextRev(ByVal p_strCurrentRev As String) As String
+
+        Dim modal As ModalCaller = New ModalCaller()
+
+        On Error GoTo ErrorHandler
+        Dim strDigit1 As String
+        Dim strDigit2 As String
+
+        Select Case Len(p_strCurrentRev)
+            Case 1
+                If Asc(p_strCurrentRev) = 90 Then
+                    NextRev = "AA"
+                Else
+                    NextRev = Chr(Asc(p_strCurrentRev) + 1)
+                End If
+            Case 2
+                If Asc(Mid(p_strCurrentRev, 2, 1)) = 90 Then
+                    strDigit2 = "A"
+                    strDigit1 = Chr(Asc(Mid(p_strCurrentRev, 1, 1)) + 1)
+                Else
+                    strDigit1 = Mid(p_strCurrentRev, 1, 1)
+                    strDigit2 = Chr(Asc(Mid(p_strCurrentRev, 2, 1)) + 1)
+                End If
+                NextRev = Trim(strDigit1) & Trim(strDigit2)
+        End Select
+        GoTo ExitFunction
+ErrorHandler:
+        modal.ShowPopupMessage(wucPopupInfo, "Error getting next revision")
+ExitFunction:
 
     End Function
 

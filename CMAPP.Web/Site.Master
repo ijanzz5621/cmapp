@@ -101,18 +101,18 @@
         <%--<div class="container body-content">--%>
         <div class="body-content">
 
-            <%--<asp:UpdateProgress ID="updProgress" AssociatedUpdatePanelID="UpdatePanelMain" runat="server">
+            <asp:UpdateProgress ID="updProgress" AssociatedUpdatePanelID="UpdatePanelMain" runat="server">
                 <ProgressTemplate>           
-                    Please wait....
+                    <span style="font-size:40px; font-weight: bold;">Please wait....</span>
                 </ProgressTemplate>
-            </asp:UpdateProgress>--%>
+            </asp:UpdateProgress>
 
-            <%--<asp:UpdatePanel ID="UpdatePanelMain" runat="server">
-                <ContentTemplate>--%>
+            <asp:UpdatePanel ID="UpdatePanelMain" runat="server">
+                <ContentTemplate>
                     <asp:ContentPlaceHolder ID="MainContent" runat="server">
                     </asp:ContentPlaceHolder>
-                <%--</ContentTemplate>
-            </asp:UpdatePanel>--%>
+                </ContentTemplate>
+            </asp:UpdatePanel>
             
             
             <%--<hr /><footer>

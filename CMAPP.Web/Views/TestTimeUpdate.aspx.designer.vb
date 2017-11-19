@@ -32,6 +32,15 @@ Partial Public Class TestTimeUpdate
     Protected WithEvents txtRevision As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''ddlRevision control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlRevision As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
     '''txtVersion control.
     '''</summary>
     '''<remarks>
@@ -95,24 +104,6 @@ Partial Public Class TestTimeUpdate
     Protected WithEvents btnDelete As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
-    '''gvListing control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents gvListing As Global.System.Web.UI.WebControls.GridView
-    
-    '''<summary>
-    '''btnNewProject control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnNewProject As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
     '''btnNewProgID control.
     '''</summary>
     '''<remarks>
@@ -120,15 +111,6 @@ Partial Public Class TestTimeUpdate
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnNewProgID As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
-    '''btnNextRev control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnNextRev As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
     '''btnEditTestTime control.
@@ -140,22 +122,13 @@ Partial Public Class TestTimeUpdate
     Protected WithEvents btnEditTestTime As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
-    '''btnEditAll control.
+    '''gvListing control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnEditAll As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
-    '''btnSaveRev control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnSaveRev As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents gvListing As Global.System.Web.UI.WebControls.GridView
     
     '''<summary>
     '''mpePopupTestTime control.
@@ -320,13 +293,13 @@ Partial Public Class TestTimeUpdate
     Protected WithEvents popupTestTime_btnCalc As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
-    '''gvSiteCountList control.
+    '''rptSiteCountList control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents gvSiteCountList As Global.System.Web.UI.WebControls.GridView
+    Protected WithEvents rptSiteCountList As Global.System.Web.UI.WebControls.Repeater
     
     '''<summary>
     '''popupTestTime_btnInsertUpdate control.

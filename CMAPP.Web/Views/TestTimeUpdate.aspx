@@ -37,6 +37,7 @@
             <div class="col-lg-1 col-md-2">
                 <asp:Label Text="text" runat="server" AssociatedControlID="txtRevision">Revision</asp:Label>
                 <asp:TextBox runat="server" CssClass="form-control" ID="txtRevision" />
+                <asp:DropDownList ID="ddlRevision" runat="server" CssClass="form-control"></asp:DropDownList>
             </div>
             <div class="col-lg-1 col-md-2">
                 <asp:Label Text="text" runat="server" AssociatedControlID="txtVersion">Version</asp:Label>
@@ -59,11 +60,19 @@
                 <asp:TextBox runat="server" CssClass="form-control" ID="txtTemp" />
             </div>
             <div class="col-md-3" style="vertical-align:bottom; line-height:70px;">
-                <asp:Button Text="Search" runat="server" ID="btnSearch" CssClass="btn btn-info" />
-                <%--&nbsp;
-                <asp:Button Text="Excel" runat="server" ID="btnExport" CssClass="btn btn-success" />--%>
-                &nbsp;
-                <asp:Button Text="Delete" runat="server" ID="btnDelete" CssClass="btn btn-danger" />
+                <div style="float:left;">
+                    <asp:Button Text="Search" runat="server" ID="btnSearch" CssClass="btn btn-info" />
+                    <%--&nbsp;
+                    <asp:Button Text="Excel" runat="server" ID="btnExport" CssClass="btn btn-success" />--%>
+                    &nbsp;
+                    <asp:Button Text="Delete" runat="server" ID="btnDelete" CssClass="btn btn-danger" />
+                </div>
+                <div style="float: left;">
+                    &nbsp;&nbsp;
+                    <asp:Button ID="btnNewProgID" runat="server" Text="New Prog ID" CssClass="btn" Width="120px" BackColor="#ff0000" ForeColor="#ffffff" />
+                    &nbsp;
+                    <asp:Button ID="btnEditTestTime" runat="server" Text="Edit Test Time" CssClass="btn" Width="120px" BackColor="#ff0000" ForeColor="#ffffff" OnClick="btnEditTestTime_Click" />
+                </div>
             </div>
         </div>
 
@@ -99,7 +108,7 @@
     </div>
 
     
-    <div class="footer">
+   <%-- <div class="footer">
 
         <div>
             <asp:Button ID="btnNewProject" runat="server" Text="New Project" CssClass="btn" Width="120px" BackColor="#ff0000" ForeColor="#ffffff" OnClick="btnNewProject_Click" />
@@ -110,7 +119,7 @@
             <asp:Button ID="btnSaveRev" runat="server" Text="Save Revision" CssClass="btn" Width="120px" BackColor="#ff0000" ForeColor="#ffffff" />
         </div>
 
-    </div>
+    </div>--%>
 
     <ajaxtoolkit:modalpopupextender ID="mpePopupTestTime" runat="server"
         TargetControlID="mpePopupTestTime_HF1"
@@ -190,6 +199,8 @@
                 </div>
             </div>
 
+            <hr />
+
             <div class="row" style="margin-top:15px;">
                 
                 <div class="col-md-12" style="overflow:auto;">
@@ -199,11 +210,33 @@
                             <asp:PostBackTrigger ControlID="popupTestTime_btnCalc" />
                         </Triggers>
                         <ContentTemplate>
-                            <asp:GridView ID="gvSiteCountList" runat="server" ShowHeaderWhenEmpty="true" CssClass="table table-responsive table-bordered"
+                            <%--<asp:GridView ID="gvSiteCountList" runat="server" ShowHeaderWhenEmpty="true" CssClass="table table-responsive table-bordered"
                                 HeaderStyle-BackColor="#1e1e1e" HeaderStyle-ForeColor="#ffffff"
                                 AlternatingRowStyle-BackColor="#fafafa" SelectedRowStyle-BackColor="#e10005" SelectedRowStyle-ForeColor="#ffffff"
                                 >
-                            </asp:GridView>
+                            </asp:GridView>--%>
+                            <div class="row">
+                                <asp:Repeater ID="rptSiteCountList" runat="server">
+                                    <HeaderTemplate>
+                                        <ul style="list-style:none; display:inline-block;">
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <li style="display:inline-block;">
+                                            <div>
+
+                                                <label><%# Eval("Label") %></label>
+                                                <input type="text" name="txtTestTime" value="<%# Eval("TestTime") %>" class="form-control" style="width:80px" />
+
+                                            </div>
+                                        
+                                        </li>
+                                    </ItemTemplate>
+                                    <FooterTemplate>
+                                        </ul>
+                                    </FooterTemplate>
+                                </asp:Repeater>
+                            </div>
+
                         </ContentTemplate>
                     </asp:UpdatePanel>
 
