@@ -167,6 +167,33 @@ Partial Public Class TestTimeUpdate
     Protected WithEvents lblHeader As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
+    '''btnNewProject control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnNewProject As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''btnNewProgID2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnNewProgID2 As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''btnNextRev control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnNextRev As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
     '''popupTestTime_txtProgID control.
     '''</summary>
     '''<remarks>

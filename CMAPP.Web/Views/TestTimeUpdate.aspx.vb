@@ -12,6 +12,7 @@ Public Class TestTimeUpdate
     Private oOra As New oOra
     Private cnnOra As OracleConnection = Nothing
     Private cnnOraString As String = ""
+    Private gSelRev As String = ""
 
     Private dtSiteCount As DataTable
     Private dtSiteCount1 As DataTable
@@ -55,6 +56,7 @@ Public Class TestTimeUpdate
         Dim strQuery As String
 
         Try
+            btnEditTestTime.Visible = False
 
             GetAppConfig()
             OpenConnection()
@@ -151,7 +153,7 @@ Public Class TestTimeUpdate
 
         End If
 
-        GetListing(txtProgramID.Text, txtRevision.Text, "", "", "", "", "", "")
+        GetListing(txtProgramID.Text, txtRevision.Text, txtVersion.Text, txtTemp.Text, txtDevice.Text, "", txtProgramName.Text, txtProgramExec.Text)
 
     End Sub
 
@@ -198,9 +200,12 @@ Public Class TestTimeUpdate
                 Return
             End If
 
+            btnNextRev.Visible = True
+
             ' Call the popup and populate the values
             popupTestTime_txtProgID.Text = selRowCount.Cells(1).Text
             popupTestTime_txtRev.Text = selRowCount.Cells(2).Text
+            Session("gSelRev") = popupTestTime_txtRev.Text
             popupTestTime_txtVer.Text = selRowCount.Cells(3).Text
             popupTestTime_txtTesterType.Text = selRowCount.Cells(4).Text
             popupTestTime_txtProgName.Text = selRowCount.Cells(5).Text
@@ -272,6 +277,8 @@ Public Class TestTimeUpdate
                 UpdateTestTime(popupTestTime_txtProgID.Text, popupTestTime_txtRev.Text, 0, popupTestTime_txtDevice.Text,
                                popupTestTime_txtTemp.Text, popupTestTime_txtEffDate.Text, count, input.Text, popupTestTime_txtOverhead.Text, popupTestTime_txtTesterType.Text,
                                popupTestTime_txtProgName.Text, popupTestTime_txtProgExec.Text, Session("USER_NAME").ToString())
+
+                count = count + 1
 
             End If
 
@@ -347,6 +354,8 @@ Public Class TestTimeUpdate
             CloseConnection()
 
         End Try
+
+        GetListing(txtProgramID.Text, txtRevision.Text, txtVersion.Text, txtTemp.Text, txtDevice.Text, "", txtProgramName.Text, txtProgramExec.Text)
 
     End Sub
 
@@ -478,7 +487,7 @@ Public Class TestTimeUpdate
 
     End Function
 
-    Public Function NextRev(ByVal p_strCurrentRev As String) As String
+    Public Function GetNextRev(ByVal p_strCurrentRev As String) As String
 
         Dim modal As ModalCaller = New ModalCaller()
 
@@ -489,9 +498,9 @@ Public Class TestTimeUpdate
         Select Case Len(p_strCurrentRev)
             Case 1
                 If Asc(p_strCurrentRev) = 90 Then
-                    NextRev = "AA"
+                    GetNextRev = "AA"
                 Else
-                    NextRev = Chr(Asc(p_strCurrentRev) + 1)
+                    GetNextRev = Chr(Asc(p_strCurrentRev) + 1)
                 End If
             Case 2
                 If Asc(Mid(p_strCurrentRev, 2, 1)) = 90 Then
@@ -501,7 +510,7 @@ Public Class TestTimeUpdate
                     strDigit1 = Mid(p_strCurrentRev, 1, 1)
                     strDigit2 = Chr(Asc(Mid(p_strCurrentRev, 2, 1)) + 1)
                 End If
-                NextRev = Trim(strDigit1) & Trim(strDigit2)
+                GetNextRev = Trim(strDigit1) & Trim(strDigit2)
         End Select
         GoTo ExitFunction
 ErrorHandler:
@@ -548,10 +557,12 @@ ExitFunction:
 
     Protected Sub btnNewProgID_Click(sender As Object, e As EventArgs)
 
+        btnNextRev.Visible = False
+
         ' Call the popup and populate the values
         popupTestTime_txtProgID.Text = ""
-        popupTestTime_txtRev.Text = ""
-        popupTestTime_txtVer.Text = ""
+        popupTestTime_txtRev.Text = "A"
+        popupTestTime_txtVer.Text = "0"
         popupTestTime_txtTesterType.Text = ""
         popupTestTime_txtProgName.Text = ""
         popupTestTime_txtProgExec.Text = ""
@@ -570,6 +581,16 @@ ExitFunction:
 
         mpePopupTestTime.Show()
         popupTestTime_txtProgID.Focus()
+
+    End Sub
+
+    Protected Sub btnNextRev_Click(sender As Object, e As EventArgs)
+
+        If Session("gSelRev") IsNot Nothing Then
+            Dim nextRev As String = GetNextRev(Session("gSelRev").ToString)
+            popupTestTime_txtRev.Text = nextRev
+            mpePopupTestTime.Show()
+        End If
 
     End Sub
 End Class

@@ -134,17 +134,29 @@
 
             <div class="row">
 
+                <div class="col-md-12">
+                    <asp:Button ID="btnNewProject" runat="server" Text="New Project" CssClass="btn btn-success" Width="120px" ForeColor="#ffffff" Visible="false" />
+                    <asp:Button ID="btnNewProgID2" runat="server" Text="New Prog ID" CssClass="btn btn-success" Width="120px" ForeColor="#ffffff" Visible="false" />
+                    <asp:Button ID="btnNextRev" runat="server" Text="Next Revision" CssClass="btn btn-success" Width="120px" ForeColor="#ffffff" OnClick="btnNextRev_Click" />
+                </div>
+
+            </div>
+
+            <hr />
+
+            <div class="row">
+
                 <div class="col-md-3">
                     <asp:Label runat="server" AssociatedControlID="popupTestTime_txtProgID">Test Program ID</asp:Label><br />
                     <asp:TextBox ID="popupTestTime_txtProgID" runat="server" CssClass="form-control" />
                 </div>
                 <div class="col-md-2">
                     <asp:Label runat="server" AssociatedControlID="popupTestTime_txtRev">Revision</asp:Label><br />
-                    <asp:TextBox ID="popupTestTime_txtRev" runat="server" CssClass="form-control" />
+                    <asp:TextBox ID="popupTestTime_txtRev" runat="server" CssClass="form-control" ReadOnly="true" />
                 </div>
                 <div class="col-md-2">
                     <asp:Label runat="server" AssociatedControlID="popupTestTime_txtVer">Version</asp:Label><br />
-                    <asp:TextBox ID="popupTestTime_txtVer" runat="server" CssClass="form-control" />
+                    <asp:TextBox ID="popupTestTime_txtVer" runat="server" CssClass="form-control" Text="0" ReadOnly="true" />
                 </div>
                 <div class="col-md-2">
                     <asp:Label runat="server" AssociatedControlID="popupTestTime_txtTesterType">Tester Type</asp:Label><br />
