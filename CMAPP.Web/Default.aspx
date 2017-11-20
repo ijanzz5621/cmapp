@@ -84,7 +84,7 @@
                                 <span id="reauth-email" class="reauth-email"></span>
                                 <span style="color:#fff;">Domain: <strong>MCHP-MAIN</strong></span>
                                 <br /><br />                                
-                                <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control" placeholder="User Name" required autofocus style="margin-bottom:15px;" Text="A42084"></asp:TextBox>
+                                <asp:TextBox ID="txtUsername" runat="server" CssClass="form-control" placeholder="User Name" required autofocus style="margin-bottom:15px;"></asp:TextBox>
                                 <asp:TextBox ID="txtPassword" runat="server" TextMode="Password" CssClass="form-control" placeholder="Password"></asp:TextBox>
                                 <div id="remember" class="checkbox">
                                     <%--<label>

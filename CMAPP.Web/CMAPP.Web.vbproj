@@ -194,6 +194,7 @@
     <Content Include="x86\Oracle.ManagedDataAccessIOP.dll" />
     <Content Include="images\login_bg.psd" />
     <Content Include="images\Microchip_logo.psd" />
+    <None Include="My Project\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
