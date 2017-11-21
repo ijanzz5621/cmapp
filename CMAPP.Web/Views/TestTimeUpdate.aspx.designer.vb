@@ -86,15 +86,6 @@ Partial Public Class TestTimeUpdate
     Protected WithEvents btnSearch As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
-    '''btnDelete control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnDelete As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
     '''btnNewProgID control.
     '''</summary>
     '''<remarks>
@@ -284,13 +275,13 @@ Partial Public Class TestTimeUpdate
     Protected WithEvents popupTestTime_txtSiteCount1TestTime As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''popupTestTime_txtSiteCount control.
+    '''popupTestTime_ddlSiteCount control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents popupTestTime_txtSiteCount As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents popupTestTime_ddlSiteCount As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''popupTestTime_txtOverhead control.
@@ -318,6 +309,15 @@ Partial Public Class TestTimeUpdate
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents rptSiteCountList As Global.System.Web.UI.WebControls.Repeater
+    
+    '''<summary>
+    '''popupTestTime_btnUpdateAll control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents popupTestTime_btnUpdateAll As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
     '''popupTestTime_btnInsertUpdate control.

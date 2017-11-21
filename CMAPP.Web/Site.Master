@@ -14,6 +14,8 @@
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
+        <%: Scripts.Render("~/bundles/jquery") %>
+        <%: Scripts.Render("~/bundles/jqueryui") %>
     </asp:PlaceHolder>
 
     <webopt:BundleReference runat="server" Path="~/Content/css" />
@@ -30,7 +32,9 @@
                 <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
                 <%--Framework Scripts--%>
                 <asp:ScriptReference Name="MsAjaxBundle" />
-                <asp:ScriptReference Name="jquery" />
+                <%--<asp:ScriptReference Name="jquery" />--%>
+                <%--<asp:ScriptReference Name="jquery.ui.combined" />--%>
+                <%--<asp:ScriptReference Path="~/Scripts/jquery-ui-1.12.1.min.js" />--%>
                 <asp:ScriptReference Name="bootstrap" />
                 <asp:ScriptReference Name="respond" />
                 <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />

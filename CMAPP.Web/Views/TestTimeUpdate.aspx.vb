@@ -61,16 +61,23 @@ Public Class TestTimeUpdate
             GetAppConfig()
             OpenConnection()
 
-            strQuery = "Select TestProgID,TestProgIDRev,TestProgIDVers,TesterType,TestProgMainSource,TestProgExecutable,Device,TestStepTemp,to_char(TestTimeEffDate,'mm/dd/yyyy') As TestTimeEffDate,OverHead,' ' as UserId "
+            'strQuery = "Select TestProgID,TestProgIDRev,TestProgIDVers,TesterType,TestProgMainSource,TestProgExecutable,Device,TestStepTemp,to_char(TestTimeEffDate,'mm/dd/yyyy') As TestTimeEffDate,OverHead,' ' as UserId "
+            strQuery = "Select TestProgID,TestProgIDRev,TesterType,TestProgMainSource,TestProgExecutable,Device,TestStepTemp,to_char(TestTimeEffDate,'mm/dd/yyyy') As TestTimeEffDate,OverHead,' ' as UserId "
+
+            'Dim tempNum = 1
             For i = 1 To gc_intMaxSiteCount
+                'tempNum = i ^ 2
+                'If tempNum <= gc_intMaxSiteCount Then
                 strQuery = strQuery & ",Max(Decode(SiteCount, " & i & ", TestTime, null)) x" & i
+                'End If
             Next
             strQuery = strQuery & " From  cmtesttime "
             strQuery = strQuery & " Where Not UserId Is Null "
             'strQuery = strQuery & " And ROWNUM <= 20 "
 
             If Len(Trim(p_strTestProgID)) > 1 Then
-                strQuery = strQuery & " And TestProgId like '" & p_strTestProgID & "'"
+                'strQuery = strQuery & " And TestProgId like '" & p_strTestProgID & "'"
+                strQuery = strQuery & " And TestProgId = '" & p_strTestProgID & "'"
             End If
             If Len(Trim(p_strTestProgIDRev)) > 1 Then
                 strQuery = strQuery & " And testprogidrev like '" & p_strTestProgIDRev & "'"
@@ -206,13 +213,16 @@ Public Class TestTimeUpdate
             popupTestTime_txtProgID.Text = selRowCount.Cells(1).Text
             popupTestTime_txtRev.Text = selRowCount.Cells(2).Text
             Session("gSelRev") = popupTestTime_txtRev.Text
-            popupTestTime_txtVer.Text = selRowCount.Cells(3).Text
-            popupTestTime_txtTesterType.Text = selRowCount.Cells(4).Text
-            popupTestTime_txtProgName.Text = selRowCount.Cells(5).Text
-            popupTestTime_txtProgExec.Text = selRowCount.Cells(6).Text
-            popupTestTime_txtDevice.Text = selRowCount.Cells(7).Text
-            popupTestTime_txtTemp.Text = selRowCount.Cells(8).Text
-            popupTestTime_txtEffDate.Text = selRowCount.Cells(9).Text
+            'popupTestTime_txtVer.Text = selRowCount.Cells(3).Text
+            popupTestTime_txtTesterType.Text = selRowCount.Cells(3).Text
+            popupTestTime_txtProgName.Text = selRowCount.Cells(4).Text
+            popupTestTime_txtProgExec.Text = selRowCount.Cells(5).Text
+            popupTestTime_txtDevice.Text = selRowCount.Cells(6).Text
+            popupTestTime_txtTemp.Text = selRowCount.Cells(7).Text
+            popupTestTime_txtEffDate.Text = selRowCount.Cells(8).Text
+
+            popupTestTime_btnInsertUpdate.Text = "Update"
+            'popupTestTime_btnUpdateAll.Visible = True
 
             ' Get Test Time for Site Count 1 from database
             dtSiteCount1 = GetSiteCount1Info(popupTestTime_txtProgID.Text, popupTestTime_txtRev.Text, popupTestTime_txtTesterType.Text, popupTestTime_txtProgName.Text, popupTestTime_txtProgExec.Text, popupTestTime_txtDevice.Text, popupTestTime_txtTemp.Text, popupTestTime_txtEffDate.Text)
@@ -226,7 +236,8 @@ Public Class TestTimeUpdate
             'gvSiteCountList.DataBind()
 
             ' Clear values
-            popupTestTime_txtSiteCount.Text = ""
+            'popupTestTime_txtSiteCount.Text = ""
+            popupTestTime_ddlSiteCount.SelectedValue = "1"
             popupTestTime_txtOverhead.Text = ""
             rptSiteCountList.DataSource = New DataTable
             rptSiteCountList.DataBind()
@@ -245,25 +256,6 @@ Public Class TestTimeUpdate
     Protected Sub popupTestTime_btnInsertUpdate_Click(sender As Object, e As EventArgs)
         Dim modal As ModalCaller = New ModalCaller()
         Dim testProgramID = popupTestTime_txtProgID.Text
-
-        'If gvSiteCountList.Rows.Count > 0 Then
-
-        '    Dim row As GridViewRow = gvSiteCountList.Rows(0)
-
-        '    For col As Integer = 1 To gvSiteCountList.Columns.Count
-
-        '        ' Loop and update database here
-        '        Dim colVal As String = row.Cells(col).Text
-
-        '        UpdateTestTime(popupTestTime_txtProgID.Text)
-
-        '    Next
-        'Else
-
-        '    modal.ShowPopupMessage(wucPopupInfo, "Please calculate the Site Count before proceed with save or update")
-        '    mpePopupTestTime.Show()
-
-        'End If
 
         Dim count As Integer
         count = 1
@@ -313,7 +305,9 @@ Public Class TestTimeUpdate
                 'modal.ShowPopupMessage(wucPopupInfo, "Record found. Updating..." & NextRev("BV"))
                 strQuery = "Update CmTestTime Set "
                 strQuery = strQuery & "TestTime=" & testTime & " "
-                strQuery = strQuery & ",OverHead=" & overhead & " "
+                If overhead.Trim <> "" Then
+                    strQuery = strQuery & ",OverHead='" & overhead & "' "
+                End If
                 strQuery = strQuery & ",UserID='" & userID & "' "
                 strQuery = strQuery & ",ChangeDate=SysDate "
                 strQuery = strQuery & ",ChangeTypeCode='U' "
@@ -327,7 +321,25 @@ Public Class TestTimeUpdate
                 Dim dsUpdate As DataSet = oOra.OraExecuteQuery(strQuery, cnnOra)
             Else
                 'modal.ShowPopupMessage(wucPopupInfo, "Record not found. Inserting...")
-                strQuery = "Insert Into CmTestTime Values("
+                strQuery = "Insert Into CmTestTime ("
+                strQuery = strQuery & "TESTPROGID"
+                strQuery = strQuery & ", TESTPROGIDREV"
+                strQuery = strQuery & ", TESTPROGIDVERS"
+                strQuery = strQuery & ", DEVICE"
+                strQuery = strQuery & ", TESTSTEPTEMP"
+                strQuery = strQuery & ", SITECOUNT"
+                strQuery = strQuery & ", TESTTIMEEFFDATE"
+                strQuery = strQuery & ", TESTTIME"
+                If overhead.Trim <> "" Then
+                    strQuery = strQuery & ", OVERHEAD"
+                End If
+                strQuery = strQuery & ", TESTERTYPE"
+                strQuery = strQuery & ", TESTPROGMAINSOURCE"
+                strQuery = strQuery & ", TESTPROGEXECUTABLE"
+                strQuery = strQuery & ", USERID"
+                strQuery = strQuery & ", CHANGEDATE"
+                strQuery = strQuery & ", CHANGETYPECODE"
+                strQuery = strQuery & ") Values ("
                 strQuery = strQuery & testProgID
                 strQuery = strQuery & ",'" & rev & "'"
                 strQuery = strQuery & ",0"
@@ -336,7 +348,9 @@ Public Class TestTimeUpdate
                 strQuery = strQuery & "," & siteCount & ""
                 strQuery = strQuery & ",to_date('" & effDate & "','mm/dd/yyyy')"
                 strQuery = strQuery & "," & testTime & ""
-                strQuery = strQuery & "," & overhead & ""
+                If overhead.Trim <> "" Then
+                    strQuery = strQuery & "," & overhead & ""
+                End If
                 strQuery = strQuery & ",'" & testerType & "'"
                 strQuery = strQuery & ",'" & progName & "'"
                 strQuery = strQuery & ",'" & progExec & "'"
@@ -345,6 +359,47 @@ Public Class TestTimeUpdate
                 strQuery = strQuery & ",'I') "
                 Dim dsInsert As DataSet = oOra.OraExecuteQuery(strQuery, cnnOra)
             End If
+
+        Catch ex As Exception
+            Dim exMsg = ex.Message
+            modal.ShowPopupMessage(wucPopupInfo, ex.Message)
+        Finally
+
+            CloseConnection()
+
+        End Try
+
+        GetListing(txtProgramID.Text, txtRevision.Text, txtVersion.Text, txtTemp.Text, txtDevice.Text, "", txtProgramName.Text, txtProgramExec.Text)
+
+    End Sub
+
+    Private Sub UpdateTestTimeAll(testProgID As String, rev As String, version As String, device As String, temp As String, effDate As String,
+                               siteCount As Integer, testTime As String, overhead As String, testerType As String, progName As String, progExec As String, userID As String)
+
+        Dim modal As ModalCaller = New ModalCaller
+        Dim strQuery As String
+        Dim dsResult As DataSet = New DataSet
+
+        Try
+
+            GetAppConfig()
+            OpenConnection()
+
+            strQuery = "Update CmTestTime Set "
+            strQuery = strQuery & "TestTime=" & testTime & " "
+            If overhead.Trim <> "" Then
+                strQuery = strQuery & ",OverHead='" & overhead & "' "
+            End If
+            strQuery = strQuery & ",UserID='" & userID & "' "
+            strQuery = strQuery & ",ChangeDate=SysDate "
+            strQuery = strQuery & ",ChangeTypeCode='U' "
+            strQuery = strQuery & "Where TestProgID='" & testProgID & "' "
+            strQuery = strQuery & "And TestProgIDVers= 0 "
+            strQuery = strQuery & "And Device='" & device & "' "
+            strQuery = strQuery & "And TestStepTemp='" & temp & "' "
+            strQuery = strQuery & "And TestTimeEffDate=to_date('" & effDate & "','mm/dd/yyyy') "
+            strQuery = strQuery & "And SiteCount=" & siteCount & ""
+            Dim dsUpdate As DataSet = oOra.OraExecuteQuery(strQuery, cnnOra)
 
         Catch ex As Exception
             Dim exMsg = ex.Message
@@ -393,13 +448,13 @@ Public Class TestTimeUpdate
 
         Dim modal As ModalCaller = New ModalCaller()
 
-        If popupTestTime_txtSiteCount.Text.Trim = "" Then
+        'If popupTestTime_ddlSiteCount.SelectedValue = "" Then
 
-            modal.ShowPopupMessage(wucPopupInfo, "Please enter number Of site count To generate")
-            mpePopupTestTime.Show()
-            Return
+        '    modal.ShowPopupMessage(wucPopupInfo, "Please enter number Of site count To generate")
+        '    mpePopupTestTime.Show()
+        '    Return
 
-        End If
+        'End If
 
         dtSiteCount = New DataTable()
         dtSiteCount1 = New DataTable()
@@ -420,7 +475,7 @@ Public Class TestTimeUpdate
 
         dtSiteCount.Columns.Add("Label", GetType(String))
         dtSiteCount.Columns.Add("TestTime", GetType(String))
-        For item As Integer = 0 To Integer.Parse(popupTestTime_txtSiteCount.Text) - 1
+        For item As Integer = 0 To Integer.Parse(popupTestTime_ddlSiteCount.SelectedValue) - 1
             Dim dr = dtSiteCount.NewRow
             dr("Label") = (item + 1).ToString + "x (s)"
 
@@ -571,10 +626,13 @@ ExitFunction:
         popupTestTime_txtEffDate.Text = ""
         popupTestTime_txtSiteCount1TestTime.Text = ""
 
+        popupTestTime_btnInsertUpdate.Text = "Insert"
+        popupTestTime_btnUpdateAll.Visible = False
+
         EnableDisableTestTimeForm("Enable")
 
         ' Clear values
-        popupTestTime_txtSiteCount.Text = ""
+        popupTestTime_ddlSiteCount.SelectedValue = "1"
         popupTestTime_txtOverhead.Text = ""
         rptSiteCountList.DataSource = New DataTable
         rptSiteCountList.DataBind()
@@ -592,5 +650,49 @@ ExitFunction:
             mpePopupTestTime.Show()
         End If
 
+    End Sub
+
+    Protected Sub popupTestTime_btnUpdateAll_Click(sender As Object, e As EventArgs)
+        Dim modal As ModalCaller = New ModalCaller()
+        Dim testProgramID = popupTestTime_txtProgID.Text
+
+        Dim count As Integer
+
+        'New Revision
+        If Session("gSelRev") IsNot Nothing And Session("gSelRev") <> popupTestTime_txtRev.Text Then
+
+            count = 1
+            For Each item In rptSiteCountList.Items
+
+                Dim input As TextBox = item.FindControl("txtTestTime")
+                If input IsNot Nothing Then
+
+                    UpdateTestTime(popupTestTime_txtProgID.Text, popupTestTime_txtRev.Text, 0, popupTestTime_txtDevice.Text,
+                                   popupTestTime_txtTemp.Text, popupTestTime_txtEffDate.Text, count, input.Text, popupTestTime_txtOverhead.Text, popupTestTime_txtTesterType.Text,
+                                   popupTestTime_txtProgName.Text, popupTestTime_txtProgExec.Text, Session("USER_NAME").ToString())
+
+                    count = count + 1
+
+                End If
+
+            Next
+
+        End If
+
+        count = 1
+        For Each item In rptSiteCountList.Items
+
+            Dim input As TextBox = item.FindControl("txtTestTime")
+            If input IsNot Nothing Then
+
+                UpdateTestTimeAll(popupTestTime_txtProgID.Text, popupTestTime_txtRev.Text, 0, popupTestTime_txtDevice.Text,
+                               popupTestTime_txtTemp.Text, popupTestTime_txtEffDate.Text, count, input.Text, popupTestTime_txtOverhead.Text, popupTestTime_txtTesterType.Text,
+                               popupTestTime_txtProgName.Text, popupTestTime_txtProgExec.Text, Session("USER_NAME").ToString())
+
+                count = count + 1
+
+            End If
+
+        Next
     End Sub
 End Class

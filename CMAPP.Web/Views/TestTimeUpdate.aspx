@@ -63,8 +63,8 @@
                     <asp:Button Text="Search" runat="server" ID="btnSearch" CssClass="btn btn-info" />
                     <%--&nbsp;
                     <asp:Button Text="Excel" runat="server" ID="btnExport" CssClass="btn btn-success" />--%>
-                    &nbsp;
-                    <asp:Button Text="Delete" runat="server" ID="btnDelete" CssClass="btn btn-danger" />
+                    <%--&nbsp;
+                    <asp:Button Text="Delete" runat="server" ID="btnDelete" CssClass="btn btn-danger" />--%>
                     &nbsp;&nbsp;
                     <asp:Button ID="btnNewProgID" runat="server" Text="New Prog ID" CssClass="btn btn-success" ForeColor="#ffffff" OnClick="btnNewProgID_Click" />
                     &nbsp;
@@ -194,8 +194,16 @@
 
             <div class="row">
                 <div class="col-md-2">
-                    <asp:Label runat="server" AssociatedControlID="popupTestTime_txtSiteCount">Site Count</asp:Label><br />
-                    <asp:TextBox ID="popupTestTime_txtSiteCount" runat="server" CssClass="form-control" TextMode="Number" />
+                    <asp:Label runat="server" AssociatedControlID="popupTestTime_ddlSiteCount">Site Count</asp:Label><br />
+                    <%--<asp:TextBox ID="popupTestTime_txtSiteCount" runat="server" CssClass="form-control" TextMode="Number" />--%>
+                    <asp:DropDownList ID="popupTestTime_ddlSiteCount" CssClass="form-control" runat="server">
+                        <asp:ListItem Text="1" Value="1"></asp:ListItem>
+                        <asp:ListItem Text="2" Value="2"></asp:ListItem>
+                        <asp:ListItem Text="4" Value="4"></asp:ListItem>
+                        <asp:ListItem Text="8" Value="8"></asp:ListItem>
+                        <asp:ListItem Text="16" Value="16"></asp:ListItem>
+                        <asp:ListItem Text="32" Value="32"></asp:ListItem>
+                    </asp:DropDownList>
                 </div>
                 <div class="col-md-2">
                     <asp:Label runat="server" AssociatedControlID="popupTestTime_txtOverhead">Overhead</asp:Label><br />
@@ -254,6 +262,7 @@
 
         </div>
         <div class="panel-footer" style="text-align:right; background-color:#f1f1f1; border-top:none;">
+            <asp:Button ID="popupTestTime_btnUpdateAll" Text="Update All" runat="server" CssClass="btn btn-success" OnClick="popupTestTime_btnUpdateAll_Click" Visible="false" />
             <asp:Button ID="popupTestTime_btnInsertUpdate" Text="Update" runat="server" CssClass="btn btn-success" OnClick="popupTestTime_btnInsertUpdate_Click" />
             <asp:Button ID="mpePopupTestTime_DismissBT" runat="server" Text="Close" CssClass="btn btn-warning" Width="80px" />
         </div>
@@ -262,10 +271,15 @@
 
     <script>
 
+        $(function () {
+            alert('page loaded!');
+            $('#<%=popupTestTime_txtEffDate.ClientID%>').datepicker();
+        });
+
         $(document).ready(function () {
 
-            //alert('page loaded!');
-
+            
+            
         });
 
     </script>

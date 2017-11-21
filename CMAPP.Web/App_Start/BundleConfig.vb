@@ -6,6 +6,12 @@ Imports System.Web.Optimization
 Public Class BundleConfig
     ' For more information on Bundling, visit https://go.microsoft.com/fwlink/?LinkID=303951
     Public Shared Sub RegisterBundles(ByVal bundles As BundleCollection)
+
+        bundles.Add(New ScriptBundle("~/bundles/jquery").Include(
+                    "~/Scripts/jquery-{version}.js"))
+        bundles.Add(New ScriptBundle("~/bundles/jqueryui").Include(
+                    "~/Scripts/jquery-ui-{version}.js"))
+
         bundles.Add(New ScriptBundle("~/bundles/WebFormsJs").Include(
                         "~/Scripts/WebForms/WebForms.js",
                         "~/Scripts/WebForms/WebUIValidation.js",
