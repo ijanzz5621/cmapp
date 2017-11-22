@@ -258,6 +258,54 @@ Public Class TestTimeUpdate
         Dim modal As ModalCaller = New ModalCaller()
         Dim testProgramID = popupTestTime_txtProgID.Text
 
+        ' Check if empty
+        If popupTestTime_txtProgID.Text.Trim = "" Then
+            modal.ShowPopupMessage(wucPopupInfo, "Please enter Test Program ID")
+            mpePopupTestTime.Show()
+            Return
+        End If
+        If popupTestTime_txtRev.Text.Trim = "" Then
+            modal.ShowPopupMessage(wucPopupInfo, "Please enter Revision")
+            mpePopupTestTime.Show()
+            Return
+        End If
+        If popupTestTime_txtTesterType.Text.Trim = "" Then
+            modal.ShowPopupMessage(wucPopupInfo, "Please enter Tester Type")
+            mpePopupTestTime.Show()
+            Return
+        End If
+        If popupTestTime_txtProgName.Text.Trim = "" Then
+            modal.ShowPopupMessage(wucPopupInfo, "Please enter Test Program Name")
+            mpePopupTestTime.Show()
+            Return
+        End If
+        If popupTestTime_txtProgExec.Text.Trim = "" Then
+            modal.ShowPopupMessage(wucPopupInfo, "Please enter Test Program Executable")
+            mpePopupTestTime.Show()
+            Return
+        End If
+        If popupTestTime_txtDevice.Text.Trim = "" Then
+            modal.ShowPopupMessage(wucPopupInfo, "Please enter Device")
+            mpePopupTestTime.Show()
+            Return
+        End If
+        If popupTestTime_txtTemp.Text.Trim = "" Then
+            modal.ShowPopupMessage(wucPopupInfo, "Please enter Temp")
+            mpePopupTestTime.Show()
+            Return
+        End If
+        If popupTestTime_txtEffDate.Text.Trim = "" Then
+            modal.ShowPopupMessage(wucPopupInfo, "Please select Effective Date from the calendar")
+            mpePopupTestTime.Show()
+            Return
+        End If
+
+        If rptSiteCountList.Items.Count = 0 Then
+            modal.ShowPopupMessage(wucPopupInfo, "Please select Site Count and Click Generate")
+            mpePopupTestTime.Show()
+            Return
+        End If
+
         Dim count As Integer
         count = 1
         For Each item In rptSiteCountList.Items
@@ -276,6 +324,8 @@ Public Class TestTimeUpdate
             End If
 
         Next
+
+        mpePopupTestTime.Hide()
 
     End Sub
 
@@ -333,9 +383,7 @@ Public Class TestTimeUpdate
                 strQuery = strQuery & ", SITECOUNT"
                 strQuery = strQuery & ", TESTTIMEEFFDATE"
                 strQuery = strQuery & ", TESTTIME"
-                If overhead.Trim <> "" Then
-                    strQuery = strQuery & ", OVERHEAD"
-                End If
+                strQuery = strQuery & ", OVERHEAD"
                 strQuery = strQuery & ", TESTERTYPE"
                 strQuery = strQuery & ", TESTPROGMAINSOURCE"
                 strQuery = strQuery & ", TESTPROGEXECUTABLE"
@@ -701,5 +749,8 @@ ExitFunction:
             End If
 
         Next
+
+        mpePopupTestTime.Hide()
+
     End Sub
 End Class
