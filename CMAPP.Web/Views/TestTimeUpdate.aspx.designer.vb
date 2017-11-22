@@ -266,6 +266,15 @@ Partial Public Class TestTimeUpdate
     Protected WithEvents popupTestTime_txtEffDate As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''Calendar1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Calendar1 As Global.AjaxControlToolkit.CalendarExtender
+    
+    '''<summary>
     '''popupTestTime_txtSiteCount1TestTime control.
     '''</summary>
     '''<remarks>

@@ -182,6 +182,7 @@
                 <div class="col-md-2">
                     <asp:Label runat="server" AssociatedControlID="popupTestTime_txtEffDate">Effective Date</asp:Label><br />
                     <asp:TextBox ID="popupTestTime_txtEffDate" runat="server" CssClass="form-control" />
+                    <ajaxToolKit:CalendarExtender ID="Calendar1" PopupButtonID="imgPopup" runat="server" TargetControlID="popupTestTime_txtEffDate" Format="MM/dd/yyyy"> </ajaxToolKit:CalendarExtender>
                 </div>
                 <div class="col-md-3">
                     <asp:Label runat="server" AssociatedControlID="popupTestTime_txtSiteCount1TestTime">Site Count 1 Test Time</asp:Label><br />
@@ -272,13 +273,16 @@
     <script>
 
         $(function () {
-            alert('page loaded!');
-            $('#<%=popupTestTime_txtEffDate.ClientID%>').datepicker();
+            $('#MainContent_popupTestTime_txtEffDate').keypress(function (event) {
+                event.preventDefault();
+                return false;
+            });
+            $('#MainContent_popupTestTime_txtEffDate').keydown(false);
         });
 
         $(document).ready(function () {
 
-            
+            //$('#<%=popupTestTime_txtEffDate.ClientID%>').datepicker();
             
         });
 

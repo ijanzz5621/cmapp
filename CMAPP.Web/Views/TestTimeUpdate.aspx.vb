@@ -62,7 +62,8 @@ Public Class TestTimeUpdate
             OpenConnection()
 
             'strQuery = "Select TestProgID,TestProgIDRev,TestProgIDVers,TesterType,TestProgMainSource,TestProgExecutable,Device,TestStepTemp,to_char(TestTimeEffDate,'mm/dd/yyyy') As TestTimeEffDate,OverHead,' ' as UserId "
-            strQuery = "Select TestProgID,TestProgIDRev,TesterType,TestProgMainSource,TestProgExecutable,Device,TestStepTemp,to_char(TestTimeEffDate,'mm/dd/yyyy') As TestTimeEffDate,OverHead,' ' as UserId "
+            'strQuery = "Select TestProgID ""Program ID"",TestProgIDRev ""Revision"",TesterType ""Tester Type"",TestProgMainSource ""Program Source"",TestProgExecutable ""Program Exec"",Device,TestStepTemp ""Temp"",to_char(TestTimeEffDate,'mm/dd/yyyy') As ""TestTimeEffDate"",OverHead, USERID as ""User Id"" "
+            strQuery = "Select TestProgID as ""Program ID"",TestProgIDRev as ""Revision"",TesterType as ""Tester Type"",TestProgMainSource as ""Program Source"",TestProgExecutable as ""Program Exec"",Device as ""Device"",TestStepTemp as ""Temp"",to_char(TestTimeEffDate,'mm/dd/yyyy') As ""Eff Date"",OverHead AS ""Overhead"", USERID as ""UserId"" "
 
             'Dim tempNum = 1
             For i = 1 To gc_intMaxSiteCount
@@ -103,7 +104,7 @@ Public Class TestTimeUpdate
                 strQuery = strQuery & " And Testprogexecutable like '" & p_strProgExec & "'"
             End If
 
-            strQuery = strQuery & " Group By  TestProgId , TestProgIdRev, TestProgIdVers, TestStepTemp, device,Testertype, TestProgMainSource,TestProgExecutable,TestTimeEffDate,OverHead"
+            strQuery = strQuery & " Group By  TestProgId , TestProgIdRev, TestProgIdVers, TestStepTemp, device,Testertype, TestProgMainSource,TestProgExecutable,TestTimeEffDate,OverHead, UserID "
 
             Dim dsResult As DataSet = oOra.OraExecuteQuery(strQuery, cnnOra)
 
