@@ -62,7 +62,7 @@ Public Class TestTimeUpdate
             OpenConnection()
 
             'strQuery = "Select TestProgID,TestProgIDRev,TestProgIDVers,TesterType,TestProgMainSource,TestProgExecutable,Device,TestStepTemp,to_char(TestTimeEffDate,'mm/dd/yyyy') As TestTimeEffDate,OverHead,' ' as UserId "
-            'strQuery = "Select TestProgID ""Program ID"",TestProgIDRev ""Revision"",TesterType ""Tester Type"",TestProgMainSource ""Program Source"",TestProgExecutable ""Program Exec"",Device,TestStepTemp ""Temp"",to_char(TestTimeEffDate,'mm/dd/yyyy') As ""TestTimeEffDate"",OverHead, USERID as ""User Id"" "
+            'strQuery = "Select TestProgID,TestProgIDRev,TesterType,TestProgMainSource,TestProgExecutable,Device,TestStepTemp,to_char(TestTimeEffDate,'mm/dd/yyyy') As TestTimeEffDate,OverHead, USERID "
             strQuery = "Select TestProgID as ""Program ID"",TestProgIDRev as ""Revision"",TesterType as ""Tester Type"",TestProgMainSource as ""Program Source"",TestProgExecutable as ""Program Exec"",Device as ""Device"",TestStepTemp as ""Temp"",to_char(TestTimeEffDate,'mm/dd/yyyy') As ""Eff Date"",OverHead AS ""Overhead"", USERID as ""UserId"" "
 
             'Dim tempNum = 1
@@ -223,7 +223,7 @@ Public Class TestTimeUpdate
             popupTestTime_txtEffDate.Text = selRowCount.Cells(8).Text
 
             popupTestTime_btnInsertUpdate.Text = "Update"
-            'popupTestTime_btnUpdateAll.Visible = True
+            popupTestTime_btnUpdateAll.Visible = True
 
             ' Get Test Time for Site Count 1 from database
             dtSiteCount1 = GetSiteCount1Info(popupTestTime_txtProgID.Text, popupTestTime_txtRev.Text, popupTestTime_txtTesterType.Text, popupTestTime_txtProgName.Text, popupTestTime_txtProgExec.Text, popupTestTime_txtDevice.Text, popupTestTime_txtTemp.Text, popupTestTime_txtEffDate.Text)
@@ -308,6 +308,8 @@ Public Class TestTimeUpdate
                 strQuery = strQuery & "TestTime=" & testTime & " "
                 If overhead.Trim <> "" Then
                     strQuery = strQuery & ",OverHead='" & overhead & "' "
+                Else
+                    strQuery = strQuery & ",OverHead= null "
                 End If
                 strQuery = strQuery & ",UserID='" & userID & "' "
                 strQuery = strQuery & ",ChangeDate=SysDate "
@@ -351,6 +353,8 @@ Public Class TestTimeUpdate
                 strQuery = strQuery & "," & testTime & ""
                 If overhead.Trim <> "" Then
                     strQuery = strQuery & "," & overhead & ""
+                Else
+                    strQuery = strQuery & ", null "
                 End If
                 strQuery = strQuery & ",'" & testerType & "'"
                 strQuery = strQuery & ",'" & progName & "'"
@@ -390,6 +394,8 @@ Public Class TestTimeUpdate
             strQuery = strQuery & "TestTime=" & testTime & " "
             If overhead.Trim <> "" Then
                 strQuery = strQuery & ",OverHead='" & overhead & "' "
+            Else
+                strQuery = strQuery & ",OverHead= null "
             End If
             strQuery = strQuery & ",UserID='" & userID & "' "
             strQuery = strQuery & ",ChangeDate=SysDate "

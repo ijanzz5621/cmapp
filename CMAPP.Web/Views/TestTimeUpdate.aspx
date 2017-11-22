@@ -263,7 +263,7 @@
 
         </div>
         <div class="panel-footer" style="text-align:right; background-color:#f1f1f1; border-top:none;">
-            <asp:Button ID="popupTestTime_btnUpdateAll" Text="Update All" runat="server" CssClass="btn btn-success" OnClick="popupTestTime_btnUpdateAll_Click" Visible="false" />
+            <asp:Button ID="popupTestTime_btnUpdateAll" Text="Update All" runat="server" CssClass="btn btn-success" OnClick="popupTestTime_btnUpdateAll_Click" />
             <asp:Button ID="popupTestTime_btnInsertUpdate" Text="Update" runat="server" CssClass="btn btn-success" OnClick="popupTestTime_btnInsertUpdate_Click" />
             <asp:Button ID="mpePopupTestTime_DismissBT" runat="server" Text="Close" CssClass="btn btn-warning" Width="80px" />
         </div>
