@@ -5,13 +5,15 @@ Imports Oracle.ManagedDataAccess.Client
 Imports CMAPP.Web.GlobalVar
 Imports AjaxControlToolkit
 
+Imports CMAPP.BLogic
+
 Public Class TestTimeUpdate
     Inherits System.Web.UI.Page
 
     'Oracle
     Private oOra As New oOra
     Private cnnOra As OracleConnection = Nothing
-    Private cnnOraString As String = ""
+    Private cnnOraString As String = ConfigurationManager.ConnectionStrings("ORA_DefaultConnString").ConnectionString
     Private gSelRev As String = ""
 
     Private dtSiteCount As DataTable
@@ -24,8 +26,65 @@ Public Class TestTimeUpdate
             btnEditTestTime.Visible = False
             'GetListing("", "", "", "", "", "", "", "")
 
+            ' Load combobox data
+            GetProgIDList()
+            GetProgNameList()
+            GetProgExecList()
+            GetDeviceList()
+            GetTempList()
+
         End If
 
+    End Sub
+
+    Private Sub GetProgIDList()
+        Dim fnData As blGeneral = New blGeneral()
+        fnData.ConnectionString = cnnOraString
+        Dim dsResult As DataTable = fnData.GetProgramIDList()
+        ddlProgramID.DataSource = dsResult
+        ddlProgramID.DataTextField = "TESTPROGID"
+        ddlProgramID.DataValueField = "TESTPROGID"
+        ddlProgramID.DataBind()
+    End Sub
+
+    Private Sub GetProgNameList()
+        Dim fnData As blGeneral = New blGeneral()
+        fnData.ConnectionString = cnnOraString
+        Dim dsResult As DataTable = fnData.GetProgramNameList()
+        ddlProgramName.DataSource = dsResult
+        ddlProgramName.DataTextField = "TESTPROGMAINSOURCE"
+        ddlProgramName.DataValueField = "TESTPROGMAINSOURCE"
+        ddlProgramName.DataBind()
+    End Sub
+
+    Private Sub GetProgExecList()
+        Dim fnData As blGeneral = New blGeneral()
+        fnData.ConnectionString = cnnOraString
+        Dim dsResult As DataTable = fnData.GetProgramExecList()
+        ddlProgramExec.DataSource = dsResult
+        ddlProgramExec.DataTextField = "TESTPROGEXECUTABLE"
+        ddlProgramExec.DataValueField = "TESTPROGEXECUTABLE"
+        ddlProgramExec.DataBind()
+    End Sub
+
+    Private Sub GetDeviceList()
+        Dim fnData As blGeneral = New blGeneral()
+        fnData.ConnectionString = cnnOraString
+        Dim dsResult As DataTable = fnData.GetDeviceList()
+        ddlDevice.DataSource = dsResult
+        ddlDevice.DataTextField = "DEVICE"
+        ddlDevice.DataValueField = "DEVICE"
+        ddlDevice.DataBind()
+    End Sub
+
+    Private Sub GetTempList()
+        Dim fnData As blGeneral = New blGeneral()
+        fnData.ConnectionString = cnnOraString
+        Dim dsResult As DataTable = fnData.GetTempList()
+        ddlTemp.DataSource = dsResult
+        ddlTemp.DataTextField = "TESTSTEPTEMP"
+        ddlTemp.DataValueField = "TESTSTEPTEMP"
+        ddlTemp.DataBind()
     End Sub
 
     Private Sub GetBUList(_progID As String)
@@ -151,7 +210,7 @@ Public Class TestTimeUpdate
 
     Protected Sub btnSearch_Click(sender As Object, e As EventArgs) Handles btnSearch.Click
 
-        If txtProgramID.Text = "" Then
+        If ddlProgramID.SelectedValue = "" Then
 
             'Call popup here...
             Dim modal As ModalCaller = New ModalCaller()
@@ -161,7 +220,7 @@ Public Class TestTimeUpdate
 
         End If
 
-        GetListing(txtProgramID.Text, txtRevision.Text, txtVersion.Text, txtTemp.Text, txtDevice.Text, "", txtProgramName.Text, txtProgramExec.Text)
+        GetListing(ddlProgramID.SelectedValue, ddlRevision.SelectedValue, 0, ddlTemp.SelectedValue, ddlDevice.SelectedValue, "", ddlProgramName.SelectedValue, ddlProgramExec.SelectedValue)
 
     End Sub
 
@@ -422,7 +481,7 @@ Public Class TestTimeUpdate
 
         End Try
 
-        GetListing(txtProgramID.Text, txtRevision.Text, txtVersion.Text, txtTemp.Text, txtDevice.Text, "", txtProgramName.Text, txtProgramExec.Text)
+        GetListing(ddlProgramID.SelectedValue, ddlRevision.SelectedValue, 0, ddlTemp.SelectedValue, ddlDevice.SelectedValue, "", ddlProgramName.SelectedValue, ddlProgramExec.SelectedValue)
 
     End Sub
 
@@ -465,7 +524,7 @@ Public Class TestTimeUpdate
 
         End Try
 
-        GetListing(txtProgramID.Text, txtRevision.Text, txtVersion.Text, txtTemp.Text, txtDevice.Text, "", txtProgramName.Text, txtProgramExec.Text)
+        GetListing(ddlProgramID.SelectedValue, ddlRevision.SelectedValue, 0, ddlTemp.SelectedValue, ddlDevice.SelectedValue, "", ddlProgramName.SelectedValue, ddlProgramExec.SelectedValue)
 
     End Sub
 
@@ -751,6 +810,18 @@ ExitFunction:
         Next
 
         mpePopupTestTime.Hide()
+
+    End Sub
+
+    Protected Sub ddlProgramID_SelectedIndexChanged(sender As Object, e As EventArgs)
+
+        Dim fnData As blGeneral = New blGeneral()
+        fnData.ConnectionString = cnnOraString
+        Dim dsProgRev As DataTable = fnData.GetProgramRevList(ddlProgramID.SelectedValue)
+        ddlRevision.DataSource = dsProgRev
+        ddlRevision.DataTextField = "TESTPROGIDREV"
+        ddlRevision.DataValueField = "TESTPROGIDREV"
+        ddlRevision.DataBind()
 
     End Sub
 End Class

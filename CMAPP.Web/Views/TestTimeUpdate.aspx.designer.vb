@@ -14,67 +14,58 @@ Option Explicit On
 Partial Public Class TestTimeUpdate
     
     '''<summary>
-    '''txtProgramID control.
+    '''ddlProgramID control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtProgramID As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ddlProgramID As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''txtRevision control.
+    '''ddlRevision control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtRevision As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ddlRevision As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''txtVersion control.
+    '''ddlProgramName control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtVersion As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ddlProgramName As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''txtProgramName control.
+    '''ddlProgramExec control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtProgramName As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ddlProgramExec As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''txtProgramExec control.
+    '''ddlDevice control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtProgramExec As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ddlDevice As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''txtDevice control.
+    '''ddlTemp control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtDevice As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''txtTemp control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtTemp As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ddlTemp As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''btnSearch control.

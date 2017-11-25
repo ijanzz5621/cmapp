@@ -404,6 +404,10 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CMAPP.BLogic\CMAPP.BLogic.vbproj">
+      <Project>{bf229286-c373-4441-8d66-f3579797fcdc}</Project>
+      <Name>CMAPP.BLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CMAPP.Data\CMAPP.Data.vbproj">
       <Project>{7f6847bf-c5af-4eff-bbcc-c441673ae1cf}</Project>
       <Name>CMAPP.Data</Name>

@@ -31,33 +31,44 @@
 
         <div class="row">
             <div class="col-lg-1 col-md-2">
-                <asp:Label Text="text" runat="server" AssociatedControlID="txtProgramID">Program ID</asp:Label>
-                <asp:TextBox runat="server" CssClass="form-control" ID="txtProgramID" />
+                <asp:Label Text="text" runat="server" AssociatedControlID="ddlProgramID">Program ID</asp:Label>
+                <asp:DropDownList ID="ddlProgramID" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlProgramID_SelectedIndexChanged" AppendDataBoundItems="true">
+                    <asp:ListItem Text="" Value=""></asp:ListItem>
+                </asp:DropDownList>
             </div>
             <div class="col-lg-1 col-md-2">
-                <asp:Label Text="text" runat="server" AssociatedControlID="txtRevision">Revision</asp:Label>
-                <asp:TextBox runat="server" CssClass="form-control" ID="txtRevision" />
-                <%--<asp:DropDownList ID="ddlRevision" runat="server" CssClass="form-control"></asp:DropDownList>--%>
+                <asp:Label Text="text" runat="server" AssociatedControlID="ddlRevision">Revision</asp:Label>
+                <asp:DropDownList ID="ddlRevision" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                    <asp:ListItem Text="" Value=""></asp:ListItem>
+                </asp:DropDownList>
             </div>
-            <div class="col-lg-1 col-md-2">
+            <%--<div class="col-lg-1 col-md-2">
                 <asp:Label Text="text" runat="server" AssociatedControlID="txtVersion">Version</asp:Label>
                 <asp:TextBox runat="server" CssClass="form-control" ID="txtVersion" />
+            </div>--%>
+            <div class="col-lg-2 col-md-3">
+                <asp:Label Text="text" runat="server" AssociatedControlID="ddlProgramName">Program Name</asp:Label>
+                <asp:DropDownList ID="ddlProgramName" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                    <asp:ListItem Text="" Value=""></asp:ListItem>
+                </asp:DropDownList>
             </div>
             <div class="col-lg-2 col-md-3">
-                <asp:Label Text="text" runat="server" AssociatedControlID="txtProgramName">Program Name</asp:Label>
-                <asp:TextBox runat="server" CssClass="form-control" ID="txtProgramName" />
+                <asp:Label Text="text" runat="server" AssociatedControlID="ddlProgramExec">Program Exec</asp:Label>
+                <asp:DropDownList ID="ddlProgramExec" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                    <asp:ListItem Text="" Value=""></asp:ListItem>
+                </asp:DropDownList>
             </div>
             <div class="col-lg-2 col-md-3">
-                <asp:Label Text="text" runat="server" AssociatedControlID="txtProgramExec">Program Exec</asp:Label>
-                <asp:TextBox runat="server" CssClass="form-control" ID="txtProgramExec" />
-            </div>
-            <div class="col-lg-2 col-md-3">
-                <asp:Label Text="text" runat="server" AssociatedControlID="txtDevice">Device</asp:Label>
-                <asp:TextBox runat="server" CssClass="form-control" ID="txtDevice" />
+                <asp:Label Text="text" runat="server" AssociatedControlID="ddlDevice">Device</asp:Label>
+                <asp:DropDownList ID="ddlDevice" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                    <asp:ListItem Text="" Value=""></asp:ListItem>
+                </asp:DropDownList>
             </div>
             <div class="col-lg-1 col-md-2">
-                <asp:Label Text="text" runat="server" AssociatedControlID="txtTemp">Temp</asp:Label>
-                <asp:TextBox runat="server" CssClass="form-control" ID="txtTemp" />
+                <asp:Label Text="text" runat="server" AssociatedControlID="ddlTemp">Temp</asp:Label>
+                <asp:DropDownList ID="ddlTemp" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                    <asp:ListItem Text="" Value=""></asp:ListItem>
+                </asp:DropDownList>
             </div>
             <div class="col-md-6" style="vertical-align:bottom; line-height:70px;">
                     <asp:Button Text="Search" runat="server" ID="btnSearch" CssClass="btn btn-info" />
