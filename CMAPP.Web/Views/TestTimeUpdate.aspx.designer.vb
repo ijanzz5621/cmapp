@@ -68,6 +68,33 @@ Partial Public Class TestTimeUpdate
     Protected WithEvents ddlTemp As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
+    '''chkMaxDate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkMaxDate As Global.System.Web.UI.WebControls.CheckBox
+    
+    '''<summary>
+    '''chkMaxRev control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkMaxRev As Global.System.Web.UI.WebControls.CheckBox
+    
+    '''<summary>
+    '''cblSiteCount control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cblSiteCount As Global.System.Web.UI.WebControls.CheckBoxList
+    
+    '''<summary>
     '''btnSearch control.
     '''</summary>
     '''<remarks>

@@ -46,7 +46,7 @@ Public Class blGeneral
         Try
 
             oOra.OpenOraConnection(cnnOra, connStr)
-            strQuery = "select distinct TESTPROGIDREV from CM.PDCTESTPROGRAMREVISION where TESTPROGID = '" & _progID & "' and TESTPROGIDVERS = 0"
+            strQuery = "select distinct TESTPROGIDREV from CM.PDCTESTPROGRAMREVISION where TESTPROGID = '" & _progID & "' and TESTPROGIDVERS = 0 order by TESTPROGIDREV"
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
 
         Catch ex As Exception

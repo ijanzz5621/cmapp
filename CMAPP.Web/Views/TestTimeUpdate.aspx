@@ -19,6 +19,24 @@
                 margin: 0 auto;
                 padding: 5px;
             }
+
+        .checkbox .btn, .checkbox-inline .btn {
+            padding-left: 2em;
+            min-width: 8em;
+        }
+        .checkbox label, .checkbox-inline label {
+            text-align: left;
+            padding-left: 0.5em;
+        }
+        .checkbox input[type="checkbox"]{
+            float:none;
+        }
+
+        .radio, .checkbox {
+            padding-left: 0;
+        }
+
+
     </style>
 
 </asp:Content>
@@ -32,7 +50,8 @@
         <div class="row">
             <div class="col-lg-1 col-md-2">
                 <asp:Label Text="text" runat="server" AssociatedControlID="ddlProgramID">Program ID</asp:Label>
-                <asp:DropDownList ID="ddlProgramID" runat="server" CssClass="form-control" AutoPostBack="true" OnSelectedIndexChanged="ddlProgramID_SelectedIndexChanged" AppendDataBoundItems="true">
+                <asp:DropDownList ID="ddlProgramID" runat="server" CssClass="form-control" AutoPostBack="true" 
+                    OnSelectedIndexChanged="ddlProgramID_SelectedIndexChanged" AppendDataBoundItems="true">
                     <asp:ListItem Text="" Value=""></asp:ListItem>
                 </asp:DropDownList>
             </div>
@@ -70,7 +89,45 @@
                     <asp:ListItem Text="" Value=""></asp:ListItem>
                 </asp:DropDownList>
             </div>
-            <div class="col-md-6" style="vertical-align:bottom; line-height:70px;">
+            
+            <div class="col-lg-3 col-md-4">
+                <ul style="list-style:none; margin:0; padding:0;">
+                    <li style="display:inline-block;">
+                            <asp:Label Text="" runat="server" AssociatedControlID="chkMaxDate" />
+                            <div class="checkbox">
+                                <label class="btn btn-default">
+                                    <asp:CheckBox ID="chkMaxDate" runat="server" Text=" Max Date" />
+                                </label>
+                            </div>
+  
+                    </li>
+                    <li style="display:inline-block;">
+                        <asp:Label Text="" runat="server" AssociatedControlID="chkMaxDate" />
+                        <div class="checkbox">
+                            <label class="btn btn-default">
+                                <asp:CheckBox ID="chkMaxRev" runat="server" Text=" Max Revision" />
+                            </label>
+                        </div>  
+                        
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-12 col-lg-12">
+
+                <asp:CheckBoxList ID="cblSiteCount" runat="server" RepeatDirection="Horizontal">
+                </asp:CheckBoxList>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-6" style="vertical-align:bottom; line-height:45px;">
                     <asp:Button Text="Search" runat="server" ID="btnSearch" CssClass="btn btn-info" />
                     <%--&nbsp;
                     <asp:Button Text="Excel" runat="server" ID="btnExport" CssClass="btn btn-success" />--%>
@@ -81,6 +138,7 @@
                     &nbsp;
                     <asp:Button ID="btnEditTestTime" runat="server" Text="Edit Test Time" CssClass="btn btn-warning" ForeColor="#ffffff" OnClick="btnEditTestTime_Click" />
             </div>
+
         </div>
 
         <div class="row">

@@ -26,14 +26,29 @@ Public Class TestTimeUpdate
             btnEditTestTime.Visible = False
             'GetListing("", "", "", "", "", "", "", "")
 
+            PopulateSiteCountList()
+
             ' Load combobox data
             GetProgIDList()
             GetProgNameList()
-            GetProgExecList()
+            'GetProgExecList()
             GetDeviceList()
             GetTempList()
 
         End If
+
+    End Sub
+
+    Private Sub PopulateSiteCountList()
+
+        For item As Integer = 1 To 320
+
+            Dim li As ListItem = New ListItem()
+            li.Text = item & "x(s)"
+            li.Value = item
+            cblSiteCount.Items.Add(li)
+
+        Next
 
     End Sub
 
