@@ -176,7 +176,7 @@ Public Class TestTimeUpdate
             End If
 
             If chkMaxDate.Checked And Session("gMaxEffDate") IsNot Nothing Then
-                strQuery = strQuery & " And TestTimeEffDate = to_date('" & Session("gMaxEffDate").ToString & "','mm/dd/yyyy') "
+                strQuery = strQuery & " And to_char(TESTTIMEEFFDATE,'mm/dd/yyyy') = '" & Session("gMaxEffDate").ToString & "' "
             End If
 
             strQuery = strQuery & " Group By  TestProgId , TestProgIdRev, TestProgIdVers, TestStepTemp, device,Testertype, TestProgMainSource,TestProgExecutable,TestTimeEffDate,OverHead, UserID "
@@ -814,7 +814,7 @@ ExitFunction:
             GetAppConfig()
             OpenConnection()
 
-            strQuery = "select to_date(MAX(TESTTIMEEFFDATE),'mm/dd/yyyy') AS MAXDATE from cmtesttime where TESTPROGID = '" & _testProgID & "'"
+            strQuery = "select to_char(MAX(TESTTIMEEFFDATE),'mm/dd/yyyy') AS MAXDATE from cmtesttime where TESTPROGID = '" & _testProgID & "'"
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
 
         Catch ex As Exception
