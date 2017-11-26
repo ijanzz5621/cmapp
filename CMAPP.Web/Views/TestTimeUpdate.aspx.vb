@@ -15,6 +15,7 @@ Public Class TestTimeUpdate
     Private cnnOra As OracleConnection = Nothing
     Private cnnOraString As String = ConfigurationManager.ConnectionStrings("ORA_DefaultConnString").ConnectionString
     Private gSelRev As String = ""
+    Private gMaxRev As String = ""
 
     Private dtSiteCount As DataTable
     Private dtSiteCount1 As DataTable
@@ -127,7 +128,7 @@ Public Class TestTimeUpdate
     Private Sub GetListing(p_strTestProgID As String, p_strTestProgIDRev As String, p_strTestProgIDVers As String, p_strTestStepTemp As String,
                            p_strDevice As String, p_strTesterType As String, p_strProgMainSource As String, p_strProgExec As String)
 
-        Dim strQuery As String
+        Dim strQuery As String = ""
 
         Try
             btnEditTestTime.Visible = False
@@ -135,50 +136,102 @@ Public Class TestTimeUpdate
             GetAppConfig()
             OpenConnection()
 
-            'strQuery = "Select TestProgID,TestProgIDRev,TestProgIDVers,TesterType,TestProgMainSource,TestProgExecutable,Device,TestStepTemp,to_char(TestTimeEffDate,'mm/dd/yyyy') As TestTimeEffDate,OverHead,' ' as UserId "
-            'strQuery = "Select TestProgID,TestProgIDRev,TesterType,TestProgMainSource,TestProgExecutable,Device,TestStepTemp,to_char(TestTimeEffDate,'mm/dd/yyyy') As TestTimeEffDate,OverHead, USERID "
+            'If chkMaxDate.Checked = False Then
+
             strQuery = "Select TestProgID as ""Program ID"",TestProgIDRev as ""Revision"",TesterType as ""Tester Type"",TestProgMainSource as ""Program Source"",TestProgExecutable as ""Program Exec"",Device as ""Device"",TestStepTemp as ""Temp"",to_char(TestTimeEffDate,'mm/dd/yyyy') As ""Eff Date"",OverHead AS ""Overhead"", USERID as ""UserId"" "
 
-            'Dim tempNum = 1
-            For i = 1 To gc_intMaxSiteCount
-                'tempNum = i ^ 2
-                'If tempNum <= gc_intMaxSiteCount Then
-                strQuery = strQuery & ",Max(Decode(SiteCount, " & i & ", TestTime, null)) x" & i
-                'End If
+            For i = 1 To cblSiteCount.Items.Count
+                If cblSiteCount.Items.Item(i - 1).Selected Then
+                    strQuery = strQuery & ",Max(Decode(SiteCount, " & i & ", TestTime, null)) x" & i
+                End If
             Next
-            strQuery = strQuery & " From  cmtesttime "
+            strQuery = strQuery & " From cmtesttime "
             strQuery = strQuery & " Where Not UserId Is Null "
-            'strQuery = strQuery & " And ROWNUM <= 20 "
 
-            If Len(Trim(p_strTestProgID)) > 1 Then
-                'strQuery = strQuery & " And TestProgId like '" & p_strTestProgID & "'"
-                strQuery = strQuery & " And TestProgId = '" & p_strTestProgID & "'"
+            If Len(Trim(p_strTestProgID)) >= 1 Then
+                strQuery = strQuery & " And TestProgId = '" & p_strTestProgID & "' "
             End If
-            If Len(Trim(p_strTestProgIDRev)) > 1 Then
-                strQuery = strQuery & " And testprogidrev like '" & p_strTestProgIDRev & "'"
+            If Len(Trim(p_strTestProgIDRev)) >= 1 Then
+                strQuery = strQuery & " And testprogidrev like '" & p_strTestProgIDRev & "' "
             Else
 
             End If
-            If Len(Trim(p_strTestProgIDVers)) > 1 Then
-                strQuery = strQuery & " And testprogidvers like '" & p_strTestProgIDVers & "'"
+            If Len(Trim(p_strTestProgIDVers)) >= 1 Then
+                strQuery = strQuery & " And testprogidvers like '" & p_strTestProgIDVers & "' "
             End If
-            If Len(Trim(p_strTestStepTemp)) > 1 Then
-                strQuery = strQuery & " And teststeptemp like '" & p_strTestStepTemp & "'"
+            If Len(Trim(p_strTestStepTemp)) >= 1 Then
+                strQuery = strQuery & " And teststeptemp like '" & p_strTestStepTemp & "' "
             End If
-            If Len(Trim(p_strDevice)) > 1 Then
-                strQuery = strQuery & " And device like '" & p_strDevice & "'"
+            If Len(Trim(p_strDevice)) >= 1 Then
+                strQuery = strQuery & " And device like '" & p_strDevice & "' "
             End If
-            If Len(Trim(p_strTesterType)) > 1 Then
-                strQuery = strQuery & " And Testertype like '" & p_strTesterType & "'"
+            If Len(Trim(p_strTesterType)) >= 1 Then
+                strQuery = strQuery & " And Testertype like '" & p_strTesterType & "' "
             End If
-            If Len(Trim(p_strProgMainSource)) > 1 Then
-                strQuery = strQuery & " And TestProgMainSource  like '" & p_strProgMainSource & "'"
+            If Len(Trim(p_strProgMainSource)) >= 1 Then
+                strQuery = strQuery & " And TestProgMainSource  like '" & p_strProgMainSource & "' "
             End If
-            If Len(Trim(p_strProgExec)) > 1 Then
-                strQuery = strQuery & " And Testprogexecutable like '" & p_strProgExec & "'"
+            If Len(Trim(p_strProgExec)) >= 1 Then
+                strQuery = strQuery & " And Testprogexecutable like '" & p_strProgExec & "' "
+            End If
+
+            If chkMaxDate.Checked And Session("gMaxEffDate") IsNot Nothing Then
+                strQuery = strQuery & " And TestTimeEffDate = to_date('" & Session("gMaxEffDate").ToString & "','mm/dd/yyyy') "
             End If
 
             strQuery = strQuery & " Group By  TestProgId , TestProgIdRev, TestProgIdVers, TestStepTemp, device,Testertype, TestProgMainSource,TestProgExecutable,TestTimeEffDate,OverHead, UserID "
+
+            'Else
+
+            '    strQuery = "Select Master.TestProgID,Master.TestProgIDRev,Master.TestProgIDVers,Master.TesterType,Master.TestProgMainSource,Master.TestProgExecutable,Master.Device,Master.TestStepTemp,to_char(Max(Master.TestTimeEffDate),'mm/dd/yyyy')  As TestTimeEffDate,Master.OverHead,' ' as UserId "
+            '    For i = 1 To cblSiteCount.Items.Count
+            '        If cblSiteCount.Items.Item(i - 1).Selected Then
+            '            strQuery = strQuery & ",Max(Decode(Child.SiteCount, " & i & ", Child.TestTime, null)) x" & i
+            '        End If
+            '    Next
+            '    strQuery = strQuery & " From cmtesttime Master, cmtesttime Child"
+            '    strQuery = strQuery & " Where Not Child.UserId Is Null"
+            '    strQuery = strQuery & " And Child.TestProgId = Master.TestProgId"
+            '    strQuery = strQuery & " And Child.TestProgIdRev = Master.TestProgIdRev"
+            '    strQuery = strQuery & " And Child.TestProgIdVers = Master.TestProgIdVers"
+            '    strQuery = strQuery & "  And Child.Device = Master.Device"
+            '    strQuery = strQuery & " And Child.TestStepTemp = Master.TestStepTemp"
+            '    strQuery = strQuery & "  And Child.SiteCount = Master.SiteCount"
+            '    strQuery = strQuery & "  And Child.TESTTIMEEFFDATE = Master.TESTTIMEEFFDATE"
+            '    strQuery = strQuery & "  And Child.TesterType = Master.TesterType"
+            '    strQuery = strQuery & " And Child.TESTPROGMAINSOURCE = Master.TESTPROGMAINSOURCE"
+            '    strQuery = strQuery & " And Child.TESTPROGEXECUTABLE = Master.TESTPROGEXECUTABLE "
+
+            '    If Len(Trim(p_strTestProgID)) >= 1 Then
+            '        strQuery = strQuery & " And Child.TestProgId = '" & p_strTestProgID & "'"
+            '    End If
+            '    If Len(Trim(p_strTestProgIDRev)) >= 1 Then
+            '        strQuery = strQuery & " And Child.testprogidrev = '" & p_strTestProgIDRev & "'"
+            '    End If
+            '    If Len(Trim(p_strTestProgIDVers)) >= 1 Then
+            '        strQuery = strQuery & " And Child.testprogidvers like '" & p_strTestProgIDVers & "'"
+            '    End If
+            '    If Len(Trim(p_strDevice)) >= 1 Then
+            '        strQuery = strQuery & " And Child.device like '" & p_strDevice & "'"
+            '    End If
+
+            '    If Len(Trim(p_strTestStepTemp)) >= 1 Then
+            '        strQuery = strQuery & " And Child.teststeptemp like '" & p_strTestStepTemp & "'"
+            '    End If
+
+            '    If Len(Trim(p_strTesterType)) >= 1 Then
+            '        strQuery = strQuery & " And Child.Testertype like '" & p_strTesterType & "'"
+            '    End If
+            '    If Len(Trim(p_strProgMainSource)) >= 1 Then
+            '        strQuery = strQuery & " And Child.TestProgMainSource  like '" & p_strProgMainSource & "'"
+            '    End If
+            '    If Len(Trim(p_strProgExec)) >= 1 Then
+            '        strQuery = strQuery & " And Child.Testprogexecutable like '" & p_strProgExec & "'"
+            '    End If
+
+            '    strQuery = strQuery & " Group by Master.TestProgId , Master.TestProgIdRev, Master.TestProgIdVers, Master.TestStepTemp, Master.device, Master.TesterType, Master.TestProgMainSource, Master.TestProgExecutable, Master.OVERHEAD"
+
+            'End If
 
             Dim dsResult As DataSet = oOra.OraExecuteQuery(strQuery, cnnOra)
 
@@ -201,6 +254,8 @@ Public Class TestTimeUpdate
 
 
     End Sub
+
+
 
 #Region "get App.Config"
     Private Sub GetAppConfig()
@@ -307,15 +362,10 @@ Public Class TestTimeUpdate
 
             EnableDisableTestTimeForm("Disable")
 
-            'gvSiteCountList.DataSource = dtSiteCount
-            'gvSiteCountList.DataBind()
-
-            ' Clear values
-            'popupTestTime_txtSiteCount.Text = ""
-            popupTestTime_ddlSiteCount.SelectedValue = "1"
             popupTestTime_txtOverhead.Text = ""
-            rptSiteCountList.DataSource = New DataTable
-            rptSiteCountList.DataBind()
+            'rptSiteCountList.DataSource = New DataTable
+            'rptSiteCountList.DataBind()
+            GenerateSiteCountList()
 
             mpePopupTestTime.Show()
         Else
@@ -387,11 +437,19 @@ Public Class TestTimeUpdate
             Dim input As TextBox = item.FindControl("txtTestTime")
             If input IsNot Nothing Then
 
-                ' Call a function to save or update the test time 1 by 1
-                ' TODO
-                UpdateTestTime(popupTestTime_txtProgID.Text, popupTestTime_txtRev.Text, 0, popupTestTime_txtDevice.Text,
-                               popupTestTime_txtTemp.Text, popupTestTime_txtEffDate.Text, count, input.Text, popupTestTime_txtOverhead.Text, popupTestTime_txtTesterType.Text,
-                               popupTestTime_txtProgName.Text, popupTestTime_txtProgExec.Text, Session("USER_NAME").ToString())
+                ' Get value from datatable
+                Dim dtSiteCount As DataTable = Session("dtSiteCount")
+                If dtSiteCount IsNot Nothing Then
+
+                    Dim siteCount As Integer = dtSiteCount.Rows(count - 1)("Value").ToString
+
+                    ' Call a function to save or update the test time 1 by 1
+                    ' TODO
+                    UpdateTestTime(popupTestTime_txtProgID.Text, popupTestTime_txtRev.Text, 0, popupTestTime_txtDevice.Text,
+                                   popupTestTime_txtTemp.Text, popupTestTime_txtEffDate.Text, siteCount, input.Text, popupTestTime_txtOverhead.Text, popupTestTime_txtTesterType.Text,
+                                   popupTestTime_txtProgName.Text, popupTestTime_txtProgExec.Text, Session("USER_NAME").ToString())
+
+                End If
 
                 count = count + 1
 
@@ -418,7 +476,6 @@ Public Class TestTimeUpdate
             strQuery = "Select 1 From CmTestTime "
             strQuery = strQuery & "Where TestProgID='" & testProgID & "' "
             strQuery = strQuery & "And TestProgIDRev='" & rev & "' "
-            'strQuery = strQuery & "And TestProgIDVers=" & version & " "
             strQuery = strQuery & "And TestProgIDVers= 0 "
             strQuery = strQuery & "And Device='" & device & "' "
             strQuery = strQuery & "And TestStepTemp='" & temp & "' "
@@ -427,7 +484,6 @@ Public Class TestTimeUpdate
             Dim dsCheck As DataSet = oOra.OraExecuteQuery(strQuery, cnnOra)
 
             If dsCheck.Tables.Count > 0 And dsCheck.Tables(0).Rows.Count > 0 Then
-                'modal.ShowPopupMessage(wucPopupInfo, "Record found. Updating..." & NextRev("BV"))
                 strQuery = "Update CmTestTime Set "
                 strQuery = strQuery & "TestTime=" & testTime & " "
                 If overhead.Trim <> "" Then
@@ -447,7 +503,6 @@ Public Class TestTimeUpdate
                 strQuery = strQuery & "And SiteCount=" & siteCount & ""
                 Dim dsUpdate As DataSet = oOra.OraExecuteQuery(strQuery, cnnOra)
             Else
-                'modal.ShowPopupMessage(wucPopupInfo, "Record not found. Inserting...")
                 strQuery = "Insert Into CmTestTime ("
                 strQuery = strQuery & "TESTPROGID"
                 strQuery = strQuery & ", TESTPROGIDREV"
@@ -577,13 +632,20 @@ Public Class TestTimeUpdate
 
         Dim modal As ModalCaller = New ModalCaller()
 
-        'If popupTestTime_ddlSiteCount.SelectedValue = "" Then
+        If popupTestTime_txtOverhead.Text <> "" And popupTestTime_txtSiteCount1TestTime.Text.Trim = "" Then
 
-        '    modal.ShowPopupMessage(wucPopupInfo, "Please enter number Of site count To generate")
-        '    mpePopupTestTime.Show()
-        '    Return
+            modal.ShowPopupMessage(wucPopupInfo, "Please enter Site Count 1 Test Time To use the formula")
+            mpePopupTestTime.Show()
+            Return
+        End If
 
-        'End If
+        GenerateSiteCountList()
+
+        mpePopupTestTime.Show()
+
+    End Sub
+
+    Private Sub GenerateSiteCountList()
 
         dtSiteCount = New DataTable()
         dtSiteCount1 = New DataTable()
@@ -603,36 +665,39 @@ Public Class TestTimeUpdate
         'dtSiteCount.Rows.Add(values)
 
         dtSiteCount.Columns.Add("Label", GetType(String))
+        dtSiteCount.Columns.Add("Value", GetType(String))
         dtSiteCount.Columns.Add("TestTime", GetType(String))
-        For item As Integer = 0 To Integer.Parse(popupTestTime_ddlSiteCount.SelectedValue) - 1
-            Dim dr = dtSiteCount.NewRow
-            dr("Label") = (item + 1).ToString + "x (s)"
+        'For item As Integer = 0 To Integer.Parse(popupTestTime_ddlSiteCount.SelectedValue) - 1
+        For item As Integer = 0 To cblSiteCount.Items.Count - 1
 
-            If popupTestTime_txtOverhead.Text.Trim <> "" And popupTestTime_txtSiteCount1TestTime.Text.Trim <> "" Then
-                Dim siteCountTestTime As Double = Double.Parse(popupTestTime_txtSiteCount1TestTime.Text) + ((Double.Parse(popupTestTime_txtOverhead.Text) / 100) * item * Double.Parse(popupTestTime_txtSiteCount1TestTime.Text))
-                dr("TestTime") = siteCountTestTime.ToString("F2")
+            If cblSiteCount.Items.Item(item).Selected Then
 
-            ElseIf popupTestTime_txtOverhead.Text <> "" And popupTestTime_txtSiteCount1TestTime.Text.Trim = "" Then
+                Dim dr = dtSiteCount.NewRow
+                dr("Label") = (item + 1).ToString + "x (s)"
+                dr("Value") = item + 1
 
-                modal.ShowPopupMessage(wucPopupInfo, "Please enter Site Count 1 Test Time To use the formula")
-                mpePopupTestTime.Show()
-                Return
-            Else
+                If popupTestTime_txtOverhead.Text.Trim <> "" And popupTestTime_txtSiteCount1TestTime.Text.Trim <> "" Then
+                    Dim siteCountTestTime As Double = Double.Parse(popupTestTime_txtSiteCount1TestTime.Text) + ((Double.Parse(popupTestTime_txtOverhead.Text) / 100) * item * Double.Parse(popupTestTime_txtSiteCount1TestTime.Text))
+                    dr("TestTime") = siteCountTestTime.ToString("F2")
 
-                dr("TestTime") = "0.00"
+                Else
+
+                    dr("TestTime") = "0.00"
+
+                End If
+
+
+                dtSiteCount.Rows.Add(dr)
 
             End If
 
-
-            dtSiteCount.Rows.Add(dr)
         Next
 
-        'gvSiteCountList.DataSource = dtSiteCount
-        'gvSiteCountList.DataBind()
+        ' Save dtSiteCount to Session for later use
+        Session("dtSiteCount") = dtSiteCount
+
         rptSiteCountList.DataSource = dtSiteCount
         rptSiteCountList.DataBind()
-
-        mpePopupTestTime.Show()
 
     End Sub
 
@@ -716,11 +781,40 @@ ExitFunction:
             strQuery = "Select * From ( " +
                 "Select (Length(TestProgIDRev)) MaxRev,TestProgIDRev " +
                 "From CmTestTime " +
-                "Where TestProgID='102018' " +
+                "Where TestProgID='" & _testProgID & "' " +
                 "Order By MaxRev DESC,TestProgIDRev DESC " +
                 ") q1 " +
                 "Where ROWNUM <= 1 " +
-                "Order By ROWNUM DESC;"
+                "Order By ROWNUM DESC"
+            dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
+
+        Catch ex As Exception
+            Dim exMsg = ex.Message
+        Finally
+
+            CloseConnection()
+
+        End Try
+
+        If dsResult.Tables.Count > 0 Then
+            Return dsResult.Tables(0)
+        Else
+            Return Nothing
+        End If
+
+    End Function
+
+    Private Function GetMaxEffDateByTestProgID(_testProgID As String) As DataTable
+
+        Dim strQuery As String
+        Dim dsResult As DataSet = New DataSet
+
+        Try
+
+            GetAppConfig()
+            OpenConnection()
+
+            strQuery = "select to_date(MAX(TESTTIMEEFFDATE),'mm/dd/yyyy') AS MAXDATE from cmtesttime where TESTPROGID = '" & _testProgID & "'"
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
 
         Catch ex As Exception
@@ -761,10 +855,12 @@ ExitFunction:
         EnableDisableTestTimeForm("Enable")
 
         ' Clear values
-        popupTestTime_ddlSiteCount.SelectedValue = "1"
+        'popupTestTime_ddlSiteCount.SelectedValue = "1"
         popupTestTime_txtOverhead.Text = ""
-        rptSiteCountList.DataSource = New DataTable
-        rptSiteCountList.DataBind()
+        'rptSiteCountList.DataSource = New DataTable
+        'rptSiteCountList.DataBind()
+
+        GenerateSiteCountList()
 
         mpePopupTestTime.Show()
         popupTestTime_txtProgID.Focus()
@@ -830,6 +926,11 @@ ExitFunction:
 
     Protected Sub ddlProgramID_SelectedIndexChanged(sender As Object, e As EventArgs)
 
+        ddlRevision.Enabled = True
+        Session("gMaxRev") = ""
+        ddlRevision.SelectedValue = ""
+        chkMaxRev.Checked = False
+
         Dim fnData As blGeneral = New blGeneral()
         fnData.ConnectionString = cnnOraString
         Dim dsProgRev As DataTable = fnData.GetProgramRevList(ddlProgramID.SelectedValue)
@@ -837,6 +938,39 @@ ExitFunction:
         ddlRevision.DataTextField = "TESTPROGIDREV"
         ddlRevision.DataValueField = "TESTPROGIDREV"
         ddlRevision.DataBind()
+
+        ' Call function to get max revision and store it onto global variable
+        Dim dtMaxRev As DataTable = GetMaxRevByTestProgID(ddlProgramID.SelectedValue)
+        If dtMaxRev IsNot Nothing Then
+            If dtMaxRev.Rows.Count > 0 Then
+                Session("gMaxRev") = dtMaxRev.Rows(0)("TESTPROGIDREV").ToString
+            End If
+        End If
+
+        ' Call Function to get max eff date
+        Dim dtMaxEffDate As DataTable = GetMaxEffDateByTestProgID(ddlProgramID.SelectedValue)
+        If dtMaxEffDate IsNot Nothing Then
+            If dtMaxEffDate.Rows.Count > 0 Then
+                Session("gMaxEffDate") = dtMaxEffDate.Rows(0)("MAXDATE").ToString
+            End If
+        End If
+
+    End Sub
+
+    Protected Sub chkMaxRev_CheckedChanged(sender As Object, e As EventArgs)
+
+        If chkMaxRev.Checked Then
+
+            If Session("gMaxRev") IsNot Nothing Then
+                ddlRevision.SelectedValue = Session("gMaxRev").ToString
+            End If
+
+            ddlRevision.Enabled = False
+        Else
+
+            ddlRevision.Enabled = True
+
+        End If
 
     End Sub
 End Class

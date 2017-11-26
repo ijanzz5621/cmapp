@@ -302,15 +302,6 @@ Partial Public Class TestTimeUpdate
     Protected WithEvents popupTestTime_txtSiteCount1TestTime As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''popupTestTime_ddlSiteCount control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents popupTestTime_ddlSiteCount As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
     '''popupTestTime_txtOverhead control.
     '''</summary>
     '''<remarks>

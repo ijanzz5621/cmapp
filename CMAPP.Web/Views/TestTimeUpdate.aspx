@@ -105,7 +105,7 @@
                         <asp:Label Text="" runat="server" AssociatedControlID="chkMaxDate" />
                         <div class="checkbox">
                             <label class="btn btn-default">
-                                <asp:CheckBox ID="chkMaxRev" runat="server" Text=" Max Revision" />
+                                <asp:CheckBox ID="chkMaxRev" runat="server" Text=" Max Revision" OnCheckedChanged="chkMaxRev_CheckedChanged" AutoPostBack="true" />
                             </label>
                         </div>  
                         
@@ -263,9 +263,8 @@
             <hr />
 
             <div class="row">
-                <div class="col-md-2">
+                <%--<div class="col-md-2">
                     <asp:Label runat="server" AssociatedControlID="popupTestTime_ddlSiteCount">Site Count</asp:Label><br />
-                    <%--<asp:TextBox ID="popupTestTime_txtSiteCount" runat="server" CssClass="form-control" TextMode="Number" />--%>
                     <asp:DropDownList ID="popupTestTime_ddlSiteCount" CssClass="form-control" runat="server">
                         <asp:ListItem Text="1" Value="1"></asp:ListItem>
                         <asp:ListItem Text="2" Value="2"></asp:ListItem>
@@ -274,7 +273,7 @@
                         <asp:ListItem Text="16" Value="16"></asp:ListItem>
                         <asp:ListItem Text="32" Value="32"></asp:ListItem>
                     </asp:DropDownList>
-                </div>
+                </div>--%>
                 <div class="col-md-2">
                     <asp:Label runat="server" AssociatedControlID="popupTestTime_txtOverhead">Overhead</asp:Label><br />
                     <asp:TextBox ID="popupTestTime_txtOverhead" runat="server" CssClass="form-control" />
