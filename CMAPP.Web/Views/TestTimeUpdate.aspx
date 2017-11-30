@@ -118,8 +118,10 @@
 
             <div class="col-md-12 col-lg-12">
 
-                <asp:CheckBoxList ID="cblSiteCount" runat="server" RepeatDirection="Horizontal" style="overflow: auto;">
+                <div style="width:100%; overflow-x:scroll">
+                    <asp:CheckBoxList ID="cblSiteCount" runat="server" RepeatDirection="Horizontal" style="overflow: auto;">
                 </asp:CheckBoxList>
+                </div>
 
             </div>
 
