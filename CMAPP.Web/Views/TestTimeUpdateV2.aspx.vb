@@ -1,9 +1,12 @@
 ﻿Imports System.Web.Script.Services
 Imports System.Web.Services
+Imports CMAPP.BLogic
 Imports Newtonsoft.Json
 
 Public Class TestTimeUpdateV2
     Inherits System.Web.UI.Page
+
+    Private Shared cnnOraString As String = ConfigurationManager.ConnectionStrings("ORA_DefaultConnString").ConnectionString
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
@@ -14,7 +17,19 @@ Public Class TestTimeUpdateV2
     <WebMethod>
     Public Shared Function GetTestProgramIDList(q As String) As Object
 
-        Dim obj As Object = JsonConvert.SerializeObject("[]")
+        Dim obj As Object = JsonConvert.SerializeObject("")
+
+        Try
+
+            Dim fnData As blGeneral = New blGeneral()
+            fnData.ConnectionString = cnnOraString
+            Dim dsResult As DataTable = fnData.GetProgramIDListWithFilter(q)
+
+            obj = JsonConvert.SerializeObject(dsResult)
+
+        Catch ex As Exception
+
+        End Try
 
         Return obj
 

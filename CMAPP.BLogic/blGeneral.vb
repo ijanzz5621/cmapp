@@ -38,6 +38,29 @@ Public Class blGeneral
 
     End Function
 
+    Public Function GetProgramIDListWithFilter(q As String) As DataTable
+
+        Dim strQuery As String
+        Dim dsResult As DataSet = New DataSet
+
+        Try
+
+            oOra.OpenOraConnection(cnnOra, connStr)
+            strQuery = "select distinct TESTPROGID from CM.PDCTESTPROGRAMREVISION where TESTPROGID like '%" & q & "%'"
+            dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
+
+        Catch ex As Exception
+            Dim exMsg = ex.Message
+        Finally
+
+            oOra.CloseOraConnection(cnnOra)
+
+        End Try
+
+        Return dsResult.Tables(0)
+
+    End Function
+
     Public Function GetProgramRevList(_progID As String) As DataTable
 
         Dim strQuery As String

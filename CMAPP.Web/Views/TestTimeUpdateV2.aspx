@@ -6,15 +6,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-     <input id="autocomplete" class="form-control" />
-
-    <br />
-    <input id="seed_one" type="text" name="seed_one"  class="form-control"/>
+    <input id="autocomplete" class="form-control" />
 
     <script type="text/javascript">
-
-        var data = ["Boston Celtics", "Chicago Bulls", "Miami Heat", "Orlando Magic", "Atlanta Hawks", "Philadelphia Sixers", "New York Knicks", "Indiana Pacers", "Charlotte Bobcats", "Milwaukee Bucks", "Detroit Pistons", "New Jersey Nets", "Toronto Raptors", "Washington Wizards", "Cleveland Cavaliers"];
-        $("#seed_one").autocomplete({ source: data });
 
         $(document).ready(function () {
 
@@ -24,48 +18,37 @@
                 source: function(request, response) {
                     $.ajax({
                         url: "TestTimeUpdateV2.aspx/GetTestProgramIDList",
-                        data: "{ 'q': 'test'}",
+                        data: "{ 'q': '" + $('#autocomplete').val() + "'}",
                         dataType: "json",
                         type: "POST",
                         contentType: "application/json; charset=utf-8",
-                        success: function(data) {
-                            //response($.map(data.d, function(item) {
-                            //    return {
-                            //        label: item.ScreeningValue,
-                            //        value: item.ScreeningPropertyID
-                            //    }
-                            //}))
+                        success: function (data) {
+
+                            console.log(JSON.parse(data.d).length);
+
+                            if (JSON.parse(data.d).length > 0) {
+                                response($.map(JSON.parse(data.d), function (item) {
+                                    //console.log(item);
+                                    return {
+                                        label: item.TESTPROGID,
+                                        value: item.TESTPROGID
+                                    }
+                                }));
+                            }
                         },
                         error: function(a, b, c) {
-                        
+                            console.log('error: ' + JSON.stringify(a));
                         }
                     });
                 },
-                //source: data,
-                minLength: 2
+
+                minLength: 4
             });
 
 
 
         });
 
-        function ShowCurrentTime() {
-            alert('ShowCurrentTime');
-            $.ajax({
-                type: "POST",
-                url: "TestTimeUpdateV2.aspx/GetCurrentTime",
-                data: '{name: "' + $("#autocomplete").val() + '" }',
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: OnSuccess
-                //, failure: function (response) {
-                //    alert(response.d);
-                //}
-            });
-        }
-        function OnSuccess(response) {
-            alert(response.d);
-        }
     </script>
 
 </asp:Content>
