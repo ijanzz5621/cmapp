@@ -12,7 +12,8 @@ Public Class TestTimeUpdateV2
 
         If Not IsPostBack Then
 
-
+            GetTempList()
+            PopulateSiteCountList()
 
         Else
 
@@ -32,7 +33,56 @@ Public Class TestTimeUpdateV2
 
     End Sub
 
+#Region "Functions"
+
+    Private Sub GetTempList()
+        Dim fnData As blGeneral = New blGeneral()
+        fnData.ConnectionString = cnnOraString
+        Dim dsResult As DataTable = fnData.GetTempList()
+        ddlTemp.DataSource = dsResult
+        ddlTemp.DataTextField = "TESTSTEPTEMP"
+        ddlTemp.DataValueField = "TESTSTEPTEMP"
+        ddlTemp.DataBind()
+    End Sub
+
+    Private Sub PopulateSiteCountList()
+
+        For item As Integer = 1 To 320
+
+            Dim li As ListItem = New ListItem()
+            li.Text = item & "x(s)"
+            li.Value = item
+            cblSiteCount.Items.Add(li)
+
+        Next
+
+    End Sub
+
+#End Region
+
 #Region "Web Methods"
+
+    <WebMethod>
+    Public Shared Function GetListing(testProgID As String, rev As String, ver As String, progName As String, progExec As String, device As String, temp As String, maxDate As String, siteCountList As String) As Object
+
+        Dim obj As Object = JsonConvert.SerializeObject("")
+
+        Try
+
+            Dim fnData As blTestTime = New blTestTime()
+            fnData.ConnectionString = cnnOraString
+            Dim dsResult As DataTable = fnData.GetCmTestTimeList(testProgID, rev, ver, progName, progExec, device, temp, maxDate, siteCountList)
+
+            obj = JsonConvert.SerializeObject(dsResult)
+
+        Catch ex As Exception
+
+        End Try
+
+        Return obj
+
+    End Function
+
     <WebMethod>
     Public Shared Function GetTestProgramIDList(q As String) As Object
 
@@ -138,11 +188,28 @@ Public Class TestTimeUpdateV2
 
     End Function
 
+    <WebMethod>
+    Public Shared Function GetDeviceList(q As String) As Object
+
+        Dim obj As Object = JsonConvert.SerializeObject("")
+
+        Try
+
+            Dim fnData As blGeneral = New blGeneral()
+            fnData.ConnectionString = cnnOraString
+            Dim dsResult As DataTable = fnData.GetDeviceListWithFilter(q)
+
+            obj = JsonConvert.SerializeObject(dsResult)
+
+        Catch ex As Exception
+
+        End Try
+
+        Return obj
+
+    End Function
+
 #End Region
-
-    Protected Sub chkMaxRev_CheckedChanged(sender As Object, e As EventArgs)
-
-    End Sub
 
     Protected Sub btnSearch_Click(sender As Object, e As EventArgs)
 

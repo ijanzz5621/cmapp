@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="TestTimeUpdateV2.aspx.vb" Inherits="CMAPP.Web.TestTimeUpdateV2" EnableEventValidation="false" %>
+﻿<%@ Page Title="Test Time Update V2" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="TestTimeUpdateV2.aspx.vb" Inherits="CMAPP.Web.TestTimeUpdateV2" EnableEventValidation="false" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 
     <link href="/Content/jqueryui/jquery-ui.css" rel="stylesheet" />
@@ -49,11 +49,11 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h3>Test Time Update</h3>
+    <h3>Test Time Update (Version 2)</h3>
 
     <div class="page-container">
 
-        <div class="row">
+        <div class="row" style="margin-left:1px;">
             <div class="col-lg-1 col-md-2">
                 <asp:Label Text="text" runat="server" AssociatedControlID="txtProgramID">Program ID</asp:Label>
                 <asp:TextBox ID="txtProgramID" runat="server" CssClass="form-control"></asp:TextBox>
@@ -81,8 +81,10 @@
                 <asp:TextBox ID="txtDevice" runat="server" CssClass="form-control"></asp:TextBox>
             </div>
             <div class="col-lg-1 col-md-2">
-                <asp:Label Text="text" runat="server" AssociatedControlID="txtTemp">Temp</asp:Label>
-                <asp:TextBox ID="txtTemp" runat="server" CssClass="form-control"></asp:TextBox>
+                <asp:Label Text="text" runat="server" AssociatedControlID="ddlTemp">Temp</asp:Label>
+                <asp:DropDownList ID="ddlTemp" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                    <asp:ListItem Text="" Value=""></asp:ListItem>
+                </asp:DropDownList>
             </div>
             
             <div class="col-lg-2 col-md-4">
@@ -109,7 +111,20 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" style="margin-left:1px; margin-right:1px;">
+
+            <div class="col-md-12 col-lg-12">
+
+                <div style="width:100%; overflow-x:scroll">
+                    <asp:CheckBoxList ID="cblSiteCount" runat="server" RepeatDirection="Horizontal" style="overflow: auto;">
+                    </asp:CheckBoxList>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row" style="margin-left:1px;">
             <div class="col-md-6" style="vertical-align:bottom; line-height:45px;">
                     <asp:Button Text="Search" runat="server" ID="btnSearch" CssClass="btn btn-info" OnClick="btnSearch_Click" />
                     &nbsp;&nbsp;
@@ -117,6 +132,21 @@
                     &nbsp;
                     <asp:Button ID="btnEditTestTime" runat="server" Text="Edit Test Time" CssClass="btn btn-warning" ForeColor="#ffffff" />
             </div>
+        </div>
+
+        <div class="row" style="margin-left:1px; margin-right:1px;">
+
+            <div class="col-md-12 col-lg-12">
+
+                <div>
+                    
+                    <table id="tblListing" class="table table-bordered table-responsive">
+                    </table>
+
+                </div>
+
+            </div>
+
         </div>
 
     </div>
@@ -165,7 +195,73 @@
 
             });
 
+            $('#<%=btnSearch.ClientID%>').on('click', function (e) {
+                e.preventDefault();
+                //alert('Searching...');
+
+                getListing($("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("#<%=chkMaxRev.ClientID%>").val());
+
+            });
+
         });
+
+        function getListing(_testProgID, _rev, _ver, _progName, _progExec, _device, _temp, _maxDate) {
+
+            var _siteCountList = "";
+            $("[id*=<%=cblSiteCount.ClientID%>] input:checked").each(function () {
+                //if (selectedValues == "") {
+                //    selectedValues = "Selected Values:\r\n\r\n";
+                //}
+                _siteCountList += (_siteCountList === "") ? $(this).val() : "," + $(this).val();
+            });
+            if (_siteCountList != "") {
+                alert(_siteCountList);
+            } else {
+                alert("No item has been selected.");
+            }
+
+            $.ajax({
+                url: "TestTimeUpdateV2.aspx/GetListing",
+                data: "{ 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'ver': '" + _ver + "', 'progName': '" + _progName + "', 'progExec': '" + _progExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "', 'maxDate': '" + _maxDate + "', 'siteCountList': '" + _siteCountList + "'}",
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    //alert(data.d);
+
+                    // clear the table
+                    $('#tblListing').html("");
+
+                    if (JSON.parse(data.d).length > 0) {
+
+                        // build the table header
+                        // loop the header
+
+                        $('#tblListing').append("<thead><tr>");
+
+                        for (var key in JSON.parse(data.d)[0]) {
+                            $('#tblListing').append("<td>" + key + "</td>");
+                        }
+                        $('#tblListing').append("</tr></thead>");
+
+                        //$('#tblListing').append("<tbody>");
+                        //$.each(JSON.parse(data.d), function (key, val) {
+
+                        //    $('#tblListing').append("<tr><td>" + val + "</td></tr>");
+
+                        //});
+                        //$('#tblListing').append("</tbody>");
+
+                        
+
+                    }
+
+                },
+                error: function (a, b, c) {
+                    console.log('error: ' + JSON.stringify(a));
+                }
+            });
+        }
 
         function loadProgramIDList() {
 
@@ -269,7 +365,37 @@
         }
 
         function loadDeviceList() {
+            // TODO
+            $("#<%=txtDevice.ClientID%>").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "TestTimeUpdateV2.aspx/GetDeviceList",
+                        data: "{ 'q': '" + $("#<%=txtDevice.ClientID%>").val() + "'}",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
 
+                            console.log(JSON.parse(data.d).length);
+
+                            if (JSON.parse(data.d).length > 0) {
+                                response($.map(JSON.parse(data.d), function (item) {
+                                    return {
+                                        label: item.DEVICE,
+                                        value: item.DEVICE
+                                    }
+                                }));
+                            }
+                        },
+                        error: function (a, b, c) {
+                            console.log('error: ' + JSON.stringify(a));
+                        }
+                    });
+                },
+                minLength: 4,
+                select: function (event, ui) {
+                }
+            });
         }
 
         function loadRevision(_testProgID) {

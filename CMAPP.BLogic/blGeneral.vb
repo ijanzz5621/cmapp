@@ -229,6 +229,29 @@ Public Class blGeneral
 
     End Function
 
+    Public Function GetDeviceListWithFilter(q As String) As DataTable
+
+        Dim strQuery As String
+        Dim dsResult As DataSet = New DataSet
+
+        Try
+
+            oOra.OpenOraConnection(cnnOra, connStr)
+            strQuery = "select distinct DEVICE from CM.PDCMPCTESTATTRIBUTES where DEVICE like '%" & q & "%' ORDER BY DEVICE"
+            dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
+
+        Catch ex As Exception
+            Dim exMsg = ex.Message
+        Finally
+
+            oOra.CloseOraConnection(cnnOra)
+
+        End Try
+
+        Return dsResult.Tables(0)
+
+    End Function
+
     Public Function GetTempList() As DataTable
 
         Dim strQuery As String

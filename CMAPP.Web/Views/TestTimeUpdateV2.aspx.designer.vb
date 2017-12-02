@@ -68,13 +68,13 @@ Partial Public Class TestTimeUpdateV2
     Protected WithEvents txtDevice As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''txtTemp control.
+    '''ddlTemp control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtTemp As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ddlTemp As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''chkMaxDate control.
@@ -93,6 +93,15 @@ Partial Public Class TestTimeUpdateV2
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents chkMaxRev As Global.System.Web.UI.WebControls.CheckBox
+    
+    '''<summary>
+    '''cblSiteCount control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cblSiteCount As Global.System.Web.UI.WebControls.CheckBoxList
     
     '''<summary>
     '''btnSearch control.
