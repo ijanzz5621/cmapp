@@ -141,6 +141,8 @@
                 <div>
                     
                     <table id="tblListing" class="table table-bordered table-responsive">
+                        <thead><tr></tr></thead>
+                        <tbody></tbody>
                     </table>
 
                 </div>
@@ -230,30 +232,35 @@
                     //alert(data.d);
 
                     // clear the table
-                    $('#tblListing').html("");
+                    $('#tblListing thead tr').html("");
+                    $('#tblListing tbody').html("");
 
                     if (JSON.parse(data.d).length > 0) {
 
-                        // build the table header
-                        // loop the header
+                        //$('#tblListing').append("<thead><tr>");
 
-                        $('#tblListing').append("<thead><tr>");
+                        //$('#tblListing thead').append('<tr>');
+                        console.log(JSON.stringify(JSON.parse(data.d)[0]));
 
                         for (var key in JSON.parse(data.d)[0]) {
-                            $('#tblListing').append("<td>" + key + "</td>");
+                            $('#tblListing thead').append("<td>" + key + "</td>");
                         }
-                        $('#tblListing').append("</tr></thead>");
+                        //$('#tblListing thead').append('</tr>');
+                        //setTimeout(function () { $('#tblListing').append("</tr></thead>") }, 5000);
 
                         //$('#tblListing').append("<tbody>");
                         //$.each(JSON.parse(data.d), function (key, val) {
 
-                        //    $('#tblListing').append("<tr><td>" + val + "</td></tr>");
+                        //    $('#tblListing').append("<tr>");
+                        //    $.each(val, function (_, text) {
+                        //        // console.log(text);
+                        //        $('#tblListing').append("<td>" + text + "</td>")
+                        //    });
+                        //    $('#tblListing').append("</tr>");
 
                         //});
                         //$('#tblListing').append("</tbody>");
-
-                        
-
+                        console.log($('#tblListing').html());
                     }
 
                 },
