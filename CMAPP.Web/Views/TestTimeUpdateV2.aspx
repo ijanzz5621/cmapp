@@ -141,7 +141,10 @@
                 <div>
                     
                     <table id="tblListing" class="table table-bordered table-responsive">
-                        <thead><tr></tr></thead>
+                        <thead>
+                            <tr style="background-color:#444; color:#fff;">
+                            </tr>
+                        </thead>
                         <tbody></tbody>
                     </table>
 
@@ -211,15 +214,12 @@
 
             var _siteCountList = "";
             $("[id*=<%=cblSiteCount.ClientID%>] input:checked").each(function () {
-                //if (selectedValues == "") {
-                //    selectedValues = "Selected Values:\r\n\r\n";
-                //}
                 _siteCountList += (_siteCountList === "") ? $(this).val() : "," + $(this).val();
             });
             if (_siteCountList != "") {
-                alert(_siteCountList);
             } else {
-                alert("No item has been selected.");
+                alert("Please select site count");
+                return;
             }
 
             $.ajax({
@@ -236,31 +236,18 @@
                     $('#tblListing tbody').html("");
 
                     if (JSON.parse(data.d).length > 0) {
-
-                        //$('#tblListing').append("<thead><tr>");
-
-                        //$('#tblListing thead').append('<tr>');
-                        console.log(JSON.stringify(JSON.parse(data.d)[0]));
-
                         for (var key in JSON.parse(data.d)[0]) {
-                            $('#tblListing thead').append("<td>" + key + "</td>");
+                            $('#tblListing thead tr').append("<td>" + key + "</td>");
                         }
-                        //$('#tblListing thead').append('</tr>');
-                        //setTimeout(function () { $('#tblListing').append("</tr></thead>") }, 5000);
-
-                        //$('#tblListing').append("<tbody>");
-                        //$.each(JSON.parse(data.d), function (key, val) {
-
-                        //    $('#tblListing').append("<tr>");
-                        //    $.each(val, function (_, text) {
-                        //        // console.log(text);
-                        //        $('#tblListing').append("<td>" + text + "</td>")
-                        //    });
-                        //    $('#tblListing').append("</tr>");
-
-                        //});
-                        //$('#tblListing').append("</tbody>");
-                        console.log($('#tblListing').html());
+                        var row = "";
+                        $.each(JSON.parse(data.d), function (key, val) {
+                            row = row + "<tr>";
+                            $.each(val, function (_, text) {
+                                row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
+                            });
+                            row = row + "</tr>";
+                        });
+                        $('#tblListing tbody').append(row);
                     }
 
                 },
@@ -282,7 +269,7 @@
                         contentType: "application/json; charset=utf-8",
                         success: function (data) {
 
-                            console.log(JSON.parse(data.d).length);
+                            //console.log(JSON.parse(data.d).length);
 
                             if (JSON.parse(data.d).length > 0) {
                                 response($.map(JSON.parse(data.d), function (item) {
@@ -316,7 +303,7 @@
                         contentType: "application/json; charset=utf-8",
                         success: function (data) {
 
-                            console.log(JSON.parse(data.d).length);
+                            //console.log(JSON.parse(data.d).length);
 
                             if (JSON.parse(data.d).length > 0) {
                                 response($.map(JSON.parse(data.d), function (item) {
@@ -349,7 +336,7 @@
                         contentType: "application/json; charset=utf-8",
                         success: function (data) {
 
-                            console.log(JSON.parse(data.d).length);
+                            //console.log(JSON.parse(data.d).length);
 
                             if (JSON.parse(data.d).length > 0) {
                                 response($.map(JSON.parse(data.d), function (item) {
@@ -383,7 +370,7 @@
                         contentType: "application/json; charset=utf-8",
                         success: function (data) {
 
-                            console.log(JSON.parse(data.d).length);
+                            //console.log(JSON.parse(data.d).length);
 
                             if (JSON.parse(data.d).length > 0) {
                                 response($.map(JSON.parse(data.d), function (item) {
@@ -417,7 +404,7 @@
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
 
-                    console.log(JSON.parse(data.d).length);
+                    //console.log(JSON.parse(data.d).length);
 
                     if (JSON.parse(data.d).length > 0) {
 
