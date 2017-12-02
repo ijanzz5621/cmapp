@@ -222,6 +222,9 @@
                 return;
             }
 
+            //key variables
+            //var 
+
             $.ajax({
                 url: "TestTimeUpdateV2.aspx/GetListing",
                 data: "{ 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'ver': '" + _ver + "', 'progName': '" + _progName + "', 'progExec': '" + _progExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "', 'maxDate': '" + _maxDate + "', 'siteCountList': '" + _siteCountList + "'}",
@@ -241,7 +244,8 @@
                         }
                         var row = "";
                         $.each(JSON.parse(data.d), function (key, val) {
-                            row = row + "<tr>";
+                            console.log(val);
+                            row = row + "<tr style='cursor:pointer;' onclick='selectRow(this, \"" + val["Program ID"] + "\")'>";
                             $.each(val, function (_, text) {
                                 row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
                             });
@@ -255,6 +259,12 @@
                     console.log('error: ' + JSON.stringify(a));
                 }
             });
+        }
+
+        function selectRow(obj, _testProgID) {
+            $(obj).parent().children('tr').css('background-color', 'transparent');
+            $(obj).closest('tr').css('background-color', 'red');
+            alert(_testProgID);
         }
 
         function loadProgramIDList() {
