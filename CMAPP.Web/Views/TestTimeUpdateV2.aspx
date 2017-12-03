@@ -206,6 +206,23 @@
                     <asp:TextBox ID="txtEditSiteCount1TestTime" runat="server" CssClass="form-control" />
                 </div>
 
+                <div class="col-lg-1 col-md-2">
+                    <asp:Label runat="server" AssociatedControlID="txtEditOverhead">Overhead</asp:Label><br />
+                    <asp:TextBox ID="txtEditOverhead" runat="server" CssClass="form-control" />
+                </div>
+                <div class="col-lg-1 col-md-2">
+                    <asp:Label Text="" runat="server" />&nbsp;<br />
+                    <asp:Button ID="btnEditCalculate" Text="Calculate" runat="server" CssClass="btn btn-success" />
+                </div>
+
+            </div>
+
+            <div class="row" style="margin-top:30px;">
+
+                <ul id="ulSiteCountList" style="list-style:none; display:inline-block;">
+
+                </ul>
+
             </div>
 
             <div class="row">
@@ -247,6 +264,9 @@
     </div>
 
     <script type="text/javascript">
+
+        // global variables
+        var gSiteCountList = [];
 
         $(document).ready(function () {
 
@@ -317,26 +337,66 @@
 
             });
 
+            $('#<%=btnEditCalculate.ClientID%>').on('click', function (e) {
+                e.preventDefault();
+
+
+            });
+
         });
+
+        function populateSiteCount() {
+
+            // var arrSiteCount = gSiteCountList.split(',');
+            if (gSiteCountList.length > 0) {
+
+                var item = "";
+                $.each(gSiteCountList, function (key, val) {
+
+                    // use the formula
+                    if ($('#<%=txtEditOverhead.ClientID%>').val() !== "") {
+
+                        val.value = $('#<%=txtEditOverhead.ClientID%>').val();
+
+                    } else {
+                        val.value = "1.11";
+                    }
+
+                    item = item + "<li style='display: inline-block; text-align:center; margin:5px;'>" +
+                        "<div><label>" + val.label + "</label> " +
+                        "<input type='text' class='form-control' value='" + val.value + "' style='width:80px; text-align:center;' /> " +
+                        "</div></li>";
+
+                });
+
+                $('#ulSiteCountList').html("");
+                $('#ulSiteCountList').append(item);
+
+            }
+            
+
+        }
 
         function getListing(_testProgID, _rev, _ver, _progName, _progExec, _device, _temp, _maxDate) {
 
-            var _siteCountList = "";
+            gSiteCountList = [];
             $("[id*=<%=cblSiteCount.ClientID%>] input:checked").each(function () {
-                _siteCountList += (_siteCountList === "") ? $(this).val() : "," + $(this).val();
+                //gSiteCountList += (gSiteCountList === "") ? $(this).val() : "," + $(this).val();
+
+                var data = { label: $(this).val() + "x (s)", labelValue: $(this).val(), value: "0.00" };
+                gSiteCountList.push(data);
+
             });
-            if (_siteCountList != "") {
+
+            if (gSiteCountList.length != 0) {
             } else {
                 alert("Please select site count");
                 return;
             }
 
-            //key variables
-            //var 
-
             $.ajax({
                 url: "TestTimeUpdateV2.aspx/GetListing",
-                data: "{ 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'ver': '" + _ver + "', 'progName': '" + _progName + "', 'progExec': '" + _progExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "', 'maxDate': '" + _maxDate + "', 'siteCountList': '" + _siteCountList + "'}",
+                data: "{ 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'ver': '" + _ver + "', 'progName': '" + _progName + "', 'progExec': '" + _progExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "', 'maxDate': '" + _maxDate + "', 'siteCountList': '" + JSON.stringify(gSiteCountList) + "'}",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
@@ -400,11 +460,15 @@
             $('#<%=txtEditTemp.ClientID%>').attr('readonly', 'readonly');
             $('#<%=txtEditEffDate.ClientID%>').val(_effDate);
             $('#<%=txtEditEffDate.ClientID%>').attr('readonly', 'readonly');
-
+            $('#<%=txtEditOverhead.ClientID%>').val((_overhead === "null" || _overhead === null) ? "" : _overhead);
+            
             // call ajax and get the site count 1 test time
+            //TODO
             var _sc1TestTime = 0.00;
             $('#<%=txtEditSiteCount1TestTime.ClientID%>').val(_sc1TestTime);
-            $('#<%=txtEditSiteCount1TestTime.ClientID%>').attr('readonly', 'readonly');
+
+            // populate site count list
+            populateSiteCount();
 
             $('#divEdit').show('slow');
         }
@@ -431,7 +495,8 @@
             $('#<%=txtEditEffDate.ClientID%>').removeAttr('readonly');
             $('#<%=txtEditEffDate.ClientID%>').val("");
 
-
+            $('#<%=txtEditOverhead.ClientID%>').removeAttr('readonly');
+            $('#<%=txtEditOverhead.ClientID%>').val("");
         }
 
         function loadProgramIDList() {

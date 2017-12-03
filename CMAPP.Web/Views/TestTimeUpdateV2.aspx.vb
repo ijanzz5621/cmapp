@@ -1,6 +1,7 @@
 ﻿Imports System.Web.Script.Services
 Imports System.Web.Services
 Imports CMAPP.BLogic
+Imports CMAPP.Model
 Imports Newtonsoft.Json
 
 Public Class TestTimeUpdateV2
@@ -69,9 +70,11 @@ Public Class TestTimeUpdateV2
 
         Try
 
+            Dim siteCountListObj As SiteCount() = JsonConvert.DeserializeObject(Of SiteCount())(siteCountList)
+
             Dim fnData As blTestTime = New blTestTime()
             fnData.ConnectionString = cnnOraString
-            Dim dsResult As DataTable = fnData.GetCmTestTimeList(testProgID, rev, ver, progName, progExec, device, temp, maxDate, siteCountList)
+            Dim dsResult As DataTable = fnData.GetCmTestTimeList(testProgID, rev, ver, progName, progExec, device, temp, maxDate, siteCountListObj)
 
             obj = JsonConvert.SerializeObject(dsResult)
 
@@ -214,4 +217,6 @@ Public Class TestTimeUpdateV2
     Protected Sub btnSearch_Click(sender As Object, e As EventArgs)
 
     End Sub
+
+
 End Class

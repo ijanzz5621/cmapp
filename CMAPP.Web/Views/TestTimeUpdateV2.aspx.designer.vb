@@ -230,6 +230,24 @@ Partial Public Class TestTimeUpdateV2
     Protected WithEvents txtEditSiteCount1TestTime As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''txtEditOverhead control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditOverhead As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''btnEditCalculate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnEditCalculate As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
     '''btnEditClose control.
     '''</summary>
     '''<remarks>

@@ -411,6 +411,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Classes\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CMAPP.BLogic\CMAPP.BLogic.vbproj">
@@ -420,6 +421,10 @@
     <ProjectReference Include="..\CMAPP.Data\CMAPP.Data.vbproj">
       <Project>{7f6847bf-c5af-4eff-bbcc-c441673ae1cf}</Project>
       <Name>CMAPP.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CMAPP.Model\CMAPP.Model.vbproj">
+      <Project>{06308fd9-0ded-4dd8-bd6e-4083f9f4c8ce}</Project>
+      <Name>CMAPP.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

@@ -1,4 +1,5 @@
-﻿Imports Oracle.ManagedDataAccess.Client
+﻿Imports CMAPP.Model
+Imports Oracle.ManagedDataAccess.Client
 
 Public Class blTestTime
 
@@ -15,7 +16,7 @@ Public Class blTestTime
         End Set
     End Property
 
-    Public Function GetCmTestTimeList(testProgID As String, rev As String, ver As String, progName As String, progExec As String, device As String, temp As String, maxDate As String, siteCountList As String) As DataTable
+    Public Function GetCmTestTimeList(testProgID As String, rev As String, ver As String, progName As String, progExec As String, device As String, temp As String, maxDate As String, siteCountList As SiteCount()) As DataTable
 
         Dim strQuery As String = ""
         Dim dsResult As DataSet = New DataSet
@@ -24,14 +25,18 @@ Public Class blTestTime
             oOra.OpenOraConnection(cnnOra, connStr)
             strQuery = "Select TestProgID as ""Program ID"",TestProgIDRev as ""Revision"",TesterType as ""Tester Type"",TestProgMainSource as ""Program Source"",TestProgExecutable as ""Program Exec"",Device as ""Device"",TestStepTemp as ""Temp"",to_char(TestTimeEffDate,'mm/dd/yyyy') As ""Eff Date"",OverHead AS ""Overhead"", USERID as ""UserId"" "
 
-            Dim list As String() = siteCountList.Split(",")
-            If list.Count > 0 Then
+            'Dim list As String() = siteCountList.Split(",")
+            'If list.Count > 0 Then
 
-                For i = 0 To list.Count - 1
-                    strQuery = strQuery & ",Max(Decode(SiteCount, " & list(i) & ", TestTime, null)) x" & list(i)
-                Next
+            '    For i = 0 To list.Count - 1
+            '        strQuery = strQuery & ",Max(Decode(SiteCount, " & list(i) & ", TestTime, null)) x" & list(i)
+            '    Next
 
-            End If
+            'End If
+
+            For Each siteCount As SiteCount In siteCountList
+                strQuery = strQuery & ",Max(Decode(SiteCount, " & siteCount.labelValue & ", TestTime, null)) x" & siteCount.labelValue
+            Next
 
             strQuery = strQuery & " From cmtesttime "
             strQuery = strQuery & " Where Not UserId Is Null "
