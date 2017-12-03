@@ -203,6 +203,33 @@ Partial Public Class TestTimeUpdateV2
     Protected WithEvents txtEditTemp As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''txtEditEffDate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditEffDate As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''calEditEffDate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents calEditEffDate As Global.AjaxControlToolkit.CalendarExtender
+    
+    '''<summary>
+    '''txtEditSiteCount1TestTime control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditSiteCount1TestTime As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
     '''btnEditClose control.
     '''</summary>
     '''<remarks>
@@ -219,4 +246,13 @@ Partial Public Class TestTimeUpdateV2
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnEditTestTime As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''wucPopupInfo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents wucPopupInfo As Global.CMAPP.Web.wucPopupInfo
 End Class

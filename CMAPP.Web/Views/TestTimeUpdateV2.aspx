@@ -1,4 +1,7 @@
 ﻿<%@ Page Title="Test Time Update V2" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="TestTimeUpdateV2.aspx.vb" Inherits="CMAPP.Web.TestTimeUpdateV2" EnableEventValidation="false" %>
+<%@ Register Src="~/Controls/wucPopupInfo.ascx" TagPrefix="uc1" TagName="wucPopupInfo" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolKit" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 
     <link href="/Content/jqueryui/jquery-ui.css" rel="stylesheet" />
@@ -193,11 +196,27 @@
 
             <div class="row">
 
+                <div class="col-lg-1 col-md-2">
+                    <asp:Label runat="server" AssociatedControlID="txtEditEffDate">Effective Date</asp:Label><br />
+                    <asp:TextBox ID="txtEditEffDate" runat="server" CssClass="form-control" />
+                    <ajaxToolKit:CalendarExtender ID="calEditEffDate" PopupButtonID="imgPopup" runat="server" TargetControlID="txtEditEffDate" Format="MM/dd/yyyy"> </ajaxToolKit:CalendarExtender>
+                </div>
+                <div class="col-lg-1 col-md-2">
+                    <asp:Label runat="server" AssociatedControlID="txtEditSiteCount1TestTime">Test Time SC1</asp:Label><br />
+                    <asp:TextBox ID="txtEditSiteCount1TestTime" runat="server" CssClass="form-control" />
+                </div>
+
+            </div>
+
+            <div class="row">
+
                 <div class="col-md-12" style="margin-top:15px !important;">
 
-                    <asp:Button ID="btnEditClose" runat="server" Text="Close" CssClass="btn btn-default" Height="35" />
-                    &nbsp;
-                    <asp:Button ID="btnEditTestTime" runat="server" Text="Save" CssClass="btn btn-success" Height="35" />
+                    <div style="float:right;">
+                        <asp:Button ID="btnEditClose" runat="server" Text="Close" CssClass="btn btn-default" Height="35" />
+                        &nbsp;
+                        <asp:Button ID="btnEditTestTime" runat="server" Text="Save" CssClass="btn btn-success" Height="35" />
+                    </div>
 
                 </div>
 
@@ -205,7 +224,7 @@
 
         </div>
 
-        <div class="row" style="margin-left:1px; margin-right:1px;">
+        <div class="row" style="margin-left:1px; margin-right:1px; clear:both;">
 
             <div class="col-md-12 col-lg-12">
 
@@ -340,7 +359,7 @@
                             if (rowCount % 2 === 0)
                                 rowColor = "#fff";
 
-                            row = row + "<tr style='cursor:pointer; background-color:" + rowColor + "' onclick='selectRow(this, \"" + val["Program ID"] + "\", \"" + val["Revision"] + "\", \"" + val["Tester Type"] + "\")'>";
+                            row = row + "<tr style='cursor:pointer; background-color:" + rowColor + "' onclick='selectRow(this, \"" + val["Program ID"] + "\", \"" + val["Revision"] + "\", \"" + val["Tester Type"] + "\", \"" + val["Program Source"] + "\", \"" + val["Program Exec"] + "\", \"" + val["Device"] + "\", \"" + val["Temp"] + "\", \"" + val["Eff Date"] + "\", \"" + val["Overhead"] + "\")'>";
                             $.each(val, function (_, text) {
                                 row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
                             });
@@ -358,7 +377,7 @@
             });
         }
 
-        function selectRow(obj, _testProgID, _rev, _testerType) {
+        function selectRow(obj, _testProgID, _rev, _testerType, _progName, _progExec, _device, _temp, _effDate, _overhead) {
             $(obj).parent().children('tr').removeClass("row-selected");
             $(obj).closest('tr').addClass("row-selected");
 
@@ -368,6 +387,24 @@
             $('#<%=txtEditRevision.ClientID%>').attr('readonly', 'readonly');
             $('#<%=txtEditTesterType.ClientID%>').val(_testerType);
             $('#<%=txtEditTesterType.ClientID%>').attr('readonly', 'readonly');
+            $('#<%=txtEditVersion.ClientID%>').val("0");
+            $('#<%=txtEditVersion.ClientID%>').attr('readonly', 'readonly');
+
+            $('#<%=txtEditProgName.ClientID%>').val(_progName);
+            $('#<%=txtEditProgName.ClientID%>').attr('readonly', 'readonly');
+            $('#<%=txtEditProgExec.ClientID%>').val(_progExec);
+            $('#<%=txtEditProgExec.ClientID%>').attr('readonly', 'readonly');
+            $('#<%=txtEditDevice.ClientID%>').val(_device);
+            $('#<%=txtEditDevice.ClientID%>').attr('readonly', 'readonly');
+            $('#<%=txtEditTemp.ClientID%>').val(_temp);
+            $('#<%=txtEditTemp.ClientID%>').attr('readonly', 'readonly');
+            $('#<%=txtEditEffDate.ClientID%>').val(_effDate);
+            $('#<%=txtEditEffDate.ClientID%>').attr('readonly', 'readonly');
+
+            // call ajax and get the site count 1 test time
+            var _sc1TestTime = 0.00;
+            $('#<%=txtEditSiteCount1TestTime.ClientID%>').val(_sc1TestTime);
+            $('#<%=txtEditSiteCount1TestTime.ClientID%>').attr('readonly', 'readonly');
 
             $('#divEdit').show('slow');
         }
@@ -550,5 +587,7 @@
         }
 
     </script>
+
+    <uc1:wucPopupInfo runat="server" ID="wucPopupInfo" />
 
 </asp:Content>
