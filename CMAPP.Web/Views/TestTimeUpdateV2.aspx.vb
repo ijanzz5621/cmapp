@@ -13,6 +13,12 @@ Public Class TestTimeUpdateV2
 
         If Not IsPostBack Then
 
+            If Session("USER_NAME") Is Nothing Then
+
+                Response.Redirect("~/Default.aspx")
+
+            End If
+
             GetTempList()
             PopulateSiteCountList()
 
@@ -205,6 +211,57 @@ Public Class TestTimeUpdateV2
             obj = JsonConvert.SerializeObject(dsResult)
 
         Catch ex As Exception
+
+        End Try
+
+        Return obj
+
+    End Function
+
+    <WebMethod>
+    Public Shared Function GetSiteCount1TestTime(testProgID As String, rev As String, testerType As String, progName As String, programExec As String, device As String, temp As String, effDate As String) As Object
+
+        Dim obj As Object = JsonConvert.SerializeObject("")
+
+        Try
+
+            Dim fnData As blTestTime = New blTestTime()
+            fnData.ConnectionString = cnnOraString
+            Dim dsResult As DataTable = fnData.GetSiteCount1TestTime(testProgID, rev, testerType, progName, programExec, device, temp, effDate)
+
+            obj = JsonConvert.SerializeObject(dsResult)
+
+        Catch ex As Exception
+
+        End Try
+
+        Return obj
+
+    End Function
+
+    <WebMethod>
+    Public Shared Function UpdateTestTime(testProgID As String, rev As String, testerType As String, progName As String, programExec As String, device As String, temp As String, effDate As String, siteCountList As String, overhead As String) As Object
+
+        Dim obj As Object = JsonConvert.SerializeObject("")
+
+        Try
+
+            Dim siteCountListObj As SiteCount() = JsonConvert.DeserializeObject(Of SiteCount())(siteCountList)
+
+            Dim fnData As blTestTime = New blTestTime()
+            fnData.ConnectionString = cnnOraString
+
+            For Each siteCount As SiteCount In siteCountListObj
+
+                Dim dsResult As String = fnData.UpdateTestTime(testProgID, rev, "0", device, temp, effDate, siteCount.labelValue, siteCount.value, overhead, testerType, progName, programExec, HttpContext.Current.Session("USER_NAME").ToString())
+
+            Next
+
+            obj = JsonConvert.SerializeObject("SUCCESS")
+
+        Catch ex As Exception
+
+            obj = JsonConvert.SerializeObject(ex.Message)
 
         End Try
 

@@ -147,8 +147,8 @@
         <div class="row" style="margin-left:1px;">
             <div class="col-md-6" style="vertical-align:bottom; line-height:45px;">
                     <asp:Button Text="Search" runat="server" ID="btnSearch" CssClass="btn btn-info" OnClick="btnSearch_Click" />
-                    &nbsp;
-                    <asp:Button ID="btnNewProgID" runat="server" Text="New Prog ID" CssClass="btn btn-success" ForeColor="#ffffff" />
+                    <%--&nbsp;
+                    <asp:Button ID="btnNewProgID" runat="server" Text="New Prog ID" CssClass="btn btn-success" ForeColor="#ffffff" />--%>
                     <%--&nbsp;
                     <asp:Button ID="btnEditTestTime" runat="server" Text="Edit Test Time" CssClass="btn btn-warning" ForeColor="#ffffff" />--%>
             </div>
@@ -219,7 +219,7 @@
 
             <div class="row" style="margin-top:30px;">
 
-                <ul id="ulSiteCountList" style="list-style:none; display:inline-block;">
+                <ul id="ulSiteCountList" style="list-style:none; display:inline-block; margin:0; padding:0;">
 
                 </ul>
 
@@ -267,6 +267,7 @@
 
         // global variables
         var gSiteCountList = [];
+        var gHideFirstItem = false;
 
         $(document).ready(function () {
 
@@ -310,7 +311,7 @@
 
             });
 
-            $('#<%=btnNewProgID.ClientID%>').on('click', function (e) {
+            <%--$('#<%=btnNewProgID.ClientID%>').on('click', function (e) {
                 e.preventDefault();
 
                 resetEdit();
@@ -318,10 +319,16 @@
                 $('#divEdit').show('slow');
 
                 $('#<%=txtEditProgramID.ClientID%>').focus();
-            });
+            });--%>
 
             $('#<%=btnSearch.ClientID%>').on('click', function (e) {
                 e.preventDefault();
+
+                if ($("#<%=txtProgramID.ClientID%>").val().trim() === "") {
+                    alert("Please enter Program ID before search");
+                    return;
+                }
+
                 getListing($("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("#<%=chkMaxRev.ClientID%>").val());
             });
 
@@ -340,32 +347,84 @@
             $('#<%=btnEditCalculate.ClientID%>').on('click', function (e) {
                 e.preventDefault();
 
-
+                populateSiteCount();
             });
 
-        });
+            $('#<%=btnEditTestTime.ClientID%>').on('click', function (e) {
+
+                e.preventDefault();
+
+                // loop the input in the site count list
+                $('#ulSiteCountList li').each(function (index) {
+
+                    //alert($(this).find("input").val());
+                    //update the json object (user might change the value manually)
+                    if (gHideFirstItem)
+                        gSiteCountList[index + 1].value = $(this).find("input").val(); // index + 1 because first item (1) has been hide
+                    else 
+                        gSiteCountList[index].value = $(this).find("input").val();
+                });
+
+                // call ajax and update database
+                $.ajax({
+                    url: "TestTimeUpdateV2.aspx/UpdateTestTime",
+                    data: "{ 'testProgID': '" + $("#<%=txtEditProgramID.ClientID%>").val() + "', 'rev': '" + $("#<%=txtEditRevision.ClientID%>").val() + "', 'testerType': '" + $("#<%=txtEditTesterType.ClientID%>").val() + "', 'progName': '" + $("#<%=txtEditProgName.ClientID%>").val() + "', 'programExec': '" + $("#<%=txtEditProgExec.ClientID%>").val() + "', 'device': '" + $("#<%=txtEditDevice.ClientID%>").val() + "', 'temp': '" + $("#<%=txtEditTemp.ClientID%>").val() + "', 'effDate': '" + $("#<%=txtEditEffDate.ClientID%>").val() + "', 'siteCountList': '" + JSON.stringify(gSiteCountList) + "', 'overhead': '" + $("#<%=txtEditOverhead.ClientID%>").val() + "'}",
+                    dataType: "json",
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+
+                        resetEdit();
+                        $('#tblListing tbody tr').removeClass("row-selected");
+                        $('#divEdit').hide('slow');
+
+                        getListing($("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("#<%=chkMaxRev.ClientID%>").val());
+                    },
+                    error: function (a, b, c) {
+                        console.log('error: ' + JSON.stringify(a));
+                    }
+                });
+
+
+            }); // end of btnEditTestTime click
+
+        }); // end of document ready 
 
         function populateSiteCount() {
+
+            gHideFirstItem = false;
 
             // var arrSiteCount = gSiteCountList.split(',');
             if (gSiteCountList.length > 0) {
 
                 var item = "";
+                
                 $.each(gSiteCountList, function (key, val) {
 
                     // use the formula
                     if ($('#<%=txtEditOverhead.ClientID%>').val() !== "") {
 
-                        val.value = $('#<%=txtEditOverhead.ClientID%>').val();
+                        // Dim siteCountTestTime As Double = Double.Parse(popupTestTime_txtSiteCount1TestTime.Text) + ((Double.Parse(popupTestTime_txtOverhead.Text) / 100) * item * Double.Parse(popupTestTime_txtSiteCount1TestTime.Text))
+                        var scValue = parseFloat($('#<%=txtEditSiteCount1TestTime.ClientID%>').val()) + ((parseFloat($('#<%=txtEditOverhead.ClientID%>').val()) / 100) * (parseInt(val.labelValue) -1) * parseFloat($('#<%=txtEditSiteCount1TestTime.ClientID%>').val()));
+
+                        val.value = scValue.toFixed(2);
 
                     } else {
-                        val.value = "1.11";
+                        val.value = "0.00";
                     }
 
-                    item = item + "<li style='display: inline-block; text-align:center; margin:5px;'>" +
-                        "<div><label>" + val.label + "</label> " +
-                        "<input type='text' class='form-control' value='" + val.value + "' style='width:80px; text-align:center;' /> " +
-                        "</div></li>";
+                    // ignore if site count = 1
+                    if (val.labelValue === "1") {
+                        // ignore
+                        gHideFirstItem = true;
+                    } else {
+                        
+                        item = item + "<li style='display: inline-block; text-align:center; margin:5px;'>" +
+                            "<div><label>" + val.label + "</label> " +
+                            "<input type='text' class='form-control' value='" + val.value + "' style='width:60px; text-align:center;' /> " +
+                            "</div></li>";
+
+                    }
 
                 });
 
@@ -463,13 +522,8 @@
             $('#<%=txtEditOverhead.ClientID%>').val((_overhead === "null" || _overhead === null) ? "" : _overhead);
             
             // call ajax and get the site count 1 test time
-            //TODO
-            var _sc1TestTime = 0.00;
-            $('#<%=txtEditSiteCount1TestTime.ClientID%>').val(_sc1TestTime);
-
-            // populate site count list
-            populateSiteCount();
-
+            getSiteCount1TestTime(_testProgID, _rev, _testerType, _progName, _progExec, _device, _temp, _effDate);
+            
             $('#divEdit').show('slow');
         }
 
@@ -661,6 +715,29 @@
                 error: function (a, b, c) {
                     console.log('error: ' + JSON.stringify(a));
                     $("#<%=ddlRevision.ClientID%>").removeAttr('disabled');
+                }
+            });
+        }
+
+        function getSiteCount1TestTime(_testProgID, _rev, _testerType, _progName, _programExec, _device, _temp, _effDate) {
+            $.ajax({
+                url: "TestTimeUpdateV2.aspx/GetSiteCount1TestTime",
+                data: "{ 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'testerType': '" + _testerType + "', 'progName': '" + _progName + "', 'programExec': '" + _programExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "', 'effDate': '" + _effDate + "'}",
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    if (JSON.parse(data.d).length > 0) {
+                        var sc1TT = JSON.parse(data.d)[0].TESTTIME;
+                        $('#<%=txtEditSiteCount1TestTime.ClientID%>').val(sc1TT);
+                    }
+
+                    // populate site count list
+                    populateSiteCount();
+                },
+                error: function (a, b, c) {
+                    console.log('error: ' + JSON.stringify(a));
                 }
             });
         }

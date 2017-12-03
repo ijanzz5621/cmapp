@@ -16,6 +16,39 @@ Public Class blTestTime
         End Set
     End Property
 
+    Public Function GetSiteCount1TestTime(testProgID As String, rev As String, testerType As String, progName As String, programExec As String, device As String, temp As String, effDate As String) As DataTable
+
+        Dim strQuery As String
+        Dim dsResult As DataSet = New DataSet
+
+        Try
+
+            oOra.OpenOraConnection(cnnOra, connStr)
+            strQuery = "Select * from cmtesttime "
+            strQuery = strQuery & "where "
+            strQuery = strQuery & "SITECOUNT = 1 "
+            strQuery = strQuery & "And TESTPROGID = '" & testProgID & "' "
+            strQuery = strQuery & "and TESTPROGIDREV = '" & rev & "' "
+            strQuery = strQuery & "and TESTERTYPE = '" & testerType & "' "
+            strQuery = strQuery & "and TESTPROGMAINSOURCE = '" & progName & "' "
+            strQuery = strQuery & "and TESTPROGEXECUTABLE = '" & programExec & "' "
+            strQuery = strQuery & "and DEVICE = '" & device & "' "
+            strQuery = strQuery & "and TESTSTEPTEMP = '" & temp & "' "
+            strQuery = strQuery & "and to_char(TESTTIMEEFFDATE,'mm/dd/yyyy') = '" & effDate & "' "
+            dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
+
+        Catch ex As Exception
+            Dim exMsg = ex.Message
+        Finally
+
+            oOra.CloseOraConnection(cnnOra)
+
+        End Try
+
+        Return dsResult.Tables(0)
+
+    End Function
+
     Public Function GetCmTestTimeList(testProgID As String, rev As String, ver As String, progName As String, progExec As String, device As String, temp As String, maxDate As String, siteCountList As SiteCount()) As DataTable
 
         Dim strQuery As String = ""
@@ -84,6 +117,98 @@ Public Class blTestTime
         End Try
 
         Return dsResult.Tables(0)
+
+    End Function
+
+    Public Function UpdateTestTime(testProgID As String, rev As String, version As String, device As String, temp As String, effDate As String,
+                               siteCount As Integer, testTime As String, overhead As String, testerType As String, progName As String, progExec As String, userID As String) As String
+
+        Dim strQuery As String
+        Dim dsResult As DataSet = New DataSet
+        Dim strResult As String
+
+        Try
+
+            oOra.OpenOraConnection(cnnOra, connStr)
+            strQuery = "Select 1 From CmTestTime "
+            strQuery = strQuery & "Where TestProgID='" & testProgID & "' "
+            strQuery = strQuery & "And TestProgIDRev='" & rev & "' "
+            strQuery = strQuery & "And TestProgIDVers= 0 "
+            strQuery = strQuery & "And Device='" & device & "' "
+            strQuery = strQuery & "And TestStepTemp='" & temp & "' "
+            strQuery = strQuery & "And TestTimeEffDate=to_date('" & effDate & "','mm/dd/yyyy') "
+            strQuery = strQuery & "And SiteCount=" & siteCount & ""
+            Dim dsCheck As DataSet = oOra.OraExecuteQuery(strQuery, cnnOra)
+
+            If dsCheck.Tables.Count > 0 And dsCheck.Tables(0).Rows.Count > 0 Then
+                strQuery = "Update CmTestTime Set "
+                strQuery = strQuery & "TestTime=" & testTime & " "
+                If overhead.Trim <> "" Then
+                    strQuery = strQuery & ",OverHead='" & overhead & "' "
+                Else
+                    strQuery = strQuery & ",OverHead= null "
+                End If
+                strQuery = strQuery & ",UserID='" & userID & "' "
+                strQuery = strQuery & ",ChangeDate=SysDate "
+                strQuery = strQuery & ",ChangeTypeCode='U' "
+                strQuery = strQuery & "Where TestProgID='" & testProgID & "' "
+                strQuery = strQuery & "And TestProgIDRev='" & rev & "' "
+                strQuery = strQuery & "And TestProgIDVers= 0 "
+                strQuery = strQuery & "And Device='" & device & "' "
+                strQuery = strQuery & "And TestStepTemp='" & temp & "' "
+                strQuery = strQuery & "And TestTimeEffDate=to_date('" & effDate & "','mm/dd/yyyy') "
+                strQuery = strQuery & "And SiteCount=" & siteCount & ""
+                Dim dsUpdate As DataSet = oOra.OraExecuteQuery(strQuery, cnnOra)
+            Else
+                strQuery = "Insert Into CmTestTime ("
+                strQuery = strQuery & "TESTPROGID"
+                strQuery = strQuery & ", TESTPROGIDREV"
+                strQuery = strQuery & ", TESTPROGIDVERS"
+                strQuery = strQuery & ", DEVICE"
+                strQuery = strQuery & ", TESTSTEPTEMP"
+                strQuery = strQuery & ", SITECOUNT"
+                strQuery = strQuery & ", TESTTIMEEFFDATE"
+                strQuery = strQuery & ", TESTTIME"
+                strQuery = strQuery & ", OVERHEAD"
+                strQuery = strQuery & ", TESTERTYPE"
+                strQuery = strQuery & ", TESTPROGMAINSOURCE"
+                strQuery = strQuery & ", TESTPROGEXECUTABLE"
+                strQuery = strQuery & ", USERID"
+                strQuery = strQuery & ", CHANGEDATE"
+                strQuery = strQuery & ", CHANGETYPECODE"
+                strQuery = strQuery & ") Values ("
+                strQuery = strQuery & testProgID
+                strQuery = strQuery & ",'" & rev & "'"
+                strQuery = strQuery & ",0"
+                strQuery = strQuery & ",'" & device & "'"
+                strQuery = strQuery & ",'" & temp & "'"
+                strQuery = strQuery & "," & siteCount & ""
+                strQuery = strQuery & ",to_date('" & effDate & "','mm/dd/yyyy')"
+                strQuery = strQuery & "," & testTime & ""
+                If overhead.Trim <> "" Then
+                    strQuery = strQuery & "," & overhead & ""
+                Else
+                    strQuery = strQuery & ", null "
+                End If
+                strQuery = strQuery & ",'" & testerType & "'"
+                strQuery = strQuery & ",'" & progName & "'"
+                strQuery = strQuery & ",'" & progExec & "'"
+                strQuery = strQuery & ",'" & userID & "'"
+                strQuery = strQuery & ",SysDate "
+                strQuery = strQuery & ",'I') "
+                Dim dsInsert As DataSet = oOra.OraExecuteQuery(strQuery, cnnOra)
+            End If
+
+            strResult = "SUCCESS"
+
+        Catch ex As Exception
+            Dim exMsg = ex.Message
+            strResult = "FAILED"
+        Finally
+            oOra.CloseOraConnection(cnnOra)
+        End Try
+
+        Return strResult
 
     End Function
 

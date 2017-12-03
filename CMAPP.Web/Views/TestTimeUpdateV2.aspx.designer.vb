@@ -122,15 +122,6 @@ Partial Public Class TestTimeUpdateV2
     Protected WithEvents btnSearch As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
-    '''btnNewProgID control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnNewProgID As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
     '''txtEditProgramID control.
     '''</summary>
     '''<remarks>
