@@ -41,6 +41,15 @@ Partial Public Class TestTimeUpdateV2
     Protected WithEvents txtVersion As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''txtTester control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtTester As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
     '''txtProgramName control.
     '''</summary>
     '''<remarks>
@@ -120,6 +129,87 @@ Partial Public Class TestTimeUpdateV2
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnNewProgID As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''txtEditProgramID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditProgramID As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtEditRevision control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditRevision As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtEditVersion control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditVersion As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtEditTesterType control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditTesterType As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtEditProgName control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditProgName As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtEditProgExec control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditProgExec As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtEditDevice control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditDevice As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtEditTemp control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditTemp As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''btnEditClose control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnEditClose As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
     '''btnEditTestTime control.
