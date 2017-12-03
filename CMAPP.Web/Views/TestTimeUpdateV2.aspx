@@ -417,6 +417,20 @@
             $('#<%=txtEditRevision.ClientID%>').val("");
             $('#<%=txtEditTesterType.ClientID%>').removeAttr('readonly');
             $('#<%=txtEditTesterType.ClientID%>').val("");
+            $('#<%=txtEditVersion.ClientID%>').removeAttr('readonly');
+            $('#<%=txtEditVersion.ClientID%>').val("");
+
+            $('#<%=txtEditProgName.ClientID%>').removeAttr('readonly');
+            $('#<%=txtEditProgName.ClientID%>').val("");
+            $('#<%=txtEditProgExec.ClientID%>').removeAttr('readonly');
+            $('#<%=txtEditProgExec.ClientID%>').val("");
+            $('#<%=txtEditDevice.ClientID%>').removeAttr('readonly');
+            $('#<%=txtEditDevice.ClientID%>').val("");
+            $('#<%=txtEditTemp.ClientID%>').removeAttr('readonly');
+            $('#<%=txtEditTemp.ClientID%>').val("");
+            $('#<%=txtEditEffDate.ClientID%>').removeAttr('readonly');
+            $('#<%=txtEditEffDate.ClientID%>').val("");
+
 
         }
 
