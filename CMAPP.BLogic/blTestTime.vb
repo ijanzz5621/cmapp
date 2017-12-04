@@ -49,7 +49,30 @@ Public Class blTestTime
 
     End Function
 
-    Public Function GetCmTestTimeList(testProgID As String, rev As String, ver As String, progName As String, progExec As String, device As String, temp As String, maxDate As String, siteCountList As SiteCount()) As DataTable
+    Public Function GetTestProgramRevisionList(testProgID As String) As DataTable
+
+        Dim strQuery As String
+        Dim dsResult As DataSet = New DataSet
+
+        Try
+
+            oOra.OpenOraConnection(cnnOra, connStr)
+            strQuery = "select distinct TESTPROGIDREV from cm.cmtesttime where TESTPROGID = '" & testProgID & "'"
+            dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
+
+        Catch ex As Exception
+            Dim exMsg = ex.Message
+        Finally
+
+            oOra.CloseOraConnection(cnnOra)
+
+        End Try
+
+        Return dsResult.Tables(0)
+
+    End Function
+
+    Public Function GetCmTestTimeList(testProgID As String, rev As String, ver As String, testerType As String, progName As String, progExec As String, device As String, temp As String, maxDate As String, siteCountList As SiteCount()) As DataTable
 
         Dim strQuery As String = ""
         Dim dsResult As DataSet = New DataSet
@@ -57,15 +80,6 @@ Public Class blTestTime
         Try
             oOra.OpenOraConnection(cnnOra, connStr)
             strQuery = "Select TestProgID as ""Program ID"",TestProgIDRev as ""Revision"",TesterType as ""Tester Type"",TestProgMainSource as ""Program Source"",TestProgExecutable as ""Program Exec"",Device as ""Device"",TestStepTemp as ""Temp"",to_char(TestTimeEffDate,'mm/dd/yyyy') As ""Eff Date"",OverHead AS ""Overhead"", USERID as ""UserId"" "
-
-            'Dim list As String() = siteCountList.Split(",")
-            'If list.Count > 0 Then
-
-            '    For i = 0 To list.Count - 1
-            '        strQuery = strQuery & ",Max(Decode(SiteCount, " & list(i) & ", TestTime, null)) x" & list(i)
-            '    Next
-
-            'End If
 
             For Each siteCount As SiteCount In siteCountList
                 strQuery = strQuery & ",Max(Decode(SiteCount, " & siteCount.labelValue & ", TestTime, null)) x" & siteCount.labelValue
@@ -91,9 +105,9 @@ Public Class blTestTime
             If Len(Trim(device)) >= 1 Then
                 strQuery = strQuery & " And device like '" & device & "' "
             End If
-            'If Len(Trim(p_strTesterType)) >= 1 Then
-            '    strQuery = strQuery & " And Testertype like '" & p_strTesterType & "' "
-            'End If
+            If Len(Trim(testerType)) >= 1 Then
+                strQuery = strQuery & " And Testertype like '" & testerType & "' "
+            End If
             If Len(Trim(progName)) >= 1 Then
                 strQuery = strQuery & " And TestProgMainSource  like '" & progName & "' "
             End If

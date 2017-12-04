@@ -20,6 +20,7 @@ Public Class TestTimeUpdateV2
             End If
 
             GetTempList()
+            GetTesterTypeList()
             PopulateSiteCountList()
 
         Else
@@ -52,6 +53,16 @@ Public Class TestTimeUpdateV2
         ddlTemp.DataBind()
     End Sub
 
+    Private Sub GetTesterTypeList()
+        Dim fnData As blGeneral = New blGeneral()
+        fnData.ConnectionString = cnnOraString
+        Dim dsResult As DataTable = fnData.GetTesterTypeList()
+        ddlTester.DataSource = dsResult
+        ddlTester.DataTextField = "TESTERTYPE"
+        ddlTester.DataValueField = "TESTERTYPE"
+        ddlTester.DataBind()
+    End Sub
+
     Private Sub PopulateSiteCountList()
 
         For item As Integer = 1 To 320
@@ -70,7 +81,7 @@ Public Class TestTimeUpdateV2
 #Region "Web Methods"
 
     <WebMethod>
-    Public Shared Function GetListing(testProgID As String, rev As String, ver As String, progName As String, progExec As String, device As String, temp As String, maxDate As String, siteCountList As String) As Object
+    Public Shared Function GetListing(testProgID As String, rev As String, ver As String, testerType As String, progName As String, progExec As String, device As String, temp As String, maxDate As String, siteCountList As String) As Object
 
         Dim obj As Object = JsonConvert.SerializeObject("")
 
@@ -80,7 +91,7 @@ Public Class TestTimeUpdateV2
 
             Dim fnData As blTestTime = New blTestTime()
             fnData.ConnectionString = cnnOraString
-            Dim dsResult As DataTable = fnData.GetCmTestTimeList(testProgID, rev, ver, progName, progExec, device, temp, maxDate, siteCountListObj)
+            Dim dsResult As DataTable = fnData.GetCmTestTimeList(testProgID, rev, ver, testerType, progName, progExec, device, temp, maxDate, siteCountListObj)
 
             obj = JsonConvert.SerializeObject(dsResult)
 
@@ -112,6 +123,27 @@ Public Class TestTimeUpdateV2
         Return obj
 
     End Function
+
+    '<WebMethod>
+    'Public Shared Function GetTestProgramIDList() As Object
+
+    '    Dim obj As Object = JsonConvert.SerializeObject("")
+
+    '    Try
+
+    '        Dim fnData As blGeneral = New blGeneral()
+    '        fnData.ConnectionString = cnnOraString
+    '        Dim dsResult As DataTable = fnData.GetProgramIDList()
+
+    '        obj = JsonConvert.SerializeObject(dsResult)
+
+    '    Catch ex As Exception
+
+    '    End Try
+
+    '    Return obj
+
+    'End Function
 
     <WebMethod>
     Public Shared Function GetRevisionByProgID(testProgID As String) As Object
@@ -240,7 +272,7 @@ Public Class TestTimeUpdateV2
     End Function
 
     <WebMethod>
-    Public Shared Function UpdateTestTime(testProgID As String, rev As String, testerType As String, progName As String, programExec As String, device As String, temp As String, effDate As String, siteCountList As String, overhead As String) As Object
+    Public Shared Function UpdateTestTime(testProgID As String, rev As String, testerType As String, progName As String, programExec As String, device As String, temp As String, effDate As String, siteCountList As String, overhead As String, updateType As String) As Object
 
         Dim obj As Object = JsonConvert.SerializeObject("")
 
@@ -251,11 +283,35 @@ Public Class TestTimeUpdateV2
             Dim fnData As blTestTime = New blTestTime()
             fnData.ConnectionString = cnnOraString
 
-            For Each siteCount As SiteCount In siteCountListObj
+            If updateType = "Single" Then
 
-                Dim dsResult As String = fnData.UpdateTestTime(testProgID, rev, "0", device, temp, effDate, siteCount.labelValue, siteCount.value, overhead, testerType, progName, programExec, HttpContext.Current.Session("USER_NAME").ToString())
+                For Each siteCount As SiteCount In siteCountListObj
 
-            Next
+                    Dim dsResult As String = fnData.UpdateTestTime(testProgID, rev, "0", device, temp, effDate, siteCount.labelValue, siteCount.value, overhead, testerType, progName, programExec, HttpContext.Current.Session("USER_NAME").ToString())
+
+                Next
+
+            ElseIf updateType = "All" Then
+
+                ' Get all the revision for the selected test prog id, loop it and update
+                Dim revList As DataTable = fnData.GetTestProgramRevisionList(testProgID)
+                If revList IsNot Nothing And revList.Rows.Count > 0 Then
+
+                    For Each revRow As DataRow In revList.Rows
+
+                        For Each siteCount As SiteCount In siteCountListObj
+
+                            Dim dsResult As String = fnData.UpdateTestTime(testProgID, revRow("TESTPROGIDREV").ToString(), "0", device, temp, effDate, siteCount.labelValue, siteCount.value, overhead, testerType, progName, programExec, HttpContext.Current.Session("USER_NAME").ToString())
+
+                        Next
+
+                    Next
+
+                End If
+
+            End If
+
+
 
             obj = JsonConvert.SerializeObject("SUCCESS")
 

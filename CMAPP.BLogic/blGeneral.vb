@@ -23,7 +23,7 @@ Public Class blGeneral
         Try
 
             oOra.OpenOraConnection(cnnOra, connStr)
-            strQuery = "select distinct TESTPROGID from CM.PDCTESTPROGRAMREVISION"
+            strQuery = "select distinct TESTPROGID from CM.PDCTESTPROGRAMREVISION ORDER BY TESTPROGID"
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
 
         Catch ex As Exception
@@ -192,6 +192,29 @@ Public Class blGeneral
 
             oOra.OpenOraConnection(cnnOra, connStr)
             strQuery = "select distinct TESTPROGEXECUTABLE from CM.PDCTESTPROGRAMREVISION where TESTPROGEXECUTABLE like '%" & q & "%' ORDER BY TESTPROGEXECUTABLE"
+            dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
+
+        Catch ex As Exception
+            Dim exMsg = ex.Message
+        Finally
+
+            oOra.CloseOraConnection(cnnOra)
+
+        End Try
+
+        Return dsResult.Tables(0)
+
+    End Function
+
+    Public Function GetTesterTypeList() As DataTable
+
+        Dim strQuery As String
+        Dim dsResult As DataSet = New DataSet
+
+        Try
+
+            oOra.OpenOraConnection(cnnOra, connStr)
+            strQuery = "select distinct TESTERTYPE from cm.pdcTesterType"
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
 
         Catch ex As Exception
