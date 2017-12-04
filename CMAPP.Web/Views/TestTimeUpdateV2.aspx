@@ -658,7 +658,7 @@
                         }
                      });
                  },
-                 minLength: 4,
+                 minLength: 2,
                  select: function (event, ui) {
                  }
              });
@@ -714,7 +714,7 @@
                         }
                     });
                 },
-                minLength: 3,
+                minLength: 2,
                 select: function (event, ui) {
                 }
             });--%>
@@ -748,7 +748,7 @@
                         }
                     });
                 },
-                minLength: 3,
+                minLength: 2,
                 select: function (event, ui) {
                 }
             });
@@ -781,7 +781,7 @@
                         }
                     });
                 },
-                minLength: 3,
+                minLength: 2,
                 select: function (event, ui) {
                 }
             });
@@ -815,7 +815,7 @@
                         }
                     });
                 },
-                minLength: 3,
+                minLength: 2,
                 select: function (event, ui) {
                 }
             });
