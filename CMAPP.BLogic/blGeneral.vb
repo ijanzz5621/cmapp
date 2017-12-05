@@ -23,7 +23,7 @@ Public Class blGeneral
         Try
 
             oOra.OpenOraConnection(cnnOra, connStr)
-            strQuery = "select distinct TESTPROGID from CM.PDCTESTPROGRAMREVISION ORDER BY TESTPROGID where rownum <= 150"
+            strQuery = "select distinct TESTPROGID from CM.PDCTESTPROGRAMREVISION ORDER BY TESTPROGID"
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
 
         Catch ex As Exception
