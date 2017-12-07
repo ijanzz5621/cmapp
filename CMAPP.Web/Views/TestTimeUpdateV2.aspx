@@ -336,12 +336,19 @@
             $('#<%=btnSearch.ClientID%>').on('click', function (e) {
                 e.preventDefault();
 
+                // call function to reset the textboxes
+                resetEdit();
+
+                //close the edit div
+                $('#tblListing tbody tr').removeClass("row-selected");
+                $('#divEdit').hide('slow');
+
                 if ($("#<%=txtProgramID.ClientID%>").val().trim() === "") {
                     showPopupMessage("Please enter Program ID before search");
                     return;
                 }
 
-                getListing($("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $('#<%=ddlTester.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("#<%=chkMaxRev.ClientID%>").val());
+                getListing($("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $('#<%=ddlTester.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("input[id='<%=chkMaxDate.ClientID%>']:checked").val());
             });
 
             $('#<%=btnEditClose.ClientID%>').on('click', function (e) {
@@ -365,6 +372,12 @@
             $('#<%=btnEditTestTime.ClientID%>').on('click', function (e) {
 
                 e.preventDefault();
+
+                if (gSiteCountList.length != 0) {
+                } else {
+                    showPopupMessage("Please select site count");
+                    return;
+                }
 
                 $.confirm({
                     title: 'Save confirmation',
@@ -390,6 +403,13 @@
 
             $('#<%=btnEditTestTimeAll.ClientID%>').on('click', function (e) {
                 e.preventDefault();
+
+                if (gSiteCountList.length != 0) {
+                } else {
+                    showPopupMessage("Please select site count");
+                    return;
+                }
+
                 $.confirm({
                     title: 'Save all confirmation',
                     content: 'Are you sure to save all? This will overwrite all the revision for the same Test Program ID.',
@@ -440,7 +460,7 @@
                     $('#tblListing tbody tr').removeClass("row-selected");
                     $('#divEdit').hide('slow');
 
-                    getListing($("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $('#<%=ddlTester.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("#<%=chkMaxRev.ClientID%>").val());
+                    getListing($("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $('#<%=ddlTester.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("input[id='<%=chkMaxDate.ClientID%>']:checked").val());
                 },
                 beforeSend: function (request) {
                     HoldOn.open({ theme: "sk-rect" });
@@ -516,11 +536,11 @@
 
             });
 
-            if (gSiteCountList.length != 0) {
-            } else {
-                showPopupMessage("Please select site count");
-                return;
-            }
+            //if (gSiteCountList.length != 0) {
+            //} else {
+            //    showPopupMessage("Please select site count");
+            //    return;
+            //}
 
             $.ajax({
                 url: "TestTimeUpdateV2.aspx/GetListing",
