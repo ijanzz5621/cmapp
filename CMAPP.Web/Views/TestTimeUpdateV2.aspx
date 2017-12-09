@@ -436,6 +436,22 @@
                 });
 
             });
+
+            $("#MainContent_cblSiteCount input").on('change', function () {
+                //if (this.checked) {
+                gSiteCountList = [];
+                $("[id*=<%=cblSiteCount.ClientID%>] input:checked").each(function () {
+                    //gSiteCountList += (gSiteCountList === "") ? $(this).val() : "," + $(this).val();
+
+                    var data = { label: $(this).val() + "x (s)", labelValue: $(this).val(), value: "0.00" };
+                    gSiteCountList.push(data);
+
+                });
+
+                populateSiteCount();
+
+                //};
+            });
             
 
         }); // end of document ready 
@@ -533,6 +549,11 @@
 
         function getListing(_testProgID, _rev, _ver, _testerType, _progName, _progExec, _device, _temp, _maxDate) {
 
+            // Call ajax to get distinct value of site count for the selected filters
+            // once returned, loop and assing the site count to gSiteCountList then only call get listing function
+            // TODO
+
+
             gSiteCountList = [];
             $("[id*=<%=cblSiteCount.ClientID%>] input:checked").each(function () {
                 //gSiteCountList += (gSiteCountList === "") ? $(this).val() : "," + $(this).val();
@@ -541,12 +562,6 @@
                 gSiteCountList.push(data);
 
             });
-
-            //if (gSiteCountList.length != 0) {
-            //} else {
-            //    showPopupMessage("Please select site count");
-            //    return;
-            //}
 
             $.ajax({
                 url: "TestTimeUpdateV2.aspx/GetListing",
@@ -655,6 +670,15 @@
 
             $('#<%=txtEditOverhead.ClientID%>').removeAttr('readonly');
             $('#<%=txtEditOverhead.ClientID%>').val("");
+
+            $("[id*=<%=cblSiteCount.ClientID%>] input").each(function () {
+                this.checked = false;
+            });
+            //set default checked
+            $("[id*=<%=cblSiteCount.ClientID%>] input").each(function () {
+                if ($(this).val() === "1" || $(this).val() === "2" || $(this).val() === "3" || $(this).val() === "4" || $(this).val() === "8")
+                    this.checked = true;
+            });
         }
 
         function loadProgramIDList() {
