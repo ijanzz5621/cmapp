@@ -79,6 +79,13 @@ Public Class blTestTime
 
         Try
             oOra.OpenOraConnection(cnnOra, connStr)
+
+            ' Changes 2017-12-08
+            ' Get distinct site count to loop from table
+
+
+
+
             strQuery = "Select TestProgID as ""Program ID"",TestProgIDRev as ""Revision"",TesterType as ""Tester Type"",TestProgMainSource as ""Program Source"",TestProgExecutable as ""Program Exec"",Device as ""Device"",TestStepTemp as ""Temp"",to_char(TestTimeEffDate,'mm/dd/yyyy') As ""Eff Date"",OverHead AS ""Overhead"", USERID as ""UserId"" "
 
             For Each siteCount As SiteCount In siteCountList

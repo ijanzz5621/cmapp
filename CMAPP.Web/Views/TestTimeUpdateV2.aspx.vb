@@ -70,6 +70,11 @@ Public Class TestTimeUpdateV2
             Dim li As ListItem = New ListItem()
             li.Text = item & "x(s)"
             li.Value = item
+
+            If item = 1 Or item = 2 Or item = 3 Or item = 4 Or item = 8 Then
+                li.Selected = True
+            End If
+
             cblSiteCount.Items.Add(li)
 
         Next

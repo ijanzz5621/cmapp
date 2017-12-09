@@ -137,7 +137,17 @@
             </div>
         </div>
 
-        <div class="row" style="margin-left:1px; margin-right:1px;">
+        <div class="row" style="margin-left:1px;">
+            <div class="col-md-6" style="vertical-align:bottom; line-height:45px;">
+                    <asp:Button Text="Search" runat="server" ID="btnSearch" CssClass="btn btn-info" OnClick="btnSearch_Click" />
+                    <%--&nbsp;
+                    <asp:Button ID="btnNewProgID" runat="server" Text="New Prog ID" CssClass="btn btn-success" ForeColor="#ffffff" />--%>
+                    <%--&nbsp;
+                    <asp:Button ID="btnEditTestTime" runat="server" Text="Edit Test Time" CssClass="btn btn-warning" ForeColor="#ffffff" />--%>
+            </div>
+        </div>
+
+        <div class="row" style="margin-left:1px; margin-right:1px;" id="divSiteCountList">
 
             <div class="col-md-12 col-lg-12">
 
@@ -148,16 +158,6 @@
 
             </div>
 
-        </div>
-
-        <div class="row" style="margin-left:1px;">
-            <div class="col-md-6" style="vertical-align:bottom; line-height:45px;">
-                    <asp:Button Text="Search" runat="server" ID="btnSearch" CssClass="btn btn-info" OnClick="btnSearch_Click" />
-                    <%--&nbsp;
-                    <asp:Button ID="btnNewProgID" runat="server" Text="New Prog ID" CssClass="btn btn-success" ForeColor="#ffffff" />--%>
-                    <%--&nbsp;
-                    <asp:Button ID="btnEditTestTime" runat="server" Text="Edit Test Time" CssClass="btn btn-warning" ForeColor="#ffffff" />--%>
-            </div>
         </div>
 
         <div id="divEdit" style="padding:15px; margin-left:5px; margin-right:5px; min-height:100px; margin-top:5px; margin-bottom:5px; border:1px solid #c3c1c1; border-radius:6px; background-color:#f1f1f1; display:none">
@@ -277,6 +277,8 @@
         var gSiteCountList = [];
         var gHideFirstItem = false;
 
+        $('#divSiteCountList').hide();
+
         $(document).ready(function () {
 
             loadProgramIDList();
@@ -328,6 +330,7 @@
 
                 resetEdit();
 
+                $('#divSiteCountList').hide('slow');
                 $('#divEdit').show('slow');
 
                 $('#<%=txtEditProgramID.ClientID%>').focus();
@@ -341,6 +344,7 @@
 
                 //close the edit div
                 $('#tblListing tbody tr').removeClass("row-selected");
+                $('#divSiteCountList').hide('slow');
                 $('#divEdit').hide('slow');
 
                 if ($("#<%=txtProgramID.ClientID%>").val().trim() === "") {
@@ -359,6 +363,7 @@
 
                 //close the edit div
                 $('#tblListing tbody tr').removeClass("row-selected");
+                $('#divSiteCountList').hide('slow');
                 $('#divEdit').hide('slow');
 
             });
@@ -458,6 +463,7 @@
 
                     resetEdit();
                     $('#tblListing tbody tr').removeClass("row-selected");
+                    $('#divSiteCountList').hide('slow');
                     $('#divEdit').hide('slow');
 
                     getListing($("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $('#<%=ddlTester.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("input[id='<%=chkMaxDate.ClientID%>']:checked").val());
@@ -620,7 +626,8 @@
             
             // call ajax and get the site count 1 test time
             getSiteCount1TestTime(_testProgID, _rev, _testerType, _progName, _progExec, _device, _temp, _effDate);
-            
+
+            $('#divSiteCountList').show('slow');
             $('#divEdit').show('slow');
         }
 
