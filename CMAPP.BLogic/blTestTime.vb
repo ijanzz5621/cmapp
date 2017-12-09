@@ -49,7 +49,7 @@ Public Class blTestTime
 
     End Function
 
-    Public Function GetSiteCountListByFilter(testProgID As String, rev As String, testerType As String, progName As String, programExec As String, device As String, temp As String, effDate As String) As DataTable
+    Public Function GetSiteCountListByFilter(testProgID As String, rev As String, testerType As String, progName As String, programExec As String, device As String, temp As String) As DataTable
 
         Dim strQuery As String
         Dim dsResult As DataSet = New DataSet
@@ -59,14 +59,37 @@ Public Class blTestTime
             oOra.OpenOraConnection(cnnOra, connStr)
             strQuery = "Select distinct SITECOUNT from cmtesttime "
             strQuery = strQuery & "where "
-            strQuery = strQuery & "And TESTPROGID = '" & testProgID & "' "
-            strQuery = strQuery & "and TESTPROGIDREV = '" & rev & "' "
-            strQuery = strQuery & "and TESTERTYPE = '" & testerType & "' "
-            strQuery = strQuery & "and TESTPROGMAINSOURCE = '" & progName & "' "
-            strQuery = strQuery & "and TESTPROGEXECUTABLE = '" & programExec & "' "
-            strQuery = strQuery & "and DEVICE = '" & device & "' "
-            strQuery = strQuery & "and TESTSTEPTEMP = '" & temp & "' "
-            strQuery = strQuery & "and to_char(TESTTIMEEFFDATE,'mm/dd/yyyy') = '" & effDate & "' "
+            'strQuery = strQuery & "And TESTPROGID = '" & testProgID & "' "
+            'strQuery = strQuery & "and TESTPROGIDREV = '" & rev & "' "
+            'strQuery = strQuery & "and TESTERTYPE = '" & testerType & "' "
+            'strQuery = strQuery & "and TESTPROGMAINSOURCE = '" & progName & "' "
+            'strQuery = strQuery & "and TESTPROGEXECUTABLE = '" & programExec & "' "
+            'strQuery = strQuery & "and DEVICE = '" & device & "' "
+            'strQuery = strQuery & "and TESTSTEPTEMP = '" & temp & "' "
+            'strQuery = strQuery & "and to_char(TESTTIMEEFFDATE,'mm/dd/yyyy') = '" & effDate & "' "
+
+            If Len(Trim(testProgID)) >= 1 Then
+                strQuery = strQuery & " TestProgId = '" & testProgID & "' "
+            End If
+            If Len(Trim(rev)) >= 1 Then
+                strQuery = strQuery & " And testprogidrev = '" & rev & "' "
+            End If
+            If Len(Trim(temp)) >= 1 Then
+                strQuery = strQuery & " And teststeptemp = '" & temp & "' "
+            End If
+            If Len(Trim(device)) >= 1 Then
+                strQuery = strQuery & " And device like '" & device & "' "
+            End If
+            If Len(Trim(testerType)) >= 1 Then
+                strQuery = strQuery & " And Testertype like '" & testerType & "' "
+            End If
+            If Len(Trim(progName)) >= 1 Then
+                strQuery = strQuery & " And TestProgMainSource like '" & progName & "' "
+            End If
+            If Len(Trim(programExec)) >= 1 Then
+                strQuery = strQuery & " And Testprogexecutable like '" & programExec & "' "
+            End If
+
             strQuery = strQuery & "order by SITECOUNT "
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
 

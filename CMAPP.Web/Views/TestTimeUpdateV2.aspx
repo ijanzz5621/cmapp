@@ -553,7 +553,7 @@
             // once returned, loop and assing the site count to gSiteCountList then only call get listing function
             $.ajax({
                 url: "TestTimeUpdateV2.aspx/GetSiteCountListByFilter",
-                data: "{ 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'testerType': '" + _testerType + "', 'progName': '" + _progName + "', 'programExec': '" + _programExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "', 'effDate': '" + _effDate + "'}",
+                data: "{ 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'testerType': '" + _testerType + "', 'progName': '" + _progName + "', 'programExec': '" + _progExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "'}",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
@@ -602,6 +602,33 @@
                                 showPopupMessage("No data found!");
                             }
 
+                            $("[id*=<%=cblSiteCount.ClientID%>] input").each(function () {
+                                this.checked = false;
+                            });
+
+                            var found = 0;
+                            //set default checked
+                            $("[id*=<%=cblSiteCount.ClientID%>] input").each(function () {
+                                //if ($(this).val() === "1" || $(this).val() === "2" || $(this).val() === "3" || $(this).val() === "4" || $(this).val() === "8")
+                                //    this.checked = true;
+
+                                ////if (gSiteCountList.length > 0) {
+                                //    if (jQuery.inArray($(this).val(), gSiteCountList) >= 0) {
+                                //        this.checked = true;
+                                //        found++;
+                                //    }
+
+                                ////};
+
+                                if (getObjects(gSiteCountList, 'labelValue', $(this).val()).length > 0) {
+                                    this.checked = true;
+                                    found++;
+                                }
+
+                            });
+
+                            //alert('found: ' + found + ', gSiteCountList: ' + JSON.stringify(gSiteCountList));
+
                         },
                         beforeSend: function (request) {
                             HoldOn.open({ theme: "sk-rect" });
@@ -620,14 +647,14 @@
             });
 
 
-            <%--gSiteCountList = [];
-            $("[id*=<%=cblSiteCount.ClientID%>] input:checked").each(function () {
-                //gSiteCountList += (gSiteCountList === "") ? $(this).val() : "," + $(this).val();
-
-                var data = { label: $(this).val() + "x (s)", labelValue: $(this).val(), value: "0.00" };
-                gSiteCountList.push(data);
-
-            });--%>
+            //gSiteCountList = [];
+            //$("[id*=<%=cblSiteCount.ClientID%>] input:checked").each(function () {
+            //    //gSiteCountList += (gSiteCountList === "") ? $(this).val() : "," + $(this).val();
+            //
+            //    var data = { label: $(this).val() + "x (s)", labelValue: $(this).val(), value: "0.00" };
+            //    gSiteCountList.push(data);
+            //
+            //});
 
             
         }
@@ -688,15 +715,6 @@
 
             $('#<%=txtEditOverhead.ClientID%>').removeAttr('readonly');
             $('#<%=txtEditOverhead.ClientID%>').val("");
-
-            $("[id*=<%=cblSiteCount.ClientID%>] input").each(function () {
-                this.checked = false;
-            });
-            //set default checked
-            $("[id*=<%=cblSiteCount.ClientID%>] input").each(function () {
-                if ($(this).val() === "1" || $(this).val() === "2" || $(this).val() === "3" || $(this).val() === "4" || $(this).val() === "8")
-                    this.checked = true;
-            });
         }
 
         function loadProgramIDList() {
@@ -947,6 +965,19 @@
         function showPopupMessage(message) {
             $('#MainContent_wucPopupInfo_lblMessage').text(message);
             $find("modalPopupMessage").show();
+        }
+
+        function getObjects(obj, key, val) {
+            var objects = [];
+            for (var i in obj) {
+                if (!obj.hasOwnProperty(i)) continue;
+                if (typeof obj[i] == 'object') {
+                    objects = objects.concat(getObjects(obj[i], key, val));
+                } else if (i == key && obj[key] == val) {
+                    objects.push(obj);
+                }
+            }
+            return objects;
         }
 
     </script>
