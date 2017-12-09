@@ -551,67 +551,85 @@
 
             // Call ajax to get distinct value of site count for the selected filters
             // once returned, loop and assing the site count to gSiteCountList then only call get listing function
-            // TODO
+            $.ajax({
+                url: "TestTimeUpdateV2.aspx/GetSiteCountListByFilter",
+                data: "{ 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'testerType': '" + _testerType + "', 'progName': '" + _progName + "', 'programExec': '" + _programExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "', 'effDate': '" + _effDate + "'}",
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    gSiteCountList = [];
+                    $.each(JSON.parse(data.d), function (key, val) {
+                        var dataItem = { label: val.SITECOUNT + "x (s)", labelValue: val.SITECOUNT, value: "0.00" };
+                        gSiteCountList.push(dataItem);
+                    });
+
+                    $.ajax({
+                        url: "TestTimeUpdateV2.aspx/GetListing",
+                        data: "{ 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'ver': '" + _ver + "', 'testerType': '" + _testerType + "', 'progName': '" + _progName + "', 'progExec': '" + _progExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "', 'maxDate': '" + _maxDate + "', 'siteCountList': '" + JSON.stringify(gSiteCountList) + "'}",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+
+                            // clear the table
+                            $('#tblListing thead tr').html("");
+                            $('#tblListing tbody').html("");
+
+                            if (JSON.parse(data.d).length > 0) {
+                                for (var key in JSON.parse(data.d)[0]) {
+                                    $('#tblListing thead tr').append("<td>" + key + "</td>");
+                                }
+                                var row = "";
+                                var rowCount = 0;
+                                $.each(JSON.parse(data.d), function (key, val) {
+                                    //console.log(val);
+                                    var rowColor = "transparent";
+                                    if (rowCount % 2 === 0)
+                                        rowColor = "#fff";
+
+                                    row = row + "<tr style='cursor:pointer; background-color:" + rowColor + "' onclick='selectRow(this, \"" + val["Program ID"] + "\", \"" + val["Revision"] + "\", \"" + val["Tester Type"] + "\", \"" + val["Program Source"] + "\", \"" + val["Program Exec"] + "\", \"" + val["Device"] + "\", \"" + val["Temp"] + "\", \"" + val["Eff Date"] + "\", \"" + val["Overhead"] + "\")'>";
+                                    $.each(val, function (_, text) {
+                                        row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
+                                    });
+                                    row = row + "</tr>";
+
+                                    rowCount++;
+                                });
+                                $('#tblListing tbody').append(row);
+                            } else {
+                                showPopupMessage("No data found!");
+                            }
+
+                        },
+                        beforeSend: function (request) {
+                            HoldOn.open({ theme: "sk-rect" });
+                        }
+                        , complete: function () {
+                            HoldOn.close();
+                        },
+                        error: function (a, b, c) {
+                            console.log('error: ' + JSON.stringify(a));
+                        }
+                    });
+                },
+                error: function (a, b, c) {
+                    console.log('error: ' + JSON.stringify(a));
+                }
+            });
 
 
-            gSiteCountList = [];
+            <%--gSiteCountList = [];
             $("[id*=<%=cblSiteCount.ClientID%>] input:checked").each(function () {
                 //gSiteCountList += (gSiteCountList === "") ? $(this).val() : "," + $(this).val();
 
                 var data = { label: $(this).val() + "x (s)", labelValue: $(this).val(), value: "0.00" };
                 gSiteCountList.push(data);
 
-            });
+            });--%>
 
-            $.ajax({
-                url: "TestTimeUpdateV2.aspx/GetListing",
-                data: "{ 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'ver': '" + _ver + "', 'testerType': '" + _testerType + "', 'progName': '" + _progName + "', 'progExec': '" + _progExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "', 'maxDate': '" + _maxDate + "', 'siteCountList': '" + JSON.stringify(gSiteCountList) + "'}",
-                dataType: "json",
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
-                success: function (data) {
-                    //alert(data.d);
-
-                    // clear the table
-                    $('#tblListing thead tr').html("");
-                    $('#tblListing tbody').html("");
-
-                    if (JSON.parse(data.d).length > 0) {
-                        for (var key in JSON.parse(data.d)[0]) {
-                            $('#tblListing thead tr').append("<td>" + key + "</td>");
-                        }
-                        var row = "";
-                        var rowCount = 0;
-                        $.each(JSON.parse(data.d), function (key, val) {
-                            //console.log(val);
-                            var rowColor = "transparent";
-                            if (rowCount % 2 === 0)
-                                rowColor = "#fff";
-
-                            row = row + "<tr style='cursor:pointer; background-color:" + rowColor + "' onclick='selectRow(this, \"" + val["Program ID"] + "\", \"" + val["Revision"] + "\", \"" + val["Tester Type"] + "\", \"" + val["Program Source"] + "\", \"" + val["Program Exec"] + "\", \"" + val["Device"] + "\", \"" + val["Temp"] + "\", \"" + val["Eff Date"] + "\", \"" + val["Overhead"] + "\")'>";
-                            $.each(val, function (_, text) {
-                                row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
-                            });
-                            row = row + "</tr>";
-
-                            rowCount++;
-                        });
-                        $('#tblListing tbody').append(row);
-                    } else {
-                        showPopupMessage("No data found!");
-                    }
-
-                },
-                beforeSend: function (request) {
-                    HoldOn.open({ theme: "sk-rect" });
-                }
-                , complete: function () {
-                    HoldOn.close();
-                },
-                error: function (a, b, c) {
-                    console.log('error: ' + JSON.stringify(a));
-                }
-            });
+            
         }
 
         function selectRow(obj, _testProgID, _rev, _testerType, _progName, _progExec, _device, _temp, _effDate, _overhead) {

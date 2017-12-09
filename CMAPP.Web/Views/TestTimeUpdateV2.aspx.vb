@@ -277,6 +277,27 @@ Public Class TestTimeUpdateV2
     End Function
 
     <WebMethod>
+    Public Shared Function GetSiteCountListByFilter(testProgID As String, rev As String, testerType As String, progName As String, programExec As String, device As String, temp As String, effDate As String) As Object
+
+        Dim obj As Object = JsonConvert.SerializeObject("")
+
+        Try
+
+            Dim fnData As blTestTime = New blTestTime()
+            fnData.ConnectionString = cnnOraString
+            Dim dsResult As DataTable = fnData.GetSiteCountListByFilter(testProgID, rev, testerType, progName, programExec, device, temp, effDate)
+
+            obj = JsonConvert.SerializeObject(dsResult)
+
+        Catch ex As Exception
+
+        End Try
+
+        Return obj
+
+    End Function
+
+    <WebMethod>
     Public Shared Function UpdateTestTime(testProgID As String, rev As String, testerType As String, progName As String, programExec As String, device As String, temp As String, effDate As String, siteCountList As String, overhead As String, updateType As String) As Object
 
         Dim obj As Object = JsonConvert.SerializeObject("")

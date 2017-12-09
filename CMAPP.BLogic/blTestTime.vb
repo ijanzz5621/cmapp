@@ -49,6 +49,39 @@ Public Class blTestTime
 
     End Function
 
+    Public Function GetSiteCountListByFilter(testProgID As String, rev As String, testerType As String, progName As String, programExec As String, device As String, temp As String, effDate As String) As DataTable
+
+        Dim strQuery As String
+        Dim dsResult As DataSet = New DataSet
+
+        Try
+
+            oOra.OpenOraConnection(cnnOra, connStr)
+            strQuery = "Select distinct SITECOUNT from cmtesttime "
+            strQuery = strQuery & "where "
+            strQuery = strQuery & "And TESTPROGID = '" & testProgID & "' "
+            strQuery = strQuery & "and TESTPROGIDREV = '" & rev & "' "
+            strQuery = strQuery & "and TESTERTYPE = '" & testerType & "' "
+            strQuery = strQuery & "and TESTPROGMAINSOURCE = '" & progName & "' "
+            strQuery = strQuery & "and TESTPROGEXECUTABLE = '" & programExec & "' "
+            strQuery = strQuery & "and DEVICE = '" & device & "' "
+            strQuery = strQuery & "and TESTSTEPTEMP = '" & temp & "' "
+            strQuery = strQuery & "and to_char(TESTTIMEEFFDATE,'mm/dd/yyyy') = '" & effDate & "' "
+            strQuery = strQuery & "order by SITECOUNT "
+            dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
+
+        Catch ex As Exception
+            Dim exMsg = ex.Message
+        Finally
+
+            oOra.CloseOraConnection(cnnOra)
+
+        End Try
+
+        Return dsResult.Tables(0)
+
+    End Function
+
     Public Function GetTestProgramRevisionList(testProgID As String) As DataTable
 
         Dim strQuery As String
