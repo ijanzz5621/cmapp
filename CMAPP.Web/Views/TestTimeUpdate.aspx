@@ -4,6 +4,8 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="HeadContent" runat="server">
 
+    <script src="/Scripts/table2excel.js"></script>
+
     <style>
         .footer{
             width:100%;

@@ -62,7 +62,10 @@
         }
 
 
+
     </style>
+
+    <script src="/Scripts/table2excel.js"></script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -140,6 +143,8 @@
         <div class="row" style="margin-left:1px;">
             <div class="col-md-6" style="vertical-align:bottom; line-height:45px;">
                     <asp:Button Text="Search" runat="server" ID="btnSearch" CssClass="btn btn-info" OnClick="btnSearch_Click" />
+                    &nbsp;
+                    <asp:Button ID="btnExport" runat="server" Text="Export" CssClass="btn btn-success" ForeColor="#ffffff" />
                     <%--&nbsp;
                     <asp:Button ID="btnNewProgID" runat="server" Text="New Prog ID" CssClass="btn btn-success" ForeColor="#ffffff" />--%>
                     <%--&nbsp;
@@ -278,6 +283,7 @@
         var gHideFirstItem = false;
 
         $('#divSiteCountList').hide();
+        $('#<%=btnExport.ClientID%>').hide();
 
         $(document).ready(function () {
 
@@ -356,6 +362,13 @@
                 }
 
                 getListing($("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $('#<%=ddlTester.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("input[id='<%=chkMaxDate.ClientID%>']:checked").val());
+            });
+
+            $('#<%=btnExport.ClientID%>').on('click', function (e) {
+                e.preventDefault();
+                $("#tblListing").table2excel({
+                    filename: "cmtesttime-export.xls"
+                });
             });
 
             $('#<%=btnEditClose.ClientID%>').on('click', function (e) {
@@ -559,6 +572,7 @@
             $('#tblListing thead tr').html("");
             $('#tblListing tbody').html("");
 
+
             $.ajax({
                 url: "TestTimeUpdateV2.aspx/GetSiteCountListByFilter",
                 data: "{ 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'testerType': '" + _testerType + "', 'progName': '" + _progName + "', 'programExec': '" + _progExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "'}",
@@ -602,8 +616,12 @@
                                     rowCount++;
                                 });
                                 $('#tblListing tbody').append(row);
+
+                                $('#<%=btnExport.ClientID%>').show('slow');
+
                             } else {
                                 showPopupMessage("No data found!");
+                                $('#<%=btnExport.ClientID%>').hide();
                             }
 
                             $("[id*=<%=cblSiteCount.ClientID%>] input").each(function () {
@@ -633,10 +651,11 @@
 
                             //alert('found: ' + found + ', gSiteCountList: ' + JSON.stringify(gSiteCountList));
 
-                        },
-                        beforeSend: function (request) {
-                            HoldOn.open({ theme: "sk-rect" });
                         }
+                        //,
+                        //beforeSend: function (request) {
+                        //    HoldOn.open({ theme: "sk-rect" });
+                        //}
                         , complete: function () {
                             HoldOn.close();
                         },
