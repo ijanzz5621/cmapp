@@ -58,7 +58,7 @@ Public Class blTestTime
 
             oOra.OpenOraConnection(cnnOra, connStr)
             strQuery = "Select distinct SITECOUNT from cmtesttime "
-            strQuery = strQuery & "where "
+            strQuery = strQuery & "where 1=1 "
             'strQuery = strQuery & "And TESTPROGID = '" & testProgID & "' "
             'strQuery = strQuery & "and TESTPROGIDREV = '" & rev & "' "
             'strQuery = strQuery & "and TESTERTYPE = '" & testerType & "' "
@@ -69,7 +69,7 @@ Public Class blTestTime
             'strQuery = strQuery & "and to_char(TESTTIMEEFFDATE,'mm/dd/yyyy') = '" & effDate & "' "
 
             If Len(Trim(testProgID)) >= 1 Then
-                strQuery = strQuery & " TestProgId = '" & testProgID & "' "
+                strQuery = strQuery & "And TestProgId = '" & testProgID & "' "
             End If
             If Len(Trim(rev)) >= 1 Then
                 strQuery = strQuery & " And testprogidrev = '" & rev & "' "
@@ -149,7 +149,8 @@ Public Class blTestTime
             Next
 
             strQuery = strQuery & " From cmtesttime "
-            strQuery = strQuery & " Where Not UserId Is Null "
+            'strQuery = strQuery & " Where Not UserId Is Null "
+            strQuery = strQuery & " Where ROWNUM <= 200 "
 
             If Len(Trim(testProgID)) >= 1 Then
                 strQuery = strQuery & " And TestProgId = '" & testProgID & "' "

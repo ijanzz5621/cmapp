@@ -347,8 +347,11 @@
                 $('#divSiteCountList').hide('slow');
                 $('#divEdit').hide('slow');
 
-                if ($("#<%=txtProgramID.ClientID%>").val().trim() === "") {
-                    showPopupMessage("Please enter Program ID before search");
+                if ($("#<%=txtProgramID.ClientID%>").val().trim() === "" && $("#<%=ddlRevision.ClientID%>").val().trim() === ""
+                    && $("#<%=ddlTester.ClientID%>").val().trim() === "" && $("#<%=txtProgramName.ClientID%>").val().trim() === ""
+                    && $("#<%=txtProgramExec.ClientID%>").val().trim() === "" && $("#<%=txtDevice.ClientID%>").val().trim() === ""
+                    && $("#<%=ddlTemp.ClientID%>").val().trim() === "") {
+                    showPopupMessage("Please enter at least one filter to search");
                     return;
                 }
 
@@ -551,6 +554,11 @@
 
             // Call ajax to get distinct value of site count for the selected filters
             // once returned, loop and assing the site count to gSiteCountList then only call get listing function
+
+            // clear the table
+            $('#tblListing thead tr').html("");
+            $('#tblListing tbody').html("");
+
             $.ajax({
                 url: "TestTimeUpdateV2.aspx/GetSiteCountListByFilter",
                 data: "{ 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'testerType': '" + _testerType + "', 'progName': '" + _progName + "', 'programExec': '" + _progExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "'}",
@@ -572,10 +580,6 @@
                         type: "POST",
                         contentType: "application/json; charset=utf-8",
                         success: function (data) {
-
-                            // clear the table
-                            $('#tblListing thead tr').html("");
-                            $('#tblListing tbody').html("");
 
                             if (JSON.parse(data.d).length > 0) {
                                 for (var key in JSON.parse(data.d)[0]) {
@@ -641,7 +645,13 @@
                         }
                     });
                 },
-                error: function (a, b, c) {
+                beforeSend: function (request) {
+                    HoldOn.open({ theme: "sk-rect" });
+                }
+                //, complete: function () {
+                //    HoldOn.close();
+                //},
+                , error: function (a, b, c) {
                     console.log('error: ' + JSON.stringify(a));
                 }
             });
