@@ -313,7 +313,9 @@ Public Class TestTimeUpdateV2
 
                 For Each siteCount As SiteCount In siteCountListObj
 
-                    Dim dsResult As String = fnData.UpdateTestTime(testProgID, rev, "0", device, temp, effDate, siteCount.labelValue, siteCount.value, overhead, testerType, progName, programExec, HttpContext.Current.Session("USER_NAME").ToString())
+                    If siteCount.labelValue <> "1" Then
+                        Dim dsResult As String = fnData.UpdateTestTime(testProgID, rev, "0", device, temp, effDate, siteCount.labelValue, siteCount.value, overhead, testerType, progName, programExec, HttpContext.Current.Session("USER_NAME").ToString())
+                    End If
 
                 Next
 
@@ -327,7 +329,10 @@ Public Class TestTimeUpdateV2
 
                         For Each siteCount As SiteCount In siteCountListObj
 
-                            Dim dsResult As String = fnData.UpdateTestTime(testProgID, revRow("TESTPROGIDREV").ToString(), "0", device, temp, effDate, siteCount.labelValue, siteCount.value, overhead, testerType, progName, programExec, HttpContext.Current.Session("USER_NAME").ToString())
+                            If siteCount.labelValue <> "1" Then
+                                Dim dsResult As String = fnData.UpdateTestTime(testProgID, revRow("TESTPROGIDREV").ToString(), "0", device, temp, effDate, siteCount.labelValue, siteCount.value, overhead, testerType, progName, programExec, HttpContext.Current.Session("USER_NAME").ToString())
+                            End If
+
 
                         Next
 
