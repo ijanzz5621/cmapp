@@ -533,6 +533,8 @@
                 }
 
                 var item = "";
+
+                //alert(JSON.stringify(gSiteCountList));
                 
                 $.each(gSiteCountList, function (key, val) {
 
@@ -545,7 +547,11 @@
                         val.value = scValue.toFixed(2);
 
                     } else {
-                        val.value = "0.00";
+
+                        if (val.labelValue === 1)
+                            val.value = $('#<%=txtEditSiteCount1TestTime.ClientID%>').val();
+                        else
+                            val.value = "0.00";
                     }
 
                    
