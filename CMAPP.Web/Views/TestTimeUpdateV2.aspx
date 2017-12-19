@@ -141,14 +141,15 @@
         </div>
 
         <div class="row" style="margin-left:1px;">
-            <div class="col-md-6" style="vertical-align:bottom; line-height:45px;">
-                    <asp:Button Text="Search" runat="server" ID="btnSearch" CssClass="btn btn-info" OnClick="btnSearch_Click" />
-                    &nbsp;
-                    <asp:Button ID="btnExport" runat="server" Text="Export" CssClass="btn btn-success" ForeColor="#ffffff" />
-                    <%--&nbsp;
-                    <asp:Button ID="btnNewProgID" runat="server" Text="New Prog ID" CssClass="btn btn-success" ForeColor="#ffffff" />--%>
-                    <%--&nbsp;
-                    <asp:Button ID="btnEditTestTime" runat="server" Text="Edit Test Time" CssClass="btn btn-warning" ForeColor="#ffffff" />--%>
+            <div class="col-md-12" style="vertical-align:bottom; line-height:45px;">
+                <asp:Button Text="Search" runat="server" ID="btnSearch" CssClass="btn btn-info" OnClick="btnSearch_Click" />
+                &nbsp;
+                <asp:Button ID="btnExport" runat="server" Text="Export" CssClass="btn btn-success" ForeColor="#ffffff" />
+                <%--&nbsp;
+                <asp:Button ID="btnNewProgID" runat="server" Text="New Prog ID" CssClass="btn btn-success" ForeColor="#ffffff" />--%>
+                <%--&nbsp;
+                <asp:Button ID="btnEditTestTime" runat="server" Text="Edit Test Time" CssClass="btn btn-warning" ForeColor="#ffffff" />--%>
+                <span id="note1" style="font-weight:bold;font-size:18px; color:red;">Please click on the record to edit</span>
             </div>
         </div>
 
@@ -244,8 +245,8 @@
                         <asp:Button ID="btnEditClose" runat="server" Text="Close" CssClass="btn btn-warning" Height="35" />
                         &nbsp;
                         <asp:Button ID="btnEditTestTime" runat="server" Text="Save" CssClass="btn btn-success" Height="35" />
-                        &nbsp;
-                        <asp:Button ID="btnEditTestTimeAll" runat="server" Text="Save All" CssClass="btn btn-info" Height="35" />
+                        <%--&nbsp;
+                        <asp:Button ID="btnEditTestTimeAll" runat="server" Text="Save All" CssClass="btn btn-info" Height="35" />--%>
                     </div>
 
                 </div>
@@ -284,6 +285,7 @@
 
         $('#divSiteCountList').hide();
         $('#<%=btnExport.ClientID%>').hide();
+        $('#note1').hide();
 
         $(document).ready(function () {
 
@@ -394,9 +396,14 @@
 
                 e.preventDefault();
 
-                if (gSiteCountList.length != 0) {
-                } else {
-                    showPopupMessage("Please select site count");
+                //if (gSiteCountList.length != 0) {
+                //} else {
+                //    showPopupMessage("Please select site count");
+                //    return;
+                //}
+
+                if (gSiteCountList.length <= 1) {
+                    showPopupMessage("Please select Site Count to update!");
                     return;
                 }
 
@@ -422,7 +429,7 @@
 
             }); // end of btnEditTestTime click
 
-            $('#<%=btnEditTestTimeAll.ClientID%>').on('click', function (e) {
+            <%--$('#<%=btnEditTestTimeAll.ClientID%>').on('click', function (e) {
                 e.preventDefault();
 
                 if (gSiteCountList.length != 0) {
@@ -451,7 +458,7 @@
                     }
                 });
 
-            });
+            });--%>
 
             $("#MainContent_cblSiteCount input").on('change', function () {
                 //if (this.checked) {
@@ -473,6 +480,7 @@
         }); // end of document ready 
 
         function UpdateTestTime(_updateType) {
+
             // loop the input in the site count list
             $('#ulSiteCountList li').each(function (index) {
 
@@ -540,8 +548,10 @@
                         val.value = "0.00";
                     }
 
+                   
+
                     // ignore if site count = 1
-                    if (val.labelValue === "1") {
+                    if ($.trim(val.labelValue) === "1") {
                         // ignore
                         gHideFirstItem = true;
                     } else {
@@ -618,10 +628,12 @@
                                 $('#tblListing tbody').append(row);
 
                                 $('#<%=btnExport.ClientID%>').show('slow');
+                                $('#note1').show('slow');
 
                             } else {
                                 showPopupMessage("No data found!");
                                 $('#<%=btnExport.ClientID%>').hide();
+                                $('#note1').hide();
                             }
 
                             $("[id*=<%=cblSiteCount.ClientID%>] input").each(function () {
