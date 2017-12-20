@@ -402,30 +402,27 @@
                 //    return;
                 //}
 
-                if (gSiteCountList.length <= 1) {
+                if (gSiteCountList.length === 0) {
                     showPopupMessage("Please select Site Count to update!");
                     return;
+                } else {
+                    var foundEmpty = false;
+                    // check if one of the textbox empty, then alert user
+                    $('#ulSiteCountList li').each(function (index) {
+                        if ($(this).find("input").val().trim() === "") {
+                            foundEmpty = true;
+                        }
+                    });
                 }
 
-                $.confirm({
-                    title: 'Save confirmation',
-                    content: 'Are you sure to save? This will update the selected revision with the new calculated test time values.',
-                    buttons: {
-                        cancel: function () {
-                            //$.alert('Canceled!');
-                        },
-                        confirm: {
-                            text: 'Confirm',
-                            btnClass: 'btn-blue',
-                            keys: ['enter', 'shift'],
-                            action: function () {
+                if (foundEmpty) {
+                    showPopupMessage("Value for site count cannot be empty. Please fill up before save!");
+                    return;
+                } else {
+                    UpdateTestTime("Single");
+                }
 
-                                UpdateTestTime("Single");
-
-                            } // end of action 
-                        } // end of confirm
-                    } // end of button
-                }); // end of confirm
+                
 
             }); // end of btnEditTestTime click
 
@@ -481,43 +478,61 @@
 
         function UpdateTestTime(_updateType) {
 
-            // loop the input in the site count list
-            $('#ulSiteCountList li').each(function (index) {
+            $.confirm({
+                title: 'Save confirmation',
+                content: 'Are you sure to save? This will update the selected revision with the new calculated test time values.',
+                buttons: {
+                    cancel: function () {
+                        //$.alert('Canceled!');
+                    },
+                    confirm: {
+                        text: 'Confirm',
+                        btnClass: 'btn-blue',
+                        keys: ['enter', 'shift'],
+                        action: function () {
 
-                //alert($(this).find("input").val());
-                //update the json object (user might change the value manually)
-                if (gHideFirstItem)
-                    gSiteCountList[index + 1].value = $(this).find("input").val(); // index + 1 because first item (1) has been hide
-                else
-                    gSiteCountList[index].value = $(this).find("input").val();
-            });
+                            // loop the input in the site count list
+                            $('#ulSiteCountList li').each(function (index) {
 
-            // call ajax and update database
-            $.ajax({
-                url: "TestTimeUpdateV2.aspx/UpdateTestTime",
-                data: "{ 'testProgID': '" + $("#<%=txtEditProgramID.ClientID%>").val() + "', 'rev': '" + $("#<%=txtEditRevision.ClientID%>").val() + "', 'testerType': '" + $("#<%=txtEditTesterType.ClientID%>").val() + "', 'progName': '" + $("#<%=txtEditProgName.ClientID%>").val() + "', 'programExec': '" + $("#<%=txtEditProgExec.ClientID%>").val() + "', 'device': '" + $("#<%=txtEditDevice.ClientID%>").val() + "', 'temp': '" + $("#<%=txtEditTemp.ClientID%>").val() + "', 'effDate': '" + $("#<%=txtEditEffDate.ClientID%>").val() + "', 'siteCountList': '" + JSON.stringify(gSiteCountList) + "', 'overhead': '" + $("#<%=txtEditOverhead.ClientID%>").val() + "', 'updateType': '" + _updateType + "'}",
-                dataType: "json",
-                type: "POST",
-                contentType: "application/json; charset=utf-8",
-                success: function (data) {
+                                //alert($(this).find("input").val());
+                                //update the json object (user might change the value manually)
+                                if (gHideFirstItem)
+                                    gSiteCountList[index + 1].value = $(this).find("input").val(); // index + 1 because first item (1) has been hide
+                                else
+                                    gSiteCountList[index].value = $(this).find("input").val();
+                            });
 
-                    resetEdit();
-                    $('#tblListing tbody tr').removeClass("row-selected");
-                    $('#divSiteCountList').hide('slow');
-                    $('#divEdit').hide('slow');
+                            // call ajax and update database
+                            $.ajax({
+                                url: "TestTimeUpdateV2.aspx/UpdateTestTime",
+                                data: "{ 'testProgID': '" + $("#<%=txtEditProgramID.ClientID%>").val() + "', 'rev': '" + $("#<%=txtEditRevision.ClientID%>").val() + "', 'testerType': '" + $("#<%=txtEditTesterType.ClientID%>").val() + "', 'progName': '" + $("#<%=txtEditProgName.ClientID%>").val() + "', 'programExec': '" + $("#<%=txtEditProgExec.ClientID%>").val() + "', 'device': '" + $("#<%=txtEditDevice.ClientID%>").val() + "', 'temp': '" + $("#<%=txtEditTemp.ClientID%>").val() + "', 'effDate': '" + $("#<%=txtEditEffDate.ClientID%>").val() + "', 'siteCountList': '" + JSON.stringify(gSiteCountList) + "', 'overhead': '" + $("#<%=txtEditOverhead.ClientID%>").val() + "', 'updateType': '" + _updateType + "'}",
+                                dataType: "json",
+                                type: "POST",
+                                contentType: "application/json; charset=utf-8",
+                                success: function (data) {
 
-                    getListing($("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $('#<%=ddlTester.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("input[id='<%=chkMaxDate.ClientID%>']:checked").val());
-                },
-                beforeSend: function (request) {
-                    HoldOn.open({ theme: "sk-rect" });
-                }
-                , complete: function () {
-                    HoldOn.close();
-                },
-                error: function (a, b, c) {
-                    console.log('error: ' + JSON.stringify(a));
-                }
-            });
+                                    resetEdit();
+                                    $('#tblListing tbody tr').removeClass("row-selected");
+                                    $('#divSiteCountList').hide('slow');
+                                    $('#divEdit').hide('slow');
+
+                                    getListing($("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $('#<%=ddlTester.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("input[id='<%=chkMaxDate.ClientID%>']:checked").val());
+                                },
+                                beforeSend: function (request) {
+                                    HoldOn.open({ theme: "sk-rect" });
+                                }
+                                , complete: function () {
+                                    HoldOn.close();
+                                },
+                                error: function (a, b, c) {
+                                    console.log('error: ' + JSON.stringify(a));
+                                }
+                            });
+
+                        } // end of action 
+                    } // end of confirm
+                } // end of button
+            }); // end of confirm
         }
 
         function populateSiteCount() {
@@ -548,26 +563,41 @@
 
                     } else {
 
-                        if (val.labelValue === 1)
+                        //if (val.labelValue === 1)
+                        if ($.trim(val.labelValue) === "1")
                             val.value = $('#<%=txtEditSiteCount1TestTime.ClientID%>').val();
                         else
-                            val.value = "0.00";
+                            //val.value = "0.00";
+                            val.value = "";
                     }
 
                    
 
                     // ignore if site count = 1
+                    //if ($.trim(val.labelValue) === "1") {
+                    //    // ignore
+                    //    gHideFirstItem = true;
+                    //} else {
+                        
+                    //    item = item + "<li style='display: inline-block; text-align:center; margin:5px;'>" +
+                    //        "<div><label>" + val.label + "</label> " +
+                    //        "<input type='text' class='form-control' value='" + val.value + "' style='width:60px; text-align:center;' /> " +
+                    //        "</div></li>";
+
+                    //}
+
+                    var readOnlySC1 = "";
+
                     if ($.trim(val.labelValue) === "1") {
                         // ignore
-                        gHideFirstItem = true;
-                    } else {
-                        
-                        item = item + "<li style='display: inline-block; text-align:center; margin:5px;'>" +
-                            "<div><label>" + val.label + "</label> " +
-                            "<input type='text' class='form-control' value='" + val.value + "' style='width:60px; text-align:center;' /> " +
-                            "</div></li>";
+                        //gHideFirstItem = true;
+                        readOnlySC1 = "readonly='readonly' ";
+                    } 
 
-                    }
+                    item = item + "<li style='display: inline-block; text-align:center; margin:5px;'>" +
+                        "<div><label>" + val.label + "</label> " +
+                        "<input type='text' class='form-control' value='" + val.value + "' style='width:60px; text-align:center;' " + readOnlySC1 + " /> " +
+                        "</div></li>";
 
                 });
 
