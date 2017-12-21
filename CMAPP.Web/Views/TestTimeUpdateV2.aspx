@@ -157,10 +157,7 @@
 
             <div class="col-md-12 col-lg-12">
 
-                <div style="width:100%; overflow-x:scroll">
-                    <asp:CheckBoxList ID="cblSiteCount" runat="server" RepeatDirection="Horizontal" style="overflow: auto;">
-                    </asp:CheckBoxList>
-                </div>
+                
 
             </div>
 
@@ -214,7 +211,7 @@
                     <ajaxToolKit:CalendarExtender ID="calEditEffDate" PopupButtonID="imgPopup" runat="server" TargetControlID="txtEditEffDate" Format="MM/dd/yyyy"> </ajaxToolKit:CalendarExtender>
                 </div>
                 <div class="col-lg-1 col-md-2">
-                    <asp:Label runat="server" AssociatedControlID="txtEditSiteCount1TestTime">Test Time SC1</asp:Label><br />
+                    <asp:Label runat="server" AssociatedControlID="txtEditSiteCount1TestTime">X1 Test Time</asp:Label><br />
                     <asp:TextBox ID="txtEditSiteCount1TestTime" runat="server" CssClass="form-control" />
                 </div>
 
@@ -222,9 +219,13 @@
                     <asp:Label runat="server" AssociatedControlID="txtEditOverhead">Overhead</asp:Label><br />
                     <asp:TextBox ID="txtEditOverhead" runat="server" CssClass="form-control" />
                 </div>
-                <div class="col-lg-1 col-md-2">
-                    <asp:Label Text="" runat="server" />&nbsp;<br />
-                    <asp:Button ID="btnEditCalculate" Text="Calculate" runat="server" CssClass="btn btn-primary" />
+                <div class="col-lg-9 col-md-6">
+                    <%--<asp:Label Text="" runat="server" />&nbsp;<br />
+                    <asp:Button ID="btnEditCalculate" Text="Calculate" runat="server" CssClass="btn btn-primary" />--%>
+                    <div style="width:100%; overflow-x:scroll">
+                        <asp:CheckBoxList ID="cblSiteCount" runat="server" RepeatDirection="Horizontal" style="overflow: auto;">
+                        </asp:CheckBoxList>
+                    </div>
                 </div>
 
             </div>
@@ -232,7 +233,6 @@
             <div class="row" style="margin-top:30px;">
 
                 <ul id="ulSiteCountList" style="list-style:none; display:inline-block; margin:0; padding:0;">
-
                 </ul>
 
             </div>
@@ -245,6 +245,10 @@
                         <asp:Button ID="btnEditClose" runat="server" Text="Close" CssClass="btn btn-warning" Height="35" />
                         &nbsp;
                         <asp:Button ID="btnEditTestTime" runat="server" Text="Save" CssClass="btn btn-success" Height="35" />
+                        &nbsp;
+                        <asp:Button ID="btnDeleteTestTime" runat="server" Text="Delete" CssClass="btn btn-danger" Height="35" />
+                       <%-- &nbsp;
+                        <asp:Button ID="btnNewTestTime" runat="server" Text="New" CssClass="btn btn-info" Height="35" />--%>
                         <%--&nbsp;
                         <asp:Button ID="btnEditTestTimeAll" runat="server" Text="Save All" CssClass="btn btn-info" Height="35" />--%>
                     </div>
@@ -386,11 +390,11 @@
 
             });
 
-            $('#<%=btnEditCalculate.ClientID%>').on('click', function (e) {
+            <%--$('#<%=btnEditCalculate.ClientID%>').on('click', function (e) {
                 e.preventDefault();
 
                 populateSiteCount();
-            });
+            });--%>
 
             $('#<%=btnEditTestTime.ClientID%>').on('click', function (e) {
 
@@ -401,6 +405,11 @@
                 //    showPopupMessage("Please select site count");
                 //    return;
                 //}
+
+                if ($('#<%=txtEditOverhead.ClientID%>').val().trim() !== "" && $('#<%=txtEditSiteCount1TestTime.ClientID%>').val().trim() === "") {
+                    showPopupMessage("Please enter Test Time SC1 if you want to calculate using overhead!");
+                    return;
+                }
 
                 if (gSiteCountList.length === 0) {
                     showPopupMessage("Please select Site Count to update!");
@@ -472,6 +481,64 @@
 
                 //};
             });
+
+            $('#<%=txtEditSiteCount1TestTime.ClientID%>').on('keyup', function (e) {
+                populateSiteCount();
+            });
+
+            $('#<%=txtEditOverhead.ClientID%>').on('keyup', function (e) {
+                populateSiteCount();
+            });
+
+            $('#<%=btnDeleteTestTime.ClientID%>').on('click', function (e) {
+                e.preventDefault();
+
+                $.confirm({
+                    title: 'Delete confirmation',
+                    content: 'Are you sure to delete?',
+                    buttons: {
+                        cancel: function () {
+                            //$.alert('Canceled!');
+                        },
+                        confirm: {
+                            text: 'Confirm',
+                            btnClass: 'btn-blue',
+                            keys: ['enter', 'shift'],
+                            action: function () {
+
+                                // call ajax and update database
+                                $.ajax({
+                                    url: "TestTimeUpdateV2.aspx/DeleteTestTime",
+                                    data: "{ 'testProgID': '" + $("#<%=txtEditProgramID.ClientID%>").val() + "', 'rev': '" + $("#<%=txtEditRevision.ClientID%>").val() + "', 'testerType': '" + $("#<%=txtEditTesterType.ClientID%>").val() + "', 'progName': '" + $("#<%=txtEditProgName.ClientID%>").val() + "', 'programExec': '" + $("#<%=txtEditProgExec.ClientID%>").val() + "', 'device': '" + $("#<%=txtEditDevice.ClientID%>").val() + "', 'temp': '" + $("#<%=txtEditTemp.ClientID%>").val() + "', 'effDate': '" + $("#<%=txtEditEffDate.ClientID%>").val() + "', 'overhead': '" + $("#<%=txtEditOverhead.ClientID%>").val() + "'}",
+                                dataType: "json",
+                                type: "POST",
+                                contentType: "application/json; charset=utf-8",
+                                success: function (data) {
+
+                                    resetEdit();
+                                    $('#tblListing tbody tr').removeClass("row-selected");
+                                    $('#divSiteCountList').hide('slow');
+                                    $('#divEdit').hide('slow');
+
+                                    getListing($("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $('#<%=ddlTester.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("input[id='<%=chkMaxDate.ClientID%>']:checked").val());
+                                },
+                                beforeSend: function (request) {
+                                    HoldOn.open({ theme: "sk-rect" });
+                                }
+                                , complete: function () {
+                                    HoldOn.close();
+                                },
+                                error: function (a, b, c) {
+                                    console.log('error: ' + JSON.stringify(a));
+                                }
+                            });
+
+                        } // end of action 
+                    } // end of confirm
+                } // end of button
+                }); // end of confirm
+
+            });
             
 
         }); // end of document ready 
@@ -542,11 +609,6 @@
             // var arrSiteCount = gSiteCountList.split(',');
             if (gSiteCountList.length > 0) {
 
-                if ($('#<%=txtEditOverhead.ClientID%>').val().trim() !== "" && $('#<%=txtEditSiteCount1TestTime.ClientID%>').val().trim() === "") {
-                    showPopupMessage("Please enter Test Time SC1 if you want to calculate using overhead!");
-                    return;
-                }
-
                 var item = "";
 
                 //alert(JSON.stringify(gSiteCountList));
@@ -554,7 +616,7 @@
                 $.each(gSiteCountList, function (key, val) {
 
                     // use the formula
-                    if ($('#<%=txtEditOverhead.ClientID%>').val() !== "") {
+                    if ($('#<%=txtEditOverhead.ClientID%>').val() !== "" && $('#<%=txtEditSiteCount1TestTime.ClientID%>').val() !== "") {
 
                         // Dim siteCountTestTime As Double = Double.Parse(popupTestTime_txtSiteCount1TestTime.Text) + ((Double.Parse(popupTestTime_txtOverhead.Text) / 100) * item * Double.Parse(popupTestTime_txtSiteCount1TestTime.Text))
                         var scValue = parseFloat($('#<%=txtEditSiteCount1TestTime.ClientID%>').val()) + ((parseFloat($('#<%=txtEditOverhead.ClientID%>').val()) / 100) * (parseInt(val.labelValue) -1) * parseFloat($('#<%=txtEditSiteCount1TestTime.ClientID%>').val()));
@@ -760,6 +822,8 @@
             $('#<%=txtEditEffDate.ClientID%>').val(_effDate);
             $('#<%=txtEditEffDate.ClientID%>').attr('readonly', 'readonly');
             $('#<%=txtEditOverhead.ClientID%>').val((_overhead === "null" || _overhead === null) ? "" : _overhead);
+
+            $('#<%=txtEditSiteCount1TestTime.ClientID%>').val("");
             
             // call ajax and get the site count 1 test time
             getSiteCount1TestTime(_testProgID, _rev, _testerType, _progName, _progExec, _device, _temp, _effDate);

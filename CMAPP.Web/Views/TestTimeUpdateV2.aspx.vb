@@ -356,6 +356,30 @@ Public Class TestTimeUpdateV2
 
     End Function
 
+    <WebMethod>
+    Public Shared Function DeleteTestTime(testProgID As String, rev As String, testerType As String, progName As String, programExec As String, device As String, temp As String, effDate As String, overhead As String) As Object
+
+        Dim obj As Object = JsonConvert.SerializeObject("")
+
+        Try
+
+            Dim fnData As blTestTime = New blTestTime()
+            fnData.ConnectionString = cnnOraString
+
+            Dim dsResult As String = fnData.DeleteTestTime(testProgID, rev, device, temp, effDate, overhead, testerType, progName, programExec, HttpContext.Current.Session("USER_NAME").ToString())
+
+            obj = JsonConvert.SerializeObject("SUCCESS")
+
+        Catch ex As Exception
+
+            obj = JsonConvert.SerializeObject(ex.Message)
+
+        End Try
+
+        Return obj
+
+    End Function
+
 #End Region
 
     Protected Sub btnSearch_Click(sender As Object, e As EventArgs)

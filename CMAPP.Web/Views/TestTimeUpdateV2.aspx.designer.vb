@@ -122,15 +122,6 @@ Partial Public Class TestTimeUpdateV2
     Protected WithEvents btnExport As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
-    '''cblSiteCount control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cblSiteCount As Global.System.Web.UI.WebControls.CheckBoxList
-    
-    '''<summary>
     '''txtEditProgramID control.
     '''</summary>
     '''<remarks>
@@ -239,13 +230,13 @@ Partial Public Class TestTimeUpdateV2
     Protected WithEvents txtEditOverhead As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''btnEditCalculate control.
+    '''cblSiteCount control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnEditCalculate As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents cblSiteCount As Global.System.Web.UI.WebControls.CheckBoxList
     
     '''<summary>
     '''btnEditClose control.
@@ -264,6 +255,15 @@ Partial Public Class TestTimeUpdateV2
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnEditTestTime As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''btnDeleteTestTime control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnDeleteTestTime As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
     '''wucPopupInfo control.
