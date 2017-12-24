@@ -241,14 +241,16 @@
 
                 <div class="col-md-12" style="margin-top:15px !important;">
 
+                    <div style="float:left;">
+                        <asp:Button ID="btnNewTestTime" runat="server" Text="New" CssClass="btn btn-info" Height="35" />
+                    </div>
+
                     <div style="float:right;">
                         <asp:Button ID="btnEditClose" runat="server" Text="Close" CssClass="btn btn-warning" Height="35" />
                         &nbsp;
                         <asp:Button ID="btnEditTestTime" runat="server" Text="Save" CssClass="btn btn-success" Height="35" />
                         &nbsp;
                         <asp:Button ID="btnDeleteTestTime" runat="server" Text="Delete" CssClass="btn btn-danger" Height="35" />
-                       <%-- &nbsp;
-                        <asp:Button ID="btnNewTestTime" runat="server" Text="New" CssClass="btn btn-info" Height="35" />--%>
                         <%--&nbsp;
                         <asp:Button ID="btnEditTestTimeAll" runat="server" Text="Save All" CssClass="btn btn-info" Height="35" />--%>
                     </div>
@@ -337,16 +339,16 @@
 
             });
 
-            <%--$('#<%=btnNewProgID.ClientID%>').on('click', function (e) {
+            $('#<%=btnNewTestTime.ClientID%>').on('click', function (e) {
                 e.preventDefault();
 
-                resetEdit();
+                resetEditRemainValue();
 
-                $('#divSiteCountList').hide('slow');
-                $('#divEdit').show('slow');
+                //$('#divSiteCountList').hide('slow');
+                //$('#divEdit').show('slow');
 
-                $('#<%=txtEditProgramID.ClientID%>').focus();
-            });--%>
+                //$('#<%=txtEditProgramID.ClientID%>').focus();
+            });
 
             $('#<%=btnSearch.ClientID%>').on('click', function (e) {
                 e.preventDefault();
@@ -856,6 +858,19 @@
 
             $('#<%=txtEditOverhead.ClientID%>').removeAttr('readonly');
             $('#<%=txtEditOverhead.ClientID%>').val("");
+        }
+
+        function resetEditRemainValue() {
+            $('#<%=txtEditProgramID.ClientID%>').removeAttr('readonly');
+            $('#<%=txtEditRevision.ClientID%>').removeAttr('readonly');
+            $('#<%=txtEditTesterType.ClientID%>').removeAttr('readonly');
+            $('#<%=txtEditVersion.ClientID%>').removeAttr('readonly');
+            $('#<%=txtEditProgName.ClientID%>').removeAttr('readonly');
+            $('#<%=txtEditProgExec.ClientID%>').removeAttr('readonly');
+            $('#<%=txtEditDevice.ClientID%>').removeAttr('readonly');
+            $('#<%=txtEditTemp.ClientID%>').removeAttr('readonly');
+            $('#<%=txtEditEffDate.ClientID%>').removeAttr('readonly');
+            $('#<%=txtEditOverhead.ClientID%>').removeAttr('readonly');
         }
 
         function loadProgramIDList() {
