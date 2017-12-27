@@ -169,35 +169,35 @@
 
                 <div class="col-lg-1 col-md-2">
                     <asp:Label Text="text" runat="server" AssociatedControlID="txtEditProgramID">Program ID</asp:Label>
-                    <asp:TextBox ID="txtEditProgramID" runat="server" CssClass="form-control"></asp:TextBox>
+                    <asp:TextBox ID="txtEditProgramID" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
                 </div>
                 <div class="col-lg-1 col-md-2">
                     <asp:Label Text="text" runat="server" AssociatedControlID="txtEditRevision">Revision</asp:Label>
-                    <asp:TextBox ID="txtEditRevision" runat="server" CssClass="form-control"></asp:TextBox>
+                    <asp:TextBox ID="txtEditRevision" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
                 </div>
                 <div class="col-lg-1 col-md-2">
                     <asp:Label Text="text" runat="server" AssociatedControlID="txtEditVersion">Version</asp:Label>
-                    <asp:TextBox runat="server" CssClass="form-control" ID="txtEditVersion" Text="0" />
+                    <asp:TextBox runat="server" CssClass="form-control toUppercase" ID="txtEditVersion" Text="0" />
                 </div>
                 <div class="col-lg-2 col-md-3">
                     <asp:Label Text="text" runat="server" AssociatedControlID="txtEditTesterType">Tester Type</asp:Label>
-                    <asp:TextBox ID="txtEditTesterType" runat="server" CssClass="form-control"></asp:TextBox>
+                    <asp:TextBox ID="txtEditTesterType" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
                 </div>
                 <div class="col-lg-2 col-md-3">
                     <asp:Label Text="text" runat="server" AssociatedControlID="txtEditProgName">Program Name</asp:Label>
-                    <asp:TextBox ID="txtEditProgName" runat="server" CssClass="form-control"></asp:TextBox>
+                    <asp:TextBox ID="txtEditProgName" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
                 </div>
                 <div class="col-lg-2 col-md-3">
                     <asp:Label Text="text" runat="server" AssociatedControlID="txtEditProgExec">Program Exec</asp:Label>
-                    <asp:TextBox ID="txtEditProgExec" runat="server" CssClass="form-control"></asp:TextBox>
+                    <asp:TextBox ID="txtEditProgExec" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
                 </div>
                 <div class="col-lg-2 col-md-3">
                     <asp:Label Text="text" runat="server" AssociatedControlID="txtEditDevice">Device</asp:Label>
-                    <asp:TextBox ID="txtEditDevice" runat="server" CssClass="form-control"></asp:TextBox>
+                    <asp:TextBox ID="txtEditDevice" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
                 </div>
                 <div class="col-lg-1 col-md-2">
                     <asp:Label Text="text" runat="server" AssociatedControlID="txtEditTemp">Temp</asp:Label>
-                    <asp:TextBox ID="txtEditTemp" runat="server" CssClass="form-control"></asp:TextBox>
+                    <asp:TextBox ID="txtEditTemp" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
                 </div>
 
                 
@@ -243,6 +243,8 @@
 
                     <div style="float:left;">
                         <asp:Button ID="btnNewTestTime" runat="server" Text="New" CssClass="btn btn-info" Height="35" />
+                        &nbsp;
+                        <asp:Button ID="btnDuplicateTestTime" runat="server" Text="Duplicate" CssClass="btn btn-success" Height="35" />
                     </div>
 
                     <div style="float:right;">
@@ -341,13 +343,12 @@
 
             $('#<%=btnNewTestTime.ClientID%>').on('click', function (e) {
                 e.preventDefault();
+                resetEdit();
+            });
 
+            $('#<%=btnDuplicateTestTime.ClientID%>').on('click', function (e) {
+                e.preventDefault();
                 resetEditRemainValue();
-
-                //$('#divSiteCountList').hide('slow');
-                //$('#divEdit').show('slow');
-
-                //$('#<%=txtEditProgramID.ClientID%>').focus();
             });
 
             $('#<%=btnSearch.ClientID%>').on('click', function (e) {
@@ -540,6 +541,16 @@
                 } // end of button
                 }); // end of confirm
 
+            });
+
+            //convert to upper case
+            $('.toUppercase').on('keyup', function (e) {
+                $(this).val(($(this).val()).toUpperCase());
+            });
+
+            //allow only AtoZ
+            $('#<%=txtEditRevision.ClientID%>').keypress(function (key) {
+                if (key.charCode < 64 || key.charCode > 90) return false;
             });
             
 
@@ -855,6 +866,8 @@
             $('#<%=txtEditTemp.ClientID%>').val("");
             $('#<%=txtEditEffDate.ClientID%>').removeAttr('readonly');
             $('#<%=txtEditEffDate.ClientID%>').val("");
+
+            $('#<%=txtEditSiteCount1TestTime.ClientID%>').val("");
 
             $('#<%=txtEditOverhead.ClientID%>').removeAttr('readonly');
             $('#<%=txtEditOverhead.ClientID%>').val("");

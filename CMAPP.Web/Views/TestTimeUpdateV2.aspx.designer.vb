@@ -248,6 +248,15 @@ Partial Public Class TestTimeUpdateV2
     Protected WithEvents btnNewTestTime As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
+    '''btnDuplicateTestTime control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnDuplicateTestTime As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
     '''btnEditClose control.
     '''</summary>
     '''<remarks>
