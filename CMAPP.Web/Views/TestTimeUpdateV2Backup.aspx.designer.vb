@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class TestTimeUpdateV2
+Partial Public Class TestTimeUpdateV2Backup
     
     '''<summary>
     '''txtProgramID control.
@@ -228,15 +228,6 @@ Partial Public Class TestTimeUpdateV2
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtEditOverhead As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''btnEditCalculate control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnEditCalculate As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
     '''cblSiteCount control.

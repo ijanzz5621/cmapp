@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Test Time Update V2" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="TestTimeUpdateV2.aspx.vb" Inherits="CMAPP.Web.TestTimeUpdateV2" EnableEventValidation="false" %>
+﻿<%@ Page Title="Test Time Update V2" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="TestTimeUpdateV2Backup.aspx.vb" Inherits="CMAPP.Web.TestTimeUpdateV2Backup" EnableEventValidation="false" %>
 <%@ Register Src="~/Controls/wucPopupInfo.ascx" TagPrefix="uc1" TagName="wucPopupInfo" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolKit" %>
 
@@ -153,6 +153,16 @@
             </div>
         </div>
 
+        <div class="row" style="margin-left:1px; margin-right:1px;" id="divSiteCountList">
+
+            <div class="col-md-12 col-lg-12">
+
+                
+
+            </div>
+
+        </div>
+
         <div id="divEdit" style="padding:15px; margin-left:5px; margin-right:5px; min-height:100px; margin-top:5px; margin-bottom:5px; border:1px solid #c3c1c1; border-radius:6px; background-color:#f1f1f1; display:none">
 
             <div class="row">
@@ -209,11 +219,9 @@
                     <asp:Label runat="server" AssociatedControlID="txtEditOverhead">Overhead</asp:Label><br />
                     <asp:TextBox ID="txtEditOverhead" runat="server" CssClass="form-control" />
                 </div>
-                <div class="col-lg-1 col-md-1">
-                    <asp:Label Text="" runat="server" />&nbsp;<br />
-                    <asp:Button ID="btnEditCalculate" Text="Calculate" runat="server" CssClass="btn btn-primary" style="width:100%;" />
-                </div>
-                <div class="col-lg-8 col-md-5">
+                <div class="col-lg-9 col-md-6">
+                    <%--<asp:Label Text="" runat="server" />&nbsp;<br />
+                    <asp:Button ID="btnEditCalculate" Text="Calculate" runat="server" CssClass="btn btn-primary" />--%>
                     <div style="width:100%; overflow-x:scroll">
                         <asp:CheckBoxList ID="cblSiteCount" runat="server" RepeatDirection="Horizontal" style="overflow: auto;">
                         </asp:CheckBoxList>
@@ -385,10 +393,11 @@
 
             });
 
-            $('#<%=btnEditCalculate.ClientID%>').on('click', function (e) {
+            <%--$('#<%=btnEditCalculate.ClientID%>').on('click', function (e) {
                 e.preventDefault();
+
                 populateSiteCount();
-            });
+            });--%>
 
             $('#<%=btnEditTestTime.ClientID%>').on('click', function (e) {
 
@@ -461,22 +470,28 @@
             });--%>
 
             $("#MainContent_cblSiteCount input").on('change', function () {
+                //if (this.checked) {
                 gSiteCountList = [];
                 $("[id*=<%=cblSiteCount.ClientID%>] input:checked").each(function () {
+                    //gSiteCountList += (gSiteCountList === "") ? $(this).val() : "," + $(this).val();
+
                     var data = { label: $(this).val() + "x (s)", labelValue: $(this).val(), value: "0.00" };
                     gSiteCountList.push(data);
+
                 });
 
                 populateSiteCount();
+
+                //};
             });
 
-            <%--$('#<%=txtEditSiteCount1TestTime.ClientID%>').on('keyup', function (e) {
+            $('#<%=txtEditSiteCount1TestTime.ClientID%>').on('keyup', function (e) {
                 populateSiteCount();
             });
 
             $('#<%=txtEditOverhead.ClientID%>').on('keyup', function (e) {
                 populateSiteCount();
-            });--%>
+            });
 
             $('#<%=btnDeleteTestTime.ClientID%>').on('click', function (e) {
                 e.preventDefault();

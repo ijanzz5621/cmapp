@@ -262,7 +262,7 @@ Public Class blTestTime
                 strQuery = strQuery & ",'" & device & "'"
                 strQuery = strQuery & ",'" & temp & "'"
                 strQuery = strQuery & "," & siteCount & ""
-                strQuery = strQuery & ",to_date('" & effDate & "','mm/dd/yyyy')"
+                strQuery = strQuery & ",to_date(to_char(SysDate,'mm/dd/yyyy'), 'mm/dd/yyyy')"
                 strQuery = strQuery & "," & testTime & ""
                 If overhead.Trim <> "" Then
                     strQuery = strQuery & "," & overhead & ""

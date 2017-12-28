@@ -4,7 +4,7 @@ Imports CMAPP.BLogic
 Imports CMAPP.Model
 Imports Newtonsoft.Json
 
-Public Class TestTimeUpdateV2
+Public Class TestTimeUpdateV2Backup
     Inherits System.Web.UI.Page
 
     Private Shared cnnOraString As String = ConfigurationManager.ConnectionStrings("ORA_DefaultConnString").ConnectionString
@@ -70,13 +70,9 @@ Public Class TestTimeUpdateV2
             li.Text = item & "x(s)"
             li.Value = item
 
-            If item = 1 Then
-                li.Attributes.Add("style", "display:none")
+            If item = 1 Or item = 2 Or item = 3 Or item = 4 Or item = 8 Then
+                li.Selected = True
             End If
-
-            'If item = 1 Or item = 2 Or item = 3 Or item = 4 Or item = 8 Then
-            '    li.Selected = True
-            'End If
 
             cblSiteCount.Items.Add(li)
 
