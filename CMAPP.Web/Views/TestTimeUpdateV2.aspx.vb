@@ -67,7 +67,7 @@ Public Class TestTimeUpdateV2
 
         For item As Integer = 1 To 320
             Dim li As ListItem = New ListItem()
-            li.Text = item & "x(s)"
+            li.Text = " X" & item & " "
             li.Value = item
 
             If item = 1 Then

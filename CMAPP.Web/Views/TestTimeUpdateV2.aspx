@@ -145,6 +145,9 @@
                 <asp:Button Text="Search" runat="server" ID="btnSearch" CssClass="btn btn-info" OnClick="btnSearch_Click" />
                 &nbsp;
                 <asp:Button ID="btnExport" runat="server" Text="Export" CssClass="btn btn-success" ForeColor="#ffffff" />
+                &nbsp;
+                <asp:Button ID="btnNewTestTime" runat="server" Text="New" CssClass="btn btn-primary" Height="35" style="display:inline-block;" />
+                &nbsp;
                 <%--&nbsp;
                 <asp:Button ID="btnNewProgID" runat="server" Text="New Prog ID" CssClass="btn btn-success" ForeColor="#ffffff" />--%>
                 <%--&nbsp;
@@ -234,8 +237,6 @@
                 <div class="col-md-12" style="margin-top:15px !important;">
 
                     <div style="float:left;">
-                        <asp:Button ID="btnNewTestTime" runat="server" Text="New" CssClass="btn btn-info" Height="35" />
-                        &nbsp;
                         <asp:Button ID="btnDuplicateTestTime" runat="server" Text="Duplicate" CssClass="btn btn-success" Height="35" />
                     </div>
 
@@ -336,6 +337,15 @@
             $('#<%=btnNewTestTime.ClientID%>').on('click', function (e) {
                 e.preventDefault();
                 resetEdit();
+
+                // hide button duplicate and delete for edit
+                $('#<%=btnDuplicateTestTime.ClientID%>').hide();
+                $('#<%=btnDeleteTestTime.ClientID%>').hide();
+
+                $('#divSiteCountList').show('slow');
+                $('#divEdit').show('slow');
+
+                populateSiteCount(true);
             });
 
             $('#<%=btnDuplicateTestTime.ClientID%>').on('click', function (e) {
@@ -387,7 +397,7 @@
 
             $('#<%=btnEditCalculate.ClientID%>').on('click', function (e) {
                 e.preventDefault();
-                populateSiteCount();
+                populateSiteCount(false);
             });
 
             $('#<%=btnEditTestTime.ClientID%>').on('click', function (e) {
@@ -463,19 +473,19 @@
             $("#MainContent_cblSiteCount input").on('change', function () {
                 gSiteCountList = [];
                 $("[id*=<%=cblSiteCount.ClientID%>] input:checked").each(function () {
-                    var data = { label: $(this).val() + "x (s)", labelValue: $(this).val(), value: "0.00" };
+                    var data = { label: "X" + $(this).val(), labelValue: $(this).val(), value: "0.00" };
                     gSiteCountList.push(data);
                 });
 
-                populateSiteCount();
+                populateSiteCount(false);
             });
 
             <%--$('#<%=txtEditSiteCount1TestTime.ClientID%>').on('keyup', function (e) {
-                populateSiteCount();
+                populateSiteCount(false);
             });
 
             $('#<%=txtEditOverhead.ClientID%>').on('keyup', function (e) {
-                populateSiteCount();
+                populateSiteCount(false);
             });--%>
 
             $('#<%=btnDeleteTestTime.ClientID%>').on('click', function (e) {
@@ -600,7 +610,7 @@
             }); // end of confirm
         }
 
-        function populateSiteCount() {
+        function populateSiteCount(_isEmpty) {
 
             gHideFirstItem = false;
 
@@ -631,7 +641,10 @@
                             val.value = "";
                     }
 
-                   
+                    // set to empty is _isEmpty = true
+                    if (_isEmpty) {
+                        val.value = "";
+                    }
 
                     // ignore if site count = 1
                     //if ($.trim(val.labelValue) === "1") {
@@ -689,7 +702,7 @@
 
                     gSiteCountList = [];
                     $.each(JSON.parse(data.d), function (key, val) {
-                        var dataItem = { label: val.SITECOUNT + "x (s)", labelValue: val.SITECOUNT, value: "0.00" };
+                        var dataItem = { label: "X" + val.SITECOUNT, labelValue: val.SITECOUNT, value: "0.00" };
                         gSiteCountList.push(dataItem);
                     });
 
@@ -828,6 +841,11 @@
 
             $('#divSiteCountList').show('slow');
             $('#divEdit').show('slow');
+
+            // hide button duplicate and delete for edit
+            $('#<%=btnDuplicateTestTime.ClientID%>').show();
+            $('#<%=btnDeleteTestTime.ClientID%>').show();
+
         }
 
         function resetEdit() {
@@ -1108,7 +1126,7 @@
                     }
 
                     // populate site count list
-                    populateSiteCount();
+                    populateSiteCount(false);
                 },
                 error: function (a, b, c) {
                     console.log('error: ' + JSON.stringify(a));
