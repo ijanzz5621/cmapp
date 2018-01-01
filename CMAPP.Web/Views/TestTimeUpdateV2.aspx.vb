@@ -383,6 +383,25 @@ Public Class TestTimeUpdateV2
 
     End Function
 
+    <WebMethod>
+    Public Shared Function GetSelectedSiteCountList(testProgID As String, rev As String, testerType As String, progName As String, programExec As String, device As String, temp As String, effDate As String) As Object
+        Dim obj As Object = JsonConvert.SerializeObject("")
+
+        Try
+
+            Dim fnData As blTestTime = New blTestTime()
+            fnData.ConnectionString = cnnOraString
+            Dim dsResult As DataTable = fnData.GetSelectedSiteCountList(testProgID, rev, testerType, progName, programExec, device, temp, effDate)
+
+            obj = JsonConvert.SerializeObject(dsResult)
+
+        Catch ex As Exception
+
+        End Try
+
+        Return obj
+    End Function
+
 #End Region
 
     Protected Sub btnSearch_Click(sender As Object, e As EventArgs)

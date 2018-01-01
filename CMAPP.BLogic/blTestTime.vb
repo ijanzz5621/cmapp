@@ -105,6 +105,31 @@ Public Class blTestTime
 
     End Function
 
+    Public Function GetSelectedSiteCountList(testProgID As String, rev As String, testerType As String, progName As String, programExec As String, device As String, temp As String, effDate As String) As DataTable
+
+        Dim strQuery As String
+        Dim dsResult As DataSet = New DataSet
+
+        Try
+
+            oOra.OpenOraConnection(cnnOra, connStr)
+            strQuery = "Select CAST(SITECOUNT AS INT) AS SITECOUNT, TESTTIME from cmtesttime "
+            strQuery = strQuery & "where TestProgId = '" & testProgID & "' And testprogidrev = '" & rev & "' And teststeptemp = '" & temp & "' And device like '" & device & "' And Testertype like '" & testerType & "' And TestProgMainSource like '" & progName & "' And Testprogexecutable like '" & programExec & "' "
+            strQuery = strQuery & "order by SITECOUNT "
+            dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
+
+        Catch ex As Exception
+            Dim exMsg = ex.Message
+        Finally
+
+            oOra.CloseOraConnection(cnnOra)
+
+        End Try
+
+        Return dsResult.Tables(0)
+
+    End Function
+
     Public Function GetTestProgramRevisionList(testProgID As String) As DataTable
 
         Dim strQuery As String
