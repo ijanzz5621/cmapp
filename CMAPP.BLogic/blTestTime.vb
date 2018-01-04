@@ -167,7 +167,7 @@ Public Class blTestTime
 
 
 
-            strQuery = "Select TestProgID as ""Program ID"",TestProgIDRev as ""Revision"",TesterType as ""Tester Type"",TestProgMainSource as ""Program Source"",TestProgExecutable as ""Program Exec"",Device as ""Device"",TestStepTemp as ""Temp"",to_char(TestTimeEffDate,'mm/dd/yyyy') As ""Eff Date"",OverHead AS ""Overhead"", USERID as ""UserId"" "
+            strQuery = "Select TestProgID as ""Program ID"",TestProgIDRev as ""Revision"",TesterType as ""Tester Type"", Device as ""Device"", TestStepTemp as ""Temp"", to_char(TestTimeEffDate,'mm/dd/yyyy') As ""Eff Date"", TestProgMainSource as ""Program Source"",TestProgExecutable as ""Program Exec"", OverHead AS ""Overhead"", USERID as ""UserId"" "
 
             For Each siteCount As SiteCount In siteCountList
                 strQuery = strQuery & ",Max(Decode(SiteCount, " & siteCount.labelValue & ", TestTime, null)) x" & siteCount.labelValue
@@ -233,6 +233,7 @@ Public Class blTestTime
         Try
 
             oOra.OpenOraConnection(cnnOra, connStr)
+
             strQuery = "Select 1 From CmTestTime "
             strQuery = strQuery & "Where TestProgID='" & testProgID & "' "
             strQuery = strQuery & "And TestProgIDRev='" & rev & "' "
@@ -316,6 +317,43 @@ Public Class blTestTime
 
     End Function
 
+    Public Function DeleteTestTimeAllExceptSC1(testProgID As String, rev As String, device As String, temp As String, effDate As String,
+                               overhead As String, testerType As String, progName As String, progExec As String, userID As String) As String
+
+        Dim strQuery As String
+        Dim dsResult As DataSet = New DataSet
+        Dim strResult As String
+
+        Try
+
+            If overhead = "" Then
+                overhead = "0"
+            End If
+
+            oOra.OpenOraConnection(cnnOra, connStr)
+            strQuery = "Delete From CmTestTime "
+            strQuery = strQuery & "Where TestProgID='" & testProgID & "' "
+            strQuery = strQuery & "And TestProgIDRev='" & rev & "' "
+            strQuery = strQuery & "And Device='" & device & "' "
+            strQuery = strQuery & "And TestStepTemp='" & temp & "' "
+            strQuery = strQuery & "And TestTimeEffDate=to_date('" & effDate & "','mm/dd/yyyy') "
+            strQuery = strQuery & "And NVL(Overhead, '0') = '" & overhead & "' "
+            strQuery = strQuery & "And SiteCount > 1 "
+            Dim dsCheck As DataSet = oOra.OraExecuteQuery(strQuery, cnnOra)
+
+            strResult = "SUCCESS"
+
+        Catch ex As Exception
+            Dim exMsg = ex.Message
+            strResult = "FAILED"
+        Finally
+            oOra.CloseOraConnection(cnnOra)
+        End Try
+
+        Return strResult
+
+    End Function
+
     Public Function DeleteTestTime(testProgID As String, rev As String, device As String, temp As String, effDate As String,
                                overhead As String, testerType As String, progName As String, progExec As String, userID As String) As String
 
@@ -325,6 +363,10 @@ Public Class blTestTime
 
         Try
 
+            If overhead = "" Then
+                overhead = "0"
+            End If
+
             oOra.OpenOraConnection(cnnOra, connStr)
             strQuery = "Delete From CmTestTime "
             strQuery = strQuery & "Where TestProgID='" & testProgID & "' "
@@ -333,7 +375,7 @@ Public Class blTestTime
             strQuery = strQuery & "And Device='" & device & "' "
             strQuery = strQuery & "And TestStepTemp='" & temp & "' "
             strQuery = strQuery & "And TestTimeEffDate=to_date('" & effDate & "','mm/dd/yyyy') "
-            strQuery = strQuery & "And Overhead=" & overhead & " "
+            strQuery = strQuery & "And NVL(Overhead, '0') = '" & overhead & "' "
             Dim dsCheck As DataSet = oOra.OraExecuteQuery(strQuery, cnnOra)
 
             strResult = "SUCCESS"

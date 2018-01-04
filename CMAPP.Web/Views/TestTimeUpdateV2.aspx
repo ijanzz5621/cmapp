@@ -173,8 +173,22 @@
                     <asp:TextBox runat="server" CssClass="form-control toUppercase" ID="txtEditVersion" Text="0" />
                 </div>
                 <div class="col-lg-2 col-md-3">
-                    <asp:Label Text="text" runat="server" AssociatedControlID="txtEditTesterType">Tester Type</asp:Label>
-                    <asp:TextBox ID="txtEditTesterType" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
+                    <asp:Label Text="text" runat="server" AssociatedControlID="ddlTesterEdit">Tester Type</asp:Label>
+                    <%--<asp:TextBox ID="txtEditTesterType" runat="server" CssClass="form-control toUppercase"></asp:TextBox>--%>
+                    <asp:DropDownList ID="ddlTesterEdit" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                    <asp:ListItem Text="" Value=""></asp:ListItem>
+                </asp:DropDownList>
+                </div>
+                <div class="col-lg-2 col-md-3">
+                    <asp:Label Text="text" runat="server" AssociatedControlID="txtEditDevice">Device</asp:Label>
+                    <asp:TextBox ID="txtEditDevice" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
+                </div>
+                <div class="col-lg-1 col-md-2">
+                    <asp:Label Text="text" runat="server" AssociatedControlID="ddlTempEdit">Temp</asp:Label>
+                    <%--<asp:TextBox ID="txtEditTemp" runat="server" CssClass="form-control toUppercase"></asp:TextBox>--%>
+                    <asp:DropDownList ID="ddlTempEdit" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                    <asp:ListItem Text="" Value=""></asp:ListItem>
+                </asp:DropDownList>
                 </div>
                 <div class="col-lg-2 col-md-3">
                     <asp:Label Text="text" runat="server" AssociatedControlID="txtEditProgName">Program Name</asp:Label>
@@ -184,14 +198,7 @@
                     <asp:Label Text="text" runat="server" AssociatedControlID="txtEditProgExec">Program Exec</asp:Label>
                     <asp:TextBox ID="txtEditProgExec" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
                 </div>
-                <div class="col-lg-2 col-md-3">
-                    <asp:Label Text="text" runat="server" AssociatedControlID="txtEditDevice">Device</asp:Label>
-                    <asp:TextBox ID="txtEditDevice" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
-                </div>
-                <div class="col-lg-1 col-md-2">
-                    <asp:Label Text="text" runat="server" AssociatedControlID="txtEditTemp">Temp</asp:Label>
-                    <asp:TextBox ID="txtEditTemp" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
-                </div>
+                
 
                 
             </div>
@@ -295,6 +302,7 @@
             loadProgramNameList();
             loadProgramExecList();
             loadDeviceList();
+            loadDeviceEditList();
 
             $('#<%=txtProgramID.ClientID%>').on('blur', function (e) {
                 $("#<%=ddlRevision.ClientID%>").val("");
@@ -350,6 +358,7 @@
 
             $('#<%=btnDuplicateTestTime.ClientID%>').on('click', function (e) {
                 e.preventDefault();
+                $(this).val("Duplicated");
                 resetEditRemainValue();
             });
 
@@ -457,7 +466,6 @@
                     content: 'Are you sure to delete?',
                     buttons: {
                         cancel: function () {
-                            //$.alert('Canceled!');
                         },
                         confirm: {
                             text: 'Confirm',
@@ -468,7 +476,7 @@
                                 // call ajax and update database
                                 $.ajax({
                                     url: "TestTimeUpdateV2.aspx/DeleteTestTime",
-                                    data: "{ 'testProgID': '" + $("#<%=txtEditProgramID.ClientID%>").val() + "', 'rev': '" + $("#<%=txtEditRevision.ClientID%>").val() + "', 'testerType': '" + $("#<%=txtEditTesterType.ClientID%>").val() + "', 'progName': '" + $("#<%=txtEditProgName.ClientID%>").val() + "', 'programExec': '" + $("#<%=txtEditProgExec.ClientID%>").val() + "', 'device': '" + $("#<%=txtEditDevice.ClientID%>").val() + "', 'temp': '" + $("#<%=txtEditTemp.ClientID%>").val() + "', 'effDate': '" + $("#<%=txtEditEffDate.ClientID%>").val() + "', 'overhead': '" + $("#<%=txtEditOverhead.ClientID%>").val() + "'}",
+                                    data: "{ 'testProgID': '" + $("#<%=txtEditProgramID.ClientID%>").val() + "', 'rev': '" + $("#<%=txtEditRevision.ClientID%>").val() + "', 'testerType': '" + $("#<%=ddlTesterEdit.ClientID%>").val() + "', 'progName': '" + $("#<%=txtEditProgName.ClientID%>").val() + "', 'programExec': '" + $("#<%=txtEditProgExec.ClientID%>").val() + "', 'device': '" + $("#<%=txtEditDevice.ClientID%>").val() + "', 'temp': '" + $("#<%=ddlTempEdit.ClientID%>").val() + "', 'effDate': '" + $("#<%=txtEditEffDate.ClientID%>").val() + "', 'overhead': '" + $("#<%=txtEditOverhead.ClientID%>").val() + "'}",
                                 dataType: "json",
                                 type: "POST",
                                 contentType: "application/json; charset=utf-8",
@@ -541,7 +549,7 @@
                             // call ajax and update database
                             $.ajax({
                                 url: "TestTimeUpdateV2.aspx/UpdateTestTime",
-                                data: "{ 'testProgID': '" + $("#<%=txtEditProgramID.ClientID%>").val() + "', 'rev': '" + $("#<%=txtEditRevision.ClientID%>").val() + "', 'testerType': '" + $("#<%=txtEditTesterType.ClientID%>").val() + "', 'progName': '" + $("#<%=txtEditProgName.ClientID%>").val() + "', 'programExec': '" + $("#<%=txtEditProgExec.ClientID%>").val() + "', 'device': '" + $("#<%=txtEditDevice.ClientID%>").val() + "', 'temp': '" + $("#<%=txtEditTemp.ClientID%>").val() + "', 'effDate': '" + $("#<%=txtEditEffDate.ClientID%>").val() + "', 'siteCountList': '" + JSON.stringify(gSiteCountList) + "', 'overhead': '" + $("#<%=txtEditOverhead.ClientID%>").val() + "', 'updateType': '" + _updateType + "'}",
+                                data: "{ 'testProgID': '" + $("#<%=txtEditProgramID.ClientID%>").val() + "', 'rev': '" + $("#<%=txtEditRevision.ClientID%>").val() + "', 'testerType': '" + $("#<%=ddlTesterEdit.ClientID%>").val() + "', 'progName': '" + $("#<%=txtEditProgName.ClientID%>").val() + "', 'programExec': '" + $("#<%=txtEditProgExec.ClientID%>").val() + "', 'device': '" + $("#<%=txtEditDevice.ClientID%>").val() + "', 'temp': '" + $("#<%=ddlTempEdit.ClientID%>").val() + "', 'effDate': '" + $("#<%=txtEditEffDate.ClientID%>").val() + "', 'siteCountList': '" + JSON.stringify(gSiteCountList) + "', 'overhead': '" + $("#<%=txtEditOverhead.ClientID%>").val() + "', 'updateType': '" + _updateType + "'}",
                                 dataType: "json",
                                 type: "POST",
                                 contentType: "application/json; charset=utf-8",
@@ -631,13 +639,29 @@
                 $.ajax({
                     url: "TestTimeUpdateV2.aspx/GetSelectedSiteCountList",
                     dataType: "json",
-                    data: "{ 'testProgID': '" + $('#<%=txtEditProgramID.ClientID%>').val() + "', 'rev': '" + $('#<%=txtEditRevision.ClientID%>').val() + "', 'testerType': '" + $('#<%=txtEditTesterType.ClientID%>').val() + "', 'progName': '" + $('#<%=txtEditProgName.ClientID%>').val() + "', 'programExec': '" + $('#<%=txtEditProgExec.ClientID%>').val() + "', 'device': '" + $('#<%=txtEditDevice.ClientID%>').val() + "', 'temp': '" + $('#<%=txtEditTemp.ClientID%>').val() + "', 'effDate': '" + $('#<%=txtEditEffDate.ClientID%>').val() + "'}",
+                    data: "{ 'testProgID': '" + $('#<%=txtEditProgramID.ClientID%>').val() + "', 'rev': '" + $('#<%=txtEditRevision.ClientID%>').val() + "', 'testerType': '" + $('#<%=ddlTesterEdit.ClientID%>').val() + "', 'progName': '" + $('#<%=txtEditProgName.ClientID%>').val() + "', 'programExec': '" + $('#<%=txtEditProgExec.ClientID%>').val() + "', 'device': '" + $('#<%=txtEditDevice.ClientID%>').val() + "', 'temp': '" + $('#<%=ddlTempEdit.ClientID%>').val() + "', 'effDate': '" + $('#<%=txtEditEffDate.ClientID%>').val() + "'}",
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
                     success: function (data) {
 
-                        //alert(JSON.stringify(gSiteCountList));
-                        //alert(data.d);
+                        <%--gSiteCountList = [];
+                        $.each(JSON.parse(data.d), function (key, val) {
+                            var dataItem = { label: "X" + val.SITECOUNT, labelValue: val.SITECOUNT, value: "0.00" };
+                            gSiteCountList.push(dataItem);
+                        });
+
+                        $("[id*=<%=cblSiteCount.ClientID%>] input").each(function () {
+                            this.checked = false;
+                        });
+
+                        var found = 0;
+                        //set default checked
+                        $("[id*=<%=cblSiteCount.ClientID%>] input").each(function () {
+                            if (getObjects(gSiteCountList, 'labelValue', $(this).val()).length > 0) {
+                                this.checked = true;
+                                found++;
+                            }
+                        });--%>
 
                         $.each(gSiteCountList, function (key, val) {
 
@@ -685,6 +709,46 @@
                         console.log('error: ' + JSON.stringify(a));
                     }
                 });
+            }
+        }
+
+        function populateSiteCountLocal(_isEmpty) {
+
+            gHideFirstItem = false;
+
+            if (gSiteCountList.length > 0) {
+
+                // alert(gSiteCountList.length);
+
+                var item = "";
+
+                $.each(gSiteCountList, function (key, val) {
+
+                    if ($.trim(val.labelValue) === "1")
+                        val.value = $('#<%=txtEditSiteCount1TestTime.ClientID%>').val();
+                    else
+                        val.value = "0.00";
+                        //val.value = savedValue;
+
+                    if (_isEmpty) {
+                        val.value = "";
+                    }
+
+                    var readOnlySC1 = "";
+
+                    if ($.trim(val.labelValue) === "1") {
+                        readOnlySC1 = "readonly='readonly' ";
+                    }
+
+                    item = item + "<li style='display: inline-block; text-align:center; margin:5px;'>" +
+                        "<div><label>" + val.label + "</label> " +
+                        "<input type='text' class='form-control' value='" + val.value + "' style='width:60px; text-align:center;' " + readOnlySC1 + " /> " +
+                        "</div></li>";
+
+                });
+
+                $('#ulSiteCountList').html("");
+                $('#ulSiteCountList').append(item);
             }
         }
 
@@ -801,19 +865,7 @@
                 , error: function (a, b, c) {
                     console.log('error: ' + JSON.stringify(a));
                 }
-            });
-
-
-            //gSiteCountList = [];
-            //$("[id*=<%=cblSiteCount.ClientID%>] input:checked").each(function () {
-            //    //gSiteCountList += (gSiteCountList === "") ? $(this).val() : "," + $(this).val();
-            //
-            //    var data = { label: $(this).val() + "x (s)", labelValue: $(this).val(), value: "0.00" };
-            //    gSiteCountList.push(data);
-            //
-            //});
-
-            
+            });   
         }
 
         function selectRow(obj, _testProgID, _rev, _testerType, _progName, _progExec, _device, _temp, _effDate, _overhead) {
@@ -824,8 +876,8 @@
             $('#<%=txtEditProgramID.ClientID%>').attr('readonly', 'readonly');
             $('#<%=txtEditRevision.ClientID%>').val(_rev);
             $('#<%=txtEditRevision.ClientID%>').attr('readonly', 'readonly');
-            $('#<%=txtEditTesterType.ClientID%>').val(_testerType);
-            $('#<%=txtEditTesterType.ClientID%>').attr('readonly', 'readonly');
+            $('#<%=ddlTesterEdit.ClientID%>').val(_testerType);
+            $('#<%=ddlTesterEdit.ClientID%>').attr('readonly', 'readonly');
             $('#<%=txtEditVersion.ClientID%>').val("0");
             $('#<%=txtEditVersion.ClientID%>').attr('readonly', 'readonly');
 
@@ -835,8 +887,8 @@
             $('#<%=txtEditProgExec.ClientID%>').attr('readonly', 'readonly');
             $('#<%=txtEditDevice.ClientID%>').val(_device);
             $('#<%=txtEditDevice.ClientID%>').attr('readonly', 'readonly');
-            $('#<%=txtEditTemp.ClientID%>').val(_temp);
-            $('#<%=txtEditTemp.ClientID%>').attr('readonly', 'readonly');
+            $('#<%=ddlTempEdit.ClientID%>').val(_temp);
+            $('#<%=ddlTempEdit.ClientID%>').attr('readonly', 'readonly');
             $('#<%=txtEditEffDate.ClientID%>').val(_effDate);
             $('#<%=txtEditEffDate.ClientID%>').attr('readonly', 'readonly');
             $('#<%=txtEditOverhead.ClientID%>').val((_overhead === "null" || _overhead === null) ? "" : _overhead);
@@ -852,7 +904,6 @@
             // hide button duplicate and delete for edit
             $('#<%=btnDuplicateTestTime.ClientID%>').show();
             $('#<%=btnDeleteTestTime.ClientID%>').show();
-
         }
 
         function resetEdit() {
@@ -861,8 +912,8 @@
             $('#<%=txtEditProgramID.ClientID%>').val("");
             $('#<%=txtEditRevision.ClientID%>').removeAttr('readonly');
             $('#<%=txtEditRevision.ClientID%>').val("");
-            $('#<%=txtEditTesterType.ClientID%>').removeAttr('readonly');
-            $('#<%=txtEditTesterType.ClientID%>').val("");
+            $('#<%=ddlTesterEdit.ClientID%>').removeAttr('readonly');
+            $('#<%=ddlTesterEdit.ClientID%>').val("");
             $('#<%=txtEditVersion.ClientID%>').removeAttr('readonly');
             $('#<%=txtEditVersion.ClientID%>').val("");
 
@@ -872,8 +923,8 @@
             $('#<%=txtEditProgExec.ClientID%>').val("");
             $('#<%=txtEditDevice.ClientID%>').removeAttr('readonly');
             $('#<%=txtEditDevice.ClientID%>').val("");
-            $('#<%=txtEditTemp.ClientID%>').removeAttr('readonly');
-            $('#<%=txtEditTemp.ClientID%>').val("");
+            $('#<%=ddlTempEdit.ClientID%>').removeAttr('readonly');
+            $('#<%=ddlTempEdit.ClientID%>').val("");
             $('#<%=txtEditEffDate.ClientID%>').removeAttr('readonly');
             $('#<%=txtEditEffDate.ClientID%>').val("");
 
@@ -886,12 +937,12 @@
         function resetEditRemainValue() {
             $('#<%=txtEditProgramID.ClientID%>').removeAttr('readonly');
             $('#<%=txtEditRevision.ClientID%>').removeAttr('readonly');
-            $('#<%=txtEditTesterType.ClientID%>').removeAttr('readonly');
+            $('#<%=ddlTesterEdit.ClientID%>').removeAttr('readonly');
             $('#<%=txtEditVersion.ClientID%>').removeAttr('readonly');
             $('#<%=txtEditProgName.ClientID%>').removeAttr('readonly');
             $('#<%=txtEditProgExec.ClientID%>').removeAttr('readonly');
             $('#<%=txtEditDevice.ClientID%>').removeAttr('readonly');
-            $('#<%=txtEditTemp.ClientID%>').removeAttr('readonly');
+            $('#<%=ddlTempEdit.ClientID%>').removeAttr('readonly');
             $('#<%=txtEditEffDate.ClientID%>').removeAttr('readonly');
             $('#<%=txtEditOverhead.ClientID%>').removeAttr('readonly');
         }
@@ -1036,6 +1087,40 @@
                     $.ajax({
                         url: "TestTimeUpdateV2.aspx/GetDeviceList",
                         data: "{ 'q': '" + $("#<%=txtDevice.ClientID%>").val() + "'}",
+                        dataType: "json",
+                        type: "POST",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+
+                            //console.log(JSON.parse(data.d).length);
+
+                            if (JSON.parse(data.d).length > 0) {
+                                response($.map(JSON.parse(data.d), function (item) {
+                                    return {
+                                        label: item.DEVICE,
+                                        value: item.DEVICE
+                                    }
+                                }));
+                            }
+                        },
+                        error: function (a, b, c) {
+                            console.log('error: ' + JSON.stringify(a));
+                        }
+                    });
+                },
+                minLength: 2,
+                select: function (event, ui) {
+                }
+            });
+        }
+
+        function loadDeviceEditList() {
+            // TODO
+            $("#<%=txtEditDevice.ClientID%>").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "TestTimeUpdateV2.aspx/GetDeviceList",
+                        data: "{ 'q': '" + $("#<%=txtEditDevice.ClientID%>").val() + "'}",
                         dataType: "json",
                         type: "POST",
                         contentType: "application/json; charset=utf-8",

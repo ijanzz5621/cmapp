@@ -20,7 +20,9 @@ Public Class TestTimeUpdateV2
             End If
 
             GetTempList()
+            GetTempEditList()
             GetTesterTypeList()
+            GetTesterTypeListForEdit()
             PopulateSiteCountList()
 
         Else
@@ -53,6 +55,16 @@ Public Class TestTimeUpdateV2
         ddlTemp.DataBind()
     End Sub
 
+    Private Sub GetTempEditList()
+        Dim fnData As blGeneral = New blGeneral()
+        fnData.ConnectionString = cnnOraString
+        Dim dsResult As DataTable = fnData.GetTempList()
+        ddlTempEdit.DataSource = dsResult
+        ddlTempEdit.DataTextField = "TESTSTEPTEMP"
+        ddlTempEdit.DataValueField = "TESTSTEPTEMP"
+        ddlTempEdit.DataBind()
+    End Sub
+
     Private Sub GetTesterTypeList()
         Dim fnData As blGeneral = New blGeneral()
         fnData.ConnectionString = cnnOraString
@@ -61,6 +73,16 @@ Public Class TestTimeUpdateV2
         ddlTester.DataTextField = "TESTERTYPE"
         ddlTester.DataValueField = "TESTERTYPE"
         ddlTester.DataBind()
+    End Sub
+
+    Private Sub GetTesterTypeListForEdit()
+        Dim fnData As blGeneral = New blGeneral()
+        fnData.ConnectionString = cnnOraString
+        Dim dsResult As DataTable = fnData.GetTesterTypeList()
+        ddlTesterEdit.DataSource = dsResult
+        ddlTesterEdit.DataTextField = "TESTERTYPE"
+        ddlTesterEdit.DataValueField = "TESTERTYPE"
+        ddlTesterEdit.DataBind()
     End Sub
 
     Private Sub PopulateSiteCountList()
@@ -313,6 +335,8 @@ Public Class TestTimeUpdateV2
             fnData.ConnectionString = cnnOraString
 
             If updateType = "Single" Then
+
+                Dim dsDelete As String = fnData.DeleteTestTimeAllExceptSC1(testProgID, rev, device, temp, effDate, overhead, testerType, progName, programExec, HttpContext.Current.Session("USER_NAME").ToString())
 
                 For Each siteCount As SiteCount In siteCountListObj
 

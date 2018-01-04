@@ -158,13 +158,31 @@ Partial Public Class TestTimeUpdateV2
     Protected WithEvents txtEditVersion As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''txtEditTesterType control.
+    '''ddlTesterEdit control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtEditTesterType As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents ddlTesterEdit As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''txtEditDevice control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditDevice As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''ddlTempEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlTempEdit As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''txtEditProgName control.
@@ -183,24 +201,6 @@ Partial Public Class TestTimeUpdateV2
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtEditProgExec As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''txtEditDevice control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtEditDevice As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''txtEditTemp control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtEditTemp As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''txtEditEffDate control.
