@@ -241,6 +241,7 @@
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\table2excel.js" />
+    <Content Include="Views\TestTimeUpdateV2_20180107.aspx" />
     <Content Include="Views\TestTimeUpdateV2Backup.aspx" />
     <Content Include="Views\TestTimeUpdateV2.aspx" />
     <Content Include="x64\Oracle.ManagedDataAccessDTC.dll" />
@@ -376,6 +377,13 @@
     </Compile>
     <Compile Include="Views\TestTimeUpdate.aspx.vb">
       <DependentUpon>TestTimeUpdate.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Views\TestTimeUpdateV2_20180107.aspx.designer.vb">
+      <DependentUpon>TestTimeUpdateV2_20180107.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestTimeUpdateV2_20180107.aspx.vb">
+      <DependentUpon>TestTimeUpdateV2_20180107.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Views\TestTimeUpdateV2Backup.aspx.designer.vb">
