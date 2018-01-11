@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Test Time Update V2" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="TestTimeUpdateV2.aspx.vb" Inherits="CMAPP.Web.TestTimeUpdateV2" EnableEventValidation="false" %>
+﻿<%@ Page Title="Test Time Update V2" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="TestTimeUpdateV2_201801011.aspx.vb" Inherits="CMAPP.Web.TestTimeUpdateV2_201801011" EnableEventValidation="false" %>
 <%@ Register Src="~/Controls/wucPopupInfo.ascx" TagPrefix="uc1" TagName="wucPopupInfo" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolKit" %>
 
@@ -447,7 +447,7 @@
                     gSiteCountList.push(data);
                 });
 
-                //populateSiteCount(false);
+                populateSiteCount(false);
             });
 
             <%--$('#<%=txtEditSiteCount1TestTime.ClientID%>').on('keyup', function (e) {
@@ -644,14 +644,14 @@
                     contentType: "application/json; charset=utf-8",
                     success: function (data) {
 
-                        $("[id*=<%=cblSiteCount.ClientID%>] input").each(function () {
-                            this.checked = false;
-                        });
-
-                        gSiteCountList = [];
+                        <%--gSiteCountList = [];
                         $.each(JSON.parse(data.d), function (key, val) {
                             var dataItem = { label: "X" + val.SITECOUNT, labelValue: val.SITECOUNT, value: "0.00" };
                             gSiteCountList.push(dataItem);
+                        });
+
+                        $("[id*=<%=cblSiteCount.ClientID%>] input").each(function () {
+                            this.checked = false;
                         });
 
                         var found = 0;
@@ -661,7 +661,7 @@
                                 this.checked = true;
                                 found++;
                             }
-                        });
+                        });--%>
 
                         $.each(gSiteCountList, function (key, val) {
 
