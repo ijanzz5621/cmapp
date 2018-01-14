@@ -336,9 +336,11 @@ Public Class blTestTime
             strQuery = strQuery & "And TestProgIDRev='" & rev & "' "
             strQuery = strQuery & "And Device='" & device & "' "
             strQuery = strQuery & "And TestStepTemp='" & temp & "' "
-            strQuery = strQuery & "And TestTimeEffDate=to_date('" & effDate & "','mm/dd/yyyy') "
+            strQuery = strQuery & "And TestProgMainSource='" & progName & "' "
+            strQuery = strQuery & "And TestProgExecutable='" & progExec & "' "
+            'strQuery = strQuery & "And TestTimeEffDate=to_date('" & effDate & "','mm/dd/yyyy') "
             strQuery = strQuery & "And NVL(Overhead, '0') = '" & overhead & "' "
-            strQuery = strQuery & "And SiteCount > 1 "
+            'strQuery = strQuery & "And SiteCount > 1 "
             Dim dsCheck As DataSet = oOra.OraExecuteQuery(strQuery, cnnOra)
 
             strResult = "SUCCESS"
