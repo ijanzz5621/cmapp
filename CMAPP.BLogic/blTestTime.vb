@@ -113,7 +113,7 @@ Public Class blTestTime
         Try
 
             oOra.OpenOraConnection(cnnOra, connStr)
-            strQuery = "Select CAST(SITECOUNT AS INT) AS SITECOUNT, TESTTIME from cmtesttime "
+            strQuery = "Select distinct CAST(SITECOUNT AS INT) AS SITECOUNT, TESTTIME from cmtesttime "
             strQuery = strQuery & "where TestProgId = '" & testProgID & "' And testprogidrev = '" & rev & "' And teststeptemp = '" & temp & "' And device like '" & device & "' And Testertype like '" & testerType & "' And TestProgMainSource like '" & progName & "' And Testprogexecutable like '" & programExec & "' "
             strQuery = strQuery & "order by SITECOUNT "
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
