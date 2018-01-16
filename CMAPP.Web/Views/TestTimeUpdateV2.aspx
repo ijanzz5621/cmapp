@@ -338,6 +338,7 @@
                     });
 
                 } else {
+                    $("#<%=ddlRevision.ClientID%>").val("");
                 }
 
             });
