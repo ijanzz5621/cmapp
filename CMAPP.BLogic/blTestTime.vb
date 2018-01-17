@@ -114,7 +114,7 @@ Public Class blTestTime
 
             oOra.OpenOraConnection(cnnOra, connStr)
             strQuery = "Select distinct CAST(SITECOUNT AS INT) AS SITECOUNT, TESTTIME from cmtesttime "
-            strQuery = strQuery & "where TestProgId = '" & testProgID & "' And testprogidrev = '" & rev & "' And teststeptemp = '" & temp & "' And device like '" & device & "' And Testertype like '" & testerType & "' And TestProgMainSource like '" & progName & "' And Testprogexecutable like '" & programExec & "' "
+            strQuery = strQuery & "where TestProgId = '" & testProgID & "' And testprogidrev = '" & rev & "' And teststeptemp = '" & temp & "' And device like '" & device & "' And Testertype like '" & testerType & "' And TestProgMainSource like '" & progName & "' And Testprogexecutable like '" & programExec & "' And TestTimeEffDate=to_date('" & effDate & "','mm/dd/yyyy') "
             strQuery = strQuery & "order by SITECOUNT "
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
 
@@ -138,7 +138,7 @@ Public Class blTestTime
         Try
 
             oOra.OpenOraConnection(cnnOra, connStr)
-            strQuery = "select distinct TESTPROGIDREV from cm.cmtesttime where TESTPROGID = '" & testProgID & "'"
+            strQuery = "Select distinct TESTPROGIDREV from cm.cmtesttime where TESTPROGID = '" & testProgID & "'"
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
 
         Catch ex As Exception
