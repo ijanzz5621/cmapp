@@ -354,7 +354,7 @@
                 $('#divSiteCountList').show('slow');
                 $('#divEdit').show('slow');
 
-                populateSiteCount(true);
+                populateSiteCount(true, "SERVER");
             });
 
             $('#<%=btnDuplicateTestTime.ClientID%>').on('click', function (e) {
@@ -448,16 +448,9 @@
                     gSiteCountList.push(data);
                 });
 
-                //populateSiteCount(false);
+                populateSiteCount(false, "LOCAL");
+                //populateSiteCountCalculate();
             });
-
-            <%--$('#<%=txtEditSiteCount1TestTime.ClientID%>').on('keyup', function (e) {
-                populateSiteCount(false);
-            });
-
-            $('#<%=txtEditOverhead.ClientID%>').on('keyup', function (e) {
-                populateSiteCount(false);
-            });--%>
 
             $('#<%=btnDeleteTestTime.ClientID%>').on('click', function (e) {
                 e.preventDefault();
@@ -626,7 +619,7 @@
             }
         }
 
-        function populateSiteCount(_isEmpty) {
+        function populateSiteCount(_isEmpty, _type) {
 
             gHideFirstItem = false;
 
@@ -645,24 +638,30 @@
                     contentType: "application/json; charset=utf-8",
                     success: function (data) {
 
-                        $("[id*=<%=cblSiteCount.ClientID%>] input").each(function () {
-                            this.checked = false;
-                        });
+                        if (_type === "SERVER") {
 
-                        gSiteCountList = [];
-                        $.each(JSON.parse(data.d), function (key, val) {
-                            var dataItem = { label: "X" + val.SITECOUNT, labelValue: val.SITECOUNT, value: "0.00" };
-                            gSiteCountList.push(dataItem);
-                        });
+                            $("[id*=<%=cblSiteCount.ClientID%>] input").each(function () {
+                                this.checked = false;
+                            });
 
-                        var found = 0;
-                        //set default checked
-                        $("[id*=<%=cblSiteCount.ClientID%>] input").each(function () {
-                            if (getObjects(gSiteCountList, 'labelValue', $(this).val()).length > 0) {
-                                this.checked = true;
-                                found++;
-                            }
-                        });
+                            gSiteCountList = [];
+                            $.each(JSON.parse(data.d), function (key, val) {
+                                var dataItem = { label: "X" + val.SITECOUNT, labelValue: val.SITECOUNT, value: "0.00" };
+                                gSiteCountList.push(dataItem);
+                            });
+
+                            var found = 0;
+                            //set default checked
+                            $("[id*=<%=cblSiteCount.ClientID%>] input").each(function () {
+                                if (getObjects(gSiteCountList, 'labelValue', $(this).val()).length > 0) {
+                                    this.checked = true;
+                                    found++;
+                                }
+                            });
+
+                        } // end if _type
+
+                        
 
                         $.each(gSiteCountList, function (key, val) {
 
@@ -1195,7 +1194,7 @@
                     }
 
                     // populate site count list
-                    populateSiteCount(false);
+                    populateSiteCount(false, "SERVER");
                 },
                 error: function (a, b, c) {
                     console.log('error: ' + JSON.stringify(a));
