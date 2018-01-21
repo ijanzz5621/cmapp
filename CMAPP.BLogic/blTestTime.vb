@@ -175,7 +175,8 @@ Public Class blTestTime
 
             strQuery = strQuery & " From cmtesttime "
             'strQuery = strQuery & " Where Not UserId Is Null "
-            strQuery = strQuery & " Where ROWNUM <= 500 "
+            'strQuery = strQuery & " Where ROWNUM <= 500 "
+            strQuery = strQuery & " Where 1 = 1 "
 
             If Len(Trim(testProgID)) >= 1 Then
                 strQuery = strQuery & " And TestProgId = '" & testProgID & "' "
