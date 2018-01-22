@@ -407,6 +407,12 @@
 
             $('#<%=btnEditCalculate.ClientID%>').on('click', function (e) {
                 e.preventDefault();
+
+                if ($('#<%=txtEditSiteCount1TestTime.ClientID%>').val() === "" || $('#<%=txtEditOverhead.ClientID%>').val() === "") {
+                    showPopupMessage("Please enter X1 Test Time and Overhead value if you want to calculate");
+                    return;
+                }
+
                 populateSiteCountCalculate();
             });
 
@@ -433,7 +439,7 @@
                 }
 
                 if (foundEmpty) {
-                    showPopupMessage("Value for site count cannot be empty. Please fill up before save!");
+                    showPopupMessage("Test time can't be blank, please uncheck at the Site Count");
                     return;
                 } else {
                     UpdateTestTime("Single");
