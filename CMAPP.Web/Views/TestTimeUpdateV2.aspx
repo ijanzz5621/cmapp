@@ -420,10 +420,10 @@
 
                 e.preventDefault();
 
-                if ($('#<%=txtEditOverhead.ClientID%>').val().trim() !== "" && $('#<%=txtEditSiteCount1TestTime.ClientID%>').val().trim() === "") {
+                <%--if ($('#<%=txtEditOverhead.ClientID%>').val().trim() !== "" && $('#<%=txtEditSiteCount1TestTime.ClientID%>').val().trim() === "") {
                     showPopupMessage("Please enter Test Time SC1 if you want to calculate using overhead!");
                     return;
-                }
+                }--%>
 
                 if (gSiteCountList.length === 0) {
                     showPopupMessage("Please select Site Count to update!");
@@ -534,6 +534,10 @@
                         btnClass: 'btn-blue',
                         keys: ['enter', 'shift'],
                         action: function () {
+
+                            // manual add for site count 1
+                            var dataItem = { label: "X1", labelValue: "1", value: $("#<%=txtEditSiteCount1TestTime.ClientID%>").val() };
+                            gSiteCountList.push(dataItem);
 
                             // loop the input in the site count list
                             $('#ulSiteCountList li').each(function (index) {
@@ -683,6 +687,9 @@
                             }
 
                             //alert("savedValue: " + savedValue);
+
+                            if (savedValue === null)
+                                savedValue = "";
 
                             //if (val.labelValue === 1)
                             if ($.trim(val.labelValue) === "1")
