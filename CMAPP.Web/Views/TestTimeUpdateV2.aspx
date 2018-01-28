@@ -614,7 +614,7 @@
                     if ($.trim(val.labelValue) === "1") {
                         // ignore
                         //gHideFirstItem = true;
-                        readOnlySC1 = "readonly='readonly' ";
+                        // readOnlySC1 = "readonly='readonly' ";
                     }
 
                     item = item + "<li style='display: inline-block; text-align:center; margin:5px;'>" +
@@ -705,7 +705,7 @@
                             var readOnlySC1 = "";
 
                             if ($.trim(val.labelValue) === "1") {
-                                readOnlySC1 = "readonly='readonly' ";
+                                //readOnlySC1 = "readonly='readonly' ";
                             }
 
                             item = item + "<li style='display: inline-block; text-align:center; margin:5px;'>" +
@@ -750,7 +750,7 @@
                     var readOnlySC1 = "";
 
                     if ($.trim(val.labelValue) === "1") {
-                        readOnlySC1 = "readonly='readonly' ";
+                        //readOnlySC1 = "readonly='readonly' ";
                     }
 
                     item = item + "<li style='display: inline-block; text-align:center; margin:5px;'>" +

@@ -357,6 +357,45 @@ Public Class blTestTime
 
     End Function
 
+    Public Function DeleteTestTimeSiteCountEmpty(testProgID As String, rev As String, device As String, temp As String, effDate As String,
+                               overhead As String, testerType As String, progName As String, progExec As String, userID As String, siteCount As String) As String
+
+        Dim strQuery As String
+        Dim dsResult As DataSet = New DataSet
+        Dim strResult As String
+
+        Try
+
+            If overhead = "" Then
+                overhead = "0"
+            End If
+
+            oOra.OpenOraConnection(cnnOra, connStr)
+            strQuery = "Delete From CmTestTime "
+            strQuery = strQuery & "Where TestProgID='" & testProgID & "' "
+            strQuery = strQuery & "And TestProgIDRev='" & rev & "' "
+            strQuery = strQuery & "And Device='" & device & "' "
+            strQuery = strQuery & "And TestStepTemp='" & temp & "' "
+            strQuery = strQuery & "And TestProgMainSource='" & progName & "' "
+            strQuery = strQuery & "And TestProgExecutable='" & progExec & "' "
+            'strQuery = strQuery & "And TestTimeEffDate=to_date('" & effDate & "','mm/dd/yyyy') "
+            strQuery = strQuery & "And NVL(Overhead, '0') = '" & overhead & "' "
+            strQuery = strQuery & "And SiteCount = '" & siteCount & "' "
+            Dim dsCheck As DataSet = oOra.OraExecuteQuery(strQuery, cnnOra)
+
+            strResult = "SUCCESS"
+
+        Catch ex As Exception
+            Dim exMsg = ex.Message
+            strResult = "FAILED"
+        Finally
+            oOra.CloseOraConnection(cnnOra)
+        End Try
+
+        Return strResult
+
+    End Function
+
     Public Function DeleteTestTime(testProgID As String, rev As String, device As String, temp As String, effDate As String,
                                overhead As String, testerType As String, progName As String, progExec As String, userID As String) As String
 

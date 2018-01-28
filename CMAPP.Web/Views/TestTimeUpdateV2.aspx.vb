@@ -341,7 +341,13 @@ Public Class TestTimeUpdateV2
                 For Each siteCount As SiteCount In siteCountListObj
 
                     'If siteCount.labelValue <> "1" Then
-                    Dim dsResult As String = fnData.UpdateTestTime(testProgID, rev, "0", device, temp, effDate, siteCount.labelValue, siteCount.value, overhead, testerType, progName, programExec, HttpContext.Current.Session("USER_NAME").ToString())
+
+                    If siteCount.value = "" Then
+                        Dim dsDelSC = fnData.DeleteTestTimeSiteCountEmpty(testProgID, rev, device, temp, effDate, overhead, testerType, progName, programExec, HttpContext.Current.Session("USER_NAME").ToString(), siteCount.labelValue)
+                    Else
+                        Dim dsResult As String = fnData.UpdateTestTime(testProgID, rev, "0", device, temp, effDate, siteCount.labelValue, siteCount.value, overhead, testerType, progName, programExec, HttpContext.Current.Session("USER_NAME").ToString())
+                    End If
+
                     'End If
 
                 Next
