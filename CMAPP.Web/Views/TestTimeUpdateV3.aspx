@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Test Time Update V2" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="TestTimeUpdateV2.aspx.vb" Inherits="CMAPP.Web.TestTimeUpdateV2" EnableEventValidation="false" %>
+﻿<%@ Page Title="Test Time Update V3" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="TestTimeUpdateV3.aspx.vb" Inherits="CMAPP.Web.TestTimeUpdateV3" EnableEventValidation="false" %>
 <%@ Register Src="~/Controls/wucPopupInfo.ascx" TagPrefix="uc1" TagName="wucPopupInfo" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolKit" %>
 
@@ -64,13 +64,14 @@
 
 
     </style>
+    <link href="/Content/jquery.dynatable.css" rel="stylesheet" />
 
     <script src="/Scripts/table2excel.js"></script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h3>Test Time Update (Version 2)</h3>
+    <h3>Test Time Update (Version 3)</h3>
 
     <div class="page-container">
 
@@ -283,19 +284,60 @@
 
         </div>
 
+        <div id="divDynatable">
+
+            <table id="dynatable1" class="table table-bordered dynatable">
+              <thead>
+                <tr style="background-color:#444;">
+                  <th>Name</th>
+                  <th>Hobby</th>
+                  <th>Favorite Music</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Fred</td>
+                  <td>Roller Skating</td>
+                  <td>Disco</td>
+                </tr>
+                <tr>
+                  <td>Helen</td>
+                  <td>Rock Climbing</td>
+                  <td>Alternative</td>
+                </tr>
+                <tr>
+                  <td>Glen</td>
+                  <td>Traveling</td>
+                  <td>Classical</td>
+                </tr>
+              </tbody>
+            </table>
+
+        </div>
+
     </div>
 
+    <script src="../Scripts/jquery.dynatable.js"></script>
     <script type="text/javascript">
 
         // global variables
         var gSiteCountList = [];
         var gHideFirstItem = false;
 
+        
+
         $('#divSiteCountList').hide();
         $('#<%=btnExport.ClientID%>').hide();
         $('#note1').hide();
 
         $(document).ready(function () {
+
+            //dynatable
+            $('#dynatable1').dynatable({
+                table: {
+                    defaultColumnIdStyle: 'trimDash'
+                }
+            });
 
             loadProgramIDList();
             loadTesterTypeList();
