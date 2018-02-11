@@ -121,7 +121,10 @@ Public Class TestTimeUpdateV2
 
             Dim fnData As blTestTime = New blTestTime()
             fnData.ConnectionString = cnnOraString
-            Dim dsResult As DataTable = fnData.GetCmTestTimeList(testProgID, rev, ver, testerType, progName, progExec, device, temp, maxDate, siteCountListObj)
+
+            Dim strMaxDate As String = fnData.GetMaxDate(testProgID, rev, ver, testerType, progName, progExec, device, temp)
+
+            Dim dsResult As DataTable = fnData.GetCmTestTimeList(testProgID, rev, ver, testerType, progName, progExec, device, temp, strMaxDate, maxDate, siteCountListObj)
 
             obj = JsonConvert.SerializeObject(dsResult)
 

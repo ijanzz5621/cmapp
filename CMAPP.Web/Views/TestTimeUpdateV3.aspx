@@ -846,13 +846,11 @@
                                 var row = "";
                                 var rowCount = 0;
                                 $.each(JSON.parse(data.d), function (key, val) {
-                                    //console.log(val);
                                     var rowColor = "transparent";
                                     if (rowCount % 2 === 0)
                                         rowColor = "#fff";
 
                                     row = row + "<tr style='cursor:pointer; background-color:" + rowColor + "' onclick='selectRow(this, \"" + val["Program ID"] + "\", \"" + val["Revision"] + "\", \"" + val["Tester Type"] + "\", \"" + val["Program Source"] + "\", \"" + val["Program Exec"] + "\", \"" + val["Device"] + "\", \"" + val["Temp"] + "\", \"" + val["Eff Date"] + "\", \"" + val["Overhead"] + "\")'>";
-                                    // row = row + '<tr style="cursor:pointer; background-color:' + rowColor + '" onclick="selectRow2(this, ' + JSON.parse(val) + ')">';
                                     $.each(val, function (_, text) {
                                         row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
                                     });
@@ -876,18 +874,7 @@
                             });
 
                             var found = 0;
-                            //set default checked
                             $("[id*=<%=cblSiteCount.ClientID%>] input").each(function () {
-                                //if ($(this).val() === "1" || $(this).val() === "2" || $(this).val() === "3" || $(this).val() === "4" || $(this).val() === "8")
-                                //    this.checked = true;
-
-                                ////if (gSiteCountList.length > 0) {
-                                //    if (jQuery.inArray($(this).val(), gSiteCountList) >= 0) {
-                                //        this.checked = true;
-                                //        found++;
-                                //    }
-
-                                ////};
 
                                 if (getObjects(gSiteCountList, 'labelValue', $(this).val()).length > 0) {
                                     this.checked = true;
@@ -896,13 +883,7 @@
 
                             });
 
-                            //alert('found: ' + found + ', gSiteCountList: ' + JSON.stringify(gSiteCountList));
-
                         }
-                        //,
-                        //beforeSend: function (request) {
-                        //    HoldOn.open({ theme: "sk-rect" });
-                        //}
                         , complete: function () {
                             HoldOn.close();
                         },
@@ -914,9 +895,6 @@
                 beforeSend: function (request) {
                     HoldOn.open({ theme: "sk-rect" });
                 }
-                //, complete: function () {
-                //    HoldOn.close();
-                //},
                 , error: function (a, b, c) {
                     console.log('error: ' + JSON.stringify(a));
                 }

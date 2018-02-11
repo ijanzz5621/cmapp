@@ -121,9 +121,9 @@ Public Class TestTimeUpdateV2_201801011
 
             Dim fnData As blTestTime = New blTestTime()
             fnData.ConnectionString = cnnOraString
-            Dim dsResult As DataTable = fnData.GetCmTestTimeList(testProgID, rev, ver, testerType, progName, progExec, device, temp, maxDate, siteCountListObj)
+            'Dim dsResult As DataTable = fnData.GetCmTestTimeList(testProgID, rev, ver, testerType, progName, progExec, device, temp, maxDate, siteCountListObj)
 
-            obj = JsonConvert.SerializeObject(dsResult)
+            'obj = JsonConvert.SerializeObject(dsResult)
 
         Catch ex As Exception
 
