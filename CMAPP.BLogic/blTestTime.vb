@@ -164,9 +164,6 @@ Public Class blTestTime
             ' Changes 2017-12-08
             ' Get distinct site count to loop from table
 
-
-
-
             strQuery = "Select TestProgID as ""Program ID"",TestProgIDRev as ""Revision"",TesterType as ""Tester Type"", Device as ""Device"", TestStepTemp as ""Temp"", to_char(TestTimeEffDate,'mm/dd/yyyy') As ""Eff Date"", TestProgMainSource as ""Program Source"",TestProgExecutable as ""Program Exec"", OverHead AS ""Overhead"", USERID as ""UserId"" "
 
             For Each siteCount As SiteCount In siteCountList
@@ -208,6 +205,81 @@ Public Class blTestTime
             'If maxDate.Checked And Session("gMaxEffDate") IsNot Nothing Then
             '    strQuery = strQuery & " And to_char(TESTTIMEEFFDATE,'mm/dd/yyyy') = '" & Session("gMaxEffDate").ToString & "' "
             'End If
+
+            strQuery = strQuery & " Group By  TestProgId , TestProgIdRev, TestProgIdVers, TestStepTemp, device,Testertype, TestProgMainSource,TestProgExecutable,TestTimeEffDate,OverHead, UserID "
+            dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
+
+        Catch ex As Exception
+            Dim exMsg = ex.Message
+        Finally
+
+            oOra.CloseOraConnection(cnnOra)
+
+        End Try
+
+        Return dsResult.Tables(0)
+
+    End Function
+
+    Public Function GetCmTestTimeListV3(testProgID As String, rev As String, ver As String, testerType As String, progName As String, progExec As String, device As String, temp As String, maxDate As String, siteCountList As SiteCount()) As DataTable
+
+        Dim strQuery As String = ""
+        Dim dsResult As DataSet = New DataSet
+
+        Try
+            oOra.OpenOraConnection(cnnOra, connStr)
+
+            ' Changes 2017-12-08
+            ' Get distinct site count to loop from table
+
+            strQuery = "Select TestProgID as ""Program ID"",TestProgIDRev as ""Revision"",TesterType as ""Tester Type"", Device as ""Device"", TestStepTemp as ""Temp"", to_char(TestTimeEffDate,'mm/dd/yyyy') As ""Eff Date"", TestProgMainSource as ""Program Source"",TestProgExecutable as ""Program Exec"", OverHead AS ""Overhead"", USERID as ""UserId"" "
+
+            If maxDate = "on" Then
+                strQuery = strQuery & ", select max(TestTimeEffDate) as ""MaxDate"" "
+            End If
+
+            For Each siteCount As SiteCount In siteCountList
+                strQuery = strQuery & ",Max(Decode(SiteCount, " & siteCount.labelValue & ", TestTime, null)) x" & siteCount.labelValue
+            Next
+
+            strQuery = strQuery & " From cmtesttime "
+            'strQuery = strQuery & " Where Not UserId Is Null "
+            'strQuery = strQuery & " Where ROWNUM <= 500 "
+            strQuery = strQuery & " Where 1 = 1 "
+
+            If Len(Trim(testProgID)) >= 1 Then
+                strQuery = strQuery & " And TestProgId = '" & testProgID & "' "
+            End If
+            If Len(Trim(rev)) >= 1 Then
+                strQuery = strQuery & " And testprogidrev like '" & rev & "' "
+            Else
+
+            End If
+            If Len(Trim(ver)) >= 1 Then
+                strQuery = strQuery & " And testprogidvers like '" & ver & "' "
+            End If
+            If Len(Trim(temp)) >= 1 Then
+                strQuery = strQuery & " And teststeptemp like '" & temp & "' "
+            End If
+            If Len(Trim(device)) >= 1 Then
+                strQuery = strQuery & " And device like '" & device & "' "
+            End If
+            If Len(Trim(testerType)) >= 1 Then
+                strQuery = strQuery & " And Testertype like '" & testerType & "' "
+            End If
+            If Len(Trim(progName)) >= 1 Then
+                strQuery = strQuery & " And TestProgMainSource  like '" & progName & "' "
+            End If
+            If Len(Trim(progExec)) >= 1 Then
+                strQuery = strQuery & " And Testprogexecutable like '" & progExec & "' "
+            End If
+
+            'If maxDate.Checked And Session("gMaxEffDate") IsNot Nothing Then
+            '    strQuery = strQuery & " And to_char(TESTTIMEEFFDATE,'mm/dd/yyyy') = '" & Session("gMaxEffDate").ToString & "' "
+            'End If
+            If maxDate = "on" Then
+                strQuery = strQuery & " And TESTTIMEEFFDATE = MAX(TESTTIMEEFFDATE) "
+            End If
 
             strQuery = strQuery & " Group By  TestProgId , TestProgIdRev, TestProgIdVers, TestStepTemp, device,Testertype, TestProgMainSource,TestProgExecutable,TestTimeEffDate,OverHead, UserID "
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)

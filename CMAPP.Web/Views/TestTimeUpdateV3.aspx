@@ -359,7 +359,7 @@
                 if (this.checked) {
                     // call ajax and get max revision
                     $.ajax({
-                        url: "TestTimeUpdateV2.aspx/GetMaxRevisionByProgID",
+                        url: "TestTimeUpdateV3.aspx/GetMaxRevisionByProgID",
                         data: "{ 'testProgID': '" + $('#<%=txtProgramID.ClientID%>').val() + "'}",
                         dataType: "json",
                         type: "POST",
@@ -517,7 +517,7 @@
 
                                 // call ajax and update database
                                 $.ajax({
-                                    url: "TestTimeUpdateV2.aspx/DeleteTestTime",
+                                    url: "TestTimeUpdateV3.aspx/DeleteTestTime",
                                     data: "{ 'testProgID': '" + $("#<%=txtEditProgramID.ClientID%>").val() + "', 'rev': '" + $("#<%=txtEditRevision.ClientID%>").val() + "', 'testerType': '" + $("#<%=ddlTesterEdit.ClientID%>").val() + "', 'progName': '" + $("#<%=txtEditProgName.ClientID%>").val() + "', 'programExec': '" + $("#<%=txtEditProgExec.ClientID%>").val() + "', 'device': '" + $("#<%=txtEditDevice.ClientID%>").val() + "', 'temp': '" + $("#<%=ddlTempEdit.ClientID%>").val() + "', 'effDate': '" + $("#<%=txtEditEffDate.ClientID%>").val() + "', 'overhead': '" + $("#<%=txtEditOverhead.ClientID%>").val() + "'}",
                                 dataType: "json",
                                 type: "POST",
@@ -594,7 +594,7 @@
 
                             // call ajax and update database
                             $.ajax({
-                                url: "TestTimeUpdateV2.aspx/UpdateTestTime",
+                                url: "TestTimeUpdateV3.aspx/UpdateTestTime",
                                 data: "{ 'testProgID': '" + $("#<%=txtEditProgramID.ClientID%>").val() + "', 'rev': '" + $("#<%=txtEditRevision.ClientID%>").val() + "', 'testerType': '" + $("#<%=ddlTesterEdit.ClientID%>").val() + "', 'progName': '" + $("#<%=txtEditProgName.ClientID%>").val() + "', 'programExec': '" + $("#<%=txtEditProgExec.ClientID%>").val() + "', 'device': '" + $("#<%=txtEditDevice.ClientID%>").val() + "', 'temp': '" + $("#<%=ddlTempEdit.ClientID%>").val() + "', 'effDate': '" + $("#<%=txtEditEffDate.ClientID%>").val() + "', 'siteCountList': '" + JSON.stringify(gSiteCountList) + "', 'overhead': '" + $("#<%=txtEditOverhead.ClientID%>").val() + "', 'updateType': '" + _updateType + "'}",
                                 dataType: "json",
                                 type: "POST",
@@ -683,7 +683,7 @@
 
                 // Call ajax to get list site count
                 $.ajax({
-                    url: "TestTimeUpdateV2.aspx/GetSelectedSiteCountList",
+                    url: "TestTimeUpdateV3.aspx/GetSelectedSiteCountList",
                     dataType: "json",
                     data: "{ 'testProgID': '" + $('#<%=txtEditProgramID.ClientID%>').val() + "', 'rev': '" + $('#<%=txtEditRevision.ClientID%>').val() + "', 'testerType': '" + $('#<%=ddlTesterEdit.ClientID%>').val() + "', 'progName': '" + $('#<%=txtEditProgName.ClientID%>').val() + "', 'programExec': '" + $('#<%=txtEditProgExec.ClientID%>').val() + "', 'device': '" + $('#<%=txtEditDevice.ClientID%>').val() + "', 'temp': '" + $('#<%=ddlTempEdit.ClientID%>').val() + "', 'effDate': '" + $('#<%=txtEditEffDate.ClientID%>').val() + "'}",
                     type: "POST",
@@ -818,7 +818,7 @@
 
 
             $.ajax({
-                url: "TestTimeUpdateV2.aspx/GetSiteCountListByFilter",
+                url: "TestTimeUpdateV3.aspx/GetSiteCountListByFilter",
                 data: "{ 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'testerType': '" + _testerType + "', 'progName': '" + _progName + "', 'programExec': '" + _progExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "'}",
                 dataType: "json",
                 type: "POST",
@@ -832,7 +832,7 @@
                     });
 
                     $.ajax({
-                        url: "TestTimeUpdateV2.aspx/GetListing",
+                        url: "TestTimeUpdateV3.aspx/GetListing",
                         data: "{ 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'ver': '" + _ver + "', 'testerType': '" + _testerType + "', 'progName': '" + _progName + "', 'progExec': '" + _progExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "', 'maxDate': '" + _maxDate + "', 'siteCountList': '" + JSON.stringify(gSiteCountList) + "'}",
                         dataType: "json",
                         type: "POST",
@@ -1007,7 +1007,7 @@
             $("#<%=txtProgramID.ClientID%>").autocomplete({
                 source: function (request, response) {
                     $.ajax({
-                        url: "TestTimeUpdateV2.aspx/GetTestProgramIDList",
+                        url: "TestTimeUpdateV3.aspx/GetTestProgramIDList",
                         data: "{ 'q': '" + $("#<%=txtProgramID.ClientID%>").val() + "'}",
                         dataType: "json",
                         type: "POST",
@@ -1041,7 +1041,7 @@
             <%--$("#<%=txtTester.ClientID%>").autocomplete({
                 source: function (request, response) {
                     $.ajax({
-                        url: "TestTimeUpdateV2.aspx/GetTestTypeList",
+                        url: "TestTimeUpdateV3.aspx/GetTestTypeList",
                         data: "{ 'q': '" + $("#<%=txtTester.ClientID%>").val() + "'}",
                         dataType: "json",
                         type: "POST",
@@ -1073,7 +1073,7 @@
             $("#<%=txtProgramName.ClientID%>").autocomplete({
                 source: function (request, response) {
                     $.ajax({
-                        url: "TestTimeUpdateV2.aspx/GetTestProgramNameList",
+                        url: "TestTimeUpdateV3.aspx/GetTestProgramNameList",
                         data: "{ 'q': '" + $("#<%=txtProgramName.ClientID%>").val() + "'}",
                         dataType: "json",
                         type: "POST",
@@ -1106,7 +1106,7 @@
             $("#<%=txtProgramExec.ClientID%>").autocomplete({
                 source: function (request, response) {
                     $.ajax({
-                        url: "TestTimeUpdateV2.aspx/GetTestProgramExecList",
+                        url: "TestTimeUpdateV3.aspx/GetTestProgramExecList",
                         data: "{ 'q': '" + $("#<%=txtProgramExec.ClientID%>").val() + "'}",
                         dataType: "json",
                         type: "POST",
@@ -1140,7 +1140,7 @@
             $("#<%=txtDevice.ClientID%>").autocomplete({
                 source: function (request, response) {
                     $.ajax({
-                        url: "TestTimeUpdateV2.aspx/GetDeviceList",
+                        url: "TestTimeUpdateV3.aspx/GetDeviceList",
                         data: "{ 'q': '" + $("#<%=txtDevice.ClientID%>").val() + "'}",
                         dataType: "json",
                         type: "POST",
@@ -1174,7 +1174,7 @@
             $("#<%=txtEditDevice.ClientID%>").autocomplete({
                 source: function (request, response) {
                     $.ajax({
-                        url: "TestTimeUpdateV2.aspx/GetDeviceList",
+                        url: "TestTimeUpdateV3.aspx/GetDeviceList",
                         data: "{ 'q': '" + $("#<%=txtEditDevice.ClientID%>").val() + "'}",
                         dataType: "json",
                         type: "POST",
@@ -1208,7 +1208,7 @@
             $("#<%=ddlRevision.ClientID%>").attr('disabled', true);
 
             $.ajax({
-                url: "TestTimeUpdateV2.aspx/GetRevisionByProgID",
+                url: "TestTimeUpdateV3.aspx/GetRevisionByProgID",
                 data: "{ 'testProgID': '" + _testProgID + "'}",
                 dataType: "json",
                 type: "POST",
@@ -1236,7 +1236,7 @@
 
         function getSiteCount1TestTime(_testProgID, _rev, _testerType, _progName, _programExec, _device, _temp, _effDate) {
             $.ajax({
-                url: "TestTimeUpdateV2.aspx/GetSiteCount1TestTime",
+                url: "TestTimeUpdateV3.aspx/GetSiteCount1TestTime",
                 data: "{ 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'testerType': '" + _testerType + "', 'progName': '" + _progName + "', 'programExec': '" + _programExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "', 'effDate': '" + _effDate + "'}",
                 dataType: "json",
                 type: "POST",
