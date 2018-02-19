@@ -248,6 +248,7 @@
     <Content Include="Views\TestTimeUpdateV2_20180107.aspx" />
     <Content Include="Views\TestTimeUpdateV2Backup.aspx" />
     <Content Include="Views\TestTimeUpdateV2.aspx" />
+    <Content Include="Views\TestTimeUpdateV4.aspx" />
     <Content Include="x64\Oracle.ManagedDataAccessDTC.dll" />
     <Content Include="x64\Oracle.ManagedDataAccessIOP.dll" />
     <Content Include="x86\Oracle.ManagedDataAccessDTC.dll" />
@@ -416,6 +417,13 @@
     </Compile>
     <Compile Include="Views\TestTimeUpdateV2.aspx.vb">
       <DependentUpon>TestTimeUpdateV2.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Views\TestTimeUpdateV4.aspx.designer.vb">
+      <DependentUpon>TestTimeUpdateV4.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestTimeUpdateV4.aspx.vb">
+      <DependentUpon>TestTimeUpdateV4.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
   </ItemGroup>

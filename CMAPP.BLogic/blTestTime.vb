@@ -273,6 +273,7 @@ Public Class blTestTime
             End If
 
             strQuery = strQuery & " Group By  TestProgId , TestProgIdRev, TestProgIdVers, TestStepTemp, device,Testertype, TestProgMainSource,TestProgExecutable,TestTimeEffDate,OverHead, UserID "
+            strQuery = strQuery & " Order By  TestProgId , TestProgIdRev, TestProgIdVers, TestStepTemp, device,Testertype, TestProgMainSource,TestProgExecutable,TestTimeEffDate,OverHead, UserID "
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
 
         Catch ex As Exception

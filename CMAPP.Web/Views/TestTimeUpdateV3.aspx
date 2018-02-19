@@ -71,195 +71,92 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h3>Test Time Update (Version 3)</h3>
+    <div class="page-container" >
 
-    <div class="page-container">
+        <h3>Test Time Update (Version 3)</h3>
 
-        <div class="row" style="margin-left:1px; margin-right:1px;">
-            <div class="col-lg-1 col-md-2">
-                <asp:Label Text="text" runat="server" AssociatedControlID="txtProgramID">Program ID</asp:Label>
-                <asp:TextBox ID="txtProgramID" runat="server" CssClass="form-control"></asp:TextBox>
-                <%--<asp:DropDownList ID="ddlProgramID" runat="server" CssClass="form-control" AppendDataBoundItems="true">
-                    <asp:ListItem Text="" Value=""></asp:ListItem>
-                </asp:DropDownList>--%>
-            </div>
-            <div class="col-lg-1 col-md-2">
-                <asp:Label Text="text" runat="server" AssociatedControlID="ddlRevision">Revision</asp:Label>
-                <asp:DropDownList ID="ddlRevision" runat="server" CssClass="form-control" AppendDataBoundItems="true">
-                    <asp:ListItem Text="" Value=""></asp:ListItem>
-                </asp:DropDownList>
-            </div>
-            <div class="col-lg-1 col-md-2">
-                <asp:Label Text="text" runat="server" AssociatedControlID="txtVersion">Version</asp:Label>
-                <asp:TextBox runat="server" CssClass="form-control" ID="txtVersion" Text="0" />
-            </div>
-            <div class="col-lg-2 col-md-3">
-                <asp:Label Text="text" runat="server" AssociatedControlID="ddlTester">Tester</asp:Label>
-                <%--<asp:TextBox ID="txtTester" runat="server" CssClass="form-control"></asp:TextBox>--%>
-                <asp:DropDownList ID="ddlTester" runat="server" CssClass="form-control" AppendDataBoundItems="true">
-                    <asp:ListItem Text="" Value=""></asp:ListItem>
-                </asp:DropDownList>
-            </div>
-            <div class="col-lg-2 col-md-3">
-                <asp:Label Text="text" runat="server" AssociatedControlID="txtProgramName">Program Name</asp:Label>
-                <asp:TextBox ID="txtProgramName" runat="server" CssClass="form-control"></asp:TextBox>
-            </div>
-            <div class="col-lg-2 col-md-3">
-                <asp:Label Text="text" runat="server" AssociatedControlID="txtProgramExec">Program Exec</asp:Label>
-                <asp:TextBox ID="txtProgramExec" runat="server" CssClass="form-control"></asp:TextBox>
-            </div>
-            <div class="col-lg-2 col-md-3">
-                <asp:Label Text="text" runat="server" AssociatedControlID="txtDevice">Device</asp:Label>
-                <asp:TextBox ID="txtDevice" runat="server" CssClass="form-control"></asp:TextBox>
-            </div>
-            <div class="col-lg-1 col-md-2">
-                <asp:Label Text="text" runat="server" AssociatedControlID="ddlTemp">Temp</asp:Label>
-                <asp:DropDownList ID="ddlTemp" runat="server" CssClass="form-control" AppendDataBoundItems="true">
-                    <asp:ListItem Text="" Value=""></asp:ListItem>
-                </asp:DropDownList>
-            </div>
+        <div class="" style=" padding-top:5px;">
+
+            <div class="row" style="margin-left:1px; margin-right:1px;">
+                <div class="col-lg-1 col-md-2">
+                    <asp:Label Text="text" runat="server" AssociatedControlID="txtProgramID">Program ID</asp:Label>
+                    <asp:TextBox ID="txtProgramID" runat="server" CssClass="form-control"></asp:TextBox>
+                    <%--<asp:DropDownList ID="ddlProgramID" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                        <asp:ListItem Text="" Value=""></asp:ListItem>
+                    </asp:DropDownList>--%>
+                </div>
+                <div class="col-lg-1 col-md-2">
+                    <asp:Label Text="text" runat="server" AssociatedControlID="ddlRevision">Revision</asp:Label>
+                    <asp:DropDownList ID="ddlRevision" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                        <asp:ListItem Text="" Value=""></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+                <div class="col-lg-1 col-md-2">
+                    <asp:Label Text="text" runat="server" AssociatedControlID="txtVersion">Version</asp:Label>
+                    <asp:TextBox runat="server" CssClass="form-control" ID="txtVersion" Text="0" />
+                </div>
+                <div class="col-lg-2 col-md-3">
+                    <asp:Label Text="text" runat="server" AssociatedControlID="ddlTester">Tester</asp:Label>
+                    <%--<asp:TextBox ID="txtTester" runat="server" CssClass="form-control"></asp:TextBox>--%>
+                    <asp:DropDownList ID="ddlTester" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                        <asp:ListItem Text="" Value=""></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+                <div class="col-lg-2 col-md-3">
+                    <asp:Label Text="text" runat="server" AssociatedControlID="txtProgramName">Program Name</asp:Label>
+                    <asp:TextBox ID="txtProgramName" runat="server" CssClass="form-control"></asp:TextBox>
+                </div>
+                <div class="col-lg-2 col-md-3">
+                    <asp:Label Text="text" runat="server" AssociatedControlID="txtProgramExec">Program Exec</asp:Label>
+                    <asp:TextBox ID="txtProgramExec" runat="server" CssClass="form-control"></asp:TextBox>
+                </div>
+                <div class="col-lg-2 col-md-3">
+                    <asp:Label Text="text" runat="server" AssociatedControlID="txtDevice">Device</asp:Label>
+                    <asp:TextBox ID="txtDevice" runat="server" CssClass="form-control"></asp:TextBox>
+                </div>
+                <div class="col-lg-1 col-md-2">
+                    <asp:Label Text="text" runat="server" AssociatedControlID="ddlTemp">Temp</asp:Label>
+                    <asp:DropDownList ID="ddlTemp" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                        <asp:ListItem Text="" Value=""></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
             
-            <div class="col-lg-2 col-md-4">
-                <ul style="list-style:none; margin:0; padding:0;">
-                    <li style="display:inline-block;">
+                <div class="col-lg-2 col-md-4">
+                    <ul style="list-style:none; margin:0; padding:0;">
+                        <li style="display:inline-block;">
+                                <div class="checkbox">
+                                    <label class="btn btn-default">
+                                        <asp:CheckBox ID="chkMaxDate" runat="server" Text=" Max Date" />
+                                    </label>
+                                </div>
+  
+                        </li>
+                        <li style="display:inline-block;">
                             <div class="checkbox">
                                 <label class="btn btn-default">
-                                    <asp:CheckBox ID="chkMaxDate" runat="server" Text=" Max Date" />
+                                    <asp:CheckBox ID="chkMaxRev" runat="server" Text=" Max Revision" />
                                 </label>
-                            </div>
-  
-                    </li>
-                    <li style="display:inline-block;">
-                        <div class="checkbox">
-                            <label class="btn btn-default">
-                                <asp:CheckBox ID="chkMaxRev" runat="server" Text=" Max Revision" />
-                            </label>
-                        </div>  
+                            </div>  
                         
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="row" style="margin-left:1px;">
-            <div class="col-md-12" style="vertical-align:bottom; line-height:45px;">
-                <asp:Button Text="Search" runat="server" ID="btnSearch" CssClass="btn btn-info" OnClick="btnSearch_Click" />
-                &nbsp;
-                <asp:Button ID="btnExport" runat="server" Text="Export" CssClass="btn btn-success" ForeColor="#ffffff" />
-                &nbsp;
-                <asp:Button ID="btnNewTestTime" runat="server" Text="New" CssClass="btn btn-primary" Height="35" style="display:inline-block;" />
-                &nbsp;
-                <%--&nbsp;
-                <asp:Button ID="btnNewProgID" runat="server" Text="New Prog ID" CssClass="btn btn-success" ForeColor="#ffffff" />--%>
-                <%--&nbsp;
-                <asp:Button ID="btnEditTestTime" runat="server" Text="Edit Test Time" CssClass="btn btn-warning" ForeColor="#ffffff" />--%>
-                <span id="note1" style="font-weight:bold;font-size:18px; color:red;">Please click on the record to edit</span>
-            </div>
-        </div>
-
-        <div id="divEdit" style="padding:15px; margin-left:5px; margin-right:5px; min-height:100px; margin-top:5px; margin-bottom:5px; border:1px solid #c3c1c1; border-radius:6px; background-color:#f1f1f1; display:none">
-
-            <div class="row">
-
-                <div class="col-lg-1 col-md-2">
-                    <asp:Label Text="text" runat="server" AssociatedControlID="txtEditProgramID">Program ID</asp:Label>
-                    <asp:TextBox ID="txtEditProgramID" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
+                        </li>
+                    </ul>
                 </div>
-                <div class="col-lg-1 col-md-2">
-                    <asp:Label Text="text" runat="server" AssociatedControlID="txtEditRevision">Revision</asp:Label>
-                    <asp:TextBox ID="txtEditRevision" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
-                </div>
-                <div class="col-lg-1 col-md-2">
-                    <asp:Label Text="text" runat="server" AssociatedControlID="txtEditVersion">Version</asp:Label>
-                    <asp:TextBox runat="server" CssClass="form-control toUppercase" ID="txtEditVersion" Text="0" />
-                </div>
-                <div class="col-lg-2 col-md-3">
-                    <asp:Label Text="text" runat="server" AssociatedControlID="ddlTesterEdit">Tester Type</asp:Label>
-                    <%--<asp:TextBox ID="txtEditTesterType" runat="server" CssClass="form-control toUppercase"></asp:TextBox>--%>
-                    <asp:DropDownList ID="ddlTesterEdit" runat="server" CssClass="form-control" AppendDataBoundItems="true">
-                    <asp:ListItem Text="" Value=""></asp:ListItem>
-                </asp:DropDownList>
-                </div>
-                <div class="col-lg-2 col-md-3">
-                    <asp:Label Text="text" runat="server" AssociatedControlID="txtEditDevice">Device</asp:Label>
-                    <asp:TextBox ID="txtEditDevice" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
-                </div>
-                <div class="col-lg-1 col-md-2">
-                    <asp:Label Text="text" runat="server" AssociatedControlID="ddlTempEdit">Temp</asp:Label>
-                    <%--<asp:TextBox ID="txtEditTemp" runat="server" CssClass="form-control toUppercase"></asp:TextBox>--%>
-                    <asp:DropDownList ID="ddlTempEdit" runat="server" CssClass="form-control" AppendDataBoundItems="true">
-                    <asp:ListItem Text="" Value=""></asp:ListItem>
-                </asp:DropDownList>
-                </div>
-                <div class="col-lg-2 col-md-3">
-                    <asp:Label Text="text" runat="server" AssociatedControlID="txtEditProgName">Program Name</asp:Label>
-                    <asp:TextBox ID="txtEditProgName" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
-                </div>
-                <div class="col-lg-2 col-md-3">
-                    <asp:Label Text="text" runat="server" AssociatedControlID="txtEditProgExec">Program Exec</asp:Label>
-                    <asp:TextBox ID="txtEditProgExec" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
-                </div>
-                
-
-                
             </div>
 
-            <div class="row">
-
-                <div class="col-lg-1 col-md-2">
-                    <asp:Label runat="server" AssociatedControlID="txtEditEffDate">Effective Date</asp:Label><br />
-                    <asp:TextBox ID="txtEditEffDate" runat="server" CssClass="form-control" />
-                    <ajaxToolKit:CalendarExtender ID="calEditEffDate" PopupButtonID="imgPopup" runat="server" TargetControlID="txtEditEffDate" Format="MM/dd/yyyy"> </ajaxToolKit:CalendarExtender>
+            <div class="row" style="margin-left:1px;">
+                <div class="col-md-12" style="vertical-align:bottom; line-height:45px;">
+                    <asp:Button Text="Search" runat="server" ID="btnSearch" CssClass="btn btn-info" OnClick="btnSearch_Click" />
+                    &nbsp;
+                    <asp:Button ID="btnExport" runat="server" Text="Export" CssClass="btn btn-success" ForeColor="#ffffff" />
+                    &nbsp;
+                    <asp:Button ID="btnNewTestTime" runat="server" Text="New" CssClass="btn btn-primary" Height="35" style="display:inline-block;" />
+                    &nbsp;
+                    <%--&nbsp;
+                    <asp:Button ID="btnNewProgID" runat="server" Text="New Prog ID" CssClass="btn btn-success" ForeColor="#ffffff" />--%>
+                    <%--&nbsp;
+                    <asp:Button ID="btnEditTestTime" runat="server" Text="Edit Test Time" CssClass="btn btn-warning" ForeColor="#ffffff" />--%>
+                    <span id="note1" style="font-weight:bold;font-size:18px; color:red;">Please click on the record to edit</span>
                 </div>
-                <div class="col-lg-1 col-md-2">
-                    <asp:Label runat="server" AssociatedControlID="txtEditSiteCount1TestTime">X1 Test Time</asp:Label><br />
-                    <asp:TextBox ID="txtEditSiteCount1TestTime" runat="server" CssClass="form-control" />
-                </div>
-
-                <div class="col-lg-1 col-md-2">
-                    <asp:Label runat="server" AssociatedControlID="txtEditOverhead">Overhead (%)</asp:Label><br />
-                    <asp:TextBox ID="txtEditOverhead" runat="server" CssClass="form-control" />
-                </div>
-                <div class="col-lg-1 col-md-1">
-                    <asp:Label Text="" runat="server" />&nbsp;<br />
-                    <asp:Button ID="btnEditCalculate" Text="Calculate" runat="server" CssClass="btn btn-primary" style="width:100%;" />
-                </div>
-                <div class="col-lg-8 col-md-5">
-                    <div style="width:100%; overflow-x:scroll">
-                        <asp:CheckBoxList ID="cblSiteCount" runat="server" RepeatDirection="Horizontal" style="overflow: auto;">
-                        </asp:CheckBoxList>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="row" style="margin-top:30px;">
-
-                <ul id="ulSiteCountList" style="list-style:none; display:inline-block; margin:0; padding:0;">
-                </ul>
-
-            </div>
-
-            <div class="row">
-
-                <div class="col-md-12" style="margin-top:15px !important;">
-
-                    <div style="float:left;">
-                        <asp:Button ID="btnDuplicateTestTime" runat="server" Text="Duplicate" CssClass="btn btn-success" Height="35" />
-                    </div>
-
-                    <div style="float:right;">
-                        <asp:Button ID="btnEditClose" runat="server" Text="Close" CssClass="btn btn-warning" Height="35" />
-                        &nbsp;
-                        <asp:Button ID="btnEditTestTime" runat="server" Text="Save" CssClass="btn btn-success" Height="35" />
-                        &nbsp;
-                        <asp:Button ID="btnDeleteTestTime" runat="server" Text="Delete" CssClass="btn btn-danger" Height="35" />
-                        <%--&nbsp;
-                        <asp:Button ID="btnEditTestTimeAll" runat="server" Text="Save All" CssClass="btn btn-info" Height="35" />--%>
-                    </div>
-
-                </div>
-
             </div>
 
         </div>
@@ -284,37 +181,162 @@
 
         </div>
 
-        <div id="divDynatable">
+    <%--<div id="divDynatable">
 
-            <table id="dynatable1" class="table table-bordered dynatable">
-              <thead>
-                <tr style="background-color:#444;">
-                  <th>Name</th>
-                  <th>Hobby</th>
-                  <th>Favorite Music</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Fred</td>
-                  <td>Roller Skating</td>
-                  <td>Disco</td>
-                </tr>
-                <tr>
-                  <td>Helen</td>
-                  <td>Rock Climbing</td>
-                  <td>Alternative</td>
-                </tr>
-                <tr>
-                  <td>Glen</td>
-                  <td>Traveling</td>
-                  <td>Classical</td>
-                </tr>
-              </tbody>
-            </table>
+        <table id="dynatable1" class="table table-bordered dynatable">
+            <thead>
+            <tr style="background-color:#444;">
+                <th>Name</th>
+                <th>Hobby</th>
+                <th>Favorite Music</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Fred</td>
+                <td>Roller Skating</td>
+                <td>Disco</td>
+            </tr>
+            <tr>
+                <td>Helen</td>
+                <td>Rock Climbing</td>
+                <td>Alternative</td>
+            </tr>
+            <tr>
+                <td>Glen</td>
+                <td>Traveling</td>
+                <td>Classical</td>
+            </tr>
+            </tbody>
+        </table>
 
+    </div>--%>
+
+    </div>
+
+    <!-- Trigger the modal with a button -->
+    <%--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>--%>
+
+    <!-- Modal -->
+    <div id="modalEdit" class="modal fade" role="dialog">
+      <div class="modal-dialog" style="width:1240px">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header" style="background-color:#b91717; color:#fff;">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Test Time Update</h4>
+          </div>
+          <div class="modal-body">
+            
+
+              <div class="row">
+
+                    <div class="col-lg-1 col-md-2">
+                        <asp:Label Text="text" runat="server" AssociatedControlID="txtEditProgramID">Program ID</asp:Label>
+                        <asp:TextBox ID="txtEditProgramID" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
+                    </div>
+                    <div class="col-lg-1 col-md-2">
+                        <asp:Label Text="text" runat="server" AssociatedControlID="txtEditRevision">Revision</asp:Label>
+                        <asp:TextBox ID="txtEditRevision" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
+                    </div>
+                    <div class="col-lg-1 col-md-2">
+                        <asp:Label Text="text" runat="server" AssociatedControlID="txtEditVersion">Version</asp:Label>
+                        <asp:TextBox runat="server" CssClass="form-control toUppercase" ID="txtEditVersion" Text="0" />
+                    </div>
+                    <div class="col-lg-2 col-md-3">
+                        <asp:Label Text="text" runat="server" AssociatedControlID="ddlTesterEdit">Tester Type</asp:Label>
+                        <%--<asp:TextBox ID="txtEditTesterType" runat="server" CssClass="form-control toUppercase"></asp:TextBox>--%>
+                        <asp:DropDownList ID="ddlTesterEdit" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                        <asp:ListItem Text="" Value=""></asp:ListItem>
+                    </asp:DropDownList>
+                    </div>
+                    <div class="col-lg-2 col-md-3">
+                        <asp:Label Text="text" runat="server" AssociatedControlID="txtEditDevice">Device</asp:Label>
+                        <asp:TextBox ID="txtEditDevice" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
+                    </div>
+                    <div class="col-lg-1 col-md-2">
+                        <asp:Label Text="text" runat="server" AssociatedControlID="ddlTempEdit">Temp</asp:Label>
+                        <%--<asp:TextBox ID="txtEditTemp" runat="server" CssClass="form-control toUppercase"></asp:TextBox>--%>
+                        <asp:DropDownList ID="ddlTempEdit" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                        <asp:ListItem Text="" Value=""></asp:ListItem>
+                    </asp:DropDownList>
+                    </div>
+                    <div class="col-lg-2 col-md-3">
+                        <asp:Label Text="text" runat="server" AssociatedControlID="txtEditProgName">Program Name</asp:Label>
+                        <asp:TextBox ID="txtEditProgName" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
+                    </div>
+                    <div class="col-lg-2 col-md-3">
+                        <asp:Label Text="text" runat="server" AssociatedControlID="txtEditProgExec">Program Exec</asp:Label>
+                        <asp:TextBox ID="txtEditProgExec" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
+                    </div>
+                
+
+                
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-1 col-md-2">
+                        <asp:Label runat="server" AssociatedControlID="txtEditEffDate">Effective Date</asp:Label><br />
+                        <asp:TextBox ID="txtEditEffDate" runat="server" CssClass="form-control" />
+                        <ajaxToolKit:CalendarExtender ID="calEditEffDate" PopupButtonID="imgPopup" runat="server" TargetControlID="txtEditEffDate" Format="MM/dd/yyyy"> </ajaxToolKit:CalendarExtender>
+                    </div>
+                    <div class="col-lg-1 col-md-2">
+                        <asp:Label runat="server" AssociatedControlID="txtEditSiteCount1TestTime">X1 Test Time</asp:Label><br />
+                        <asp:TextBox ID="txtEditSiteCount1TestTime" runat="server" CssClass="form-control" />
+                    </div>
+
+                    <div class="col-lg-1 col-md-2">
+                        <asp:Label runat="server" AssociatedControlID="txtEditOverhead">Overhead (%)</asp:Label><br />
+                        <asp:TextBox ID="txtEditOverhead" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-lg-1 col-md-1">
+                        <asp:Label Text="" runat="server" />&nbsp;<br />
+                        <asp:Button ID="btnEditCalculate" Text="Calculate" runat="server" CssClass="btn btn-primary" style="width:100%;" />
+                    </div>
+                    <div class="col-lg-8 col-md-5">
+                        <div style="width:100%; overflow-x:scroll">
+                            <asp:CheckBoxList ID="cblSiteCount" runat="server" RepeatDirection="Horizontal" style="overflow: auto;">
+                            </asp:CheckBoxList>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row" style="margin-top:15px;">
+
+                    <ul id="ulSiteCountList" style="list-style:none; display:inline-block; margin:0; padding:0;">
+                    </ul>
+
+                </div>
+
+          </div>
+          <div class="modal-footer">
+              <%--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--%>
+
+              <div class="col-md-12">
+
+                    <div style="float:left;">
+                        <asp:Button ID="btnDuplicateTestTime" runat="server" Text="Duplicate" CssClass="btn btn-success" Height="35" />
+                    </div>
+
+                    <div style="float:right;">
+                        <asp:Button ID="btnEditClose" runat="server" Text="Close" CssClass="btn btn-warning" Height="35" />
+                        &nbsp;
+                        <asp:Button ID="btnEditTestTime" runat="server" Text="Save" CssClass="btn btn-success" Height="35" />
+                        &nbsp;
+                        <asp:Button ID="btnDeleteTestTime" runat="server" Text="Delete" CssClass="btn btn-danger" Height="35" />
+                        <%--&nbsp;
+                        <asp:Button ID="btnEditTestTimeAll" runat="server" Text="Save All" CssClass="btn btn-info" Height="35" />--%>
+                    </div>
+
+                </div>
+
+          </div>
         </div>
 
+      </div>
     </div>
 
     <script src="../Scripts/jquery.dynatable.js"></script>
@@ -332,12 +354,12 @@
 
         $(document).ready(function () {
 
-            //dynatable
-            $('#dynatable1').dynatable({
-                table: {
-                    defaultColumnIdStyle: 'trimDash'
-                }
-            });
+            ////dynatable
+            //$('#dynatable1').dynatable({
+            //    table: {
+            //        defaultColumnIdStyle: 'trimDash'
+            //    }
+            //});
 
             loadProgramIDList();
             loadTesterTypeList();
@@ -394,7 +416,7 @@
                 $('#<%=btnDeleteTestTime.ClientID%>').hide();
 
                 $('#divSiteCountList').show('slow');
-                $('#divEdit').show('slow');
+                $('#modalEdit').modal();
 
                 populateSiteCount(true, "SERVER");
             });
@@ -414,7 +436,7 @@
                 //close the edit div
                 $('#tblListing tbody tr').removeClass("row-selected");
                 $('#divSiteCountList').hide('slow');
-                $('#divEdit').hide('slow');
+                $('#modalEdit').modal('hide');
 
                 if ($("#<%=txtProgramID.ClientID%>").val().trim() === "" && $("#<%=ddlRevision.ClientID%>").val().trim() === ""
                     && $("#<%=ddlTester.ClientID%>").val().trim() === "" && $("#<%=txtProgramName.ClientID%>").val().trim() === ""
@@ -443,7 +465,7 @@
                 //close the edit div
                 $('#tblListing tbody tr').removeClass("row-selected");
                 $('#divSiteCountList').hide('slow');
-                $('#divEdit').hide('slow');
+                $('#modalEdit').modal('hide');
 
             });
 
@@ -527,7 +549,7 @@
                                     resetEdit();
                                     $('#tblListing tbody tr').removeClass("row-selected");
                                     $('#divSiteCountList').hide('slow');
-                                    $('#divEdit').hide('slow');
+                                    $('#modalEdit').modal('hide');
 
                                     getListing($("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $('#<%=ddlTester.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("input[id='<%=chkMaxDate.ClientID%>']:checked").val());
                                 },
@@ -604,7 +626,7 @@
                                     resetEdit();
                                     $('#tblListing tbody tr').removeClass("row-selected");
                                     $('#divSiteCountList').hide('slow');
-                                    $('#divEdit').hide('slow');
+                                    $('#modalEdit').modal('hide');
 
                                     getListing($("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $('#<%=ddlTester.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("input[id='<%=chkMaxDate.ClientID%>']:checked").val());
                                 },
@@ -932,7 +954,7 @@
             getSiteCount1TestTime(_testProgID, _rev, _testerType, _progName, _progExec, _device, _temp, _effDate);
 
             $('#divSiteCountList').show('slow');
-            $('#divEdit').show('slow');
+            $('#modalEdit').modal();
 
             // hide button duplicate and delete for edit
             $('#<%=btnDuplicateTestTime.ClientID%>').show();
