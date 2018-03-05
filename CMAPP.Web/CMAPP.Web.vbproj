@@ -162,6 +162,7 @@
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\datatables.min.css" />
     <Content Include="Content\datepicker.css" />
     <Content Include="Content\holdon.css" />
     <Content Include="Content\jquery-confirm.css" />
@@ -230,6 +231,7 @@
     <Content Include="images\Microchip_logo.png" />
     <Content Include="images\view.png" />
     <Content Include="MainPage.aspx" />
+    <Content Include="Scripts\datatables.min.js" />
     <Content Include="Scripts\holdon.js" />
     <Content Include="Scripts\ie9\html5shiv.js" />
     <Content Include="Scripts\ie9\respond.min.js" />
@@ -243,12 +245,9 @@
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery.dynatable.js" />
     <Content Include="Scripts\table2excel.js" />
+    <Content Include="Views\TestTimeUpdateV3_20180304.aspx" />
     <Content Include="Views\TestTimeUpdateV3.aspx" />
-    <Content Include="Views\TestTimeUpdateV2_201801011.aspx" />
-    <Content Include="Views\TestTimeUpdateV2_20180107.aspx" />
-    <Content Include="Views\TestTimeUpdateV2Backup.aspx" />
     <Content Include="Views\TestTimeUpdateV2.aspx" />
-    <Content Include="Views\TestTimeUpdateV4.aspx" />
     <Content Include="x64\Oracle.ManagedDataAccessDTC.dll" />
     <Content Include="x64\Oracle.ManagedDataAccessIOP.dll" />
     <Content Include="x86\Oracle.ManagedDataAccessDTC.dll" />
@@ -384,6 +383,13 @@
       <DependentUpon>TestTimeUpdate.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Views\TestTimeUpdateV3_20180304.aspx.designer.vb">
+      <DependentUpon>TestTimeUpdateV3_20180304.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestTimeUpdateV3_20180304.aspx.vb">
+      <DependentUpon>TestTimeUpdateV3_20180304.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="Views\TestTimeUpdateV3.aspx.designer.vb">
       <DependentUpon>TestTimeUpdateV3.aspx</DependentUpon>
     </Compile>
@@ -391,39 +397,11 @@
       <DependentUpon>TestTimeUpdateV3.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
-    <Compile Include="Views\TestTimeUpdateV2_201801011.aspx.designer.vb">
-      <DependentUpon>TestTimeUpdateV2_201801011.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TestTimeUpdateV2_201801011.aspx.vb">
-      <DependentUpon>TestTimeUpdateV2_201801011.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="Views\TestTimeUpdateV2_20180107.aspx.designer.vb">
-      <DependentUpon>TestTimeUpdateV2_20180107.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TestTimeUpdateV2_20180107.aspx.vb">
-      <DependentUpon>TestTimeUpdateV2_20180107.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="Views\TestTimeUpdateV2Backup.aspx.designer.vb">
-      <DependentUpon>TestTimeUpdateV2Backup.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TestTimeUpdateV2Backup.aspx.vb">
-      <DependentUpon>TestTimeUpdateV2Backup.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
     <Compile Include="Views\TestTimeUpdateV2.aspx.designer.vb">
       <DependentUpon>TestTimeUpdateV2.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\TestTimeUpdateV2.aspx.vb">
       <DependentUpon>TestTimeUpdateV2.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="Views\TestTimeUpdateV4.aspx.designer.vb">
-      <DependentUpon>TestTimeUpdateV4.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TestTimeUpdateV4.aspx.vb">
-      <DependentUpon>TestTimeUpdateV4.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
   </ItemGroup>

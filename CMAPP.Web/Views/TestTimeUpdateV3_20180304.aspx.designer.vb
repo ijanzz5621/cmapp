@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class TestTimeUpdateV2_20180107
+Partial Public Class TestTimeUpdateV3_20180304
     
     '''<summary>
     '''txtProgramID control.

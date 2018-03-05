@@ -4,7 +4,7 @@ Imports CMAPP.BLogic
 Imports CMAPP.Model
 Imports Newtonsoft.Json
 
-Public Class TestTimeUpdateV2_201801011
+Public Class TestTimeUpdateV3_20180304
     Inherits System.Web.UI.Page
 
     Private Shared cnnOraString As String = ConfigurationManager.ConnectionStrings("ORA_DefaultConnString").ConnectionString
@@ -121,9 +121,12 @@ Public Class TestTimeUpdateV2_201801011
 
             Dim fnData As blTestTime = New blTestTime()
             fnData.ConnectionString = cnnOraString
-            'Dim dsResult As DataTable = fnData.GetCmTestTimeList(testProgID, rev, ver, testerType, progName, progExec, device, temp, maxDate, siteCountListObj)
 
-            'obj = JsonConvert.SerializeObject(dsResult)
+            Dim strMaxDate As String = fnData.GetMaxDate("", testProgID, rev, ver, testerType, progName, progExec, device, temp)
+
+            Dim dsResult As DataTable = fnData.GetCmTestTimeListV3("", testProgID, rev, ver, testerType, progName, progExec, device, temp, strMaxDate, maxDate, siteCountListObj)
+
+            obj = JsonConvert.SerializeObject(dsResult)
 
         Catch ex As Exception
 
@@ -289,7 +292,7 @@ Public Class TestTimeUpdateV2_201801011
 
             Dim fnData As blTestTime = New blTestTime()
             fnData.ConnectionString = cnnOraString
-            Dim dsResult As DataTable = fnData.GetSiteCount1TestTime(testProgID, rev, testerType, progName, programExec, device, temp, effDate)
+            Dim dsResult As DataTable = fnData.GetSiteCount1TestTime("", testProgID, rev, testerType, progName, programExec, device, temp, effDate)
 
             obj = JsonConvert.SerializeObject(dsResult)
 
@@ -310,7 +313,7 @@ Public Class TestTimeUpdateV2_201801011
 
             Dim fnData As blTestTime = New blTestTime()
             fnData.ConnectionString = cnnOraString
-            Dim dsResult As DataTable = fnData.GetSiteCountListByFilter(testProgID, rev, testerType, progName, programExec, device, temp)
+            Dim dsResult As DataTable = fnData.GetSiteCountListByFilter("", testProgID, rev, testerType, progName, programExec, device, temp)
 
             obj = JsonConvert.SerializeObject(dsResult)
 
@@ -323,7 +326,7 @@ Public Class TestTimeUpdateV2_201801011
     End Function
 
     <WebMethod>
-    Public Shared Function UpdateTestTime(testProgID As String, rev As String, testerType As String, progName As String, programExec As String, device As String, temp As String, effDate As String, siteCountList As String, overhead As String, updateType As String) As Object
+    Public Shared Function UpdateTestTime(testSite As String, testProgID As String, rev As String, testerType As String, progName As String, programExec As String, device As String, temp As String, effDate As String, siteCountList As String, overhead As String, updateType As String) As Object
 
         Dim obj As Object = JsonConvert.SerializeObject("")
 
@@ -336,12 +339,18 @@ Public Class TestTimeUpdateV2_201801011
 
             If updateType = "Single" Then
 
-                Dim dsDelete As String = fnData.DeleteTestTimeAllExceptSC1(testProgID, rev, device, temp, effDate, overhead, testerType, progName, programExec, HttpContext.Current.Session("USER_NAME").ToString())
+                Dim dsDelete As String = fnData.DeleteTestTimeAllExceptSC1(testSite, testProgID, rev, device, temp, effDate, overhead, testerType, progName, programExec, HttpContext.Current.Session("USER_NAME").ToString())
 
                 For Each siteCount As SiteCount In siteCountListObj
 
                     'If siteCount.labelValue <> "1" Then
-                    Dim dsResult As String = fnData.UpdateTestTime(testProgID, rev, "0", device, temp, effDate, siteCount.labelValue, siteCount.value, overhead, testerType, progName, programExec, HttpContext.Current.Session("USER_NAME").ToString())
+
+                    If siteCount.value = "" Then
+                        Dim dsDelSC = fnData.DeleteTestTimeSiteCountEmpty(testSite, testProgID, rev, device, temp, effDate, overhead, testerType, progName, programExec, HttpContext.Current.Session("USER_NAME").ToString(), siteCount.labelValue)
+                    Else
+                        Dim dsResult As String = fnData.UpdateTestTime(testSite, testProgID, rev, "0", device, temp, effDate, siteCount.labelValue, siteCount.value, overhead, testerType, progName, programExec, HttpContext.Current.Session("USER_NAME").ToString())
+                    End If
+
                     'End If
 
                 Next
@@ -357,7 +366,7 @@ Public Class TestTimeUpdateV2_201801011
                         For Each siteCount As SiteCount In siteCountListObj
 
                             'If siteCount.labelValue <> "1" Then
-                            Dim dsResult As String = fnData.UpdateTestTime(testProgID, revRow("TESTPROGIDREV").ToString(), "0", device, temp, effDate, siteCount.labelValue, siteCount.value, overhead, testerType, progName, programExec, HttpContext.Current.Session("USER_NAME").ToString())
+                            Dim dsResult As String = fnData.UpdateTestTime(testSite, testProgID, revRow("TESTPROGIDREV").ToString(), "0", device, temp, effDate, siteCount.labelValue, siteCount.value, overhead, testerType, progName, programExec, HttpContext.Current.Session("USER_NAME").ToString())
                             'End If
 
 
@@ -393,7 +402,7 @@ Public Class TestTimeUpdateV2_201801011
             Dim fnData As blTestTime = New blTestTime()
             fnData.ConnectionString = cnnOraString
 
-            Dim dsResult As String = fnData.DeleteTestTime(testProgID, rev, device, temp, effDate, overhead, testerType, progName, programExec, HttpContext.Current.Session("USER_NAME").ToString())
+            Dim dsResult As String = fnData.DeleteTestTime("", testProgID, rev, device, temp, effDate, overhead, testerType, progName, programExec, HttpContext.Current.Session("USER_NAME").ToString())
 
             obj = JsonConvert.SerializeObject("SUCCESS")
 
@@ -415,7 +424,7 @@ Public Class TestTimeUpdateV2_201801011
 
             Dim fnData As blTestTime = New blTestTime()
             fnData.ConnectionString = cnnOraString
-            Dim dsResult As DataTable = fnData.GetSelectedSiteCountList(testProgID, rev, testerType, progName, programExec, device, temp, effDate)
+            Dim dsResult As DataTable = fnData.GetSelectedSiteCountList("", testProgID, rev, testerType, progName, programExec, device, temp, effDate)
 
             obj = JsonConvert.SerializeObject(dsResult)
 

@@ -1,6 +1,6 @@
 ﻿Imports Oracle.ManagedDataAccess.Client
 
-Public Class blGeneral
+Public Class blGeneral_bak20180305
 
     Private connStr As String
     Private oOra As New CMAPP.Data.Oracle
@@ -23,7 +23,7 @@ Public Class blGeneral
         Try
 
             oOra.OpenOraConnection(cnnOra, connStr)
-            strQuery = "select distinct TESTPROGID from PDCTESTPROGRAMREVISION ORDER BY TESTPROGID"
+            strQuery = "select distinct TESTPROGID from CM.PDCTESTPROGRAMREVISION ORDER BY TESTPROGID"
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
 
         Catch ex As Exception
@@ -46,7 +46,7 @@ Public Class blGeneral
         Try
 
             oOra.OpenOraConnection(cnnOra, connStr)
-            strQuery = "select distinct TESTPROGID from PDCTESTPROGRAMREVISION where TESTPROGID like '" & q & "%' and rownum <= 150"
+            strQuery = "select distinct TESTPROGID from CM.PDCTESTPROGRAMREVISION where TESTPROGID like '" & q & "%' and rownum <= 150"
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
 
         Catch ex As Exception
@@ -69,7 +69,7 @@ Public Class blGeneral
         Try
 
             oOra.OpenOraConnection(cnnOra, connStr)
-            strQuery = "select distinct TESTPROGIDREV from PDCTESTPROGRAMREVISION where TESTPROGID = '" & _progID & "' and TESTPROGIDVERS = 0 order by TESTPROGIDREV"
+            strQuery = "select distinct TESTPROGIDREV from CM.PDCTESTPROGRAMREVISION where TESTPROGID = '" & _progID & "' and TESTPROGIDVERS = 0 order by TESTPROGIDREV"
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
 
         Catch ex As Exception
@@ -122,7 +122,7 @@ Public Class blGeneral
         Try
 
             oOra.OpenOraConnection(cnnOra, connStr)
-            strQuery = "select distinct TESTPROGMAINSOURCE from PDCTESTPROGRAMREVISION where rownum <= 150 ORDER BY TESTPROGMAINSOURCE"
+            strQuery = "select distinct TESTPROGMAINSOURCE from CM.PDCTESTPROGRAMREVISION where rownum <= 150 ORDER BY TESTPROGMAINSOURCE"
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
 
         Catch ex As Exception
@@ -145,7 +145,7 @@ Public Class blGeneral
         Try
 
             oOra.OpenOraConnection(cnnOra, connStr)
-            strQuery = "select distinct TESTPROGMAINSOURCE from PDCTESTPROGRAMREVISION where TESTPROGMAINSOURCE like '" & q & "%' and rownum <= 150 ORDER BY TESTPROGMAINSOURCE"
+            strQuery = "select distinct TESTPROGMAINSOURCE from CM.PDCTESTPROGRAMREVISION where TESTPROGMAINSOURCE like '" & q & "%' and rownum <= 150 ORDER BY TESTPROGMAINSOURCE"
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
 
         Catch ex As Exception
@@ -168,7 +168,7 @@ Public Class blGeneral
         Try
 
             oOra.OpenOraConnection(cnnOra, connStr)
-            strQuery = "select distinct TESTPROGEXECUTABLE from PDCTESTPROGRAMREVISION where rownum <= 150 ORDER BY TESTPROGEXECUTABLE"
+            strQuery = "select distinct TESTPROGEXECUTABLE from CM.PDCTESTPROGRAMREVISION where rownum <= 150 ORDER BY TESTPROGEXECUTABLE"
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
 
         Catch ex As Exception
@@ -191,7 +191,7 @@ Public Class blGeneral
         Try
 
             oOra.OpenOraConnection(cnnOra, connStr)
-            strQuery = "select distinct TESTPROGEXECUTABLE from PDCTESTPROGRAMREVISION where TESTPROGEXECUTABLE like '" & q & "%' and rownum <= 150 ORDER BY TESTPROGEXECUTABLE"
+            strQuery = "select distinct TESTPROGEXECUTABLE from CM.PDCTESTPROGRAMREVISION where TESTPROGEXECUTABLE like '" & q & "%' and rownum <= 150 ORDER BY TESTPROGEXECUTABLE"
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
 
         Catch ex As Exception
@@ -214,7 +214,7 @@ Public Class blGeneral
         Try
 
             oOra.OpenOraConnection(cnnOra, connStr)
-            strQuery = "select distinct TESTERTYPE from pdcTesterType"
+            strQuery = "select distinct TESTERTYPE from cm.pdcTesterType"
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
 
         Catch ex As Exception
@@ -237,7 +237,7 @@ Public Class blGeneral
         Try
 
             oOra.OpenOraConnection(cnnOra, connStr)
-            strQuery = "select distinct DEVICE from PDCMPCTESTATTRIBUTES where rownum <= 150 ORDER BY DEVICE"
+            strQuery = "select distinct DEVICE from CM.PDCMPCTESTATTRIBUTES where rownum <= 150 ORDER BY DEVICE"
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
 
         Catch ex As Exception
@@ -260,7 +260,7 @@ Public Class blGeneral
         Try
 
             oOra.OpenOraConnection(cnnOra, connStr)
-            strQuery = "select distinct DEVICE from PDCMPCTESTATTRIBUTES where DEVICE like '" & q & "%' and rownum <= 150 ORDER BY DEVICE"
+            strQuery = "select distinct DEVICE from CM.PDCMPCTESTATTRIBUTES where DEVICE like '" & q & "%' and rownum <= 150 ORDER BY DEVICE"
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
 
         Catch ex As Exception
@@ -283,30 +283,7 @@ Public Class blGeneral
         Try
 
             oOra.OpenOraConnection(cnnOra, connStr)
-            strQuery = "select distinct TESTSTEPTEMP from PDCTESTTEMP ORDER BY TESTSTEPTEMP"
-            dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
-
-        Catch ex As Exception
-            Dim exMsg = ex.Message
-        Finally
-
-            oOra.CloseOraConnection(cnnOra)
-
-        End Try
-
-        Return dsResult.Tables(0)
-
-    End Function
-
-    Public Function GetTestSiteList() As DataTable
-
-        Dim strQuery As String
-        Dim dsResult As DataSet = New DataSet
-
-        Try
-
-            oOra.OpenOraConnection(cnnOra, connStr)
-            strQuery = "select distinct TESTSITE from CMTESTTIME ORDER BY TESTSITE"
+            strQuery = "select distinct TESTSTEPTEMP from CM.PDCTESTTEMP ORDER BY TESTSTEPTEMP"
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
 
         Catch ex As Exception

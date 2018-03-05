@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Test Time Update V2" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="TestTimeUpdateV2_201801011.aspx.vb" Inherits="CMAPP.Web.TestTimeUpdateV2_201801011" EnableEventValidation="false" %>
+﻿<%@ Page Title="Test Time Update V3" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="TestTimeUpdateV3_20180304.aspx.vb" Inherits="CMAPP.Web.TestTimeUpdateV3_20180304" EnableEventValidation="false" %>
 <%@ Register Src="~/Controls/wucPopupInfo.ascx" TagPrefix="uc1" TagName="wucPopupInfo" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolKit" %>
 
@@ -64,201 +64,99 @@
 
 
     </style>
+    <link href="/Content/jquery.dynatable.css" rel="stylesheet" />
 
     <script src="/Scripts/table2excel.js"></script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <h3>Test Time Update (Version 2)</h3>
+    <div class="page-container" >
 
-    <div class="page-container">
+        <h3>Test Time Update (Version 3)</h3>
 
-        <div class="row" style="margin-left:1px; margin-right:1px;">
-            <div class="col-lg-1 col-md-2">
-                <asp:Label Text="text" runat="server" AssociatedControlID="txtProgramID">Program ID</asp:Label>
-                <asp:TextBox ID="txtProgramID" runat="server" CssClass="form-control"></asp:TextBox>
-                <%--<asp:DropDownList ID="ddlProgramID" runat="server" CssClass="form-control" AppendDataBoundItems="true">
-                    <asp:ListItem Text="" Value=""></asp:ListItem>
-                </asp:DropDownList>--%>
-            </div>
-            <div class="col-lg-1 col-md-2">
-                <asp:Label Text="text" runat="server" AssociatedControlID="ddlRevision">Revision</asp:Label>
-                <asp:DropDownList ID="ddlRevision" runat="server" CssClass="form-control" AppendDataBoundItems="true">
-                    <asp:ListItem Text="" Value=""></asp:ListItem>
-                </asp:DropDownList>
-            </div>
-            <div class="col-lg-1 col-md-2">
-                <asp:Label Text="text" runat="server" AssociatedControlID="txtVersion">Version</asp:Label>
-                <asp:TextBox runat="server" CssClass="form-control" ID="txtVersion" Text="0" />
-            </div>
-            <div class="col-lg-2 col-md-3">
-                <asp:Label Text="text" runat="server" AssociatedControlID="ddlTester">Tester</asp:Label>
-                <%--<asp:TextBox ID="txtTester" runat="server" CssClass="form-control"></asp:TextBox>--%>
-                <asp:DropDownList ID="ddlTester" runat="server" CssClass="form-control" AppendDataBoundItems="true">
-                    <asp:ListItem Text="" Value=""></asp:ListItem>
-                </asp:DropDownList>
-            </div>
-            <div class="col-lg-2 col-md-3">
-                <asp:Label Text="text" runat="server" AssociatedControlID="txtProgramName">Program Name</asp:Label>
-                <asp:TextBox ID="txtProgramName" runat="server" CssClass="form-control"></asp:TextBox>
-            </div>
-            <div class="col-lg-2 col-md-3">
-                <asp:Label Text="text" runat="server" AssociatedControlID="txtProgramExec">Program Exec</asp:Label>
-                <asp:TextBox ID="txtProgramExec" runat="server" CssClass="form-control"></asp:TextBox>
-            </div>
-            <div class="col-lg-2 col-md-3">
-                <asp:Label Text="text" runat="server" AssociatedControlID="txtDevice">Device</asp:Label>
-                <asp:TextBox ID="txtDevice" runat="server" CssClass="form-control"></asp:TextBox>
-            </div>
-            <div class="col-lg-1 col-md-2">
-                <asp:Label Text="text" runat="server" AssociatedControlID="ddlTemp">Temp</asp:Label>
-                <asp:DropDownList ID="ddlTemp" runat="server" CssClass="form-control" AppendDataBoundItems="true">
-                    <asp:ListItem Text="" Value=""></asp:ListItem>
-                </asp:DropDownList>
-            </div>
+        <div class="" style=" padding-top:5px;">
+
+            <div class="row" style="margin-left:1px; margin-right:1px;">
+                <div class="col-lg-1 col-md-2">
+                    <asp:Label Text="text" runat="server" AssociatedControlID="txtProgramID">Program ID</asp:Label>
+                    <asp:TextBox ID="txtProgramID" runat="server" CssClass="form-control"></asp:TextBox>
+                    <%--<asp:DropDownList ID="ddlProgramID" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                        <asp:ListItem Text="" Value=""></asp:ListItem>
+                    </asp:DropDownList>--%>
+                </div>
+                <div class="col-lg-1 col-md-2">
+                    <asp:Label Text="text" runat="server" AssociatedControlID="ddlRevision">Revision</asp:Label>
+                    <asp:DropDownList ID="ddlRevision" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                        <asp:ListItem Text="" Value=""></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+                <div class="col-lg-1 col-md-2">
+                    <asp:Label Text="text" runat="server" AssociatedControlID="txtVersion">Version</asp:Label>
+                    <asp:TextBox runat="server" CssClass="form-control" ID="txtVersion" Text="0" />
+                </div>
+                <div class="col-lg-2 col-md-3">
+                    <asp:Label Text="text" runat="server" AssociatedControlID="ddlTester">Tester</asp:Label>
+                    <%--<asp:TextBox ID="txtTester" runat="server" CssClass="form-control"></asp:TextBox>--%>
+                    <asp:DropDownList ID="ddlTester" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                        <asp:ListItem Text="" Value=""></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+                <div class="col-lg-2 col-md-3">
+                    <asp:Label Text="text" runat="server" AssociatedControlID="txtProgramName">Program Name</asp:Label>
+                    <asp:TextBox ID="txtProgramName" runat="server" CssClass="form-control"></asp:TextBox>
+                </div>
+                <div class="col-lg-2 col-md-3">
+                    <asp:Label Text="text" runat="server" AssociatedControlID="txtProgramExec">Program Exec</asp:Label>
+                    <asp:TextBox ID="txtProgramExec" runat="server" CssClass="form-control"></asp:TextBox>
+                </div>
+                <div class="col-lg-2 col-md-3">
+                    <asp:Label Text="text" runat="server" AssociatedControlID="txtDevice">Device</asp:Label>
+                    <asp:TextBox ID="txtDevice" runat="server" CssClass="form-control"></asp:TextBox>
+                </div>
+                <div class="col-lg-1 col-md-2">
+                    <asp:Label Text="text" runat="server" AssociatedControlID="ddlTemp">Temp</asp:Label>
+                    <asp:DropDownList ID="ddlTemp" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                        <asp:ListItem Text="" Value=""></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
             
-            <div class="col-lg-2 col-md-4">
-                <ul style="list-style:none; margin:0; padding:0;">
-                    <li style="display:inline-block;">
+                <div class="col-lg-2 col-md-4">
+                    <ul style="list-style:none; margin:0; padding:0;">
+                        <li style="display:inline-block;">
+                                <div class="checkbox">
+                                    <label class="btn btn-default">
+                                        <asp:CheckBox ID="chkMaxDate" runat="server" Text=" Max Date" />
+                                    </label>
+                                </div>
+  
+                        </li>
+                        <li style="display:inline-block;">
                             <div class="checkbox">
                                 <label class="btn btn-default">
-                                    <asp:CheckBox ID="chkMaxDate" runat="server" Text=" Max Date" />
+                                    <asp:CheckBox ID="chkMaxRev" runat="server" Text=" Max Revision" />
                                 </label>
-                            </div>
-  
-                    </li>
-                    <li style="display:inline-block;">
-                        <div class="checkbox">
-                            <label class="btn btn-default">
-                                <asp:CheckBox ID="chkMaxRev" runat="server" Text=" Max Revision" />
-                            </label>
-                        </div>  
+                            </div>  
                         
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="row" style="margin-left:1px;">
-            <div class="col-md-12" style="vertical-align:bottom; line-height:45px;">
-                <asp:Button Text="Search" runat="server" ID="btnSearch" CssClass="btn btn-info" OnClick="btnSearch_Click" />
-                &nbsp;
-                <asp:Button ID="btnExport" runat="server" Text="Export" CssClass="btn btn-success" ForeColor="#ffffff" />
-                &nbsp;
-                <asp:Button ID="btnNewTestTime" runat="server" Text="New" CssClass="btn btn-primary" Height="35" style="display:inline-block;" />
-                &nbsp;
-                <%--&nbsp;
-                <asp:Button ID="btnNewProgID" runat="server" Text="New Prog ID" CssClass="btn btn-success" ForeColor="#ffffff" />--%>
-                <%--&nbsp;
-                <asp:Button ID="btnEditTestTime" runat="server" Text="Edit Test Time" CssClass="btn btn-warning" ForeColor="#ffffff" />--%>
-                <span id="note1" style="font-weight:bold;font-size:18px; color:red;">Please click on the record to edit</span>
-            </div>
-        </div>
-
-        <div id="divEdit" style="padding:15px; margin-left:5px; margin-right:5px; min-height:100px; margin-top:5px; margin-bottom:5px; border:1px solid #c3c1c1; border-radius:6px; background-color:#f1f1f1; display:none">
-
-            <div class="row">
-
-                <div class="col-lg-1 col-md-2">
-                    <asp:Label Text="text" runat="server" AssociatedControlID="txtEditProgramID">Program ID</asp:Label>
-                    <asp:TextBox ID="txtEditProgramID" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
+                        </li>
+                    </ul>
                 </div>
-                <div class="col-lg-1 col-md-2">
-                    <asp:Label Text="text" runat="server" AssociatedControlID="txtEditRevision">Revision</asp:Label>
-                    <asp:TextBox ID="txtEditRevision" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
-                </div>
-                <div class="col-lg-1 col-md-2">
-                    <asp:Label Text="text" runat="server" AssociatedControlID="txtEditVersion">Version</asp:Label>
-                    <asp:TextBox runat="server" CssClass="form-control toUppercase" ID="txtEditVersion" Text="0" />
-                </div>
-                <div class="col-lg-2 col-md-3">
-                    <asp:Label Text="text" runat="server" AssociatedControlID="ddlTesterEdit">Tester Type</asp:Label>
-                    <%--<asp:TextBox ID="txtEditTesterType" runat="server" CssClass="form-control toUppercase"></asp:TextBox>--%>
-                    <asp:DropDownList ID="ddlTesterEdit" runat="server" CssClass="form-control" AppendDataBoundItems="true">
-                    <asp:ListItem Text="" Value=""></asp:ListItem>
-                </asp:DropDownList>
-                </div>
-                <div class="col-lg-2 col-md-3">
-                    <asp:Label Text="text" runat="server" AssociatedControlID="txtEditDevice">Device</asp:Label>
-                    <asp:TextBox ID="txtEditDevice" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
-                </div>
-                <div class="col-lg-1 col-md-2">
-                    <asp:Label Text="text" runat="server" AssociatedControlID="ddlTempEdit">Temp</asp:Label>
-                    <%--<asp:TextBox ID="txtEditTemp" runat="server" CssClass="form-control toUppercase"></asp:TextBox>--%>
-                    <asp:DropDownList ID="ddlTempEdit" runat="server" CssClass="form-control" AppendDataBoundItems="true">
-                    <asp:ListItem Text="" Value=""></asp:ListItem>
-                </asp:DropDownList>
-                </div>
-                <div class="col-lg-2 col-md-3">
-                    <asp:Label Text="text" runat="server" AssociatedControlID="txtEditProgName">Program Name</asp:Label>
-                    <asp:TextBox ID="txtEditProgName" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
-                </div>
-                <div class="col-lg-2 col-md-3">
-                    <asp:Label Text="text" runat="server" AssociatedControlID="txtEditProgExec">Program Exec</asp:Label>
-                    <asp:TextBox ID="txtEditProgExec" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
-                </div>
-                
-
-                
             </div>
 
-            <div class="row">
-
-                <div class="col-lg-1 col-md-2">
-                    <asp:Label runat="server" AssociatedControlID="txtEditEffDate">Effective Date</asp:Label><br />
-                    <asp:TextBox ID="txtEditEffDate" runat="server" CssClass="form-control" />
-                    <ajaxToolKit:CalendarExtender ID="calEditEffDate" PopupButtonID="imgPopup" runat="server" TargetControlID="txtEditEffDate" Format="MM/dd/yyyy"> </ajaxToolKit:CalendarExtender>
+            <div class="row" style="margin-left:1px;">
+                <div class="col-md-12" style="vertical-align:bottom; line-height:45px;">
+                    <asp:Button Text="Search" runat="server" ID="btnSearch" CssClass="btn btn-info" OnClick="btnSearch_Click" />
+                    &nbsp;
+                    <asp:Button ID="btnExport" runat="server" Text="Export" CssClass="btn btn-success" ForeColor="#ffffff" />
+                    &nbsp;
+                    <asp:Button ID="btnNewTestTime" runat="server" Text="New" CssClass="btn btn-primary" Height="35" style="display:inline-block;" />
+                    &nbsp;
+                    <%--&nbsp;
+                    <asp:Button ID="btnNewProgID" runat="server" Text="New Prog ID" CssClass="btn btn-success" ForeColor="#ffffff" />--%>
+                    <%--&nbsp;
+                    <asp:Button ID="btnEditTestTime" runat="server" Text="Edit Test Time" CssClass="btn btn-warning" ForeColor="#ffffff" />--%>
+                    <span id="note1" style="font-weight:bold;font-size:18px; color:red;">Please click on the record to edit</span>
                 </div>
-                <div class="col-lg-1 col-md-2">
-                    <asp:Label runat="server" AssociatedControlID="txtEditSiteCount1TestTime">X1 Test Time</asp:Label><br />
-                    <asp:TextBox ID="txtEditSiteCount1TestTime" runat="server" CssClass="form-control" />
-                </div>
-
-                <div class="col-lg-1 col-md-2">
-                    <asp:Label runat="server" AssociatedControlID="txtEditOverhead">Overhead</asp:Label><br />
-                    <asp:TextBox ID="txtEditOverhead" runat="server" CssClass="form-control" />
-                </div>
-                <div class="col-lg-1 col-md-1">
-                    <asp:Label Text="" runat="server" />&nbsp;<br />
-                    <asp:Button ID="btnEditCalculate" Text="Calculate" runat="server" CssClass="btn btn-primary" style="width:100%;" />
-                </div>
-                <div class="col-lg-8 col-md-5">
-                    <div style="width:100%; overflow-x:scroll">
-                        <asp:CheckBoxList ID="cblSiteCount" runat="server" RepeatDirection="Horizontal" style="overflow: auto;">
-                        </asp:CheckBoxList>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="row" style="margin-top:30px;">
-
-                <ul id="ulSiteCountList" style="list-style:none; display:inline-block; margin:0; padding:0;">
-                </ul>
-
-            </div>
-
-            <div class="row">
-
-                <div class="col-md-12" style="margin-top:15px !important;">
-
-                    <div style="float:left;">
-                        <asp:Button ID="btnDuplicateTestTime" runat="server" Text="Duplicate" CssClass="btn btn-success" Height="35" />
-                    </div>
-
-                    <div style="float:right;">
-                        <asp:Button ID="btnEditClose" runat="server" Text="Close" CssClass="btn btn-warning" Height="35" />
-                        &nbsp;
-                        <asp:Button ID="btnEditTestTime" runat="server" Text="Save" CssClass="btn btn-success" Height="35" />
-                        &nbsp;
-                        <asp:Button ID="btnDeleteTestTime" runat="server" Text="Delete" CssClass="btn btn-danger" Height="35" />
-                        <%--&nbsp;
-                        <asp:Button ID="btnEditTestTimeAll" runat="server" Text="Save All" CssClass="btn btn-info" Height="35" />--%>
-                    </div>
-
-                </div>
-
             </div>
 
         </div>
@@ -283,8 +181,147 @@
 
         </div>
 
+    <div id="divDynatable">
+
+        <table id="dynatable1" class="table table-bordered dynatable">
+            <thead>
+            <tr style="background-color:#444;">
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
     </div>
 
+    </div>
+
+    <!-- Trigger the modal with a button -->
+    <%--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>--%>
+
+    <!-- Modal -->
+    <div id="modalEdit" class="modal fade" role="dialog">
+      <div class="modal-dialog" style="width:1240px">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header" style="background-color:#b91717; color:#fff;">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Test Time Update</h4>
+          </div>
+          <div class="modal-body">
+            
+
+              <div class="row">
+
+                    <div class="col-lg-1 col-md-2">
+                        <asp:Label Text="text" runat="server" AssociatedControlID="txtEditProgramID">Program ID</asp:Label>
+                        <asp:TextBox ID="txtEditProgramID" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
+                    </div>
+                    <div class="col-lg-1 col-md-2">
+                        <asp:Label Text="text" runat="server" AssociatedControlID="txtEditRevision">Revision</asp:Label>
+                        <asp:TextBox ID="txtEditRevision" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
+                    </div>
+                    <div class="col-lg-1 col-md-2">
+                        <asp:Label Text="text" runat="server" AssociatedControlID="txtEditVersion">Version</asp:Label>
+                        <asp:TextBox runat="server" CssClass="form-control toUppercase" ID="txtEditVersion" Text="0" />
+                    </div>
+                    <div class="col-lg-2 col-md-3">
+                        <asp:Label Text="text" runat="server" AssociatedControlID="ddlTesterEdit">Tester Type</asp:Label>
+                        <%--<asp:TextBox ID="txtEditTesterType" runat="server" CssClass="form-control toUppercase"></asp:TextBox>--%>
+                        <asp:DropDownList ID="ddlTesterEdit" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                        <asp:ListItem Text="" Value=""></asp:ListItem>
+                    </asp:DropDownList>
+                    </div>
+                    <div class="col-lg-2 col-md-3">
+                        <asp:Label Text="text" runat="server" AssociatedControlID="txtEditDevice">Device</asp:Label>
+                        <asp:TextBox ID="txtEditDevice" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
+                    </div>
+                    <div class="col-lg-1 col-md-2">
+                        <asp:Label Text="text" runat="server" AssociatedControlID="ddlTempEdit">Temp</asp:Label>
+                        <%--<asp:TextBox ID="txtEditTemp" runat="server" CssClass="form-control toUppercase"></asp:TextBox>--%>
+                        <asp:DropDownList ID="ddlTempEdit" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                        <asp:ListItem Text="" Value=""></asp:ListItem>
+                    </asp:DropDownList>
+                    </div>
+                    <div class="col-lg-2 col-md-3">
+                        <asp:Label Text="text" runat="server" AssociatedControlID="txtEditProgName">Program Name</asp:Label>
+                        <asp:TextBox ID="txtEditProgName" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
+                    </div>
+                    <div class="col-lg-2 col-md-3">
+                        <asp:Label Text="text" runat="server" AssociatedControlID="txtEditProgExec">Program Exec</asp:Label>
+                        <asp:TextBox ID="txtEditProgExec" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
+                    </div>
+                
+
+                
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-1 col-md-2">
+                        <asp:Label runat="server" AssociatedControlID="txtEditEffDate">Effective Date</asp:Label><br />
+                        <asp:TextBox ID="txtEditEffDate" runat="server" CssClass="form-control" />
+                        <ajaxToolKit:CalendarExtender ID="calEditEffDate" PopupButtonID="imgPopup" runat="server" TargetControlID="txtEditEffDate" Format="MM/dd/yyyy"> </ajaxToolKit:CalendarExtender>
+                    </div>
+                    <div class="col-lg-1 col-md-2">
+                        <asp:Label runat="server" AssociatedControlID="txtEditSiteCount1TestTime">X1 Test Time</asp:Label><br />
+                        <asp:TextBox ID="txtEditSiteCount1TestTime" runat="server" CssClass="form-control" />
+                    </div>
+
+                    <div class="col-lg-1 col-md-2">
+                        <asp:Label runat="server" AssociatedControlID="txtEditOverhead">Overhead (%)</asp:Label><br />
+                        <asp:TextBox ID="txtEditOverhead" runat="server" CssClass="form-control" />
+                    </div>
+                    <div class="col-lg-1 col-md-1">
+                        <asp:Label Text="" runat="server" />&nbsp;<br />
+                        <asp:Button ID="btnEditCalculate" Text="Calculate" runat="server" CssClass="btn btn-primary" style="width:100%;" />
+                    </div>
+                    <div class="col-lg-8 col-md-5">
+                        <div style="width:100%; overflow-x:scroll">
+                            <asp:CheckBoxList ID="cblSiteCount" runat="server" RepeatDirection="Horizontal" style="overflow: auto;">
+                            </asp:CheckBoxList>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row" style="margin-top:15px;">
+
+                    <ul id="ulSiteCountList" style="list-style:none; display:inline-block; margin:0; padding:0;">
+                    </ul>
+
+                </div>
+
+          </div>
+          <div class="modal-footer">
+              <%--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--%>
+
+              <div class="col-md-12">
+
+                    <div style="float:left;">
+                        <asp:Button ID="btnDuplicateTestTime" runat="server" Text="Duplicate" CssClass="btn btn-success" Height="35" />
+                    </div>
+
+                    <div style="float:right;">
+                        <asp:Button ID="btnEditClose" runat="server" Text="Close" CssClass="btn btn-warning" Height="35" />
+                        &nbsp;
+                        <asp:Button ID="btnEditTestTime" runat="server" Text="Save" CssClass="btn btn-success" Height="35" />
+                        &nbsp;
+                        <asp:Button ID="btnDeleteTestTime" runat="server" Text="Delete" CssClass="btn btn-danger" Height="35" />
+                        <%--&nbsp;
+                        <asp:Button ID="btnEditTestTimeAll" runat="server" Text="Save All" CssClass="btn btn-info" Height="35" />--%>
+                    </div>
+
+                </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <script src="../Scripts/jquery.dynatable.js"></script>
     <script type="text/javascript">
 
         // global variables
@@ -317,7 +354,7 @@
                 if (this.checked) {
                     // call ajax and get max revision
                     $.ajax({
-                        url: "TestTimeUpdateV2.aspx/GetMaxRevisionByProgID",
+                        url: "TestTimeUpdateV3.aspx/GetMaxRevisionByProgID",
                         data: "{ 'testProgID': '" + $('#<%=txtProgramID.ClientID%>').val() + "'}",
                         dataType: "json",
                         type: "POST",
@@ -338,6 +375,7 @@
                     });
 
                 } else {
+                    $("#<%=ddlRevision.ClientID%>").val("");
                 }
 
             });
@@ -351,9 +389,9 @@
                 $('#<%=btnDeleteTestTime.ClientID%>').hide();
 
                 $('#divSiteCountList').show('slow');
-                $('#divEdit').show('slow');
+                $('#modalEdit').modal();
 
-                populateSiteCount(true);
+                populateSiteCount(true, "SERVER");
             });
 
             $('#<%=btnDuplicateTestTime.ClientID%>').on('click', function (e) {
@@ -371,7 +409,7 @@
                 //close the edit div
                 $('#tblListing tbody tr').removeClass("row-selected");
                 $('#divSiteCountList').hide('slow');
-                $('#divEdit').hide('slow');
+                $('#modalEdit').modal('hide');
 
                 if ($("#<%=txtProgramID.ClientID%>").val().trim() === "" && $("#<%=ddlRevision.ClientID%>").val().trim() === ""
                     && $("#<%=ddlTester.ClientID%>").val().trim() === "" && $("#<%=txtProgramName.ClientID%>").val().trim() === ""
@@ -400,12 +438,18 @@
                 //close the edit div
                 $('#tblListing tbody tr').removeClass("row-selected");
                 $('#divSiteCountList').hide('slow');
-                $('#divEdit').hide('slow');
+                $('#modalEdit').modal('hide');
 
             });
 
             $('#<%=btnEditCalculate.ClientID%>').on('click', function (e) {
                 e.preventDefault();
+
+                if ($('#<%=txtEditSiteCount1TestTime.ClientID%>').val() === "" || $('#<%=txtEditOverhead.ClientID%>').val() === "") {
+                    showPopupMessage("Please enter X1 Test Time and Overhead value if you want to calculate");
+                    return;
+                }
+
                 populateSiteCountCalculate();
             });
 
@@ -413,10 +457,10 @@
 
                 e.preventDefault();
 
-                if ($('#<%=txtEditOverhead.ClientID%>').val().trim() !== "" && $('#<%=txtEditSiteCount1TestTime.ClientID%>').val().trim() === "") {
+                <%--if ($('#<%=txtEditOverhead.ClientID%>').val().trim() !== "" && $('#<%=txtEditSiteCount1TestTime.ClientID%>').val().trim() === "") {
                     showPopupMessage("Please enter Test Time SC1 if you want to calculate using overhead!");
                     return;
-                }
+                }--%>
 
                 if (gSiteCountList.length === 0) {
                     showPopupMessage("Please select Site Count to update!");
@@ -432,7 +476,7 @@
                 }
 
                 if (foundEmpty) {
-                    showPopupMessage("Value for site count cannot be empty. Please fill up before save!");
+                    showPopupMessage("Test time can't be blank, please uncheck at the Site Count");
                     return;
                 } else {
                     UpdateTestTime("Single");
@@ -447,16 +491,9 @@
                     gSiteCountList.push(data);
                 });
 
-                populateSiteCount(false);
+                populateSiteCount(false, "LOCAL");
+                //populateSiteCountCalculate();
             });
-
-            <%--$('#<%=txtEditSiteCount1TestTime.ClientID%>').on('keyup', function (e) {
-                populateSiteCount(false);
-            });
-
-            $('#<%=txtEditOverhead.ClientID%>').on('keyup', function (e) {
-                populateSiteCount(false);
-            });--%>
 
             $('#<%=btnDeleteTestTime.ClientID%>').on('click', function (e) {
                 e.preventDefault();
@@ -475,7 +512,7 @@
 
                                 // call ajax and update database
                                 $.ajax({
-                                    url: "TestTimeUpdateV2.aspx/DeleteTestTime",
+                                    url: "TestTimeUpdateV3.aspx/DeleteTestTime",
                                     data: "{ 'testProgID': '" + $("#<%=txtEditProgramID.ClientID%>").val() + "', 'rev': '" + $("#<%=txtEditRevision.ClientID%>").val() + "', 'testerType': '" + $("#<%=ddlTesterEdit.ClientID%>").val() + "', 'progName': '" + $("#<%=txtEditProgName.ClientID%>").val() + "', 'programExec': '" + $("#<%=txtEditProgExec.ClientID%>").val() + "', 'device': '" + $("#<%=txtEditDevice.ClientID%>").val() + "', 'temp': '" + $("#<%=ddlTempEdit.ClientID%>").val() + "', 'effDate': '" + $("#<%=txtEditEffDate.ClientID%>").val() + "', 'overhead': '" + $("#<%=txtEditOverhead.ClientID%>").val() + "'}",
                                 dataType: "json",
                                 type: "POST",
@@ -485,7 +522,7 @@
                                     resetEdit();
                                     $('#tblListing tbody tr').removeClass("row-selected");
                                     $('#divSiteCountList').hide('slow');
-                                    $('#divEdit').hide('slow');
+                                    $('#modalEdit').modal('hide');
 
                                     getListing($("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $('#<%=ddlTester.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("input[id='<%=chkMaxDate.ClientID%>']:checked").val());
                                 },
@@ -535,6 +572,10 @@
                         keys: ['enter', 'shift'],
                         action: function () {
 
+                            // manual add for site count 1
+                            var dataItem = { label: "X1", labelValue: "1", value: $("#<%=txtEditSiteCount1TestTime.ClientID%>").val() };
+                            gSiteCountList.push(dataItem);
+
                             // loop the input in the site count list
                             $('#ulSiteCountList li').each(function (index) {
 
@@ -548,7 +589,7 @@
 
                             // call ajax and update database
                             $.ajax({
-                                url: "TestTimeUpdateV2.aspx/UpdateTestTime",
+                                url: "TestTimeUpdateV3.aspx/UpdateTestTime",
                                 data: "{ 'testProgID': '" + $("#<%=txtEditProgramID.ClientID%>").val() + "', 'rev': '" + $("#<%=txtEditRevision.ClientID%>").val() + "', 'testerType': '" + $("#<%=ddlTesterEdit.ClientID%>").val() + "', 'progName': '" + $("#<%=txtEditProgName.ClientID%>").val() + "', 'programExec': '" + $("#<%=txtEditProgExec.ClientID%>").val() + "', 'device': '" + $("#<%=txtEditDevice.ClientID%>").val() + "', 'temp': '" + $("#<%=ddlTempEdit.ClientID%>").val() + "', 'effDate': '" + $("#<%=txtEditEffDate.ClientID%>").val() + "', 'siteCountList': '" + JSON.stringify(gSiteCountList) + "', 'overhead': '" + $("#<%=txtEditOverhead.ClientID%>").val() + "', 'updateType': '" + _updateType + "'}",
                                 dataType: "json",
                                 type: "POST",
@@ -558,7 +599,7 @@
                                     resetEdit();
                                     $('#tblListing tbody tr').removeClass("row-selected");
                                     $('#divSiteCountList').hide('slow');
-                                    $('#divEdit').hide('slow');
+                                    $('#modalEdit').modal('hide');
 
                                     getListing($("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $('#<%=ddlTester.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("input[id='<%=chkMaxDate.ClientID%>']:checked").val());
                                 },
@@ -610,7 +651,7 @@
                     if ($.trim(val.labelValue) === "1") {
                         // ignore
                         //gHideFirstItem = true;
-                        readOnlySC1 = "readonly='readonly' ";
+                        // readOnlySC1 = "readonly='readonly' ";
                     }
 
                     item = item + "<li style='display: inline-block; text-align:center; margin:5px;'>" +
@@ -625,7 +666,7 @@
             }
         }
 
-        function populateSiteCount(_isEmpty) {
+        function populateSiteCount(_isEmpty, _type) {
 
             gHideFirstItem = false;
 
@@ -637,31 +678,37 @@
 
                 // Call ajax to get list site count
                 $.ajax({
-                    url: "TestTimeUpdateV2.aspx/GetSelectedSiteCountList",
+                    url: "TestTimeUpdateV3.aspx/GetSelectedSiteCountList",
                     dataType: "json",
                     data: "{ 'testProgID': '" + $('#<%=txtEditProgramID.ClientID%>').val() + "', 'rev': '" + $('#<%=txtEditRevision.ClientID%>').val() + "', 'testerType': '" + $('#<%=ddlTesterEdit.ClientID%>').val() + "', 'progName': '" + $('#<%=txtEditProgName.ClientID%>').val() + "', 'programExec': '" + $('#<%=txtEditProgExec.ClientID%>').val() + "', 'device': '" + $('#<%=txtEditDevice.ClientID%>').val() + "', 'temp': '" + $('#<%=ddlTempEdit.ClientID%>').val() + "', 'effDate': '" + $('#<%=txtEditEffDate.ClientID%>').val() + "'}",
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
                     success: function (data) {
 
-                        <%--gSiteCountList = [];
-                        $.each(JSON.parse(data.d), function (key, val) {
-                            var dataItem = { label: "X" + val.SITECOUNT, labelValue: val.SITECOUNT, value: "0.00" };
-                            gSiteCountList.push(dataItem);
-                        });
+                        if (_type === "SERVER") {
 
-                        $("[id*=<%=cblSiteCount.ClientID%>] input").each(function () {
-                            this.checked = false;
-                        });
+                            $("[id*=<%=cblSiteCount.ClientID%>] input").each(function () {
+                                this.checked = false;
+                            });
 
-                        var found = 0;
-                        //set default checked
-                        $("[id*=<%=cblSiteCount.ClientID%>] input").each(function () {
-                            if (getObjects(gSiteCountList, 'labelValue', $(this).val()).length > 0) {
-                                this.checked = true;
-                                found++;
-                            }
-                        });--%>
+                            gSiteCountList = [];
+                            $.each(JSON.parse(data.d), function (key, val) {
+                                var dataItem = { label: "X" + val.SITECOUNT, labelValue: val.SITECOUNT, value: "0.00" };
+                                gSiteCountList.push(dataItem);
+                            });
+
+                            var found = 0;
+                            //set default checked
+                            $("[id*=<%=cblSiteCount.ClientID%>] input").each(function () {
+                                if (getObjects(gSiteCountList, 'labelValue', $(this).val()).length > 0) {
+                                    this.checked = true;
+                                    found++;
+                                }
+                            });
+
+                        } // end if _type
+
+                        
 
                         $.each(gSiteCountList, function (key, val) {
 
@@ -678,6 +725,9 @@
 
                             //alert("savedValue: " + savedValue);
 
+                            if (savedValue === null)
+                                savedValue = "";
+
                             //if (val.labelValue === 1)
                             if ($.trim(val.labelValue) === "1")
                                 val.value = $('#<%=txtEditSiteCount1TestTime.ClientID%>').val();
@@ -692,7 +742,7 @@
                             var readOnlySC1 = "";
 
                             if ($.trim(val.labelValue) === "1") {
-                                readOnlySC1 = "readonly='readonly' ";
+                                //readOnlySC1 = "readonly='readonly' ";
                             }
 
                             item = item + "<li style='display: inline-block; text-align:center; margin:5px;'>" +
@@ -737,7 +787,7 @@
                     var readOnlySC1 = "";
 
                     if ($.trim(val.labelValue) === "1") {
-                        readOnlySC1 = "readonly='readonly' ";
+                        //readOnlySC1 = "readonly='readonly' ";
                     }
 
                     item = item + "<li style='display: inline-block; text-align:center; margin:5px;'>" +
@@ -757,13 +807,15 @@
             // Call ajax to get distinct value of site count for the selected filters
             // once returned, loop and assing the site count to gSiteCountList then only call get listing function
 
+
+
             // clear the table
             $('#tblListing thead tr').html("");
             $('#tblListing tbody').html("");
 
 
             $.ajax({
-                url: "TestTimeUpdateV2.aspx/GetSiteCountListByFilter",
+                url: "TestTimeUpdateV3.aspx/GetSiteCountListByFilter",
                 data: "{ 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'testerType': '" + _testerType + "', 'progName': '" + _progName + "', 'programExec': '" + _progExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "'}",
                 dataType: "json",
                 type: "POST",
@@ -777,7 +829,7 @@
                     });
 
                     $.ajax({
-                        url: "TestTimeUpdateV2.aspx/GetListing",
+                        url: "TestTimeUpdateV3.aspx/GetListing",
                         data: "{ 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'ver': '" + _ver + "', 'testerType': '" + _testerType + "', 'progName': '" + _progName + "', 'progExec': '" + _progExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "', 'maxDate': '" + _maxDate + "', 'siteCountList': '" + JSON.stringify(gSiteCountList) + "'}",
                         dataType: "json",
                         type: "POST",
@@ -791,13 +843,11 @@
                                 var row = "";
                                 var rowCount = 0;
                                 $.each(JSON.parse(data.d), function (key, val) {
-                                    //console.log(val);
                                     var rowColor = "transparent";
                                     if (rowCount % 2 === 0)
                                         rowColor = "#fff";
 
                                     row = row + "<tr style='cursor:pointer; background-color:" + rowColor + "' onclick='selectRow(this, \"" + val["Program ID"] + "\", \"" + val["Revision"] + "\", \"" + val["Tester Type"] + "\", \"" + val["Program Source"] + "\", \"" + val["Program Exec"] + "\", \"" + val["Device"] + "\", \"" + val["Temp"] + "\", \"" + val["Eff Date"] + "\", \"" + val["Overhead"] + "\")'>";
-                                    // row = row + '<tr style="cursor:pointer; background-color:' + rowColor + '" onclick="selectRow2(this, ' + JSON.parse(val) + ')">';
                                     $.each(val, function (_, text) {
                                         row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
                                     });
@@ -821,18 +871,7 @@
                             });
 
                             var found = 0;
-                            //set default checked
                             $("[id*=<%=cblSiteCount.ClientID%>] input").each(function () {
-                                //if ($(this).val() === "1" || $(this).val() === "2" || $(this).val() === "3" || $(this).val() === "4" || $(this).val() === "8")
-                                //    this.checked = true;
-
-                                ////if (gSiteCountList.length > 0) {
-                                //    if (jQuery.inArray($(this).val(), gSiteCountList) >= 0) {
-                                //        this.checked = true;
-                                //        found++;
-                                //    }
-
-                                ////};
 
                                 if (getObjects(gSiteCountList, 'labelValue', $(this).val()).length > 0) {
                                     this.checked = true;
@@ -841,13 +880,7 @@
 
                             });
 
-                            //alert('found: ' + found + ', gSiteCountList: ' + JSON.stringify(gSiteCountList));
-
                         }
-                        //,
-                        //beforeSend: function (request) {
-                        //    HoldOn.open({ theme: "sk-rect" });
-                        //}
                         , complete: function () {
                             HoldOn.close();
                         },
@@ -859,9 +892,6 @@
                 beforeSend: function (request) {
                     HoldOn.open({ theme: "sk-rect" });
                 }
-                //, complete: function () {
-                //    HoldOn.close();
-                //},
                 , error: function (a, b, c) {
                     console.log('error: ' + JSON.stringify(a));
                 }
@@ -899,7 +929,7 @@
             getSiteCount1TestTime(_testProgID, _rev, _testerType, _progName, _progExec, _device, _temp, _effDate);
 
             $('#divSiteCountList').show('slow');
-            $('#divEdit').show('slow');
+            $('#modalEdit').modal();
 
             // hide button duplicate and delete for edit
             $('#<%=btnDuplicateTestTime.ClientID%>').show();
@@ -952,7 +982,7 @@
             $("#<%=txtProgramID.ClientID%>").autocomplete({
                 source: function (request, response) {
                     $.ajax({
-                        url: "TestTimeUpdateV2.aspx/GetTestProgramIDList",
+                        url: "TestTimeUpdateV3.aspx/GetTestProgramIDList",
                         data: "{ 'q': '" + $("#<%=txtProgramID.ClientID%>").val() + "'}",
                         dataType: "json",
                         type: "POST",
@@ -986,7 +1016,7 @@
             <%--$("#<%=txtTester.ClientID%>").autocomplete({
                 source: function (request, response) {
                     $.ajax({
-                        url: "TestTimeUpdateV2.aspx/GetTestTypeList",
+                        url: "TestTimeUpdateV3.aspx/GetTestTypeList",
                         data: "{ 'q': '" + $("#<%=txtTester.ClientID%>").val() + "'}",
                         dataType: "json",
                         type: "POST",
@@ -1018,7 +1048,7 @@
             $("#<%=txtProgramName.ClientID%>").autocomplete({
                 source: function (request, response) {
                     $.ajax({
-                        url: "TestTimeUpdateV2.aspx/GetTestProgramNameList",
+                        url: "TestTimeUpdateV3.aspx/GetTestProgramNameList",
                         data: "{ 'q': '" + $("#<%=txtProgramName.ClientID%>").val() + "'}",
                         dataType: "json",
                         type: "POST",
@@ -1051,7 +1081,7 @@
             $("#<%=txtProgramExec.ClientID%>").autocomplete({
                 source: function (request, response) {
                     $.ajax({
-                        url: "TestTimeUpdateV2.aspx/GetTestProgramExecList",
+                        url: "TestTimeUpdateV3.aspx/GetTestProgramExecList",
                         data: "{ 'q': '" + $("#<%=txtProgramExec.ClientID%>").val() + "'}",
                         dataType: "json",
                         type: "POST",
@@ -1085,7 +1115,7 @@
             $("#<%=txtDevice.ClientID%>").autocomplete({
                 source: function (request, response) {
                     $.ajax({
-                        url: "TestTimeUpdateV2.aspx/GetDeviceList",
+                        url: "TestTimeUpdateV3.aspx/GetDeviceList",
                         data: "{ 'q': '" + $("#<%=txtDevice.ClientID%>").val() + "'}",
                         dataType: "json",
                         type: "POST",
@@ -1119,7 +1149,7 @@
             $("#<%=txtEditDevice.ClientID%>").autocomplete({
                 source: function (request, response) {
                     $.ajax({
-                        url: "TestTimeUpdateV2.aspx/GetDeviceList",
+                        url: "TestTimeUpdateV3.aspx/GetDeviceList",
                         data: "{ 'q': '" + $("#<%=txtEditDevice.ClientID%>").val() + "'}",
                         dataType: "json",
                         type: "POST",
@@ -1153,7 +1183,7 @@
             $("#<%=ddlRevision.ClientID%>").attr('disabled', true);
 
             $.ajax({
-                url: "TestTimeUpdateV2.aspx/GetRevisionByProgID",
+                url: "TestTimeUpdateV3.aspx/GetRevisionByProgID",
                 data: "{ 'testProgID': '" + _testProgID + "'}",
                 dataType: "json",
                 type: "POST",
@@ -1181,7 +1211,7 @@
 
         function getSiteCount1TestTime(_testProgID, _rev, _testerType, _progName, _programExec, _device, _temp, _effDate) {
             $.ajax({
-                url: "TestTimeUpdateV2.aspx/GetSiteCount1TestTime",
+                url: "TestTimeUpdateV3.aspx/GetSiteCount1TestTime",
                 data: "{ 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'testerType': '" + _testerType + "', 'progName': '" + _progName + "', 'programExec': '" + _programExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "', 'effDate': '" + _effDate + "'}",
                 dataType: "json",
                 type: "POST",
@@ -1194,7 +1224,7 @@
                     }
 
                     // populate site count list
-                    populateSiteCount(false);
+                    populateSiteCount(false, "SERVER");
                 },
                 error: function (a, b, c) {
                     console.log('error: ' + JSON.stringify(a));

@@ -67,6 +67,7 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="blGeneral_bak20180305.vb" />
     <Compile Include="blGeneral.vb" />
     <Compile Include="blTestTime.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />

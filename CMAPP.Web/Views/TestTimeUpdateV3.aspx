@@ -64,7 +64,8 @@
 
 
     </style>
-    <link href="/Content/jquery.dynatable.css" rel="stylesheet" />
+    <%--<link href="/Content/jquery.dynatable.css" rel="stylesheet" />--%>
+    <%--<link href="/Content/datatables.min.css" rel="stylesheet" />--%>
 
     <script src="/Scripts/table2excel.js"></script>
 
@@ -79,11 +80,28 @@
 
             <div class="row" style="margin-left:1px; margin-right:1px;">
                 <div class="col-lg-1 col-md-2">
+                    <asp:Label Text="text" runat="server" AssociatedControlID="ddlTestSite">Test Site</asp:Label>
+                    <asp:DropDownList ID="ddlTestSite" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                        <asp:ListItem Text="" Value=""></asp:ListItem>
+                        <asp:ListItem Text="ASCL" Value="ASCL"></asp:ListItem>
+                        <asp:ListItem Text="ASE" Value="ASE"></asp:ListItem>
+                        <asp:ListItem Text="ASE9" Value="ASE9"></asp:ListItem>
+                        <asp:ListItem Text="ASSH" Value="ASSH"></asp:ListItem>
+                        <asp:ListItem Text="ATP7" Value="ATP7"></asp:ListItem>
+                        <asp:ListItem Text="MMT" Value="MMT"></asp:ListItem>
+                        <asp:ListItem Text="MPHL" Value="MPHL"></asp:ListItem>
+                        <asp:ListItem Text="MTAI" Value="MTAI"></asp:ListItem>
+                        <asp:ListItem Text="NSEB" Value="NSEB"></asp:ListItem>
+                        <asp:ListItem Text="OSE" Value="OSE"></asp:ListItem>
+                        <asp:ListItem Text="SIGH" Value="SIGH"></asp:ListItem>
+                        <asp:ListItem Text="SIGN" Value="SIGN"></asp:ListItem>
+                        <asp:ListItem Text="SIGT" Value="SIGT"></asp:ListItem>
+                        <asp:ListItem Text="UNIS" Value="UNIS"></asp:ListItem>
+                    </asp:DropDownList>
+                </div>
+                <div class="col-lg-1 col-md-2">
                     <asp:Label Text="text" runat="server" AssociatedControlID="txtProgramID">Program ID</asp:Label>
                     <asp:TextBox ID="txtProgramID" runat="server" CssClass="form-control"></asp:TextBox>
-                    <%--<asp:DropDownList ID="ddlProgramID" runat="server" CssClass="form-control" AppendDataBoundItems="true">
-                        <asp:ListItem Text="" Value=""></asp:ListItem>
-                    </asp:DropDownList>--%>
                 </div>
                 <div class="col-lg-1 col-md-2">
                     <asp:Label Text="text" runat="server" AssociatedControlID="ddlRevision">Revision</asp:Label>
@@ -181,41 +199,7 @@
 
         </div>
 
-    <%--<div id="divDynatable">
-
-        <table id="dynatable1" class="table table-bordered dynatable">
-            <thead>
-            <tr style="background-color:#444;">
-                <th>Name</th>
-                <th>Hobby</th>
-                <th>Favorite Music</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Fred</td>
-                <td>Roller Skating</td>
-                <td>Disco</td>
-            </tr>
-            <tr>
-                <td>Helen</td>
-                <td>Rock Climbing</td>
-                <td>Alternative</td>
-            </tr>
-            <tr>
-                <td>Glen</td>
-                <td>Traveling</td>
-                <td>Classical</td>
-            </tr>
-            </tbody>
-        </table>
-
-    </div>--%>
-
     </div>
-
-    <!-- Trigger the modal with a button -->
-    <%--<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>--%>
 
     <!-- Modal -->
     <div id="modalEdit" class="modal fade" role="dialog">
@@ -232,6 +216,26 @@
 
               <div class="row">
 
+                    <div class="col-lg-2 col-md-3">
+                        <asp:Label Text="text" runat="server" AssociatedControlID="ddlTestSiteEdit">Test Site</asp:Label>
+                            <asp:DropDownList ID="ddlTestSiteEdit" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                                <asp:ListItem Text="" Value=""></asp:ListItem>
+                                <asp:ListItem Text="ASCL" Value="ASCL"></asp:ListItem>
+                                <asp:ListItem Text="ASE" Value="ASE"></asp:ListItem>
+                                <asp:ListItem Text="ASE9" Value="ASE9"></asp:ListItem>
+                                <asp:ListItem Text="ASSH" Value="ASSH"></asp:ListItem>
+                                <asp:ListItem Text="ATP7" Value="ATP7"></asp:ListItem>
+                                <asp:ListItem Text="MMT" Value="MMT"></asp:ListItem>
+                                <asp:ListItem Text="MPHL" Value="MPHL"></asp:ListItem>
+                                <asp:ListItem Text="MTAI" Value="MTAI"></asp:ListItem>
+                                <asp:ListItem Text="NSEB" Value="NSEB"></asp:ListItem>
+                                <asp:ListItem Text="OSE" Value="OSE"></asp:ListItem>
+                                <asp:ListItem Text="SIGH" Value="SIGH"></asp:ListItem>
+                                <asp:ListItem Text="SIGN" Value="SIGN"></asp:ListItem>
+                                <asp:ListItem Text="SIGT" Value="SIGT"></asp:ListItem>
+                                <asp:ListItem Text="UNIS" Value="UNIS"></asp:ListItem>
+                            </asp:DropDownList>  
+                    </div>
                     <div class="col-lg-1 col-md-2">
                         <asp:Label Text="text" runat="server" AssociatedControlID="txtEditProgramID">Program ID</asp:Label>
                         <asp:TextBox ID="txtEditProgramID" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
@@ -246,7 +250,6 @@
                     </div>
                     <div class="col-lg-2 col-md-3">
                         <asp:Label Text="text" runat="server" AssociatedControlID="ddlTesterEdit">Tester Type</asp:Label>
-                        <%--<asp:TextBox ID="txtEditTesterType" runat="server" CssClass="form-control toUppercase"></asp:TextBox>--%>
                         <asp:DropDownList ID="ddlTesterEdit" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                         <asp:ListItem Text="" Value=""></asp:ListItem>
                     </asp:DropDownList>
@@ -270,8 +273,6 @@
                         <asp:Label Text="text" runat="server" AssociatedControlID="txtEditProgExec">Program Exec</asp:Label>
                         <asp:TextBox ID="txtEditProgExec" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
                     </div>
-                
-
                 
                 </div>
 
@@ -339,14 +340,26 @@
       </div>
     </div>
 
-    <script src="../Scripts/jquery.dynatable.js"></script>
+    <%--<script src="/Scripts/jquery.dynatable.js"></script>--%>
+    <%--<script src="/Scripts/datatables.min.js"></script>--%>
     <script type="text/javascript">
 
         // global variables
         var gSiteCountList = [];
         var gHideFirstItem = false;
+        // var dynatable;
+        //var gDataList;
 
-        
+        //$('#dynatable1').dynatable({
+        //    //table: {
+        //    //    headRowSelector: 'thead',
+        //    //},
+        //    dataset: {
+        //        records: gDataList
+        //    }
+        //});
+
+        //$('#dynatable1').DataTable();
 
         $('#divSiteCountList').hide();
         $('#<%=btnExport.ClientID%>').hide();
@@ -354,13 +367,7 @@
 
         $(document).ready(function () {
 
-            ////dynatable
-            //$('#dynatable1').dynatable({
-            //    table: {
-            //        defaultColumnIdStyle: 'trimDash'
-            //    }
-            //});
-
+            loadTestSiteList();
             loadProgramIDList();
             loadTesterTypeList();
             loadProgramNameList();
@@ -397,7 +404,7 @@
                             }
                         },
                         error: function (a, b, c) {
-                            console.log('error: ' + JSON.stringify(a));
+                            //console.log('error: ' + JSON.stringify(a));
                         }
                     });
 
@@ -437,7 +444,7 @@
                 $('#tblListing tbody tr').removeClass("row-selected");
                 $('#divSiteCountList').hide('slow');
                 $('#modalEdit').modal('hide');
-
+                // $("#<%=ddlTestSite.ClientID%>").val().trim() === "" &&
                 if ($("#<%=txtProgramID.ClientID%>").val().trim() === "" && $("#<%=ddlRevision.ClientID%>").val().trim() === ""
                     && $("#<%=ddlTester.ClientID%>").val().trim() === "" && $("#<%=txtProgramName.ClientID%>").val().trim() === ""
                     && $("#<%=txtProgramExec.ClientID%>").val().trim() === "" && $("#<%=txtDevice.ClientID%>").val().trim() === ""
@@ -446,7 +453,7 @@
                     return;
                 }
 
-                getListing($("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $('#<%=ddlTester.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("input[id='<%=chkMaxDate.ClientID%>']:checked").val());
+                getListing($("#<%=ddlTestSite.ClientID%>").val(), $("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $('#<%=ddlTester.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("input[id='<%=chkMaxDate.ClientID%>']:checked").val());
             });
 
             $('#<%=btnExport.ClientID%>').on('click', function (e) {
@@ -540,7 +547,7 @@
                                 // call ajax and update database
                                 $.ajax({
                                     url: "TestTimeUpdateV3.aspx/DeleteTestTime",
-                                    data: "{ 'testProgID': '" + $("#<%=txtEditProgramID.ClientID%>").val() + "', 'rev': '" + $("#<%=txtEditRevision.ClientID%>").val() + "', 'testerType': '" + $("#<%=ddlTesterEdit.ClientID%>").val() + "', 'progName': '" + $("#<%=txtEditProgName.ClientID%>").val() + "', 'programExec': '" + $("#<%=txtEditProgExec.ClientID%>").val() + "', 'device': '" + $("#<%=txtEditDevice.ClientID%>").val() + "', 'temp': '" + $("#<%=ddlTempEdit.ClientID%>").val() + "', 'effDate': '" + $("#<%=txtEditEffDate.ClientID%>").val() + "', 'overhead': '" + $("#<%=txtEditOverhead.ClientID%>").val() + "'}",
+                                    data: "{ 'testSite': '" + $("#<%=ddlTestSiteEdit.ClientID%>").val() + "', 'testProgID': '" + $("#<%=txtEditProgramID.ClientID%>").val() + "', 'rev': '" + $("#<%=txtEditRevision.ClientID%>").val() + "', 'testerType': '" + $("#<%=ddlTesterEdit.ClientID%>").val() + "', 'progName': '" + $("#<%=txtEditProgName.ClientID%>").val() + "', 'programExec': '" + $("#<%=txtEditProgExec.ClientID%>").val() + "', 'device': '" + $("#<%=txtEditDevice.ClientID%>").val() + "', 'temp': '" + $("#<%=ddlTempEdit.ClientID%>").val() + "', 'effDate': '" + $("#<%=txtEditEffDate.ClientID%>").val() + "', 'overhead': '" + $("#<%=txtEditOverhead.ClientID%>").val() + "'}",
                                 dataType: "json",
                                 type: "POST",
                                 contentType: "application/json; charset=utf-8",
@@ -551,7 +558,7 @@
                                     $('#divSiteCountList').hide('slow');
                                     $('#modalEdit').modal('hide');
 
-                                    getListing($("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $('#<%=ddlTester.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("input[id='<%=chkMaxDate.ClientID%>']:checked").val());
+                                    getListing($("#<%=ddlTestSite.ClientID%>").val(), $("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $('#<%=ddlTester.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("input[id='<%=chkMaxDate.ClientID%>']:checked").val());
                                 },
                                 beforeSend: function (request) {
                                     HoldOn.open({ theme: "sk-rect" });
@@ -560,7 +567,7 @@
                                     HoldOn.close();
                                 },
                                 error: function (a, b, c) {
-                                    console.log('error: ' + JSON.stringify(a));
+                                    //console.log('error: ' + JSON.stringify(a));
                                 }
                             });
 
@@ -617,7 +624,7 @@
                             // call ajax and update database
                             $.ajax({
                                 url: "TestTimeUpdateV3.aspx/UpdateTestTime",
-                                data: "{ 'testProgID': '" + $("#<%=txtEditProgramID.ClientID%>").val() + "', 'rev': '" + $("#<%=txtEditRevision.ClientID%>").val() + "', 'testerType': '" + $("#<%=ddlTesterEdit.ClientID%>").val() + "', 'progName': '" + $("#<%=txtEditProgName.ClientID%>").val() + "', 'programExec': '" + $("#<%=txtEditProgExec.ClientID%>").val() + "', 'device': '" + $("#<%=txtEditDevice.ClientID%>").val() + "', 'temp': '" + $("#<%=ddlTempEdit.ClientID%>").val() + "', 'effDate': '" + $("#<%=txtEditEffDate.ClientID%>").val() + "', 'siteCountList': '" + JSON.stringify(gSiteCountList) + "', 'overhead': '" + $("#<%=txtEditOverhead.ClientID%>").val() + "', 'updateType': '" + _updateType + "'}",
+                                data: "{ 'testSite': '" + $("#<%=ddlTestSiteEdit.ClientID%>").val() + "', 'testProgID': '" + $("#<%=txtEditProgramID.ClientID%>").val() + "', 'rev': '" + $("#<%=txtEditRevision.ClientID%>").val() + "', 'testerType': '" + $("#<%=ddlTesterEdit.ClientID%>").val() + "', 'progName': '" + $("#<%=txtEditProgName.ClientID%>").val() + "', 'programExec': '" + $("#<%=txtEditProgExec.ClientID%>").val() + "', 'device': '" + $("#<%=txtEditDevice.ClientID%>").val() + "', 'temp': '" + $("#<%=ddlTempEdit.ClientID%>").val() + "', 'effDate': '" + $("#<%=txtEditEffDate.ClientID%>").val() + "', 'siteCountList': '" + JSON.stringify(gSiteCountList) + "', 'overhead': '" + $("#<%=txtEditOverhead.ClientID%>").val() + "', 'updateType': '" + _updateType + "'}",
                                 dataType: "json",
                                 type: "POST",
                                 contentType: "application/json; charset=utf-8",
@@ -628,7 +635,7 @@
                                     $('#divSiteCountList').hide('slow');
                                     $('#modalEdit').modal('hide');
 
-                                    getListing($("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $('#<%=ddlTester.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("input[id='<%=chkMaxDate.ClientID%>']:checked").val());
+                                    getListing($("#<%=ddlTestSite.ClientID%>").val(), $("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $('#<%=ddlTester.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("input[id='<%=chkMaxDate.ClientID%>']:checked").val());
                                 },
                                 beforeSend: function (request) {
                                     HoldOn.open({ theme: "sk-rect" });
@@ -637,7 +644,7 @@
                                     HoldOn.close();
                                 },
                                 error: function (a, b, c) {
-                                    console.log('error: ' + JSON.stringify(a));
+                                    //console.log('error: ' + JSON.stringify(a));
                                 }
                             });
 
@@ -707,7 +714,7 @@
                 $.ajax({
                     url: "TestTimeUpdateV3.aspx/GetSelectedSiteCountList",
                     dataType: "json",
-                    data: "{ 'testProgID': '" + $('#<%=txtEditProgramID.ClientID%>').val() + "', 'rev': '" + $('#<%=txtEditRevision.ClientID%>').val() + "', 'testerType': '" + $('#<%=ddlTesterEdit.ClientID%>').val() + "', 'progName': '" + $('#<%=txtEditProgName.ClientID%>').val() + "', 'programExec': '" + $('#<%=txtEditProgExec.ClientID%>').val() + "', 'device': '" + $('#<%=txtEditDevice.ClientID%>').val() + "', 'temp': '" + $('#<%=ddlTempEdit.ClientID%>').val() + "', 'effDate': '" + $('#<%=txtEditEffDate.ClientID%>').val() + "'}",
+                    data: "{ 'testSite': '" + $('#<%=ddlTestSiteEdit.ClientID%>').val() + "', 'testProgID': '" + $('#<%=txtEditProgramID.ClientID%>').val() + "', 'rev': '" + $('#<%=txtEditRevision.ClientID%>').val() + "', 'testerType': '" + $('#<%=ddlTesterEdit.ClientID%>').val() + "', 'progName': '" + $('#<%=txtEditProgName.ClientID%>').val() + "', 'programExec': '" + $('#<%=txtEditProgExec.ClientID%>').val() + "', 'device': '" + $('#<%=txtEditDevice.ClientID%>').val() + "', 'temp': '" + $('#<%=ddlTempEdit.ClientID%>').val() + "', 'effDate': '" + $('#<%=txtEditEffDate.ClientID%>').val() + "'}",
                     type: "POST",
                     contentType: "application/json; charset=utf-8",
                     success: function (data) {
@@ -783,7 +790,7 @@
                         $('#ulSiteCountList').append(item);
                     },
                     error: function (a, b, c) {
-                        console.log('error: ' + JSON.stringify(a));
+                        //console.log('error: ' + JSON.stringify(a));
                     }
                 });
             }
@@ -829,19 +836,18 @@
             }
         }
 
-        function getListing(_testProgID, _rev, _ver, _testerType, _progName, _progExec, _device, _temp, _maxDate) {
-
-            // Call ajax to get distinct value of site count for the selected filters
-            // once returned, loop and assing the site count to gSiteCountList then only call get listing function
+        function getListing(_testSite, _testProgID, _rev, _ver, _testerType, _progName, _progExec, _device, _temp, _maxDate) {
 
             // clear the table
             $('#tblListing thead tr').html("");
             $('#tblListing tbody').html("");
-
+            //// clear the dynatable table
+            //$('#dynatable1 thead tr').html("");
+            //$('#dynatable1 tbody').html("");
 
             $.ajax({
                 url: "TestTimeUpdateV3.aspx/GetSiteCountListByFilter",
-                data: "{ 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'testerType': '" + _testerType + "', 'progName': '" + _progName + "', 'programExec': '" + _progExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "'}",
+                data: "{ 'testSite': '" + _testSite + "', 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'testerType': '" + _testerType + "', 'progName': '" + _progName + "', 'programExec': '" + _progExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "'}",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
@@ -855,16 +861,21 @@
 
                     $.ajax({
                         url: "TestTimeUpdateV3.aspx/GetListing",
-                        data: "{ 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'ver': '" + _ver + "', 'testerType': '" + _testerType + "', 'progName': '" + _progName + "', 'progExec': '" + _progExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "', 'maxDate': '" + _maxDate + "', 'siteCountList': '" + JSON.stringify(gSiteCountList) + "'}",
+                        data: "{ 'testSite': '" + _testSite + "', 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'ver': '" + _ver + "', 'testerType': '" + _testerType + "', 'progName': '" + _progName + "', 'progExec': '" + _progExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "', 'maxDate': '" + _maxDate + "', 'siteCountList': '" + JSON.stringify(gSiteCountList) + "'}",
                         dataType: "json",
                         type: "POST",
                         contentType: "application/json; charset=utf-8",
                         success: function (data) {
 
+                            // gDataList = JSON.parse(data.d);
+
                             if (JSON.parse(data.d).length > 0) {
                                 for (var key in JSON.parse(data.d)[0]) {
                                     $('#tblListing thead tr').append("<td>" + key + "</td>");
+                                    //$('#dynatable1 thead tr').append('<th data-dynatable-column="' + key + '">' + key + '</th>');
+                                    //console.log(key);
                                 }
+
                                 var row = "";
                                 var rowCount = 0;
                                 $.each(JSON.parse(data.d), function (key, val) {
@@ -872,7 +883,7 @@
                                     if (rowCount % 2 === 0)
                                         rowColor = "#fff";
 
-                                    row = row + "<tr style='cursor:pointer; background-color:" + rowColor + "' onclick='selectRow(this, \"" + val["Program ID"] + "\", \"" + val["Revision"] + "\", \"" + val["Tester Type"] + "\", \"" + val["Program Source"] + "\", \"" + val["Program Exec"] + "\", \"" + val["Device"] + "\", \"" + val["Temp"] + "\", \"" + val["Eff Date"] + "\", \"" + val["Overhead"] + "\")'>";
+                                    row = row + "<tr style='cursor:pointer; background-color:" + rowColor + "' onclick='selectRow(this, \"" + val["Test Site"] + "\", \"" + val["Program ID"] + "\", \"" + val["Revision"] + "\", \"" + val["Tester Type"] + "\", \"" + val["Program Source"] + "\", \"" + val["Program Exec"] + "\", \"" + val["Device"] + "\", \"" + val["Temp"] + "\", \"" + val["Eff Date"] + "\", \"" + val["Overhead"] + "\")'>";
                                     $.each(val, function (_, text) {
                                         row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
                                     });
@@ -881,10 +892,33 @@
                                     rowCount++;
                                 });
                                 $('#tblListing tbody').append(row);
+                                //$('#dynatable1 tbody').append(row);
 
                                 $('#<%=btnExport.ClientID%>').show('slow');
                                 $('#note1').show('slow');
 
+                                ////rebind table here
+                                //setTimeout(function () {
+                                //    //$('#dynatable1').DataTable({
+
+                                //    //    "ajax": JSON.parse(data.d)
+                                //    //})
+
+                                //    if (dynatable != undefined)
+                                //        dynatable.settings.dataset.originalRecords = [];
+                                //    dynatable = $('#dynatable1').dynatable({
+                                //        dataset: {
+                                //            records: JSON.parse(data.d),
+                                            
+                                //        },
+                                //        writers: {
+                                //            _rowWriter: ulWriter
+                                //        }
+                                //    }).data("dynatable");
+                                //    dynatable.settings.dataset.originalRecords = JSON.parse(data.d);
+                                //    dynatable.process();
+
+                                //}, 100);
                             } else {
                                 showPopupMessage("No data found!");
                                 $('#<%=btnExport.ClientID%>').hide();
@@ -923,10 +957,12 @@
             });   
         }
 
-        function selectRow(obj, _testProgID, _rev, _testerType, _progName, _progExec, _device, _temp, _effDate, _overhead) {
+        function selectRow(obj, _testSite, _testProgID, _rev, _testerType, _progName, _progExec, _device, _temp, _effDate, _overhead) {
             $(obj).parent().children('tr').removeClass("row-selected");
             $(obj).closest('tr').addClass("row-selected");
 
+            $('#<%=ddlTestSiteEdit.ClientID%>').val(_testSite);
+            $('#<%=ddlTestSiteEdit.ClientID%>').attr('readonly', 'readonly');
             $('#<%=txtEditProgramID.ClientID%>').val(_testProgID);
             $('#<%=txtEditProgramID.ClientID%>').attr('readonly', 'readonly');
             $('#<%=txtEditRevision.ClientID%>').val(_rev);
@@ -951,7 +987,7 @@
             $('#<%=txtEditSiteCount1TestTime.ClientID%>').val("");
             
             // call ajax and get the site count 1 test time
-            getSiteCount1TestTime(_testProgID, _rev, _testerType, _progName, _progExec, _device, _temp, _effDate);
+            getSiteCount1TestTime(_testSite, _testProgID, _rev, _testerType, _progName, _progExec, _device, _temp, _effDate);
 
             $('#divSiteCountList').show('slow');
             $('#modalEdit').modal();
@@ -962,7 +998,9 @@
         }
 
         function resetEdit() {
-            
+
+            $('#<%=ddlTestSiteEdit.ClientID%>').removeAttr('readonly');
+            $('#<%=ddlTestSiteEdit.ClientID%>').val("");
             $('#<%=txtEditProgramID.ClientID%>').removeAttr('readonly');
             $('#<%=txtEditProgramID.ClientID%>').val("");
             $('#<%=txtEditRevision.ClientID%>').removeAttr('readonly');
@@ -990,6 +1028,7 @@
         }
 
         function resetEditRemainValue() {
+            $('#<%=ddlTestSiteEdit.ClientID%>').removeAttr('readonly');
             $('#<%=txtEditProgramID.ClientID%>').removeAttr('readonly');
             $('#<%=txtEditRevision.ClientID%>').removeAttr('readonly');
             $('#<%=ddlTesterEdit.ClientID%>').removeAttr('readonly');
@@ -1000,6 +1039,34 @@
             $('#<%=ddlTempEdit.ClientID%>').removeAttr('readonly');
             $('#<%=txtEditEffDate.ClientID%>').removeAttr('readonly');
             $('#<%=txtEditOverhead.ClientID%>').removeAttr('readonly');
+        }
+
+        function loadTestSiteList() {
+            <%--$("#<%=ddlTestSite.ClientID%>").attr('disabled', true);
+
+            $.ajax({
+                url: "TestTimeUpdateV3.aspx/GetTestSiteList",
+                //data: "{}",
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    if (JSON.parse(data.d).length > 0) {
+
+                        $.each(JSON.parse(data.d), function () {
+                            $("#<%=ddlTestSite.ClientID%>").append($("<option />").val(this.TESTSITE).text(this.TESTSITE));
+                        });
+
+                    }
+
+                    $("#<%=ddlTestSite.ClientID%>").removeAttr('disabled');
+                },
+                error: function (a, b, c) {
+                    console.log('error: ' + JSON.stringify(a));
+                    $("#<%=ddlTestSite.ClientID%>").removeAttr('disabled');
+                }
+            });--%>
         }
 
         function loadProgramIDList() {
@@ -1234,10 +1301,10 @@
             });
         }
 
-        function getSiteCount1TestTime(_testProgID, _rev, _testerType, _progName, _programExec, _device, _temp, _effDate) {
+        function getSiteCount1TestTime(_testSite, _testProgID, _rev, _testerType, _progName, _programExec, _device, _temp, _effDate) {
             $.ajax({
                 url: "TestTimeUpdateV3.aspx/GetSiteCount1TestTime",
-                data: "{ 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'testerType': '" + _testerType + "', 'progName': '" + _progName + "', 'programExec': '" + _programExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "', 'effDate': '" + _effDate + "'}",
+                data: "{ 'testSite': '" + _testSite + "', 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'testerType': '" + _testerType + "', 'progName': '" + _progName + "', 'programExec': '" + _programExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "', 'effDate': '" + _effDate + "'}",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
@@ -1273,6 +1340,31 @@
                 }
             }
             return objects;
+        }
+
+        function ulWriter(rowIndex, record, columns, cellWriter) {
+
+            var row = "";
+            var rowCount = 0;
+
+            console.log(record);
+            console.log(columns);
+
+            //$.each(gDataList, function (key, val) {
+            //    var rowColor = "transparent";
+            //    if (rowCount % 2 === 0)
+            //        rowColor = "#fff";
+
+            //    row = row + "<tr style='cursor:pointer; background-color:" + rowColor + "' onclick='selectRow(this, \"" + val["Program ID"] + "\", \"" + val["Revision"] + "\", \"" + val["Tester Type"] + "\", \"" + val["Program Source"] + "\", \"" + val["Program Exec"] + "\", \"" + val["Device"] + "\", \"" + val["Temp"] + "\", \"" + val["Eff Date"] + "\", \"" + val["Overhead"] + "\")'>";
+            //    $.each(val, function (_, text) {
+            //        row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
+            //    });
+            //    row = row + "</tr>";
+
+            //    rowCount++;
+            //});
+
+            return row;
         }
 
     </script>

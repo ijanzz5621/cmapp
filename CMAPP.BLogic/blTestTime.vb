@@ -16,7 +16,7 @@ Public Class blTestTime
         End Set
     End Property
 
-    Public Function GetSiteCount1TestTime(testProgID As String, rev As String, testerType As String, progName As String, programExec As String, device As String, temp As String, effDate As String) As DataTable
+    Public Function GetSiteCount1TestTime(testSite As String, testProgID As String, rev As String, testerType As String, progName As String, programExec As String, device As String, temp As String, effDate As String) As DataTable
 
         Dim strQuery As String
         Dim dsResult As DataSet = New DataSet
@@ -27,6 +27,7 @@ Public Class blTestTime
             strQuery = "Select * from cmtesttime "
             strQuery = strQuery & "where "
             strQuery = strQuery & "SITECOUNT = 1 "
+            strQuery = strQuery & "And TESTSITE = '" & testSite & "' "
             strQuery = strQuery & "And TESTPROGID = '" & testProgID & "' "
             strQuery = strQuery & "and TESTPROGIDREV = '" & rev & "' "
             strQuery = strQuery & "and TESTERTYPE = '" & testerType & "' "
@@ -49,7 +50,7 @@ Public Class blTestTime
 
     End Function
 
-    Public Function GetSiteCountListByFilter(testProgID As String, rev As String, testerType As String, progName As String, programExec As String, device As String, temp As String) As DataTable
+    Public Function GetSiteCountListByFilter(testSite As String, testProgID As String, rev As String, testerType As String, progName As String, programExec As String, device As String, temp As String) As DataTable
 
         Dim strQuery As String
         Dim dsResult As DataSet = New DataSet
@@ -67,6 +68,10 @@ Public Class blTestTime
             'strQuery = strQuery & "and DEVICE = '" & device & "' "
             'strQuery = strQuery & "and TESTSTEPTEMP = '" & temp & "' "
             'strQuery = strQuery & "and to_char(TESTTIMEEFFDATE,'mm/dd/yyyy') = '" & effDate & "' "
+
+            If Len(Trim(testSite)) >= 1 Then
+                strQuery = strQuery & "And TestSite = '" & testSite & "' "
+            End If
 
             If Len(Trim(testProgID)) >= 1 Then
                 strQuery = strQuery & "And TestProgId = '" & testProgID & "' "
@@ -105,7 +110,7 @@ Public Class blTestTime
 
     End Function
 
-    Public Function GetSelectedSiteCountList(testProgID As String, rev As String, testerType As String, progName As String, programExec As String, device As String, temp As String, effDate As String) As DataTable
+    Public Function GetSelectedSiteCountList(testSite As String, testProgID As String, rev As String, testerType As String, progName As String, programExec As String, device As String, temp As String, effDate As String) As DataTable
 
         Dim strQuery As String
         Dim dsResult As DataSet = New DataSet
@@ -114,7 +119,7 @@ Public Class blTestTime
 
             oOra.OpenOraConnection(cnnOra, connStr)
             strQuery = "Select distinct CAST(SITECOUNT AS INT) AS SITECOUNT, TESTTIME from cmtesttime "
-            strQuery = strQuery & "where TestProgId = '" & testProgID & "' And testprogidrev = '" & rev & "' And teststeptemp = '" & temp & "' And device like '" & device & "' And Testertype like '" & testerType & "' And TestProgMainSource like '" & progName & "' And Testprogexecutable like '" & programExec & "' And TestTimeEffDate=to_date('" & effDate & "','mm/dd/yyyy') "
+            strQuery = strQuery & "where TestSite = '" & testSite & "' And TestProgId = '" & testProgID & "' And testprogidrev = '" & rev & "' And teststeptemp = '" & temp & "' And device like '" & device & "' And Testertype like '" & testerType & "' And TestProgMainSource like '" & progName & "' And Testprogexecutable like '" & programExec & "' And TestTimeEffDate=to_date('" & effDate & "','mm/dd/yyyy') "
             strQuery = strQuery & "order by SITECOUNT "
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
 
@@ -221,7 +226,7 @@ Public Class blTestTime
 
     End Function
 
-    Public Function GetCmTestTimeListV3(testProgID As String, rev As String, ver As String, testerType As String, progName As String, progExec As String, device As String, temp As String, strMaxDate As String, maxDate As String, siteCountList As SiteCount()) As DataTable
+    Public Function GetCmTestTimeListV3(testSite As String, testProgID As String, rev As String, ver As String, testerType As String, progName As String, progExec As String, device As String, temp As String, strMaxDate As String, maxDate As String, siteCountList As SiteCount()) As DataTable
 
         Dim strQuery As String = ""
         Dim dsResult As DataSet = New DataSet
@@ -232,7 +237,7 @@ Public Class blTestTime
             ' Changes 2017-12-08
             ' Get distinct site count to loop from table
 
-            strQuery = "Select TestProgID as ""Program ID"",TestProgIDRev as ""Revision"",TesterType as ""Tester Type"", Device as ""Device"", TestStepTemp as ""Temp"", to_char(TestTimeEffDate,'mm/dd/yyyy') As ""Eff Date"", TestProgMainSource as ""Program Source"",TestProgExecutable as ""Program Exec"", OverHead AS ""Overhead"", USERID as ""UserId"" "
+            strQuery = "Select TestSite as ""Test Site"", TestProgID as ""Program ID"",TestProgIDRev as ""Revision"",TesterType as ""Tester Type"", Device as ""Device"", TestStepTemp as ""Temp"", to_char(TestTimeEffDate,'mm/dd/yyyy') As ""Eff Date"", TestProgMainSource as ""Program Source"",TestProgExecutable as ""Program Exec"", OverHead AS ""Overhead"", USERID as ""UserId"" "
 
             For Each siteCount As SiteCount In siteCountList
                 strQuery = strQuery & ",Max(Decode(SiteCount, " & siteCount.labelValue & ", TestTime, null)) x" & siteCount.labelValue
@@ -240,6 +245,10 @@ Public Class blTestTime
 
             strQuery = strQuery & " From cmtesttime "
             strQuery = strQuery & " Where 1 = 1 "
+
+            If Len(Trim(testSite)) >= 1 Then
+                strQuery = strQuery & " And TestSite = '" & testSite & "' "
+            End If
 
             If Len(Trim(testProgID)) >= 1 Then
                 strQuery = strQuery & " And TestProgId = '" & testProgID & "' "
@@ -272,8 +281,8 @@ Public Class blTestTime
                 strQuery = strQuery & " And to_char(TestTimeEffDate,'mm/dd/yyyy') = '" & strMaxDate & "' "
             End If
 
-            strQuery = strQuery & " Group By  TestProgId , TestProgIdRev, TestProgIdVers, TestStepTemp, device,Testertype, TestProgMainSource,TestProgExecutable,TestTimeEffDate,OverHead, UserID "
-            strQuery = strQuery & " Order By  TestProgId , TestProgIdRev, TestProgIdVers, TestStepTemp, device,Testertype, TestProgMainSource,TestProgExecutable,TestTimeEffDate,OverHead, UserID "
+            strQuery = strQuery & " Group By TestSite, TestProgId , TestProgIdRev, TestProgIdVers, TestStepTemp, device,Testertype, TestProgMainSource,TestProgExecutable,TestTimeEffDate,OverHead, UserID "
+            strQuery = strQuery & " Order By TestSite, TestProgId , TestProgIdRev, TestProgIdVers, TestStepTemp, device,Testertype, TestProgMainSource,TestProgExecutable,TestTimeEffDate,OverHead, UserID "
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
 
         Catch ex As Exception
@@ -288,7 +297,7 @@ Public Class blTestTime
 
     End Function
 
-    Public Function GetMaxDate(testProgID As String, rev As String, ver As String, testerType As String, progName As String, progExec As String, device As String, temp As String) As String
+    Public Function GetMaxDate(testSite As String, testProgID As String, rev As String, ver As String, testerType As String, progName As String, progExec As String, device As String, temp As String) As String
 
         Dim strQuery As String
         Dim dsResult As DataSet = New DataSet
@@ -301,6 +310,10 @@ Public Class blTestTime
 
             strQuery = strQuery & " From cmtesttime "
             strQuery = strQuery & " Where 1 = 1 "
+
+            If Len(Trim(testSite)) >= 1 Then
+                strQuery = strQuery & " And TestSite = '" & testSite & "' "
+            End If
 
             If Len(Trim(testProgID)) >= 1 Then
                 strQuery = strQuery & " And TestProgId = '" & testProgID & "' "
@@ -349,7 +362,7 @@ Public Class blTestTime
 
     End Function
 
-    Public Function UpdateTestTime(testProgID As String, rev As String, version As String, device As String, temp As String, effDate As String,
+    Public Function UpdateTestTime(testSite As String, testProgID As String, rev As String, version As String, device As String, temp As String, effDate As String,
                                siteCount As Integer, testTime As String, overhead As String, testerType As String, progName As String, progExec As String, userID As String) As String
 
         Dim strQuery As String
@@ -362,6 +375,7 @@ Public Class blTestTime
 
             strQuery = "Select 1 From CmTestTime "
             strQuery = strQuery & "Where TestProgID='" & testProgID & "' "
+            strQuery = strQuery & "And TestSite='" & testSite & "' "
             strQuery = strQuery & "And TestProgIDRev='" & rev & "' "
             strQuery = strQuery & "And TestProgIDVers= 0 "
             strQuery = strQuery & "And Device='" & device & "' "
@@ -383,6 +397,7 @@ Public Class blTestTime
                 strQuery = strQuery & ",ChangeDate=SysDate "
                 strQuery = strQuery & ",ChangeTypeCode='U' "
                 strQuery = strQuery & "Where TestProgID='" & testProgID & "' "
+                strQuery = strQuery & "And TestSite='" & testSite & "' "
                 strQuery = strQuery & "And TestProgIDRev='" & rev & "' "
                 strQuery = strQuery & "And TestProgIDVers= 0 "
                 strQuery = strQuery & "And Device='" & device & "' "
@@ -392,7 +407,8 @@ Public Class blTestTime
                 Dim dsUpdate As DataSet = oOra.OraExecuteQuery(strQuery, cnnOra)
             Else
                 strQuery = "Insert Into CmTestTime ("
-                strQuery = strQuery & "TESTPROGID"
+                strQuery = strQuery & "TESTSITE"
+                strQuery = strQuery & ", TESTPROGID"
                 strQuery = strQuery & ", TESTPROGIDREV"
                 strQuery = strQuery & ", TESTPROGIDVERS"
                 strQuery = strQuery & ", DEVICE"
@@ -408,7 +424,8 @@ Public Class blTestTime
                 strQuery = strQuery & ", CHANGEDATE"
                 strQuery = strQuery & ", CHANGETYPECODE"
                 strQuery = strQuery & ") Values ("
-                strQuery = strQuery & testProgID
+                strQuery = strQuery & "'" & testSite & "'"
+                strQuery = strQuery & ",'" & testProgID & "'"
                 strQuery = strQuery & ",'" & rev & "'"
                 strQuery = strQuery & ",0"
                 strQuery = strQuery & ",'" & device & "'"
@@ -443,7 +460,7 @@ Public Class blTestTime
 
     End Function
 
-    Public Function DeleteTestTimeAllExceptSC1(testProgID As String, rev As String, device As String, temp As String, effDate As String,
+    Public Function DeleteTestTimeAllExceptSC1(testSite As String, testProgID As String, rev As String, device As String, temp As String, effDate As String,
                                overhead As String, testerType As String, progName As String, progExec As String, userID As String) As String
 
         Dim strQuery As String
@@ -459,6 +476,7 @@ Public Class blTestTime
             oOra.OpenOraConnection(cnnOra, connStr)
             strQuery = "Delete From CmTestTime "
             strQuery = strQuery & "Where TestProgID='" & testProgID & "' "
+            strQuery = strQuery & "And TestSite='" & testSite & "' "
             strQuery = strQuery & "And TestProgIDRev='" & rev & "' "
             strQuery = strQuery & "And Device='" & device & "' "
             strQuery = strQuery & "And TestStepTemp='" & temp & "' "
@@ -482,7 +500,7 @@ Public Class blTestTime
 
     End Function
 
-    Public Function DeleteTestTimeSiteCountEmpty(testProgID As String, rev As String, device As String, temp As String, effDate As String,
+    Public Function DeleteTestTimeSiteCountEmpty(testSite As String, testProgID As String, rev As String, device As String, temp As String, effDate As String,
                                overhead As String, testerType As String, progName As String, progExec As String, userID As String, siteCount As String) As String
 
         Dim strQuery As String
@@ -498,6 +516,7 @@ Public Class blTestTime
             oOra.OpenOraConnection(cnnOra, connStr)
             strQuery = "Delete From CmTestTime "
             strQuery = strQuery & "Where TestProgID='" & testProgID & "' "
+            strQuery = strQuery & "And TestSite='" & testSite & "' "
             strQuery = strQuery & "And TestProgIDRev='" & rev & "' "
             strQuery = strQuery & "And Device='" & device & "' "
             strQuery = strQuery & "And TestStepTemp='" & temp & "' "
@@ -521,7 +540,7 @@ Public Class blTestTime
 
     End Function
 
-    Public Function DeleteTestTime(testProgID As String, rev As String, device As String, temp As String, effDate As String,
+    Public Function DeleteTestTime(testSite As String, testProgID As String, rev As String, device As String, temp As String, effDate As String,
                                overhead As String, testerType As String, progName As String, progExec As String, userID As String) As String
 
         Dim strQuery As String
@@ -537,6 +556,7 @@ Public Class blTestTime
             oOra.OpenOraConnection(cnnOra, connStr)
             strQuery = "Delete From CmTestTime "
             strQuery = strQuery & "Where TestProgID='" & testProgID & "' "
+            strQuery = strQuery & "And TestSite='" & testSite & "' "
             strQuery = strQuery & "And TestProgIDRev='" & rev & "' "
             'strQuery = strQuery & "And TestProgIDVers= 0 "
             strQuery = strQuery & "And Device='" & device & "' "
