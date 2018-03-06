@@ -690,7 +690,7 @@
 
                     item = item + "<li style='display: inline-block; text-align:center; margin:5px;'>" +
                         "<div><label>" + val.label + "</label> " +
-                        "<input type='text' class='form-control' value='" + val.value + "' style='width:60px; text-align:center;' " + readOnlySC1 + " /> " +
+                        "<input type='text' class='form-control' value='" + val.value + "' style='width:80px; text-align:center;' " + readOnlySC1 + " /> " +
                         "</div></li>";
 
                 });
@@ -781,7 +781,7 @@
 
                             item = item + "<li style='display: inline-block; text-align:center; margin:5px;'>" +
                                 "<div><label>" + val.label + "</label> " +
-                                "<input type='text' class='form-control' value='" + val.value + "' style='width:60px; text-align:center;' " + readOnlySC1 + " /> " +
+                                "<input type='text' class='form-control' value='" + val.value + "' style='width:80px; text-align:center;' " + readOnlySC1 + " /> " +
                                 "</div></li>";
 
                         });
@@ -826,7 +826,7 @@
 
                     item = item + "<li style='display: inline-block; text-align:center; margin:5px;'>" +
                         "<div><label>" + val.label + "</label> " +
-                        "<input type='text' class='form-control' value='" + val.value + "' style='width:60px; text-align:center;' " + readOnlySC1 + " /> " +
+                        "<input type='text' class='form-control' value='" + val.value + "' style='width:80px; text-align:center;' " + readOnlySC1 + " /> " +
                         "</div></li>";
 
                 });
