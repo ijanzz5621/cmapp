@@ -11,7 +11,16 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class TestTimeUpdateV3_20180304
+Partial Public Class TestTimeUpdateV3_Bak20180317
+    
+    '''<summary>
+    '''ddlTestSite control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlTestSite As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''txtProgramID control.
@@ -129,6 +138,15 @@ Partial Public Class TestTimeUpdateV3_20180304
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnNewTestTime As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''ddlTestSiteEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlTestSiteEdit As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''txtEditProgramID control.

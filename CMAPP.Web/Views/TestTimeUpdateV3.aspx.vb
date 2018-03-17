@@ -201,6 +201,27 @@ Public Class TestTimeUpdateV3
     End Function
 
     <WebMethod>
+    Public Shared Function GetRevisionList() As Object
+
+        Dim obj As Object = JsonConvert.SerializeObject("")
+
+        Try
+
+            Dim fnData As blGeneral = New blGeneral()
+            fnData.ConnectionString = cnnOraString
+            Dim dsResult As DataTable = fnData.GetProgramRevListV2()
+
+            obj = JsonConvert.SerializeObject(dsResult)
+
+        Catch ex As Exception
+
+        End Try
+
+        Return obj
+
+    End Function
+
+    <WebMethod>
     Public Shared Function GetMaxRevisionByProgID(testProgID As String) As Object
 
         Dim obj As Object = JsonConvert.SerializeObject("")
@@ -210,6 +231,27 @@ Public Class TestTimeUpdateV3
             Dim fnData As blGeneral = New blGeneral()
             fnData.ConnectionString = cnnOraString
             Dim dsResult As DataTable = fnData.GetMaxRevByTestProgID(testProgID)
+
+            obj = JsonConvert.SerializeObject(dsResult)
+
+        Catch ex As Exception
+
+        End Try
+
+        Return obj
+
+    End Function
+
+    <WebMethod>
+    Public Shared Function GetMaxRevisionByFilterList(testSite As String, testProgID As String, version As String, tester As String, progName As String, progExec As String, device As String, temp As String) As Object
+
+        Dim obj As Object = JsonConvert.SerializeObject("")
+
+        Try
+
+            Dim fnData As blGeneral = New blGeneral()
+            fnData.ConnectionString = cnnOraString
+            Dim dsResult As DataTable = fnData.GetMaxRevByFilterList(testSite, testProgID, version, tester, progName, progExec, device, temp)
 
             obj = JsonConvert.SerializeObject(dsResult)
 

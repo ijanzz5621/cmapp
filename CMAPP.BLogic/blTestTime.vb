@@ -342,7 +342,7 @@ Public Class blTestTime
                 strQuery = strQuery & " And Testprogexecutable like '" & progExec & "' "
             End If
 
-            strQuery = strQuery & " And rownum = 1 "
+            ' strQuery = strQuery & " And rownum = 1 "
 
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
 

@@ -139,9 +139,9 @@
                     </asp:DropDownList>
                 </div>
             
-                <div class="col-lg-2 col-md-4">
+                <div class="col-lg-4 col-md-6">
                     <ul style="list-style:none; margin:0; padding:0;">
-                        <li style="display:inline-block;">
+                        <li style="display:inline-block; line-height: 55px;">
                                 <div class="checkbox">
                                     <label class="btn btn-default">
                                         <asp:CheckBox ID="chkMaxDate" runat="server" Text=" Max Date" />
@@ -149,7 +149,7 @@
                                 </div>
   
                         </li>
-                        <li style="display:inline-block;">
+                        <li style="display:inline-block; line-height: 55px;">
                             <div class="checkbox">
                                 <label class="btn btn-default">
                                     <asp:CheckBox ID="chkMaxRev" runat="server" Text=" Max Revision" />
@@ -157,6 +157,15 @@
                             </div>  
                         
                         </li>
+                        <li style="display:inline-block; line-height: 55px;">
+                            <div class="checkbox">
+                                <label class="btn btn-default">
+                                    <asp:CheckBox ID="chkMissingTestTime" runat="server" Text=" Missing Test Time" />
+                                </label>
+                            </div>  
+                        
+                        </li>
+
                     </ul>
                 </div>
             </div>
@@ -368,6 +377,7 @@
         $(document).ready(function () {
 
             loadTestSiteList();
+            loadRevision();
             loadProgramIDList();
             loadTesterTypeList();
             loadProgramNameList();
@@ -375,21 +385,39 @@
             loadDeviceList();
             loadDeviceEditList();
 
+            //Auto upper case on typing
+            $('#<%=txtProgramID.ClientID%>').keyup(function(){
+                $(this).val($(this).val().toUpperCase());
+            });
+            $('#<%=txtProgramName.ClientID%>').keyup(function(){
+                $(this).val($(this).val().toUpperCase());
+            });
+            $('#<%=txtProgramExec.ClientID%>').keyup(function(){
+                $(this).val($(this).val().toUpperCase());
+            });
+            $('#<%=txtVersion.ClientID%>').keyup(function(){
+                $(this).val($(this).val().toUpperCase());
+            });
+            $('#<%=txtDevice.ClientID%>').keyup(function(){
+                $(this).val($(this).val().toUpperCase());
+            });
+
             $('#<%=txtProgramID.ClientID%>').on('blur', function (e) {
-                $("#<%=ddlRevision.ClientID%>").val("");
+                <%--$("#<%=ddlRevision.ClientID%>").val("");
                 loadRevision($("#<%=txtProgramID.ClientID%>").val());
 
-                $("#<%=chkMaxRev.ClientID%>").attr('checked', false);
+                $("#<%=chkMaxRev.ClientID%>").attr('checked', false);--%>
             });
 
             $("#<%=chkMaxRev.ClientID%>").on('change', function (e) {
+
                 //alert(this.checked);
                 $("#<%=ddlRevision.ClientID%>").removeAttr('disabled');
                 if (this.checked) {
                     // call ajax and get max revision
                     $.ajax({
-                        url: "TestTimeUpdateV3.aspx/GetMaxRevisionByProgID",
-                        data: "{ 'testProgID': '" + $('#<%=txtProgramID.ClientID%>').val() + "'}",
+                        url: "TestTimeUpdateV3.aspx/GetMaxRevisionByFilterList",
+                        data: "{'testSite': '" + $('#<%=ddlTestSite.ClientID%>').val() + "', 'testProgID': '" + $('#<%=txtProgramID.ClientID%>').val() + "', 'version':'" + $('#<%=txtVersion.ClientID%>').val() + "', 'tester':'" + $('#<%=ddlTester.ClientID%>').val() + "', 'progName':'" + $('#<%=txtProgramName.ClientID%>').val() + "', 'progExec':'" + $('#<%=txtProgramExec.ClientID%>').val() + "', 'device':'" + $('#<%=txtDevice.ClientID%>').val() + "', 'temp':'" + $('#<%=ddlTemp.ClientID%>').val() + "'}",
                         dataType: "json",
                         type: "POST",
                         contentType: "application/json; charset=utf-8",
@@ -1270,19 +1298,17 @@
             });
         }
 
-        function loadRevision(_testProgID) {
+        function loadRevision() {
 
             $("#<%=ddlRevision.ClientID%>").attr('disabled', true);
 
             $.ajax({
-                url: "TestTimeUpdateV3.aspx/GetRevisionByProgID",
-                data: "{ 'testProgID': '" + _testProgID + "'}",
+                url: "TestTimeUpdateV3.aspx/GetRevisionList",
+                //data: "{ '': ''}",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-
-                    //console.log(JSON.parse(data.d).length);
 
                     if (JSON.parse(data.d).length > 0) {
 
