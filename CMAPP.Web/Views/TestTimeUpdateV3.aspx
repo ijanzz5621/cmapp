@@ -61,7 +61,28 @@
             color:#fff;
         }
 
+        .paging{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
 
+        .paging li {
+            display: inline-block;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        .selected {
+            font-weight: bold;
+            
+        }
+
+        .selected a {
+            color:#000000 !important;
+        }
 
     </style>
     <%--<link href="/Content/jquery.dynatable.css" rel="stylesheet" />--%>
@@ -157,14 +178,14 @@
                             </div>  
                         
                         </li>
-                        <li style="display:inline-block; line-height: 55px;">
+                        <%--<li style="display:inline-block; line-height: 55px;">
                             <div class="checkbox">
                                 <label class="btn btn-default">
                                     <asp:CheckBox ID="chkMissingTestTime" runat="server" Text=" Missing Test Time" />
                                 </label>
                             </div>  
                         
-                        </li>
+                        </li>--%>
 
                     </ul>
                 </div>
@@ -189,6 +210,11 @@
         </div>
 
         <div class="row" style="margin-left:1px; margin-right:1px; clear:both;">
+
+            <br />
+            <div id="divTablePaging" class="col-md-12">
+                <ul id="ulTablePaging" class="paging"></ul>
+            </div>
 
             <div class="col-md-12 col-lg-12">
 
@@ -356,19 +382,12 @@
         // global variables
         var gSiteCountList = [];
         var gHideFirstItem = false;
-        // var dynatable;
-        //var gDataList;
 
-        //$('#dynatable1').dynatable({
-        //    //table: {
-        //    //    headRowSelector: 'thead',
-        //    //},
-        //    dataset: {
-        //        records: gDataList
-        //    }
-        //});
-
-        //$('#dynatable1').DataTable();
+        var gSelectedRowID = "";
+        var gData = [];
+        var gTotalRecords = 0;
+        var gCurrentPage = 1;
+        var gItemPerPage = 10;
 
         $('#divSiteCountList').hide();
         $('#<%=btnExport.ClientID%>').hide();
@@ -498,7 +517,7 @@
                 resetEdit();
 
                 //close the edit div
-                $('#tblListing tbody tr').removeClass("row-selected");
+                //  $('#tblListing tbody tr').removeClass("row-selected");
                 $('#divSiteCountList').hide('slow');
                 $('#modalEdit').modal('hide');
 
@@ -618,6 +637,11 @@
             
 
         }); // end of document ready 
+
+        function changePage(_page) {
+            gCurrentPage = _page;
+            displayReport(gData);
+        } 
 
         function UpdateTestTime(_updateType) {
 
@@ -869,9 +893,6 @@
             // clear the table
             $('#tblListing thead tr').html("");
             $('#tblListing tbody').html("");
-            //// clear the dynatable table
-            //$('#dynatable1 thead tr').html("");
-            //$('#dynatable1 tbody').html("");
 
             $.ajax({
                 url: "TestTimeUpdateV3.aspx/GetSiteCountListByFilter",
@@ -896,57 +917,29 @@
                         success: function (data) {
 
                             // gDataList = JSON.parse(data.d);
+                            gData = JSON.parse(data.d);
+
+                            // clear the paging
+                            $('#ulTablePaging').empty();
 
                             if (JSON.parse(data.d).length > 0) {
-                                for (var key in JSON.parse(data.d)[0]) {
-                                    $('#tblListing thead tr').append("<td>" + key + "</td>");
-                                    //$('#dynatable1 thead tr').append('<th data-dynatable-column="' + key + '">' + key + '</th>');
-                                    //console.log(key);
+
+                                // ********************** PAGING ***********************
+                                gTotalRecords = gData.length;
+                                // alert("Total Records: " + gTotalRecords);
+                                for (var i = 1; i < ((gTotalRecords % gItemPerPage) > 0 ? ((gTotalRecords / gItemPerPage)+1) : (gTotalRecords / gItemPerPage)); i++) {
+                                    $('#ulTablePaging').append("<li id='" + i + "' class='" + ((gCurrentPage === i) ? "selected" : "") + "'><a onclick='changePage(\"" + i + "\"); return false;'>" + i + "<a></li>")
                                 }
 
-                                var row = "";
-                                var rowCount = 0;
-                                $.each(JSON.parse(data.d), function (key, val) {
-                                    var rowColor = "transparent";
-                                    if (rowCount % 2 === 0)
-                                        rowColor = "#fff";
+                                for (var key in JSON.parse(data.d)[0]) {
+                                    $('#tblListing thead tr').append("<td>" + key + "</td>");
+                                }
 
-                                    row = row + "<tr style='cursor:pointer; background-color:" + rowColor + "' onclick='selectRow(this, \"" + val["Test Site"] + "\", \"" + val["Program ID"] + "\", \"" + val["Revision"] + "\", \"" + val["Tester Type"] + "\", \"" + val["Program Source"] + "\", \"" + val["Program Exec"] + "\", \"" + val["Device"] + "\", \"" + val["Temp"] + "\", \"" + val["Eff Date"] + "\", \"" + val["Overhead"] + "\")'>";
-                                    $.each(val, function (_, text) {
-                                        row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
-                                    });
-                                    row = row + "</tr>";
-
-                                    rowCount++;
-                                });
-                                $('#tblListing tbody').append(row);
-                                //$('#dynatable1 tbody').append(row);
+                                displayReport(gData);
 
                                 $('#<%=btnExport.ClientID%>').show('slow');
                                 $('#note1').show('slow');
 
-                                ////rebind table here
-                                //setTimeout(function () {
-                                //    //$('#dynatable1').DataTable({
-
-                                //    //    "ajax": JSON.parse(data.d)
-                                //    //})
-
-                                //    if (dynatable != undefined)
-                                //        dynatable.settings.dataset.originalRecords = [];
-                                //    dynatable = $('#dynatable1').dynatable({
-                                //        dataset: {
-                                //            records: JSON.parse(data.d),
-                                            
-                                //        },
-                                //        writers: {
-                                //            _rowWriter: ulWriter
-                                //        }
-                                //    }).data("dynatable");
-                                //    dynatable.settings.dataset.originalRecords = JSON.parse(data.d);
-                                //    dynatable.process();
-
-                                //}, 100);
                             } else {
                                 showPopupMessage("No data found!");
                                 $('#<%=btnExport.ClientID%>').hide();
@@ -985,7 +978,47 @@
             });   
         }
 
+        function displayReport(_gData) {
+
+            $('#ulTablePaging li').removeClass("selected");
+            $('#ulTablePaging li[id="' + gCurrentPage + '"]').addClass("selected");
+
+            $('#tblListing tbody').html("");
+
+            // *********************** DATA ROW ***********************
+            var firstPage = ((gCurrentPage - 1) * gItemPerPage) + 1;
+            var lastPage = firstPage + (gItemPerPage - 1);
+            // alert("First page: " + firstPage + ", Last Page: " + lastPage);
+
+            var row = "";
+            var rowCount = 0;
+            $.each(_gData, function (key, val) {
+
+                if (rowCount + 1 >= firstPage && rowCount + 1 <= lastPage) {
+
+                    var rowColor = "transparent";
+                    if (rowCount % 2 === 0)
+                        rowColor = "#fff";
+
+                    var rowID = val["Test Site"] + "_" + val["Program ID"] + "_" + val["Revision"] + "_" + val["Tester Type"] + "_" + val["Program Source"] + "_" + val["Program Exec"] + "_" + val["Device"] + "_" + val["Temp"];
+
+                    row = row + "<tr id='" + rowID + "' class='" + ((gSelectedRowID === rowID) ? "row-selected" : "") + "' style='cursor:pointer; background-color:" + rowColor + "' onclick='selectRow(this, \"" + val["Test Site"] + "\", \"" + val["Program ID"] + "\", \"" + val["Revision"] + "\", \"" + val["Tester Type"] + "\", \"" + val["Program Source"] + "\", \"" + val["Program Exec"] + "\", \"" + val["Device"] + "\", \"" + val["Temp"] + "\", \"" + val["Eff Date"] + "\", \"" + val["Overhead"] + "\")'>";
+                    $.each(val, function (_, text) {
+                        row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
+                    });
+                    row = row + "</tr>";
+
+                }
+
+                rowCount++;
+            });
+            $('#tblListing tbody').append(row);
+        }
+
         function selectRow(obj, _testSite, _testProgID, _rev, _testerType, _progName, _progExec, _device, _temp, _effDate, _overhead) {
+
+            gSelectedRowID = _testSite + "_" + _testProgID + "_" + _rev + "_" + _testerType + "_" + _progName + "_" + _progExec + "_" + _device + "_" + _temp;
+
             $(obj).parent().children('tr').removeClass("row-selected");
             $(obj).closest('tr').addClass("row-selected");
 
