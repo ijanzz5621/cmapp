@@ -387,7 +387,11 @@
         var gData = [];
         var gTotalRecords = 0;
         var gCurrentPage = 1;
-        var gItemPerPage = 10;
+        var gItemPerPage = 15;
+        var gNext = 0;
+        var gStartPaging = 1;
+        var gEndPaging = 1;
+        var gTotalPaging = 0;
 
         $('#divSiteCountList').hide();
         $('#<%=btnExport.ClientID%>').hide();
@@ -917,6 +921,9 @@
                         success: function (data) {
 
                             // gDataList = JSON.parse(data.d);
+                            gNext = 0;
+                            gCurrentPage = 1;
+                            gStartPaging = 1;
                             gData = JSON.parse(data.d);
 
                             // clear the paging
@@ -926,10 +933,12 @@
 
                                 // ********************** PAGING ***********************
                                 gTotalRecords = gData.length;
-                                // alert("Total Records: " + gTotalRecords);
-                                for (var i = 1; i < ((gTotalRecords % gItemPerPage) > 0 ? ((gTotalRecords / gItemPerPage)+1) : (gTotalRecords / gItemPerPage)); i++) {
-                                    $('#ulTablePaging').append("<li id='" + i + "' class='" + ((gCurrentPage === i) ? "selected" : "") + "'><a onclick='changePage(\"" + i + "\"); return false;'>" + i + "<a></li>")
-                                }
+                                //alert("gTotalRecords: " + gTotalRecords.toString());
+                                
+                                gTotalPaging = parseInt((gTotalRecords % gItemPerPage) > 0 ? ((gTotalRecords / gItemPerPage) + 1) : (gTotalRecords / gItemPerPage));
+                                //alert(gTotalPaging);
+
+                                displayPaging();
 
                                 for (var key in JSON.parse(data.d)[0]) {
                                     $('#tblListing thead tr').append("<td>" + key + "</td>");
@@ -978,6 +987,43 @@
             });   
         }
 
+        function displayPaging() {
+
+            $('#ulTablePaging').empty();
+
+            gStartPaging = 1 + gNext;
+            gCurrentPage = gStartPaging;
+
+            //alert(gTotalPaging);
+
+            if (gStartPaging + 10 < gTotalPaging)
+                gEndPaging = gStartPaging + (10 - 1);
+            else
+                gEndPaging = gTotalPaging;
+
+            if (gStartPaging > 1)
+                $('#ulTablePaging').append("<li id='" + i + "' class='" + ((gCurrentPage === i) ? "selected" : "") + "'><a onclick='prevPaging(); return false;'>Previous<a></li>")
+
+            for (var i = gStartPaging; i <= gEndPaging; i++) {
+                $('#ulTablePaging').append("<li id='" + i + "' class='" + ((gCurrentPage === i) ? "selected" : "") + "'><a onclick='changePage(\"" + i + "\"); return false;'>" + i + "<a></li>")
+            }
+
+            if (gEndPaging < gTotalPaging)
+                $('#ulTablePaging').append("<li id='" + i + "' class='" + ((gCurrentPage === i) ? "selected" : "") + "'><a onclick='nextPaging(); return false;'>Next<a></li>")
+        }
+
+        function nextPaging() {
+            gNext = gNext + 10;
+            displayPaging();
+            changePage(gCurrentPage);
+        }
+
+        function prevPaging() {
+            gNext = gNext - 10;
+            displayPaging();
+            changePage(gCurrentPage);
+        }
+
         function displayReport(_gData) {
 
             $('#ulTablePaging li').removeClass("selected");
@@ -988,7 +1034,6 @@
             // *********************** DATA ROW ***********************
             var firstPage = ((gCurrentPage - 1) * gItemPerPage) + 1;
             var lastPage = firstPage + (gItemPerPage - 1);
-            // alert("First page: " + firstPage + ", Last Page: " + lastPage);
 
             var row = "";
             var rowCount = 0;
