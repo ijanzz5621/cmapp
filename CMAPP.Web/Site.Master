@@ -30,12 +30,7 @@
     <form runat="server">
         <asp:ScriptManager runat="server">
             <Scripts>
-                <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
-                <%--Framework Scripts--%>
                 <asp:ScriptReference Name="MsAjaxBundle" />
-                <%--<asp:ScriptReference Name="jquery" />--%>
-                <%--<asp:ScriptReference Name="jquery.ui.combined" />--%>
-                <%--<asp:ScriptReference Path="~/Scripts/jquery-ui-1.12.1.min.js" />--%>
                 <asp:ScriptReference Name="bootstrap" />
                 <asp:ScriptReference Name="respond" />
                 <asp:ScriptReference Name="WebForms.js" Assembly="System.Web" Path="~/Scripts/WebForms/WebForms.js" />
@@ -53,7 +48,6 @@
 
         <nav class="navbar navbar-inverse navbar-fixed-top" style="border-radius:0;">
             <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                         <span class="sr-only">Toggle navigation</span>
@@ -64,38 +58,17 @@
                     <a class="navbar-brand" href="/">CMAPP</a>
                 </div>
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <%--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">Link</a></li>--%>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Items <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <%--<li><a href="/Views/TestTimeUpdate.aspx">Test Time Update</a></li>--%>
                                 <li><a href="/Views/TestTimeUpdateV3.aspx">Test Time Update</a></li>
-                                <%--<li><a href="/Views/TestTimeUpdateV3.aspx">Test Time Update V3</a></li>--%>
-                                <%--<li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">One more separated link</a></li>--%>
+                                <li><a href="/Views/TestTimeUpdateV4.aspx">Test Time Update (Multi)</a></li>
                             </ul>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <%--<li><a href="#">Link</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Action</a></li>
-                                <li><a href="#">Another action</a></li>
-                                <li><a href="#">Something else here</a></li>
-                                <li role="separator" class="divider"></li>
-                                <li><a href="#">Separated link</a></li>
-                            </ul>
-                        </li>--%>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -103,9 +76,6 @@
             <!-- /.container-fluid -->
         </nav>
 
-
-
-        <%--<div class="container body-content">--%>
         <div class="body-content">
 
             <asp:UpdateProgress ID="updProgress" AssociatedUpdatePanelID="UpdatePanelMain" runat="server">
@@ -121,10 +91,6 @@
                 </ContentTemplate>
             </asp:UpdatePanel>
             
-            
-            <%--<hr /><footer>
-                <p>&copy; <%: DateTime.Now.Year %> - CMAPP - Microchip Operations Malaysia</p>
-            </footer>--%>
         </div>
 
     </form>

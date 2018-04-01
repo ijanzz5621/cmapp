@@ -4,11 +4,10 @@ Imports CMAPP.BLogic
 Imports CMAPP.Model
 Imports Newtonsoft.Json
 
-Public Class TestTimeUpdateV3_Bak20180317
+Public Class TestTimeUpdateV4
     Inherits System.Web.UI.Page
 
     Private Shared cnnOraString As String = ConfigurationManager.ConnectionStrings("ORA_DefaultConnString").ConnectionString
-    'Private Shared cnnOraString_Dev As String = ConfigurationManager.ConnectionStrings("ORA_DefaultConnString_Dev").ConnectionString
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
@@ -21,10 +20,7 @@ Public Class TestTimeUpdateV3_Bak20180317
             End If
 
             GetTempList()
-            GetTempEditList()
             GetTesterTypeList()
-            GetTesterTypeListForEdit()
-            PopulateSiteCountList()
 
         Else
 
@@ -56,16 +52,6 @@ Public Class TestTimeUpdateV3_Bak20180317
         ddlTemp.DataBind()
     End Sub
 
-    Private Sub GetTempEditList()
-        Dim fnData As blGeneral = New blGeneral()
-        fnData.ConnectionString = cnnOraString
-        Dim dsResult As DataTable = fnData.GetTempList()
-        ddlTempEdit.DataSource = dsResult
-        ddlTempEdit.DataTextField = "TESTSTEPTEMP"
-        ddlTempEdit.DataValueField = "TESTSTEPTEMP"
-        ddlTempEdit.DataBind()
-    End Sub
-
     Private Sub GetTesterTypeList()
         Dim fnData As blGeneral = New blGeneral()
         fnData.ConnectionString = cnnOraString
@@ -74,37 +60,6 @@ Public Class TestTimeUpdateV3_Bak20180317
         ddlTester.DataTextField = "TESTERTYPE"
         ddlTester.DataValueField = "TESTERTYPE"
         ddlTester.DataBind()
-    End Sub
-
-    Private Sub GetTesterTypeListForEdit()
-        Dim fnData As blGeneral = New blGeneral()
-        fnData.ConnectionString = cnnOraString
-        Dim dsResult As DataTable = fnData.GetTesterTypeList()
-        ddlTesterEdit.DataSource = dsResult
-        ddlTesterEdit.DataTextField = "TESTERTYPE"
-        ddlTesterEdit.DataValueField = "TESTERTYPE"
-        ddlTesterEdit.DataBind()
-    End Sub
-
-    Private Sub PopulateSiteCountList()
-
-        For item As Integer = 1 To 320
-            Dim li As ListItem = New ListItem()
-            li.Text = " X" & item & " "
-            li.Value = item
-
-            If item = 1 Then
-                li.Attributes.Add("style", "display:none")
-            End If
-
-            'If item = 1 Or item = 2 Or item = 3 Or item = 4 Or item = 8 Then
-            '    li.Selected = True
-            'End If
-
-            cblSiteCount.Items.Add(li)
-
-        Next
-
     End Sub
 
 #End Region
@@ -158,27 +113,6 @@ Public Class TestTimeUpdateV3_Bak20180317
 
     End Function
 
-    '<WebMethod>
-    'Public Shared Function GetTestProgramIDList() As Object
-
-    '    Dim obj As Object = JsonConvert.SerializeObject("")
-
-    '    Try
-
-    '        Dim fnData As blGeneral = New blGeneral()
-    '        fnData.ConnectionString = cnnOraString
-    '        Dim dsResult As DataTable = fnData.GetProgramIDList()
-
-    '        obj = JsonConvert.SerializeObject(dsResult)
-
-    '    Catch ex As Exception
-
-    '    End Try
-
-    '    Return obj
-
-    'End Function
-
     <WebMethod>
     Public Shared Function GetRevisionByProgID(testProgID As String) As Object
 
@@ -201,6 +135,27 @@ Public Class TestTimeUpdateV3_Bak20180317
     End Function
 
     <WebMethod>
+    Public Shared Function GetRevisionList() As Object
+
+        Dim obj As Object = JsonConvert.SerializeObject("")
+
+        Try
+
+            Dim fnData As blGeneral = New blGeneral()
+            fnData.ConnectionString = cnnOraString
+            Dim dsResult As DataTable = fnData.GetProgramRevListV2()
+
+            obj = JsonConvert.SerializeObject(dsResult)
+
+        Catch ex As Exception
+
+        End Try
+
+        Return obj
+
+    End Function
+
+    <WebMethod>
     Public Shared Function GetMaxRevisionByProgID(testProgID As String) As Object
 
         Dim obj As Object = JsonConvert.SerializeObject("")
@@ -210,6 +165,27 @@ Public Class TestTimeUpdateV3_Bak20180317
             Dim fnData As blGeneral = New blGeneral()
             fnData.ConnectionString = cnnOraString
             Dim dsResult As DataTable = fnData.GetMaxRevByTestProgID(testProgID)
+
+            obj = JsonConvert.SerializeObject(dsResult)
+
+        Catch ex As Exception
+
+        End Try
+
+        Return obj
+
+    End Function
+
+    <WebMethod>
+    Public Shared Function GetMaxRevisionByFilterList(testSite As String, testProgID As String, version As String, tester As String, progName As String, progExec As String, device As String, temp As String) As Object
+
+        Dim obj As Object = JsonConvert.SerializeObject("")
+
+        Try
+
+            Dim fnData As blGeneral = New blGeneral()
+            fnData.ConnectionString = cnnOraString
+            Dim dsResult As DataTable = fnData.GetMaxRevByFilterList(testSite, testProgID, version, tester, progName, progExec, device, temp)
 
             obj = JsonConvert.SerializeObject(dsResult)
 

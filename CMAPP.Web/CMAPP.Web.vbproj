@@ -211,8 +211,10 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Controls\wucCMAPPEdit.ascx" />
     <Content Include="Controls\wucPopupInfo.ascx" />
     <Content Include="Controls\wucTestTime.ascx" />
+    <Content Include="Controls\wuuCMAPPEditMulti.ascx" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -245,8 +247,8 @@
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery.dynatable.js" />
     <Content Include="Scripts\table2excel.js" />
-    <Content Include="Views\TestTimeUpdateV3_Bak20180317.aspx" />
     <Content Include="Views\TestTimeUpdateV3.aspx" />
+    <Content Include="Views\TestTimeUpdateV4.aspx" />
     <Content Include="Views\TestTimeUpdateV2.aspx" />
     <Content Include="x64\Oracle.ManagedDataAccessDTC.dll" />
     <Content Include="x64\Oracle.ManagedDataAccessIOP.dll" />
@@ -304,6 +306,13 @@
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Controls\ModalCaller.vb" />
+    <Compile Include="Controls\wucCMAPPEdit.ascx.designer.vb">
+      <DependentUpon>wucCMAPPEdit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\wucCMAPPEdit.ascx.vb">
+      <DependentUpon>wucCMAPPEdit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Controls\wucPopupInfo.ascx.designer.vb">
       <DependentUpon>wucPopupInfo.ascx</DependentUpon>
     </Compile>
@@ -316,6 +325,13 @@
     </Compile>
     <Compile Include="Controls\wucTestTime.ascx.vb">
       <DependentUpon>wucTestTime.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\wuuCMAPPEditMulti.ascx.designer.vb">
+      <DependentUpon>wuuCMAPPEditMulti.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\wuuCMAPPEditMulti.ascx.vb">
+      <DependentUpon>wuuCMAPPEditMulti.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Default.aspx.vb">
@@ -383,18 +399,18 @@
       <DependentUpon>TestTimeUpdate.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
-    <Compile Include="Views\TestTimeUpdateV3_Bak20180317.aspx.designer.vb">
-      <DependentUpon>TestTimeUpdateV3_Bak20180317.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TestTimeUpdateV3_Bak20180317.aspx.vb">
-      <DependentUpon>TestTimeUpdateV3_Bak20180317.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
     <Compile Include="Views\TestTimeUpdateV3.aspx.designer.vb">
       <DependentUpon>TestTimeUpdateV3.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\TestTimeUpdateV3.aspx.vb">
       <DependentUpon>TestTimeUpdateV3.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Views\TestTimeUpdateV4.aspx.designer.vb">
+      <DependentUpon>TestTimeUpdateV4.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestTimeUpdateV4.aspx.vb">
+      <DependentUpon>TestTimeUpdateV4.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Views\TestTimeUpdateV2.aspx.designer.vb">
