@@ -251,7 +251,7 @@
 
               <div class="row">
 
-                    <div class="col-lg-2 col-md-3">
+                    <div class="col-lg-1 col-md-2">
                         <asp:Label Text="text" runat="server" AssociatedControlID="ddlTestSiteEdit">Test Site</asp:Label>
                             <asp:DropDownList ID="ddlTestSiteEdit" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                                 <asp:ListItem Text="" Value=""></asp:ListItem>
@@ -283,7 +283,7 @@
                         <asp:Label Text="text" runat="server" AssociatedControlID="txtEditVersion">Version</asp:Label>
                         <asp:TextBox runat="server" CssClass="form-control toUppercase" ID="txtEditVersion" Text="0" />
                     </div>
-                    <div class="col-lg-2 col-md-3">
+                    <div class="col-lg-1 col-md-2">
                         <asp:Label Text="text" runat="server" AssociatedControlID="ddlTesterEdit">Tester Type</asp:Label>
                         <asp:DropDownList ID="ddlTesterEdit" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                         <asp:ListItem Text="" Value=""></asp:ListItem>
@@ -931,17 +931,13 @@
 
                             if (JSON.parse(data.d).length > 0) {
 
-                                // ********************** PAGING ***********************
                                 gTotalRecords = gData.length;
-                                //alert("gTotalRecords: " + gTotalRecords.toString());
-                                
                                 gTotalPaging = parseInt((gTotalRecords % gItemPerPage) > 0 ? ((gTotalRecords / gItemPerPage) + 1) : (gTotalRecords / gItemPerPage));
-                                //alert(gTotalPaging);
 
                                 displayPaging();
 
                                 for (var key in JSON.parse(data.d)[0]) {
-                                    $('#tblListing thead tr').append("<td>" + key + "</td>");
+                                    $('#tblListing thead tr').append("<td><a href='#' style='color:#fff;' onclick='sortColumn(\"" + key + "\");'>" + key + "</a></td>");
                                 }
 
                                 displayReport(gData);
@@ -994,8 +990,6 @@
             gStartPaging = 1 + gNext;
             gCurrentPage = gStartPaging;
 
-            //alert(gTotalPaging);
-
             if (gStartPaging + 10 < gTotalPaging)
                 gEndPaging = gStartPaging + (10 - 1);
             else
@@ -1047,7 +1041,6 @@
 
                     var rowID = val["Test Site"] + "_" + val["Program ID"] + "_" + val["Revision"] + "_" + val["Tester Type"] + "_" + val["Program Source"] + "_" + val["Program Exec"] + "_" + val["Device"] + "_" + val["Temp"];
 
-                    // row = row + "<tr id='" + rowID + "' class='" + ((gSelectedRowID === rowID) ? "row-selected" : "") + "' style='cursor:pointer; background-color:" + rowColor + "' onclick='selectRow(this, \"" + val["Test Site"] + "\", \"" + val["Program ID"] + "\", \"" + val["Revision"] + "\", \"" + val["Tester Type"] + "\", \"" + val["Program Source"] + "\", \"" + val["Program Exec"] + "\", \"" + val["Device"] + "\", \"" + val["Temp"] + "\", \"" + val["Eff Date"] + "\", \"" + val["Overhead"] + "\")'>";
                     row = row + "<tr id='" + rowID + "' class='' style='cursor:pointer; background-color:" + rowColor + "' onclick='selectRow(this, \"" + val["Test Site"] + "\", \"" + val["Program ID"] + "\", \"" + val["Revision"] + "\", \"" + val["Tester Type"] + "\", \"" + val["Program Source"] + "\", \"" + val["Program Exec"] + "\", \"" + val["Device"] + "\", \"" + val["Temp"] + "\", \"" + val["Eff Date"] + "\", \"" + val["Overhead"] + "\")'>";
                     $.each(val, function (_, text) {
                         row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
@@ -1093,13 +1086,11 @@
 
             $('#<%=txtEditSiteCount1TestTime.ClientID%>').val("");
             
-            // call ajax and get the site count 1 test time
             getSiteCount1TestTime(_testSite, _testProgID, _rev, _testerType, _progName, _progExec, _device, _temp, _effDate);
 
             $('#divSiteCountList').show('slow');
             $('#modalEdit').modal();
 
-            // hide button duplicate and delete for edit
             $('#<%=btnDuplicateTestTime.ClientID%>').show();
             $('#<%=btnDeleteTestTime.ClientID%>').show();
         }
@@ -1254,8 +1245,6 @@
                         contentType: "application/json; charset=utf-8",
                         success: function (data) {
 
-                            //console.log(JSON.parse(data.d).length);
-
                             if (JSON.parse(data.d).length > 0) {
                                 response($.map(JSON.parse(data.d), function (item) {
                                     return {
@@ -1286,8 +1275,6 @@
                         type: "POST",
                         contentType: "application/json; charset=utf-8",
                         success: function (data) {
-
-                            //console.log(JSON.parse(data.d).length);
 
                             if (JSON.parse(data.d).length > 0) {
                                 response($.map(JSON.parse(data.d), function (item) {
@@ -1321,8 +1308,6 @@
                         contentType: "application/json; charset=utf-8",
                         success: function (data) {
 
-                            //console.log(JSON.parse(data.d).length);
-
                             if (JSON.parse(data.d).length > 0) {
                                 response($.map(JSON.parse(data.d), function (item) {
                                     return {
@@ -1355,8 +1340,6 @@
                         contentType: "application/json; charset=utf-8",
                         success: function (data) {
 
-                            //console.log(JSON.parse(data.d).length);
-
                             if (JSON.parse(data.d).length > 0) {
                                 response($.map(JSON.parse(data.d), function (item) {
                                     return {
@@ -1383,7 +1366,6 @@
 
             $.ajax({
                 url: "TestTimeUpdateV3.aspx/GetRevisionList",
-                //data: "{ '': ''}",
                 dataType: "json",
                 type: "POST",
                 contentType: "application/json; charset=utf-8",
@@ -1420,7 +1402,6 @@
                         $('#<%=txtEditSiteCount1TestTime.ClientID%>').val(sc1TT);
                     }
 
-                    // populate site count list
                     populateSiteCount(false, "SERVER");
                 },
                 error: function (a, b, c) {
@@ -1447,29 +1428,22 @@
             return objects;
         }
 
-        function ulWriter(rowIndex, record, columns, cellWriter) {
+        function sortColumn(_columnName) {
+            // alert(_columnName);
+            gData.sort(GetSortOrder(_columnName));
+            displayReport(gData);
+        }
 
-            var row = "";
-            var rowCount = 0;
+        function GetSortOrder(prop) {
+            return function (a, b) {
+                if (a[prop] > b[prop]) {
+                    return 1;
+                } else if (a[prop] < b[prop]) {
+                    return -1;
+                }
 
-            console.log(record);
-            console.log(columns);
-
-            //$.each(gDataList, function (key, val) {
-            //    var rowColor = "transparent";
-            //    if (rowCount % 2 === 0)
-            //        rowColor = "#fff";
-
-            //    row = row + "<tr style='cursor:pointer; background-color:" + rowColor + "' onclick='selectRow(this, \"" + val["Program ID"] + "\", \"" + val["Revision"] + "\", \"" + val["Tester Type"] + "\", \"" + val["Program Source"] + "\", \"" + val["Program Exec"] + "\", \"" + val["Device"] + "\", \"" + val["Temp"] + "\", \"" + val["Eff Date"] + "\", \"" + val["Overhead"] + "\")'>";
-            //    $.each(val, function (_, text) {
-            //        row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
-            //    });
-            //    row = row + "</tr>";
-
-            //    rowCount++;
-            //});
-
-            return row;
+                return 0;
+            }
         }
 
     </script>

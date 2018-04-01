@@ -699,8 +699,10 @@
 
                                 displayPaging();
 
+                                $('#tblListing thead tr').append("<td>&nbsp;</td>");
+
                                 for (var key in JSON.parse(data.d)[0]) {
-                                    $('#tblListing thead tr').append("<td>" + key + "</td>");
+                                    $('#tblListing thead tr').append("<td><a href='#' style='color:#fff;' onclick='sortColumn(\"" + key + "\");'>" + key + "</a></td>");
                                 }
 
                                 displayReport(gData);
@@ -730,6 +732,24 @@
                     console.log('error: ' + JSON.stringify(a));
                 }
             });   
+        }
+
+        function sortColumn(_columnName) {
+            // alert(_columnName);
+            gData.sort(GetSortOrder(_columnName));
+            displayReport(gData);
+        }
+
+        function GetSortOrder(prop) {
+            return function (a, b) {
+                if (a[prop] > b[prop]) {
+                    return 1;
+                } else if (a[prop] < b[prop]) {
+                    return -1;
+                }
+
+                return 0;
+            }
         }
 
     </script>
