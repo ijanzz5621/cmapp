@@ -149,13 +149,13 @@ Partial Public Class TestTimeUpdateV4
     Protected WithEvents btnEditMultiTestTime As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
-    '''wucCMAPPEdit control.
+    '''wuuCMAPPEditMulti control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents wucCMAPPEdit As Global.CMAPP.Web.wucCMAPPEdit
+    Protected WithEvents wuuCMAPPEditMulti As Global.CMAPP.Web.wuuCMAPPEditMulti
     
     '''<summary>
     '''wucPopupInfo control.

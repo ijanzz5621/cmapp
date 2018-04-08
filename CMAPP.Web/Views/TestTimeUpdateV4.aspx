@@ -1,7 +1,10 @@
 ﻿<%@ Page Title="Test Time Update V3" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="TestTimeUpdateV4.aspx.vb" Inherits="CMAPP.Web.TestTimeUpdateV4" EnableEventValidation="false" %>
+
 <%@ Register Src="~/Controls/wucPopupInfo.ascx" TagPrefix="uc1" TagName="wucPopupInfo" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolKit" %>
 <%@ Register Src="~/Controls/wucCMAPPEdit.ascx" TagPrefix="uc1" TagName="wucCMAPPEdit" %>
+<%@ Register Src="~/Controls/wuuCMAPPEditMulti.ascx" TagPrefix="uc1" TagName="wuuCMAPPEditMulti" %>
+
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
@@ -9,17 +12,17 @@
     <link href="/Content/jqueryui/jquery-ui.css" rel="stylesheet" />
 
     <style>
-        .footer{
-            width:100%;
-            position:fixed;
-            bottom:0;
+        .footer {
+            width: 100%;
+            position: fixed;
+            bottom: 0;
             left: 0;
             text-align: center;
-            background:#ffffff;
-            margin:0 auto;
+            background: #ffffff;
+            margin: 0 auto;
         }
 
-            .footer > div{
+            .footer > div {
                 margin: 0 auto;
                 padding: 5px;
             }
@@ -28,13 +31,15 @@
             padding-left: 2em;
             min-width: 8em;
         }
+
         .checkbox label, .checkbox-inline label {
             text-align: left;
             padding-left: 0.5em;
-            padding:5px;
+            padding: 5px;
         }
-        .checkbox input[type="checkbox"]{
-            float:none;
+
+        .checkbox input[type="checkbox"] {
+            float: none;
         }
 
         .radio, .checkbox {
@@ -48,22 +53,22 @@
             padding-right: 5px !important;
         }
 
-        .row-reset{
-            background-color:transparent !important;
-            color:#444;
+        .row-reset {
+            background-color: transparent !important;
+            color: #444;
         }
 
-        #tblListing tbody tr:hover{
-            background-color:#e6e6e6 !important;
-            color:#444;
+        #tblListing tbody tr:hover {
+            background-color: #e6e6e6 !important;
+            color: #444;
         }
 
-        .row-selected{
-            background-color:#fa3232 !important;
-            color:#fff;
+        .row-selected {
+            background-color: #fa3232 !important;
+            color: #fff;
         }
 
-        .paging{
+        .paging {
             list-style: none;
             margin: 0;
             padding: 0;
@@ -71,21 +76,19 @@
             font-size: 14px;
         }
 
-        .paging li {
-            display: inline-block;
-            margin-right: 15px;
-            cursor: pointer;
-        }
+            .paging li {
+                display: inline-block;
+                margin-right: 15px;
+                cursor: pointer;
+            }
 
         .selected {
             font-weight: bold;
-            
         }
 
-        .selected a {
-            color:#000000 !important;
-        }
-
+            .selected a {
+                color: #000000 !important;
+            }
     </style>
     <%--<link href="/Content/jquery.dynatable.css" rel="stylesheet" />--%>
     <%--<link href="/Content/datatables.min.css" rel="stylesheet" />--%>
@@ -95,13 +98,13 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <div class="page-container" >
+    <div class="page-container">
 
         <h3>Test Time Update (Version 3)</h3>
 
-        <div class="" style=" padding-top:5px;">
+        <div class="" style="padding-top: 5px;">
 
-            <div class="row" style="margin-left:1px; margin-right:1px;">
+            <div class="row" style="margin-left: 1px; margin-right: 1px;">
                 <div class="col-lg-1 col-md-2">
                     <asp:Label Text="text" runat="server" AssociatedControlID="ddlTestSite">Test Site</asp:Label>
                     <asp:DropDownList ID="ddlTestSite" runat="server" CssClass="form-control" AppendDataBoundItems="true">
@@ -160,46 +163,46 @@
                         <asp:ListItem Text="" Value=""></asp:ListItem>
                     </asp:DropDownList>
                 </div>
-            
+
                 <div class="col-lg-4 col-md-6">
-                    <ul style="list-style:none; margin:0; padding:0;">
-                        <li style="display:inline-block; line-height: 55px;">
-                                <div class="checkbox">
-                                    <label class="btn btn-default">
-                                        <asp:CheckBox ID="chkMaxDate" runat="server" Text=" Max Date" />
-                                    </label>
-                                </div>
-  
+                    <ul style="list-style: none; margin: 0; padding: 0;">
+                        <li style="display: inline-block; line-height: 55px;">
+                            <div class="checkbox">
+                                <label class="btn btn-default">
+                                    <asp:CheckBox ID="chkMaxDate" runat="server" Text=" Max Date" />
+                                </label>
+                            </div>
+
                         </li>
-                        <li style="display:inline-block; line-height: 55px;">
+                        <li style="display: inline-block; line-height: 55px;">
                             <div class="checkbox">
                                 <label class="btn btn-default">
                                     <asp:CheckBox ID="chkMaxRev" runat="server" Text=" Max Revision" />
                                 </label>
-                            </div>  
-                        
+                            </div>
+
                         </li>
 
                     </ul>
                 </div>
             </div>
 
-            <div class="row" style="margin-left:1px;">
-                <div class="col-md-12" style="vertical-align:bottom; line-height:45px;">
+            <div class="row" style="margin-left: 1px;">
+                <div class="col-md-12" style="vertical-align: bottom; line-height: 45px;">
                     <asp:Button Text="Search" runat="server" ID="btnSearch" CssClass="btn btn-info" OnClick="btnSearch_Click" />
                     &nbsp;
                     <asp:Button ID="btnExport" runat="server" Text="Export" CssClass="btn btn-success" ForeColor="#ffffff" />
                     &nbsp;
-                    <asp:Button ID="btnNewTestTime" runat="server" Text="New" CssClass="btn btn-primary" Height="35" style="display:inline-block;" />
+                    <asp:Button ID="btnNewTestTime" runat="server" Text="New" CssClass="btn btn-primary" Height="35" Style="display: inline-block;" />
                     &nbsp;
-                    <asp:Button ID="btnEditMultiTestTime" runat="server" Text="Edit" CssClass="btn btn-warning" ForeColor="#ffffff" style="display:none;" />
-                    <span id="note1" style="font-weight:bold;font-size:18px; color:red;">Please click on the record to edit</span>
+                    <asp:Button ID="btnEditMultiTestTime" runat="server" Text="Edit" CssClass="btn btn-warning" ForeColor="#ffffff" Style="display: none;" />
+                    <span id="note1" style="font-weight: bold; font-size: 18px; color: red;">Please click on the record to edit</span>
                 </div>
             </div>
 
         </div>
 
-        <div class="row" style="margin-left:1px; margin-right:1px; clear:both;">
+        <div class="row" style="margin-left: 1px; margin-right: 1px; clear: both;">
 
             <br />
             <div id="divTablePaging" class="col-md-12">
@@ -209,10 +212,10 @@
             <div class="col-md-12 col-lg-12">
 
                 <div>
-                    
+
                     <table id="tblListing" class="table table-bordered table-responsive">
                         <thead>
-                            <tr style="background-color:#444; color:#fff;">
+                            <tr style="background-color: #444; color: #fff;">
                             </tr>
                         </thead>
                         <tbody></tbody>
@@ -227,7 +230,7 @@
     </div>
 
     <!-- Modal -->
-    <uc1:wucCMAPPEdit runat="server" id="wucCMAPPEdit" />
+    <uc1:wuuCMAPPEditMulti runat="server" ID="wuuCMAPPEditMulti" />
 
     <script type="text/javascript">
 
@@ -259,19 +262,19 @@
             loadDeviceList();
 
             //Auto upper case on typing
-            $('#<%=txtProgramID.ClientID%>').keyup(function(){
+            $('#<%=txtProgramID.ClientID%>').keyup(function () {
                 $(this).val($(this).val().toUpperCase());
             });
-            $('#<%=txtProgramName.ClientID%>').keyup(function(){
+            $('#<%=txtProgramName.ClientID%>').keyup(function () {
                 $(this).val($(this).val().toUpperCase());
             });
-            $('#<%=txtProgramExec.ClientID%>').keyup(function(){
+            $('#<%=txtProgramExec.ClientID%>').keyup(function () {
                 $(this).val($(this).val().toUpperCase());
             });
-            $('#<%=txtVersion.ClientID%>').keyup(function(){
+            $('#<%=txtVersion.ClientID%>').keyup(function () {
                 $(this).val($(this).val().toUpperCase());
             });
-            $('#<%=txtDevice.ClientID%>').keyup(function(){
+            $('#<%=txtDevice.ClientID%>').keyup(function () {
                 $(this).val($(this).val().toUpperCase());
             });
 
@@ -346,10 +349,26 @@
 
                 e.preventDefault();
 
-                //
+                // Loop the checked row
+                displayMultiEdit(function () {
 
-                //Show the modal
-                $('#modalEditMulti').modal();
+                    //Show the modal
+                    $('#modalEditMulti').modal();
+
+                });
+
+            });
+
+            $('#btnEditMultiClose').on('click', function (e) {
+                e.preventDefault();
+
+                //// call function to reset the textboxes
+                //resetEdit();
+
+                //close the edit div
+                //  $('#tblListing tbody tr').removeClass("row-selected");
+                $('#divSiteCountList').hide('slow');
+                $('#modalEditMulti').modal('hide');
 
             });
 
@@ -360,10 +379,20 @@
 
         }); // end of document ready 
 
+        function displayMultiEdit(cb) {
+
+            // Loop the table row and check if the row is checked, then create objects to edit
+            $('#tblListing tbody tr').each(function () {
+
+            });
+
+            return cb();
+        }
+
         function changePage(_page) {
             gCurrentPage = _page;
             displayReport(gData);
-        } 
+        }
 
         function displayPaging() {
 
@@ -496,12 +525,12 @@
                         error: function (a, b, c) {
                             console.log('error: ' + JSON.stringify(a));
                         }
-                     });
-                 },
-                 minLength: 2,
-                 select: function (event, ui) {
-                 }
-             });
+                    });
+                },
+                minLength: 2,
+                select: function (event, ui) {
+                }
+            });
         }
 
         function loadProgramNameList() {
@@ -693,7 +722,7 @@
                                 // ********************** PAGING ***********************
                                 gTotalRecords = gData.length;
                                 //alert("gTotalRecords: " + gTotalRecords.toString());
-                                
+
                                 gTotalPaging = parseInt((gTotalRecords % gItemPerPage) > 0 ? ((gTotalRecords / gItemPerPage) + 1) : (gTotalRecords / gItemPerPage));
                                 //alert(gTotalPaging);
 
@@ -731,7 +760,7 @@
                 , error: function (a, b, c) {
                     console.log('error: ' + JSON.stringify(a));
                 }
-            });   
+            });
         }
 
         function sortColumn(_columnName) {
