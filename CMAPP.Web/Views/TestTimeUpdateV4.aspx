@@ -381,8 +381,89 @@
 
         function displayMultiEdit(cb) {
 
+            $('#divTestTimeEditMulti').empty();
+
             // Loop the table row and check if the row is checked, then create objects to edit
             $('#tblListing tbody tr').each(function () {
+
+                var checkbox = $(this).find("td:nth-child(1) input[type='checkbox']")[0];
+
+                if (checkbox.checked === true) {
+                    // build the textbox
+                    var html = '<div class="row">';
+                    html = html + '<div class="col-lg-1 col-md-2">';
+                    html = html + '<label for="MainContent_ddlTestSiteEdit">Test Site</label>';
+                    html = html + '<select name="" id="" class="form-control">';                    html = html + '</select>';    
+                    html = html + '</div>';
+                    html = html + '<div class="col-lg-1 col-md-2">';
+                    html = html + '<label for="MainContent_txtEditProgramID">Program ID</label>';
+                    html = html + '<input name="ctl00$MainContent$txtEditProgramID" type="text" id="MainContent_txtEditProgramID" class="form-control toUppercase" />';
+                    html = html + '</div>';
+                    html = html + '<div class="col-lg-1 col-md-2">';
+                    html = html + '<label for="MainContent_txtEditRevision">Revision</label>';
+                    html = html + '<input name="ctl00$MainContent$txtEditRevision" type="text" id="MainContent_txtEditRevision" class="form-control toUppercase" />';
+                    html = html + '</div>';
+                    html = html + '<div class="col-lg-1 col-md-2">';
+                    html = html + '<label for="MainContent_txtEditVersion">Version</label>';
+                    html = html + '<input name="ctl00$MainContent$txtEditVersion" type="text" value="0" id="MainContent_txtEditVersion" class="form-control toUppercase" />';
+                    html = html + '</div>';
+                    html = html + '<div class="col-lg-1 col-md-2">';
+                    html = html + '<label for="MainContent_ddlTesterEdit">Tester Type</label>';
+                    html = html + '<select name="ctl00$MainContent$ddlTesterEdit" id="MainContent_ddlTesterEdit" class="form-control">';
+                    html = html + '</select>';
+                    html = html + '</div>';
+                    html = html + '<div class="col-lg-2 col-md-3">';
+                    html = html + '<label for="MainContent_txtEditDevice">Device</label>';
+                    html = html + '<input name="ctl00$MainContent$txtEditDevice" type="text" id="MainContent_txtEditDevice" class="form-control toUppercase" />';
+                    html = html + '</div>';
+                    html = html + '<div class="col-lg-1 col-md-2">';
+                    html = html + '<label for="MainContent_ddlTempEdit">Temp</label>';
+                    html = html + '<select name="ctl00$MainContent$ddlTempEdit" id="MainContent_ddlTempEdit" class="form-control">';
+                    html = html + '</select>';
+                    html = html + '</div>';
+                    html = html + '<div class="col-lg-2 col-md-3">';
+                    html = html + '<label for="MainContent_txtEditProgName">Program Name</label>';
+                    html = html + '<input name="ctl00$MainContent$txtEditProgName" type="text" id="MainContent_txtEditProgName" class="form-control toUppercase" />';
+                    html = html + '</div>';
+                    html = html + '<div class="col-lg-2 col-md-3">';
+                    html = html + '<label for="MainContent_txtEditProgExec">Program Exec</label>';
+                    html = html + '<input name="ctl00$MainContent$txtEditProgExec" type="text" id="MainContent_txtEditProgExec" class="form-control toUppercase" />';
+                    html = html + '</div>';
+
+                    html = html + '</div>'; // end of row
+
+                    html = html + '<div class="row">';
+                    html = html + '<div class="col-lg-1 col-md-2">';
+                    html = html + '<label for="MainContent_txtEditEffDate">Effective Date</label><br />';
+                    html = html + '<input name="ctl00$MainContent$txtEditEffDate" type="text" id="MainContent_txtEditEffDate" class="form-control" />';
+                    html = html + '</div>';
+                    html = html + '<div class="col-lg-1 col-md-2">';
+                    html = html + '<label for="MainContent_txtEditSiteCount1TestTime">X1 Test Time</label><br />';
+                    html = html + '<input name="ctl00$MainContent$txtEditSiteCount1TestTime" type="text" id="MainContent_txtEditSiteCount1TestTime" class="form-control" />';
+                    html = html + '</div>';
+                    html = html + '<div class="col-lg-1 col-md-2">';
+                    html = html + '<label for="MainContent_txtEditOverhead">Overhead (%)</label><br />';
+                    html = html + '<input name="ctl00$MainContent$txtEditOverhead" type="text" id="MainContent_txtEditOverhead" class="form-control" />';
+                    html = html + '</div>';
+                    html = html + '<div class="col-lg-1 col-md-1">';
+                    html = html + '<span></span>&nbsp;<br />';
+                    html = html + '<input type="submit" name="ctl00$MainContent$btnEditCalculate" value="Calculate" id="MainContent_btnEditCalculate" class="btn btn-primary" style="width:100%;" />';
+                    html = html + '</div>';
+                    html = html + '';
+                    html = html + '';
+                    html = html + '';
+                    html = html + '';
+                    html = html + '';
+                    html = html + '';
+                    html = html + '';
+                    html = html + '';
+                    html = html + '</div>'; // end of row
+                    html = html + '<br />';
+
+                    $('#divTestTimeEditMulti').append(html);
+                }
+
+                
 
             });
 
@@ -463,7 +544,7 @@
                     row = row + "<tr id='" + rowID + "' class='" + ((gSelectedRowID === rowID) ? "row-selected" : "") + "' style='cursor:pointer; background-color:" + rowColor + "'>";
 
                     // Add a checkbox
-                    row = row + "<td><input type='checkbox' id='chk_" + rowID + "' onclick='selectRow(this);' /></td>";
+                    row = row + "<td style='text-align:center;'><input type='checkbox' id='chk_" + rowID + "' onclick='selectRow(this);' /></td>";
 
                     $.each(val, function (_, text) {
                         row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
