@@ -505,11 +505,11 @@
                     html = html + '</tbody>';
                     html = html + '</div>';
                     html = html + '</div>';
-                    html = html + '';
-                    html = html + '';
-                    html = html + '';
-                    html = html + '';
                     html = html + '</div>'; // end of row
+                    html = html + '<div class="row" style="margin-top:15px;">';
+                    html = html + '<ul id="ulSiteCountList_Row_' + row + '" style="list-style:none; display:inline-block; margin:0; padding:0;">';
+                    html = html + '</ul>';
+                    html = html + '</div>';
                     html = html + '<br />';
 
                     $('#divTestTimeEditMulti').append(html);
