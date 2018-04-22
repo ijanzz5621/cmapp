@@ -257,6 +257,8 @@
         var gTesterTypeList = [];
         var gTempList = [];
         var gSiteCountListEdit = [];
+        var gTotalRows = 0;
+        var gCurrentRow = 0;
 
         $('#divSiteCountList').hide();
         $('#<%=btnExport.ClientID%>').hide();
@@ -390,7 +392,116 @@
                 $(this).val(($(this).val()).toUpperCase());
             });
 
+            $('#btnEditMultiSave').on('click', function (e) {
+                //alert('Saving...');
+                saveSiteCount("");
+            });
+
         }); // end of document ready 
+
+        function saveSiteCount(_updateType) {
+
+            $.confirm({
+                title: 'Save confirmation',
+                content: 'Are you sure to save? This will update the selected revision with the new calculated test time values.',
+                buttons: {
+                    cancel: function () {
+                        //$.alert('Canceled!');
+                    },
+                    confirm: {
+                        text: 'Confirm',
+                        btnClass: 'btn-blue',
+                        keys: ['enter', 'shift'],
+                        action: function () {
+
+                            gTotalRows = 0;
+                            gCurrentRow = 0;
+                            $('#divTestTimeEditMulti .row-item').each(function () {
+                                gTotalRows = gTotalRows + 1;
+                            });
+
+                            var row = 1;
+                            $('#divTestTimeEditMulti .row-item').each(function () {
+                                //alert(this.innerHTML);
+
+                                var _siteCountList = [];
+
+                                var testSite = $(this).find('#ddlTestSite_Row_' + row).val();
+                                var programID = $(this).find('#txtEditProgramID_Row_' + row).val();
+                                var revision = $(this).find('#txtEditRevision_Row_' + row).val();
+                                var version = $(this).find('#txtEditVersion_Row_' + row).val();
+                                var testerType = $(this).find('#ddlTesterEdit_Row_' + row).val();
+                                var device = $(this).find('#txtEditDevice_Row_' + row).val();
+                                var temp = $(this).find('#ddlTempEdit_Row_' + row).val();
+                                var progName = $(this).find('#txtEditProgName_Row_' + row).val();
+                                var progExec = $(this).find('#txtEditProgExec_Row_' + row).val();
+                                var effDate = $(this).find('#txtEditEffDate_Row_' + row).val();
+                                var x1TestTime = $(this).find('#txtEditSiteCount1TestTime_Row_' + row).val();
+                                var overhead = $(this).find('#txtEditOverhead_Row_' + row).val();
+
+                                //alert("testSite: " + testSite + ", programID: " + programID + ", revision: " + revision + ", version: " + version + ", testerType: " + testerType + ", device: " + device + ", temp: " + temp + ", progName: " + progName + ", progExec: " + progExec + ", effDate: " + effDate + ", x1TestTime: " + x1TestTime + ", overhead: " + overhead);
+
+                                // manual add for site count 1
+                                var dataItem = { label: "X1", labelValue: "1", value: x1TestTime };
+                                _siteCountList.push(dataItem);
+
+                                // loop the input in the site count list
+                                //$('#ulSiteCountList_Row_' + row + ' li').each(function (index) {
+                                //    _siteCountList[index].value = $(this).find("input").val();
+                                //});
+                                $('#ulSiteCountList_Row_' + row + ' li input').each(function (index) {
+                                    //TODO
+                                    ////alert($(this).val());
+                                    //alert("index: " + index + ", value: " + $(this).val());
+                                    //dataItem = { label: "X1", labelValue: "1", value: x1TestTime };
+                                    ////_siteCountList[index].value = $(this).val();
+                                    //_siteCountList.push(dataItem);
+                                });
+
+                                //// call ajax and update database
+                                //$.ajax({
+                                //    url: "TestTimeUpdateV4.aspx/UpdateTestTime",
+                                //    data: "{ 'testSite': '" + testSite + "', 'testProgID': '" + programID + "', 'rev': '" + revision + "', 'testerType': '" + testerType + "', 'progName': '" + progName + "', 'programExec': '" + progExec + "', 'device': '" + device + "', 'temp': '" + temp + "', 'effDate': '" + effDate + "', 'siteCountList': '" + JSON.stringify(_siteCountList) + "', 'overhead': '" + overhead + "', 'updateType': '" + _updateType + "'}",
+                                //    dataType: "json",
+                                //    type: "POST",
+                                //    contentType: "application/json; charset=utf-8",
+                                //    success: function (data) {
+                                //        gCurrentRow++;
+                                //        refreshAfterUpdate();
+                                //    },
+                                //    beforeSend: function (request) {
+                                //        HoldOn.open({ theme: "sk-rect" });
+                                //    }
+                                //    , complete: function () {
+                                //        HoldOn.close();
+                                //    },
+                                //    error: function (a, b, c) {
+                                //        //console.log('error: ' + JSON.stringify(a));
+                                //        gCurrentRow++;    
+                                //        refreshAfterUpdate();
+                                //    }
+                                //});
+
+                                row++;
+                            });
+
+                        } // end of action 
+                    } // end of confirm
+                } // end of button
+            }); // end of confirm
+
+        }
+
+        function refreshAfterUpdate() {
+            if (gCurrentRow === gTotalRows) {
+                // resetEdit();
+                // $('#tblListing tbody tr').removeClass("row-selected");
+                //$('#divSiteCountList').hide('slow');
+                $('#modalEditMulti').modal('hide');
+
+                getListing($("#<%=ddlTestSite.ClientID%>").val(), $("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $('#<%=ddlTester.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("input[id='<%=chkMaxDate.ClientID%>']:checked").val());
+            }
+        }
 
         function saveTempList() {
             $("#<%=ddlTemp.ClientID%> > option").each(function () {
@@ -436,7 +547,8 @@
                     //alert(testSite);
 
                     // build the textbox
-                    var html = '<div class="row">';
+                    var html = '<div class="col-md-12 row-item">';
+                    html = html + '<div class="row">';
                     html = html + '<div class="col-lg-1 col-md-2">';
                     html = html + '<label for="ddlTestSite_Row_' + row + '">Test Site</label>';
                     html = html + '<select name="ddlTestSite_Row_' + row + '" id="ddlTestSite_Row_' + row + '" class="form-control" disabled>';
@@ -516,6 +628,8 @@
                     html = html + '<div class="row" style="margin-top:15px;">';
                     html = html + '<div class="col-lg-12 col-md-12"><hr style="margin:0; padding:0; margin-top:5px; margin-bottom:5px;"/></div>';
                     html = html + '</div>'; // end of row
+
+                    html = html + '</div>'; // end of row item
 
                     $('#divTestTimeEditMulti').append(html);
 

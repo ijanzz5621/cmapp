@@ -21,22 +21,4 @@ Partial Public Class wuuCMAPPEditMulti
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnDuplicateTestTime As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
-    '''btnEditTestTime control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnEditTestTime As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
-    '''btnDeleteTestTime control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnDeleteTestTime As Global.System.Web.UI.WebControls.Button
 End Class

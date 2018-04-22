@@ -27,9 +27,9 @@
                 <div style="float:right;">
                     <input type="button" id="btnEditMultiClose" value="Close" class="btn btn-warning" style="height:35px;" />
                     &nbsp;
-                    <asp:Button ID="btnEditTestTime" runat="server" Text="Save" CssClass="btn btn-success" Height="35" />
+                    <input type="button" id="btnEditMultiSave" value="Save" class="btn btn-primary" style="height:35px;" />
                     &nbsp;
-                    <asp:Button ID="btnDeleteTestTime" runat="server" Text="Delete" CssClass="btn btn-danger" Height="35" />
+                    <input type="button" id="btnEditMultiDelete" value="Remove" class="btn btn-danger" style="height:35px;" />
                 </div>
 
             </div>
