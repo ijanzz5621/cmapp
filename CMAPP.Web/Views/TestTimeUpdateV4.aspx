@@ -437,7 +437,6 @@
 
                     // build the textbox
                     var html = '<div class="row">';
-                    html = html + '<div class="col-lg-12 col-md-12"><hr/></div>';
                     html = html + '<div class="col-lg-1 col-md-2">';
                     html = html + '<label for="ddlTestSite_Row_' + row + '">Test Site</label>';
                     html = html + '<select name="ddlTestSite_Row_' + row + '" id="ddlTestSite_Row_' + row + '" class="form-control" disabled>';
@@ -477,7 +476,6 @@
                     html = html + '<label for="txtEditProgExec_Row_' + row + '">Program Exec</label>';
                     html = html + '<input name="txtEditProgExec_Row_' + row + '" type="text" id="txtEditProgExec_Row_' + row + '" class="form-control toUppercase" value="' + programExec + '" readonly="readonly" />';
                     html = html + '</div>';
-
                     html = html + '</div>'; // end of row
 
                     html = html + '<div class="row">';
@@ -503,14 +501,21 @@
                     html = html + '<tbody>';
                     html = html + '<tr></tr>';
                     html = html + '</tbody>';
+                    html = html + '</table>';
                     html = html + '</div>';
                     html = html + '</div>';
                     html = html + '</div>'; // end of row
+
                     html = html + '<div class="row" style="margin-top:15px;">';
+                    html = html + '<div class="col-lg-12 col-md-12">';
                     html = html + '<ul id="ulSiteCountList_Row_' + row + '" style="list-style:none; display:inline-block; margin:0; padding:0;">';
                     html = html + '</ul>';
                     html = html + '</div>';
-                    html = html + '<br />';
+                    html = html + '</div>'; // end of row
+
+                    html = html + '<div class="row" style="margin-top:15px;">';
+                    html = html + '<div class="col-lg-12 col-md-12"><hr style="margin:0; padding:0; margin-top:5px; margin-bottom:5px;"/></div>';
+                    html = html + '</div>'; // end of row
 
                     $('#divTestTimeEditMulti').append(html);
 
@@ -518,24 +523,137 @@
                     LoadDataForDropownAndShowValue("#ddlTestSite_Row_" + row, gTestSiteList, testSite, "#ddlTesterEdit_Row_" + row, gTesterTypeList, testerType, "#ddlTempEdit_Row_" + row, gTempList, temp);
 
                     //Load site count list
-                    LoadSiteCountList("#cblSiteCount_Row_" + row, row);
+                    LoadSiteCountList(testSite, programID, revision, testerType, programSource, programExec, device, temp, effDate, "#txtEditSiteCount1TestTime_Row_" + row, "#cblSiteCount_Row_" + row, "#ulSiteCountList_Row_" + row, "#cblSiteCount_Row_" + row, row);
+
+                    //Load Site Count 1 and populate data
+                    getSiteCount1TestTime(testSite, programID, revision, testerType, programSource, programExec, device, temp, effDate, "#txtEditSiteCount1TestTime_Row_" + row, "#cblSiteCount_Row_" + row, "#ulSiteCountList_Row_" + row);
 
                     row++;
                 }
-
-                
 
             });
 
             return cb();
         }
 
-        function LoadSiteCountList(obj, row) {
+        function getSiteCount1TestTime(_testSite, _testProgID, _rev, _testerType, _progName, _programExec, _device, _temp, _effDate, objTestTime1, objSiteCount, objUlSiteCount) {
+            $.ajax({
+                url: "TestTimeUpdateV4.aspx/GetSiteCount1TestTime",
+                data: "{ 'testSite': '" + _testSite + "', 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'testerType': '" + _testerType + "', 'progName': '" + _progName + "', 'programExec': '" + _programExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "', 'effDate': '" + _effDate + "'}",
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    if (JSON.parse(data.d).length > 0) {
+                        var sc1TT = JSON.parse(data.d)[0].TESTTIME;
+                        //alert(sc1TT);
+                        $(objTestTime1).val(sc1TT);
+                    }
+
+                    populateSiteCount("SERVER", _testSite, _testProgID, _rev, _testerType, _progName, _programExec, _device, _temp, _effDate, objTestTime1, objSiteCount, objUlSiteCount);
+                },
+                error: function (a, b, c) {
+                    console.log('error: ' + JSON.stringify(a));
+                }
+            });
+        }
+
+        function populateSiteCount(_type, _testSite, _testProgID, _rev, _testerType, _progName, _programExec, _device, _temp, _effDate, objTestTime1, objSiteCount, objUlSiteCount) {
+
+            var item = "";
+
+            $.ajax({
+                url: "TestTimeUpdateV4.aspx/GetSelectedSiteCountList",
+                dataType: "json",
+                data: "{ 'testSite': '" + _testSite + "', 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'testerType': '" + _testerType + "', 'progName': '" + _progName + "', 'programExec': '" + _programExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "', 'effDate': '" + _effDate + "'}",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    if (_type === "SERVER") {
+
+                        $(objSiteCount + " input").each(function () {
+                            this.checked = false;
+                        });
+
+                        gSiteCountList = [];
+                        $.each(JSON.parse(data.d), function (key, val) {
+                            var dataItem = { label: "X" + val.SITECOUNT, labelValue: val.SITECOUNT, value: "0.00" };
+                            gSiteCountList.push(dataItem);
+                        });
+
+                        var found = 0;
+                        $(objSiteCount + " input").each(function () {
+                            if (getObjects(gSiteCountList, 'labelValue', $(this).val()).length > 0) {
+                                this.checked = true;
+                                found++;
+                            }
+                        });
+                    }
+
+                    $.each(gSiteCountList, function (key, val) {
+
+                        var savedValue = "";
+                        if (JSON.parse(data.d).length > 0) {
+                            $.each(JSON.parse(data.d), function (subKey, subVal) {  
+                                if ($.trim(subVal.SITECOUNT) === $.trim(val.labelValue)) {
+                                    savedValue = subVal.TESTTIME;
+                                    return false;
+                                }
+                            });
+                        }
+
+                        if (savedValue === null)
+                            savedValue = "";
+
+                        if ($.trim(val.labelValue) === "1")
+                            val.value = $(objTestTime1).val();
+                        else
+                            val.value = savedValue;
+
+                        //if (_isEmpty) {
+                        //    val.value = "";
+                        //}
+
+                        item = item + "<li style='display: inline-block; text-align:center; margin:5px;'>" +
+                            "<div><label>" + val.label + "</label> " +
+                            "<input type='text' class='form-control' value='" + val.value + "' style='width:80px; text-align:center;' /> " +
+                            "</div></li>";
+
+                    });
+
+                    $(objUlSiteCount).html("");
+                    $(objUlSiteCount).append(item);
+                },
+                error: function (a, b, c) {
+                    //console.log('error: ' + JSON.stringify(a));
+                }
+            });
+        }
+
+        function LoadSiteCountList(_testSite, _testProgID, _rev, _testerType, _progName, _programExec, _device, _temp, _effDate, objTestTime1, objSiteCount, objUlSiteCount, row) {
             var col = 1;
+            var style = "";
             $.each(gSiteCountListEdit, function (key, val) {
-                $(obj + " > tbody > tr").append("<td><input name='cblSiteCount_" + row + "_" + col + "' id='cblSiteCount_" + row + "_" + col + "' type='checkbox' value='" + val.value + "'><label for='cblSiteCount_" + row + "_" + col + "'> " + val.text + " </label></td>");
+                if (col === 1)
+                    style = "display:none;";
+                else
+                    style = "";
+
+                $(objSiteCount + " > tbody > tr").append("<td style='" + style + "'><input name='cblSiteCount_" + row + "_" + col + "' id='cblSiteCount_" + row + "_" + col + "' type='checkbox' value='" + val.value + "' onchange='repopulateSiteCount(\"" + _testSite + "\", \"" + _testProgID + "\", \"" + _rev + "\", \"" + _testerType + "\", \"" + _progName + "\", \"" + _programExec + "\", \"" + _device + "\", \"" + _temp + "\", \"" + _effDate + "\", \"" + objTestTime1 + "\", \"" + objSiteCount + "\", \"" + objUlSiteCount + "\")'><label for='cblSiteCount_" + row + "_" + col + "'> " + val.text + " </label></td>");
                 col++;
             });
+        }
+
+        function repopulateSiteCount(_testSite, _testProgID, _rev, _testerType, _progName, _programExec, _device, _temp, _effDate, objTestTime1, objSiteCount, objUlSiteCount) {
+            gSiteCountList = [];
+            $(objSiteCount +" input:checked").each(function () {
+                var data = { label: "X" + $(this).val(), labelValue: $(this).val(), value: "0.00" };
+                gSiteCountList.push(data);
+            });
+
+            populateSiteCount("LOCAL", _testSite, _testProgID, _rev, _testerType, _progName, _programExec, _device, _temp, _effDate, objTestTime1, objSiteCount, objUlSiteCount);
         }
 
         function LoadDataForDropownAndShowValue(objTestSite, dataTestSite, valTestSite, objTesterType, dataTesterType, valTesterType, objTemp, dataTemp, valTemp) {
