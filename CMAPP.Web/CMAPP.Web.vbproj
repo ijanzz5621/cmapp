@@ -247,9 +247,8 @@
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
     <Content Include="Scripts\jquery.dynatable.js" />
     <Content Include="Scripts\table2excel.js" />
-    <Content Include="Views\TestTimeUpdateV3.aspx" />
-    <Content Include="Views\TestTimeUpdateV4.aspx" />
-    <Content Include="Views\TestTimeUpdateV2.aspx" />
+    <Content Include="Views\TestTimeUpdate.aspx" />
+    <Content Include="Views\TestTimeUpdateMulti.aspx" />
     <Content Include="x64\Oracle.ManagedDataAccessDTC.dll" />
     <Content Include="x64\Oracle.ManagedDataAccessIOP.dll" />
     <Content Include="x86\Oracle.ManagedDataAccessDTC.dll" />
@@ -284,7 +283,6 @@
     <Content Include="Scripts\WebForms\WebForms.js" />
     <Content Include="Scripts\WebForms\WebParts.js" />
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
-    <Content Include="Views\TestTimeUpdate.aspx" />
     <Content Include="Web.config" />
     <Content Include="Bundle.config" />
   </ItemGroup>
@@ -399,25 +397,11 @@
       <DependentUpon>TestTimeUpdate.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
-    <Compile Include="Views\TestTimeUpdateV3.aspx.designer.vb">
-      <DependentUpon>TestTimeUpdateV3.aspx</DependentUpon>
+    <Compile Include="Views\TestTimeUpdateMulti.aspx.designer.vb">
+      <DependentUpon>TestTimeUpdateMulti.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Views\TestTimeUpdateV3.aspx.vb">
-      <DependentUpon>TestTimeUpdateV3.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="Views\TestTimeUpdateV4.aspx.designer.vb">
-      <DependentUpon>TestTimeUpdateV4.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TestTimeUpdateV4.aspx.vb">
-      <DependentUpon>TestTimeUpdateV4.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
-    </Compile>
-    <Compile Include="Views\TestTimeUpdateV2.aspx.designer.vb">
-      <DependentUpon>TestTimeUpdateV2.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TestTimeUpdateV2.aspx.vb">
-      <DependentUpon>TestTimeUpdateV2.aspx</DependentUpon>
+    <Compile Include="Views\TestTimeUpdateMulti.aspx.vb">
+      <DependentUpon>TestTimeUpdateMulti.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
   </ItemGroup>

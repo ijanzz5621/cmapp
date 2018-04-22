@@ -14,13 +14,22 @@ Option Explicit On
 Partial Public Class TestTimeUpdate
     
     '''<summary>
-    '''ddlProgramID control.
+    '''ddlTestSite control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlProgramID As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlTestSite As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''txtProgramID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtProgramID As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''ddlRevision control.
@@ -32,31 +41,49 @@ Partial Public Class TestTimeUpdate
     Protected WithEvents ddlRevision As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''ddlProgramName control.
+    '''txtVersion control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlProgramName As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents txtVersion As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''ddlProgramExec control.
+    '''ddlTester control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlProgramExec As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents ddlTester As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''ddlDevice control.
+    '''txtProgramName control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents ddlDevice As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents txtProgramName As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtProgramExec control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtProgramExec As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtDevice control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtDevice As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''ddlTemp control.
@@ -86,15 +113,6 @@ Partial Public Class TestTimeUpdate
     Protected WithEvents chkMaxRev As Global.System.Web.UI.WebControls.CheckBox
     
     '''<summary>
-    '''cblSiteCount control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cblSiteCount As Global.System.Web.UI.WebControls.CheckBoxList
-    
-    '''<summary>
     '''btnSearch control.
     '''</summary>
     '''<remarks>
@@ -104,13 +122,175 @@ Partial Public Class TestTimeUpdate
     Protected WithEvents btnSearch As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
-    '''btnNewProgID control.
+    '''btnExport control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents btnNewProgID As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnExport As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''btnNewTestTime control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnNewTestTime As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''ddlTestSiteEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlTestSiteEdit As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''txtEditProgramID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditProgramID As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtEditRevision control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditRevision As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtEditVersion control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditVersion As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''ddlTesterEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlTesterEdit As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''txtEditDevice control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditDevice As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''ddlTempEdit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlTempEdit As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''txtEditProgName control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditProgName As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtEditProgExec control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditProgExec As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtEditEffDate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditEffDate As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''calEditEffDate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents calEditEffDate As Global.AjaxControlToolkit.CalendarExtender
+    
+    '''<summary>
+    '''txtEditSiteCount1TestTime control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditSiteCount1TestTime As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtEditOverhead control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditOverhead As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''btnEditCalculate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnEditCalculate As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''cblSiteCount control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cblSiteCount As Global.System.Web.UI.WebControls.CheckBoxList
+    
+    '''<summary>
+    '''btnDuplicateTestTime control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnDuplicateTestTime As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''btnEditClose control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnEditClose As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
     '''btnEditTestTime control.
@@ -122,238 +302,13 @@ Partial Public Class TestTimeUpdate
     Protected WithEvents btnEditTestTime As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
-    '''gvListing control.
+    '''btnDeleteTestTime control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents gvListing As Global.System.Web.UI.WebControls.GridView
-    
-    '''<summary>
-    '''mpePopupTestTime control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents mpePopupTestTime As Global.AjaxControlToolkit.ModalPopupExtender
-    
-    '''<summary>
-    '''mpePopupTestTime_HF1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents mpePopupTestTime_HF1 As Global.System.Web.UI.WebControls.HiddenField
-    
-    '''<summary>
-    '''mpePopupTestTime_P1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents mpePopupTestTime_P1 As Global.System.Web.UI.WebControls.Panel
-    
-    '''<summary>
-    '''mpePopupTestTime_P2 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents mpePopupTestTime_P2 As Global.System.Web.UI.WebControls.Panel
-    
-    '''<summary>
-    '''lblHeader control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblHeader As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''btnNewProject control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnNewProject As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
-    '''btnNewProgID2 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnNewProgID2 As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
-    '''btnNextRev control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnNextRev As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
-    '''popupTestTime_txtProgID control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents popupTestTime_txtProgID As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''popupTestTime_txtRev control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents popupTestTime_txtRev As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''popupTestTime_txtVer control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents popupTestTime_txtVer As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''popupTestTime_txtTesterType control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents popupTestTime_txtTesterType As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''popupTestTime_txtProgName control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents popupTestTime_txtProgName As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''popupTestTime_txtProgExec control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents popupTestTime_txtProgExec As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''popupTestTime_txtDevice control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents popupTestTime_txtDevice As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''popupTestTime_txtTemp control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents popupTestTime_txtTemp As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''popupTestTime_txtEffDate control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents popupTestTime_txtEffDate As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''Calendar1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Calendar1 As Global.AjaxControlToolkit.CalendarExtender
-    
-    '''<summary>
-    '''popupTestTime_txtSiteCount1TestTime control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents popupTestTime_txtSiteCount1TestTime As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''popupTestTime_txtOverhead control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents popupTestTime_txtOverhead As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''popupTestTime_btnCalc control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents popupTestTime_btnCalc As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
-    '''rptSiteCountList control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents rptSiteCountList As Global.System.Web.UI.WebControls.Repeater
-    
-    '''<summary>
-    '''popupTestTime_btnUpdateAll control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents popupTestTime_btnUpdateAll As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
-    '''popupTestTime_btnInsertUpdate control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents popupTestTime_btnInsertUpdate As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
-    '''mpePopupTestTime_DismissBT control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents mpePopupTestTime_DismissBT As Global.System.Web.UI.WebControls.Button
+    Protected WithEvents btnDeleteTestTime As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
     '''wucPopupInfo control.

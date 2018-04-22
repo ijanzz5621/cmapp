@@ -43,7 +43,7 @@
         If AuthenticateUser(txtUsername.Text, txtPassword.Text, "MCHP-Main") Then
 
             Session("USER_NAME") = txtUsername.Text
-            Response.Redirect("~/Views/TestTimeUpdateV4.aspx")
+            Response.Redirect("~/Views/TestTimeUpdate.aspx")
         Else
             pnlError.Visible = True
             lblError.Text = "Login incorrect. Please try again."

@@ -63,8 +63,8 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Items <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="/Views/TestTimeUpdateV3.aspx">Test Time Update</a></li>
-                                <li><a href="/Views/TestTimeUpdateV4.aspx">Test Time Update (Multi)</a></li>
+                                <li><a href="/Views/TestTimeUpdate.aspx">Test Time Update</a></li>
+                                <li><a href="/Views/TestTimeUpdateMulti.aspx">Test Time Update (Multi)</a></li>
                             </ul>
                         </li>
                     </ul>

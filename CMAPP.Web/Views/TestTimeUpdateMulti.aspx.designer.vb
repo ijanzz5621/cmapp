@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class TestTimeUpdateV4
+Partial Public Class TestTimeUpdateMulti
     
     '''<summary>
     '''ddlTestSite control.
@@ -129,15 +129,6 @@ Partial Public Class TestTimeUpdateV4
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnExport As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
-    '''btnNewTestTime control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnNewTestTime As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
     '''btnEditMultiTestTime control.

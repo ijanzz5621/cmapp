@@ -4,7 +4,7 @@ Imports CMAPP.BLogic
 Imports CMAPP.Model
 Imports Newtonsoft.Json
 
-Public Class TestTimeUpdateV4
+Public Class TestTimeUpdateMulti
     Inherits System.Web.UI.Page
 
     Private Shared cnnOraString As String = ConfigurationManager.ConnectionStrings("ORA_DefaultConnString").ConnectionString
