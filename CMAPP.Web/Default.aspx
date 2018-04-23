@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - CMAPP</title>
+    <title><%: Page.Title %> - CMAPP Application</title>
 
     <script src="/Scripts/ie9/html5shiv.js"></script>
     <script src="/Scripts/ie9/respond.min.js"></script>
