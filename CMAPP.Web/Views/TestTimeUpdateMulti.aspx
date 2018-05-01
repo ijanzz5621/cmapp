@@ -225,6 +225,18 @@
 
             </div>
 
+            <div id="divExport" class="col-md-12" style="display:none;">
+
+                <table id="tblExport" class="table table-bordered table-responsive">
+                    <thead>
+                        <tr style="background-color:#444; color:#fff;">
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+
+            </div>
+
         </div>
 
     </div>
@@ -354,9 +366,10 @@
 
             $('#<%=btnExport.ClientID%>').on('click', function (e) {
                 e.preventDefault();
-                $("#tblListing").table2excel({
-                    filename: "cmtesttime-export.xls"
-                });
+                //$("#tblListing").table2excel({
+                //    filename: "cmtesttime-export.xls"
+                //});
+                exportData();
             });
 
             // Edit multiple click
@@ -393,11 +406,81 @@
             });
 
             $('#btnEditMultiSave').on('click', function (e) {
-                //alert('Saving...');
-                saveSiteCount();
+
+                var emptySiteCount1 = false;
+                var row = 1;
+                $('#divTestTimeEditMulti .row-item').each(function () {
+                    var x1TestTime = $(this).find('#txtEditSiteCount1TestTime_Row_' + row).val();
+                    if (x1TestTime.trim() === "")
+                        emptySiteCount1 = true;
+                    row++;
+                });
+
+                if (emptySiteCount1) {
+                    $.confirm({
+                        title: 'Site Count 1 empty',
+                        content: 'Some of the site count 1 has not been filled up. Are you sure to proceed?',
+                        buttons: {
+                            cancel: function () {
+                                //$.alert('Canceled!');
+                            },
+                            confirm: {
+                                text: 'Confirm',
+                                btnClass: 'btn-blue',
+                                keys: ['enter', 'shift'],
+                                action: function () {
+
+                                    saveSiteCount();
+
+                                } // end of action 
+                            } // end of confirm
+                        } // end of button
+                    }); // end of confirm
+                } else {
+                    saveSiteCount();
+                }
+
             });
 
         }); // end of document ready 
+
+        function exportData() {
+
+            if (gData.length > 0) {
+
+                for (var key in gData[0]) {
+                    $('#tblExport thead tr').append("<td>" + key + "</td>");
+                }
+
+                $('#tblExport tbody').html("");
+
+                var row = "";
+                var rowCount = 0;
+                $.each(gData, function (key, val) {
+
+                    var keyName = "";
+                    var rowColor = "transparent";
+                    if (rowCount % 2 === 0)
+                        rowColor = "#fff";
+
+                    row = row + "<tr style='cursor:pointer; background-color:" + rowColor + "'>";
+                    $.each(val, function (_, text) {
+                        row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
+                    });
+                    row = row + "</tr>";
+
+                });
+
+                $('#tblExport tbody').append(row);
+
+                $("#tblExport").table2excel({
+                    filename: "CMAPPTestTimeExport.xls"
+                });
+
+            } else {
+                alert("No data to export!");
+            }
+        }
 
         function saveSiteCount() {
 
@@ -603,7 +686,7 @@
                     html = html + '<input type="button" name="btnEditCalculate_Row_' + row + '" value="Calculate" id="btnEditCalculate_Row_' + row + '" class="btn btn-primary" style="width:100%;" onclick="calculateSiteCount(\'' + row + '\')" />';
                     html = html + '</div>';
                     html = html + '<div class="col-lg-8 col-md-5">';
-                    html = html + '<div style="width:100%; -ms-overflow-x:scroll;">';
+                    html = html + '<div style="width:100%; overflow-x:scroll;">';
                     html = html + '<table id="cblSiteCount_Row_' + row + '" style="overflow:auto;">';
                     html = html + '<tbody>';
                     html = html + '<tr></tr>';
