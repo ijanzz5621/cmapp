@@ -226,7 +226,7 @@ Public Class blTestTime
 
     End Function
 
-    Public Function GetCmTestTimeListV3(testSite As String, testProgID As String, rev As String, ver As String, testerType As String, progName As String, progExec As String, device As String, temp As String, strMaxDate As String, maxDate As String, siteCountList As SiteCount()) As DataTable
+    Public Function GetCmTestTimeListV3(testSite As String, testProgID As String, rev As String, ver As String, testerType As String, progName As String, progExec As String, device As String, temp As String, strMaxDate As String, maxDate As String, missingTestTime As String, siteCountList As SiteCount()) As DataTable
 
         Dim strQuery As String = ""
         Dim dsResult As DataSet = New DataSet
@@ -279,6 +279,10 @@ Public Class blTestTime
 
             If maxDate = "on" Then
                 strQuery = strQuery & " And to_char(TestTimeEffDate,'mm/dd/yyyy') = '" & strMaxDate & "' "
+            End If
+
+            If missingTestTime = "on" Then
+                strQuery = strQuery & " And TestTime IS NULL "
             End If
 
             strQuery = strQuery & " Group By TestSite, TestProgId , TestProgIdRev, TestProgIdVers, TestStepTemp, device,Testertype, TestProgMainSource,TestProgExecutable,TestTimeEffDate,OverHead, UserID "

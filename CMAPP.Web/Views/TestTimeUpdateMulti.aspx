@@ -182,6 +182,14 @@
                             </div>
 
                         </li>
+                        <li style="display:inline-block; line-height: 55px;">
+                            <div class="checkbox">
+                                <label class="btn btn-default">
+                                    <asp:CheckBox ID="chkMissingTestTime" runat="server" Text=" Missing Test Time" />
+                                </label>
+                            </div>  
+                        
+                        </li>
 
                     </ul>
                 </div>
@@ -361,7 +369,7 @@
                     return;
                 }
 
-                getListing($("#<%=ddlTestSite.ClientID%>").val(), $("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $('#<%=ddlTester.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("input[id='<%=chkMaxDate.ClientID%>']:checked").val());
+                getListing($("#<%=ddlTestSite.ClientID%>").val(), $("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $('#<%=ddlTester.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("input[id='<%=chkMaxDate.ClientID%>']:checked").val(), $("input[id='<%=chkMissingTestTime.ClientID%>']:checked").val());
             });
 
             $('#<%=btnExport.ClientID%>').on('click', function (e) {
@@ -577,7 +585,7 @@
                 //$('#divSiteCountList').hide('slow');
                 $('#modalEditMulti').modal('hide');
 
-                getListing($("#<%=ddlTestSite.ClientID%>").val(), $("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $('#<%=ddlTester.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("input[id='<%=chkMaxDate.ClientID%>']:checked").val());
+                getListing($("#<%=ddlTestSite.ClientID%>").val(), $("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $('#<%=ddlTester.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("input[id='<%=chkMaxDate.ClientID%>']:checked").val(), $("input[id='<%=chkMissingTestTime.ClientID%>']:checked").val());
             }
         }
 
@@ -988,13 +996,16 @@
                     if (rowCount % 2 === 0)
                         rowColor = "#fff";
 
-                    var rowID = val["Test Site"] + "_" + val["Program ID"] + "_" + val["Revision"] + "_" + val["Tester Type"] + "_" + val["Program Source"] + "_" + val["Program Exec"] + "_" + val["Device"] + "_" + val["Temp"];
+                    var uuid = guid();
+
+
+                    //var rowID = val["Test Site"] + "_" + val["Program ID"] + "_" + val["Revision"] + "_" + val["Tester Type"] + "_" + val["Program Source"] + "_" + val["Program Exec"] + "_" + val["Device"] + "_" + val["Temp"];
 
                     //row = row + "<tr id='" + rowID + "' class='" + ((gSelectedRowID === rowID) ? "row-selected" : "") + "' style='cursor:pointer; background-color:" + rowColor + "' onclick='selectRow(this, \"" + val["Test Site"] + "\", \"" + val["Program ID"] + "\", \"" + val["Revision"] + "\", \"" + val["Tester Type"] + "\", \"" + val["Program Source"] + "\", \"" + val["Program Exec"] + "\", \"" + val["Device"] + "\", \"" + val["Temp"] + "\", \"" + val["Eff Date"] + "\", \"" + val["Overhead"] + "\")'>";
-                    row = row + "<tr id='" + rowID + "' class='" + ((gSelectedRowID === rowID) ? "row-selected" : "") + "' style='cursor:pointer; background-color:" + rowColor + "'>";
+                    row = row + "<tr id='" + uuid + "' class='" + ((gSelectedRowID.indexOf(uuid) >= 0) ? "row-selected" : "") + "' style='cursor:pointer; background-color:" + rowColor + "'>";
 
                     // Add a checkbox
-                    row = row + "<td style='text-align:center;'><input type='checkbox' id='chk_" + rowID + "' onclick='selectRow(this);' /></td>";
+                    row = row + "<td style='text-align:center;'><input type='checkbox' id='chk_" + uuid + "' onclick='selectRow(this, \"" + uuid + "\");' /></td>";
 
                     $.each(val, function (_, text) {
                         row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
@@ -1008,12 +1019,30 @@
             $('#tblListing tbody').append(row);
         }
 
-        function selectRow(obj) {
+        function guid() {
+          function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+              .toString(16)
+              .substring(1);
+          }
+          return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+        }
+
+        function selectRow(obj, _uuid) {
 
             if ($(obj).is(':checked')) {
+
+                if (gSelectedRowID.indexOf(_uuid) < 0) {
+                    gSelectedRowID = gSelectedRowID + "," + _uuid;
+                }
+
                 gTotalCheck++;
                 $(obj).closest('tr').addClass("row-selected");
+
             } else {
+
+                gSelectedRowID = gSelectedRowID.replace("," + _uuid, "");
+
                 gTotalCheck--;
                 $(obj).closest('tr').removeClass("row-selected");
             }
@@ -1211,7 +1240,7 @@
             return objects;
         }
 
-        function getListing(_testSite, _testProgID, _rev, _ver, _testerType, _progName, _progExec, _device, _temp, _maxDate) {
+        function getListing(_testSite, _testProgID, _rev, _ver, _testerType, _progName, _progExec, _device, _temp, _maxDate, _missingTestTime) {
 
             // clear the table
             $('#tblListing thead tr').html("");
@@ -1233,7 +1262,7 @@
 
                     $.ajax({
                         url: "TestTimeUpdateMulti.aspx/GetListing",
-                        data: "{ 'testSite': '" + _testSite + "', 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'ver': '" + _ver + "', 'testerType': '" + _testerType + "', 'progName': '" + _progName + "', 'progExec': '" + _progExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "', 'maxDate': '" + _maxDate + "', 'siteCountList': '" + JSON.stringify(gSiteCountList) + "'}",
+                        data: "{ 'testSite': '" + _testSite + "', 'testProgID': '" + _testProgID + "', 'rev': '" + _rev + "', 'ver': '" + _ver + "', 'testerType': '" + _testerType + "', 'progName': '" + _progName + "', 'progExec': '" + _progExec + "', 'device': '" + _device + "', 'temp': '" + _temp + "', 'maxDate': '" + _maxDate + "', 'missingTestTime':'" + _missingTestTime + "', 'siteCountList': '" + JSON.stringify(gSiteCountList) + "'}",
                         dataType: "json",
                         type: "POST",
                         contentType: "application/json; charset=utf-8",
