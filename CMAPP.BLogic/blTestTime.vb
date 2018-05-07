@@ -237,7 +237,7 @@ Public Class blTestTime
             ' Changes 2017-12-08
             ' Get distinct site count to loop from table
 
-            strQuery = "Select TestSite as ""Test Site"", TestProgID as ""Program ID"",TestProgIDRev as ""Revision"",TesterType as ""Tester Type"", Device as ""Device"", TestStepTemp as ""Temp"", to_char(TestTimeEffDate,'mm/dd/yyyy') As ""Eff Date"", TestProgMainSource as ""Program Source"",TestProgExecutable as ""Program Exec"", OverHead AS ""Overhead"", USERID as ""UserId"" "
+            strQuery = "Select rowid as ""RowID"", TestSite as ""Test Site"", TestProgID as ""Program ID"",TestProgIDRev as ""Revision"",TesterType as ""Tester Type"", Device as ""Device"", TestStepTemp as ""Temp"", to_char(TestTimeEffDate,'mm/dd/yyyy') As ""Eff Date"", TestProgMainSource as ""Program Source"",TestProgExecutable as ""Program Exec"", OverHead AS ""Overhead"", USERID as ""UserId"" "
 
             For Each siteCount As SiteCount In siteCountList
                 strQuery = strQuery & ",Max(Decode(SiteCount, " & siteCount.labelValue & ", TestTime, null)) x" & siteCount.labelValue
@@ -285,7 +285,7 @@ Public Class blTestTime
                 strQuery = strQuery & " And TestTime IS NULL "
             End If
 
-            strQuery = strQuery & " Group By TestSite, TestProgId , TestProgIdRev, TestProgIdVers, TestStepTemp, device,Testertype, TestProgMainSource,TestProgExecutable,TestTimeEffDate,OverHead, UserID "
+            strQuery = strQuery & " Group By rowid, TestSite, TestProgId , TestProgIdRev, TestProgIdVers, TestStepTemp, device,Testertype, TestProgMainSource,TestProgExecutable,TestTimeEffDate,OverHead, UserID "
             strQuery = strQuery & " Order By TestSite, TestProgId , TestProgIdRev, TestProgIdVers, TestStepTemp, device,Testertype, TestProgMainSource,TestProgExecutable,TestTimeEffDate,OverHead, UserID "
             dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
 

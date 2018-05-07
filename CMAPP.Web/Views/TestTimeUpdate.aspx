@@ -937,7 +937,8 @@
                                 displayPaging();
 
                                 for (var key in JSON.parse(data.d)[0]) {
-                                    $('#tblListing thead tr').append("<td><a href='#' style='color:#fff;' onclick='sortColumn(\"" + key + "\");'>" + key + "</a></td>");
+                                    if (key !== "RowID")
+                                        $('#tblListing thead tr').append("<td><a href='#' style='color:#fff;' onclick='sortColumn(\"" + key + "\");'>" + key + "</a></td>");
                                 }
 
                                 displayReport(gData);
@@ -1043,7 +1044,8 @@
 
                     row = row + "<tr id='" + rowID + "' class='' style='cursor:pointer; background-color:" + rowColor + "' onclick='selectRow(this, \"" + val["Test Site"] + "\", \"" + val["Program ID"] + "\", \"" + val["Revision"] + "\", \"" + val["Tester Type"] + "\", \"" + val["Program Source"] + "\", \"" + val["Program Exec"] + "\", \"" + val["Device"] + "\", \"" + val["Temp"] + "\", \"" + val["Eff Date"] + "\", \"" + val["Overhead"] + "\")'>";
                     $.each(val, function (_, text) {
-                        row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
+                        if (_ !== "RowID")
+                            row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
                     });
                     row = row + "</tr>";
 

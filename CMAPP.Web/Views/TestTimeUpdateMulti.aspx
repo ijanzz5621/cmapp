@@ -996,19 +996,14 @@
                     if (rowCount % 2 === 0)
                         rowColor = "#fff";
 
-                    var uuid = guid();
-
-
-                    //var rowID = val["Test Site"] + "_" + val["Program ID"] + "_" + val["Revision"] + "_" + val["Tester Type"] + "_" + val["Program Source"] + "_" + val["Program Exec"] + "_" + val["Device"] + "_" + val["Temp"];
-
-                    //row = row + "<tr id='" + rowID + "' class='" + ((gSelectedRowID === rowID) ? "row-selected" : "") + "' style='cursor:pointer; background-color:" + rowColor + "' onclick='selectRow(this, \"" + val["Test Site"] + "\", \"" + val["Program ID"] + "\", \"" + val["Revision"] + "\", \"" + val["Tester Type"] + "\", \"" + val["Program Source"] + "\", \"" + val["Program Exec"] + "\", \"" + val["Device"] + "\", \"" + val["Temp"] + "\", \"" + val["Eff Date"] + "\", \"" + val["Overhead"] + "\")'>";
-                    row = row + "<tr id='" + uuid + "' class='" + ((gSelectedRowID.indexOf(uuid) >= 0) ? "row-selected" : "") + "' style='cursor:pointer; background-color:" + rowColor + "'>";
+                    row = row + "<tr id='" + val.RowID + "' class='" + ((gSelectedRowID.indexOf(val.RowID) >= 0) ? "row-selected" : "") + "' style='cursor:pointer; background-color:" + rowColor + "'>";
 
                     // Add a checkbox
-                    row = row + "<td style='text-align:center;'><input type='checkbox' id='chk_" + uuid + "' onclick='selectRow(this, \"" + uuid + "\");' /></td>";
+                    row = row + "<td style='text-align:center;'><input type='checkbox' id='chk_" + val.RowID + "' onclick='selectRow(this, \"" + val.RowID + "\");' " + ((gSelectedRowID.indexOf(val.RowID) >= 0) ? "checked" : "") + " /></td>";
 
                     $.each(val, function (_, text) {
-                        row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
+                        if (_ !== "RowID")
+                            row = row + "<td>" + ((text === null) ? "" : text) + "</td>";
                     });
                     row = row + "</tr>";
 
@@ -1291,7 +1286,8 @@
                                 $('#tblListing thead tr').append("<td>&nbsp;</td>");
 
                                 for (var key in JSON.parse(data.d)[0]) {
-                                    $('#tblListing thead tr').append("<td><a href='#' style='color:#fff;' onclick='sortColumn(\"" + key + "\");'>" + key + "</a></td>");
+                                    if (key !== "RowID")
+                                        $('#tblListing thead tr').append("<td><a href='#' style='color:#fff;' onclick='sortColumn(\"" + key + "\");'>" + key + "</a></td>");
                                 }
 
                                 displayReport(gData);
