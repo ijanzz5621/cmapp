@@ -258,6 +258,7 @@
         var gSiteCountList = [];
         var gHideFirstItem = false;
 
+        var gSortColumn = "";
         var gSelectedRowID = "";
         var gData = [];
         var gTotalRecords = 0;
@@ -996,10 +997,11 @@
                     if (rowCount % 2 === 0)
                         rowColor = "#fff";
 
-                    row = row + "<tr id='" + val.RowID + "' class='" + ((gSelectedRowID.indexOf(val.RowID) >= 0) ? "row-selected" : "") + "' style='cursor:pointer; background-color:" + rowColor + "'>";
+                    row = row + "<tr id='" + val.RowID + "' class='' style='cursor:pointer; background-color:" + rowColor + "'>";
 
+                    // " + ((gSelectedRowID.indexOf(val.RowID) >= 0) ? "checked" : "") + "
                     // Add a checkbox
-                    row = row + "<td style='text-align:center;'><input type='checkbox' id='chk_" + val.RowID + "' onclick='selectRow(this, \"" + val.RowID + "\");' " + ((gSelectedRowID.indexOf(val.RowID) >= 0) ? "checked" : "") + " /></td>";
+                    row = row + "<td style='text-align:center;'><input type='checkbox' id='chk_" + val.RowID + "' onclick='selectRow(this, \"" + val.RowID + "\");' /></td>";
 
                     $.each(val, function (_, text) {
                         if (_ !== "RowID")
@@ -1295,6 +1297,8 @@
                                 $('#<%=btnExport.ClientID%>').show('slow');
                                 $('#note1').show('slow');
 
+                                // alert(gSelectedRowID);
+
                             } else {
                                 showPopupMessage("No data found!");
                                 $('#<%=btnExport.ClientID%>').hide();
@@ -1320,9 +1324,14 @@
         }
 
         function sortColumn(_columnName) {
-            // alert(_columnName);
-            gData.sort(GetSortOrder(_columnName));
-            displayReport(gData);
+            if (gSortColumn !== _columnName) {
+                gSortColumn = _columnName;
+                gData.sort(GetSortOrder(_columnName));
+                displayReport(gData);
+            } else {
+
+            }
+            
         }
 
         function GetSortOrder(prop) {

@@ -383,6 +383,7 @@
         var gSiteCountList = [];
         var gHideFirstItem = false;
 
+        var gSortColumn = "";
         var gSelectedRowID = "";
         var gData = [];
         var gTotalRecords = 0;
@@ -760,7 +761,7 @@
 
             gHideFirstItem = false;
 
-            if (gSiteCountList.length > 0) {
+            //if (gSiteCountList.length > 0) {
 
                 // alert(gSiteCountList.length);
 
@@ -849,7 +850,7 @@
                         //console.log('error: ' + JSON.stringify(a));
                     }
                 });
-            }
+            //}
         }
 
         function populateSiteCountLocal(_isEmpty) {
@@ -1431,9 +1432,14 @@
         }
 
         function sortColumn(_columnName) {
-            // alert(_columnName);
-            gData.sort(GetSortOrder(_columnName));
-            displayReport(gData);
+            if (gSortColumn !== _columnName) {
+                gSortColumn = _columnName;
+                gData.sort(GetSortOrder(_columnName));
+                displayReport(gData);
+            } else {
+
+            }
+            
         }
 
         function GetSortOrder(prop) {

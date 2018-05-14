@@ -343,7 +343,7 @@ Public Class TestTimeUpdateMulti
 
                     'If siteCount.labelValue <> "1" Then
 
-                    If siteCount.value = "" Then
+                    If siteCount.value = "" And siteCount.labelValue <> "1" Then
                         Dim dsDelSC = fnData.DeleteTestTimeSiteCountEmpty(testSite, testProgID, rev, device, temp, effDate, overhead, testerType, progName, programExec, HttpContext.Current.Session("USER_NAME").ToString(), siteCount.labelValue)
                     Else
                         Dim dsResult As String = fnData.UpdateTestTime(testSite, testProgID, rev, "0", device, temp, effDate, siteCount.labelValue, siteCount.value, overhead, testerType, progName, programExec, HttpContext.Current.Session("USER_NAME").ToString())
