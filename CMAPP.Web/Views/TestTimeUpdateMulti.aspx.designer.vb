@@ -113,15 +113,6 @@ Partial Public Class TestTimeUpdateMulti
     Protected WithEvents chkMaxRev As Global.System.Web.UI.WebControls.CheckBox
     
     '''<summary>
-    '''chkMissingTestTime control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents chkMissingTestTime As Global.System.Web.UI.WebControls.CheckBox
-    
-    '''<summary>
     '''btnSearch control.
     '''</summary>
     '''<remarks>

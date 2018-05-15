@@ -67,7 +67,7 @@ Public Class TestTimeUpdateMulti
 #Region "Web Methods"
 
     <WebMethod>
-    Public Shared Function GetListing(testSite As String, testProgID As String, rev As String, ver As String, testerType As String, progName As String, progExec As String, device As String, temp As String, maxDate As String, missingTestTime As String, siteCountList As String) As Object
+    Public Shared Function GetListing(testSite As String, testProgID As String, rev As String, ver As String, testerType As String, progName As String, progExec As String, device As String, temp As String, maxDate As String, siteCountList As String) As Object
 
         Dim obj As Object = JsonConvert.SerializeObject("")
 
@@ -80,7 +80,7 @@ Public Class TestTimeUpdateMulti
 
             Dim strMaxDate As String = fnData.GetMaxDate(testSite, testProgID, rev, ver, testerType, progName, progExec, device, temp)
 
-            Dim dsResult As DataTable = fnData.GetCmTestTimeListV3(testSite, testProgID, rev, ver, testerType, progName, progExec, device, temp, strMaxDate, maxDate, missingTestTime, siteCountListObj)
+            Dim dsResult As DataTable = fnData.GetCmTestTimeListV3(testSite, testProgID, rev, ver, testerType, progName, progExec, device, temp, strMaxDate, maxDate, siteCountListObj)
 
             obj = JsonConvert.SerializeObject(dsResult)
 
