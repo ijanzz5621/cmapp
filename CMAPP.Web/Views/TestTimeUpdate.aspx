@@ -489,6 +489,8 @@
             $('#<%=btnSearch.ClientID%>').on('click', function (e) {
                 e.preventDefault();
 
+                gCurrentPage = 1;
+
                 // call function to reset the textboxes
                 resetEdit();
 
@@ -923,7 +925,7 @@
 
                             // gDataList = JSON.parse(data.d);
                             gNext = 0;
-                            gCurrentPage = 1;
+                            // gCurrentPage = 1;
                             gStartPaging = 1;
                             gData = JSON.parse(data.d);
 
@@ -990,7 +992,7 @@
             $('#ulTablePaging').empty();
 
             gStartPaging = 1 + gNext;
-            gCurrentPage = gStartPaging;
+            // gCurrentPage = gStartPaging;
 
             if (gStartPaging + 10 < gTotalPaging)
                 gEndPaging = gStartPaging + (10 - 1);

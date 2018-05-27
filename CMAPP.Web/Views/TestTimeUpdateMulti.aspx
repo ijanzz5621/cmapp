@@ -357,6 +357,8 @@
             $('#<%=btnSearch.ClientID%>').on('click', function (e) {
                 e.preventDefault();
 
+                gCurrentPage = 1;
+
                 //close the edit div
                 $('#tblListing tbody tr').removeClass("row-selected");
                 $('#divSiteCountList').hide('slow');
@@ -939,7 +941,7 @@
             $('#ulTablePaging').empty();
 
             gStartPaging = 1 + gNext;
-            gCurrentPage = gStartPaging;
+            // gCurrentPage = gStartPaging;
 
             //alert(gTotalPaging);
 
@@ -1267,7 +1269,7 @@
 
                             // gDataList = JSON.parse(data.d);
                             gNext = 0;
-                            gCurrentPage = 1;
+                            // gCurrentPage = 1;
                             gStartPaging = 1;
                             gData = JSON.parse(data.d);
 
