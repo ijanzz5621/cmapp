@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Test Time Update V3" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="TestTimeUpdate.aspx.vb" Inherits="CMAPP.Web.TestTimeUpdate" EnableEventValidation="false" %>
+﻿<%@ Page Title="CM Test Time Update" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="TestTimeUpdate.aspx.vb" Inherits="CMAPP.Web.TestTimeUpdate" EnableEventValidation="false" %>
 <%@ Register Src="~/Controls/wucPopupInfo.ascx" TagPrefix="uc1" TagName="wucPopupInfo" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolKit" %>
 
@@ -95,7 +95,7 @@
 
     <div class="page-container" >
 
-        <h3>Test Time Update (Version 3)</h3>
+        <h3>CM Test Time Update</h3>
 
         <div class="" style=" padding-top:5px;">
 

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Test Time Update V3" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="TestTimeUpdateMulti.aspx.vb" Inherits="CMAPP.Web.TestTimeUpdateMulti" EnableEventValidation="false" %>
+﻿<%@ Page Title="CM Test Time Update Multi" Language="vb" AutoEventWireup="false" MasterPageFile="~/Site.Master" CodeBehind="TestTimeUpdateMulti.aspx.vb" Inherits="CMAPP.Web.TestTimeUpdateMulti" EnableEventValidation="false" %>
 
 <%@ Register Src="~/Controls/wucPopupInfo.ascx" TagPrefix="uc1" TagName="wucPopupInfo" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolKit" %>

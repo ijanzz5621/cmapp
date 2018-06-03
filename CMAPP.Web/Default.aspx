@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - CMAPP Application</title>
+    <title><%: Page.Title %> - CM Test Time</title>
 
     <script src="/Scripts/ie9/html5shiv.js"></script>
     <script src="/Scripts/ie9/respond.min.js"></script>
@@ -69,7 +69,7 @@
             <div class="jumbotron" style="text-align:center;">
                 <%--<h1 style="text-align:center;">Machine Database System</h1>--%>
                 <%--<img id="logo-title" src="images/login-title.png" style="text-align:center; margin: 0 auto;" class="img-responsive" />--%>
-                <span style="font-size:80px; color:#171717; font-weight:bold; font-family:Arial; color:#000;">CMAPP</span>
+                <span style="font-size:50px; color:#171717; font-weight:bold; font-family:Arial; color:#000;">CM Test Time Entry rev 0.19</span>
             </div>
 
             <div class="row">
