@@ -20,9 +20,9 @@
 
             <div class="col-md-12">
 
-                <%--<div style="float:left;">
+                <div style="float:left;">
                     <asp:Button ID="btnDuplicateTestTime" runat="server" Text="Duplicate" CssClass="btn btn-success" Height="35" />
-                </div>--%>
+                </div>
 
                 <div style="float:right;">
                     <input type="button" id="btnEditMultiClose" value="Close" class="btn btn-warning" style="height:35px;" />

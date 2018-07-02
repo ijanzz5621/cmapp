@@ -212,6 +212,7 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Controls\wucCMAPPEdit.ascx" />
+    <Content Include="Controls\wucCMAPPEditSingle.ascx" />
     <Content Include="Controls\wucPopupInfo.ascx" />
     <Content Include="Controls\wucTestTime.ascx" />
     <Content Include="Controls\wuuCMAPPEditMulti.ascx" />
@@ -310,6 +311,13 @@
     </Compile>
     <Compile Include="Controls\wucCMAPPEdit.ascx.vb">
       <DependentUpon>wucCMAPPEdit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controls\wucCMAPPEditSingle.ascx.designer.vb">
+      <DependentUpon>wucCMAPPEditSingle.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\wucCMAPPEditSingle.ascx.vb">
+      <DependentUpon>wucCMAPPEditSingle.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Controls\wucPopupInfo.ascx.designer.vb">

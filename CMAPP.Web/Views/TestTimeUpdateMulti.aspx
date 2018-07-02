@@ -4,6 +4,8 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolKit" %>
 <%@ Register Src="~/Controls/wucCMAPPEdit.ascx" TagPrefix="uc1" TagName="wucCMAPPEdit" %>
 <%@ Register Src="~/Controls/wuuCMAPPEditMulti.ascx" TagPrefix="uc1" TagName="wuuCMAPPEditMulti" %>
+<%@ Register Src="~/Controls/wucCMAPPEditSingle.ascx" TagPrefix="uc1" TagName="wucCMAPPEditSingle" %>
+
 
 
 
@@ -200,8 +202,8 @@
                     <asp:Button Text="Search" runat="server" ID="btnSearch" CssClass="btn btn-info" OnClick="btnSearch_Click" />
                     &nbsp;
                     <asp:Button ID="btnExport" runat="server" Text="Export" CssClass="btn btn-success" ForeColor="#ffffff" />
-                    <%--&nbsp;
-                    <asp:Button ID="btnNewTestTime" runat="server" Text="New" CssClass="btn btn-primary" Height="35" Style="display: inline-block;" />--%>
+                    &nbsp;
+                    <asp:Button ID="btnNewTestTime" runat="server" Text="New" CssClass="btn btn-primary" Height="35" Style="display: inline-block;" />
                     &nbsp;
                     <asp:Button ID="btnEditMultiTestTime" runat="server" Text="Edit" CssClass="btn btn-warning" ForeColor="#ffffff" Style="display: none;" />
                     <span id="note1" style="font-weight: bold; font-size: 18px; color: red;">Please click on the record to edit</span>
@@ -251,6 +253,7 @@
 
     <!-- Modal -->
     <uc1:wuuCMAPPEditMulti runat="server" ID="wuuCMAPPEditMulti" />
+    <uc1:wucCMAPPEditSingle runat="server" id="wucCMAPPEditSingle" />
 
     <script type="text/javascript">
 
@@ -452,6 +455,77 @@
                 }
 
             });
+
+            $('#MainContent_wuuCMAPPEditMulti_btnDuplicateTestTime').on('click', function (e) {
+                e.preventDefault();
+                $(this).val("Duplicated");
+                resetEditRemainValue();
+            });
+
+            function resetEditRemainValue() {
+                // TODO
+                // Modify this function 
+                // Loop and remove the readonly attributes for the objects as below:
+                var row = 1;
+                $('#divTestTimeEditMulti .row-item').each(function () {
+
+                    $(this).find('#ddlTestSite_Row_' + row).removeAttr('disabled');
+                    $(this).find('#txtEditProgramID_Row_' + row).removeAttr('readonly');
+                    $(this).find('#txtEditRevision_Row_' + row).removeAttr('readonly');
+                    $(this).find('#txtEditVersion_Row_' + row).removeAttr('readonly');
+                    $(this).find('#ddlTesterEdit_Row_' + row).removeAttr('disabled');
+                    $(this).find('#txtEditDevice_Row_' + row).removeAttr('readonly');
+                    $(this).find('#ddlTempEdit_Row_' + row).removeAttr('disabled');
+                    $(this).find('#txtEditProgName_Row_' + row).removeAttr('readonly');
+                    $(this).find('#txtEditProgExec_Row_' + row).removeAttr('readonly');
+                    $(this).find('#txtEditEffDate_Row_' + row).removeAttr('readonly');
+                    $(this).find('#txtEditSiteCount1TestTime_Row_' + row).removeAttr('readonly');
+                    $(this).find('#txtEditOverhead_Row_' + row).removeAttr('readonly');
+
+                    row++;
+                });
+
+
+                <%--$('#<%=ddlTestSiteEdit.ClientID%>').removeAttr('readonly');
+                $('#<%=txtEditProgramID.ClientID%>').removeAttr('readonly');
+                $('#<%=txtEditRevision.ClientID%>').removeAttr('readonly');
+                $('#<%=ddlTesterEdit.ClientID%>').removeAttr('readonly');
+                $('#<%=txtEditVersion.ClientID%>').removeAttr('readonly');
+                $('#<%=txtEditProgName.ClientID%>').removeAttr('readonly');
+                $('#<%=txtEditProgExec.ClientID%>').removeAttr('readonly');
+                $('#<%=txtEditDevice.ClientID%>').removeAttr('readonly');
+                $('#<%=ddlTempEdit.ClientID%>').removeAttr('readonly');
+                $('#<%=txtEditEffDate.ClientID%>').removeAttr('readonly');
+                $('#<%=txtEditOverhead.ClientID%>').removeAttr('readonly');--%>
+            }
+
+            $('#<%=btnNewTestTime.ClientID%>').on('click', function (e) {
+                e.preventDefault();
+                //resetEdit();
+
+                <%--// hide button duplicate and delete for edit
+                $('#<%=btnDuplicateTestTime.ClientID%>').hide();
+                $('#<%=btnDeleteTestTime.ClientID%>').hide();--%>
+
+                $('#divSiteCountListSingle').show('slow');
+                $('#modalEditSingle').modal();
+
+                //populateSiteCount(true, "SERVER");
+            });
+
+            $('#MainContent_wucCMAPPEditSingle_btnEditCloseSingle').on('click', function (e) {
+                e.preventDefault();
+
+                //// call function to reset the textboxes
+                //resetEdit();
+
+                //close the edit div
+                //  $('#tblListing tbody tr').removeClass("row-selected");
+                $('#divSiteCountListSingle').hide('slow');
+                $('#modalEditSingle').modal('hide');
+
+            });
+
 
         }); // end of document ready 
 
