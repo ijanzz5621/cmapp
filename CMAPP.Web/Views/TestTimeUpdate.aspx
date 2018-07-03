@@ -104,6 +104,7 @@
                     <asp:Label Text="text" runat="server" AssociatedControlID="ddlTestSite">Test Site</asp:Label>
                     <asp:DropDownList ID="ddlTestSite" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                         <asp:ListItem Text="" Value=""></asp:ListItem>
+                        <asp:ListItem Text="AIC" Value="AIC"></asp:ListItem>
                         <asp:ListItem Text="ASCL" Value="ASCL"></asp:ListItem>
                         <asp:ListItem Text="ASE" Value="ASE"></asp:ListItem>
                         <asp:ListItem Text="ASE9" Value="ASE9"></asp:ListItem>
@@ -255,6 +256,7 @@
                         <asp:Label Text="text" runat="server" AssociatedControlID="ddlTestSiteEdit">Test Site</asp:Label>
                             <asp:DropDownList ID="ddlTestSiteEdit" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                                 <asp:ListItem Text="" Value=""></asp:ListItem>
+                                <asp:ListItem Text="AIC" Value="AIC"></asp:ListItem>
                                 <asp:ListItem Text="ASCL" Value="ASCL"></asp:ListItem>
                                 <asp:ListItem Text="ASE" Value="ASE"></asp:ListItem>
                                 <asp:ListItem Text="ASE9" Value="ASE9"></asp:ListItem>

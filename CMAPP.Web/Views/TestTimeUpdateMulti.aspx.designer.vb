@@ -131,15 +131,6 @@ Partial Public Class TestTimeUpdateMulti
     Protected WithEvents btnExport As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
-    '''btnNewTestTime control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnNewTestTime As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
     '''btnEditMultiTestTime control.
     '''</summary>
     '''<remarks>

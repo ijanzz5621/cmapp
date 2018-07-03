@@ -8,6 +8,7 @@ Public Class TestTimeUpdateMulti
     Inherits System.Web.UI.Page
 
     Private Shared cnnOraString As String = ConfigurationManager.ConnectionStrings("ORA_DefaultConnString").ConnectionString
+    Private Shared cnnOraODSString As String = ConfigurationManager.ConnectionStrings("ORA_ODSConnString").ConnectionString
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
@@ -144,6 +145,27 @@ Public Class TestTimeUpdateMulti
             Dim fnData As blGeneral = New blGeneral()
             fnData.ConnectionString = cnnOraString
             Dim dsResult As DataTable = fnData.GetProgramRevListV2()
+
+            obj = JsonConvert.SerializeObject(dsResult)
+
+        Catch ex As Exception
+
+        End Try
+
+        Return obj
+
+    End Function
+
+    <WebMethod>
+    Public Shared Function GetPlantCodeList() As Object
+
+        Dim obj As Object = JsonConvert.SerializeObject("")
+
+        Try
+
+            Dim fnData As blGeneral = New blGeneral()
+            fnData.ConnectionString = cnnOraODSString
+            Dim dsResult As DataTable = fnData.GetPlantCodeList()
 
             obj = JsonConvert.SerializeObject(dsResult)
 

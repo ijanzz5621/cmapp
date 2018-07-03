@@ -111,6 +111,7 @@
                     <asp:Label Text="text" runat="server" AssociatedControlID="ddlTestSite">Test Site</asp:Label>
                     <asp:DropDownList ID="ddlTestSite" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                         <asp:ListItem Text="" Value=""></asp:ListItem>
+                        <%--<asp:ListItem Text="AIC" Value="AIC"></asp:ListItem>
                         <asp:ListItem Text="ASCL" Value="ASCL"></asp:ListItem>
                         <asp:ListItem Text="ASE" Value="ASE"></asp:ListItem>
                         <asp:ListItem Text="ASE9" Value="ASE9"></asp:ListItem>
@@ -124,7 +125,7 @@
                         <asp:ListItem Text="SIGH" Value="SIGH"></asp:ListItem>
                         <asp:ListItem Text="SIGN" Value="SIGN"></asp:ListItem>
                         <asp:ListItem Text="SIGT" Value="SIGT"></asp:ListItem>
-                        <asp:ListItem Text="UNIS" Value="UNIS"></asp:ListItem>
+                        <asp:ListItem Text="UNIS" Value="UNIS"></asp:ListItem>--%>
                     </asp:DropDownList>
                 </div>
                 <div class="col-lg-1 col-md-2">
@@ -203,8 +204,8 @@
                     &nbsp;
                     <asp:Button ID="btnExport" runat="server" Text="Export" CssClass="btn btn-success" ForeColor="#ffffff" />
                     &nbsp;
-                    <asp:Button ID="btnNewTestTime" runat="server" Text="New" CssClass="btn btn-primary" Height="35" Style="display: inline-block;" />
-                    &nbsp;
+                    <%--<asp:Button ID="btnNewTestTime" runat="server" Text="New" CssClass="btn btn-primary" Height="35" Style="display: inline-block;" />
+                    &nbsp;--%>
                     <asp:Button ID="btnEditMultiTestTime" runat="server" Text="Edit" CssClass="btn btn-warning" ForeColor="#ffffff" Style="display: none;" />
                     <span id="note1" style="font-weight: bold; font-size: 18px; color: red;">Please click on the record to edit</span>
                 </div>
@@ -273,11 +274,12 @@
         var gTotalPaging = 0;
         var gTotalCheck = 0;
 
-        var gTestSiteList = [
-            { text: '', value: '' }, { text: 'ASCL', value: 'ASCL' }, { text: 'ASE', value: 'ASE' }, { text: 'ASE9', value: 'ASE9' }, { text: 'ASSH', value: 'ASSH' }, { text: 'ATP7', value: 'ATP7' }
-            , { text: 'MMT', value: 'MMT' }, { text: 'MPHL', value: 'MPHL' }, { text: 'MTAI', value: 'MTAI' }, { text: 'NSEB', value: 'NSEB' }, { text: 'OSE', value: 'OSE' }
-            , { text: 'SIGH', value: 'SIGH' }, { text: 'SIGN', value: 'SIGN' }, { text: 'SIGT', value: 'SIGT' }, { text: 'UNIS', value: 'UNIS' }
-        ];
+        var gTestSiteList = [];
+        //=[
+        //    { text: '', value: '' }, { text: 'AIC', value: 'AIC' }, { text: 'ASCL', value: 'ASCL' }, { text: 'ASE', value: 'ASE' }, { text: 'ASE9', value: 'ASE9' }, { text: 'ASSH', value: 'ASSH' }, { text: 'ATP7', value: 'ATP7' }
+        //    , { text: 'MMT', value: 'MMT' }, { text: 'MPHL', value: 'MPHL' }, { text: 'MTAI', value: 'MTAI' }, { text: 'NSEB', value: 'NSEB' }, { text: 'OSE', value: 'OSE' }
+        //    , { text: 'SIGH', value: 'SIGH' }, { text: 'SIGN', value: 'SIGN' }, { text: 'SIGT', value: 'SIGT' }, { text: 'UNIS', value: 'UNIS' }
+        //];
         var gTesterTypeList = [];
         var gTempList = [];
         var gSiteCountListEdit = [];
@@ -295,6 +297,7 @@
             loadProgramNameList();
             loadProgramExecList();
             loadDeviceList();
+            loadPlantCode();
 
             saveTesterTypeList();
             saveTempList();
@@ -499,19 +502,15 @@
                 $('#<%=txtEditOverhead.ClientID%>').removeAttr('readonly');--%>
             }
 
-            $('#<%=btnNewTestTime.ClientID%>').on('click', function (e) {
+            <%--$('#<%=btnNewTestTime.ClientID%>').on('click', function (e) {
                 e.preventDefault();
-                //resetEdit();
-
-                <%--// hide button duplicate and delete for edit
-                $('#<%=btnDuplicateTestTime.ClientID%>').hide();
-                $('#<%=btnDeleteTestTime.ClientID%>').hide();--%>
+                resetEdit();
 
                 $('#divSiteCountListSingle').show('slow');
                 $('#modalEditSingle').modal();
 
-                //populateSiteCount(true, "SERVER");
-            });
+                populateSiteCount(true, "SERVER");
+            });--%>
 
             $('#MainContent_wucCMAPPEditSingle_btnEditCloseSingle').on('click', function (e) {
                 e.preventDefault();
@@ -1291,6 +1290,37 @@
                 error: function (a, b, c) {
                     console.log('error: ' + JSON.stringify(a));
                     $("#<%=ddlRevision.ClientID%>").removeAttr('disabled');
+                }
+            });
+        }
+
+        function loadPlantCode() {
+
+            gTestSiteList = [];
+            $("#<%=ddlTestSite.ClientID%>").attr('disabled', true);
+
+            $.ajax({
+                url: "TestTimeUpdateMulti.aspx/GetPlantCodeList",
+                //data: "{ '': ''}",
+                dataType: "json",
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+
+                    if (JSON.parse(data.d).length > 0) {
+
+                        $.each(JSON.parse(data.d), function (key, val) {
+                            gTestSiteList.push({ text: val.PLANTCODE, value: val.PLANTCODE});
+                            $("#<%=ddlTestSite.ClientID%>").append($("<option />").val(val.PLANTCODE).text(val.PLANTCODE));
+                        });
+
+                    }
+
+                    $("#<%=ddlTestSite.ClientID%>").removeAttr('disabled');
+                },
+                error: function (a, b, c) {
+                    console.log('error: ' + JSON.stringify(a));
+                    $("#<%=ddlTestSite.ClientID%>").removeAttr('disabled');
                 }
             });
         }

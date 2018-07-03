@@ -108,6 +108,29 @@ Public Class blGeneral
 
     End Function
 
+    Public Function GetPlantCodeList() As DataTable
+
+        Dim strQuery As String
+        Dim dsResult As DataSet = New DataSet
+
+        Try
+
+            oOra.OpenOraConnection(cnnOra, connStr)
+            strQuery = "select PlantCode from ODSPRD1.FCPLANT where FTFLAG = 'Y' and statuscode = 'A' order by PlantCode"
+            dsResult = oOra.OraExecuteQuery(strQuery, cnnOra)
+
+        Catch ex As Exception
+            Dim exMsg = ex.Message
+        Finally
+
+            oOra.CloseOraConnection(cnnOra)
+
+        End Try
+
+        Return dsResult.Tables(0)
+
+    End Function
+
     Public Function GetMaxRevByTestProgID(_testProgID As String) As DataTable
 
         Dim strQuery As String
