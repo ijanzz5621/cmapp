@@ -6,9 +6,6 @@
 <%@ Register Src="~/Controls/wuuCMAPPEditMulti.ascx" TagPrefix="uc1" TagName="wuuCMAPPEditMulti" %>
 <%@ Register Src="~/Controls/wucCMAPPEditSingle.ascx" TagPrefix="uc1" TagName="wucCMAPPEditSingle" %>
 
-
-
-
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 
     <link href="/Content/jqueryui/jquery-ui.css" rel="stylesheet" />
