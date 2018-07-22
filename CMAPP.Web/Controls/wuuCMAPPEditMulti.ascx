@@ -21,7 +21,7 @@
             <div class="col-md-12">
 
                 <div style="float:left;">
-                    <asp:Button ID="btnDuplicateTestTime" runat="server" Text="Duplicate" CssClass="btn btn-success" Height="35" />
+                    
                 </div>
 
                 <div style="float:right;">

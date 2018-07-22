@@ -149,15 +149,6 @@ Partial Public Class wucCMAPPEditSingle
     Protected WithEvents cblSiteCountSingle As Global.System.Web.UI.WebControls.CheckBoxList
     
     '''<summary>
-    '''btnDuplicateTestTimeSingle control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnDuplicateTestTimeSingle As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
     '''btnEditCloseSingle control.
     '''</summary>
     '''<remarks>
@@ -174,13 +165,4 @@ Partial Public Class wucCMAPPEditSingle
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnEditTestTimeSingle As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
-    '''btnDeleteTestTimeSingle control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnDeleteTestTimeSingle As Global.System.Web.UI.WebControls.Button
 End Class

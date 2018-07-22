@@ -131,6 +131,24 @@ Partial Public Class TestTimeUpdateMulti
     Protected WithEvents btnExport As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
+    '''btnNewTestTime control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnNewTestTime As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''btnDuplicateTestTime control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnDuplicateTestTime As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
     '''btnEditMultiTestTime control.
     '''</summary>
     '''<remarks>
@@ -149,13 +167,157 @@ Partial Public Class TestTimeUpdateMulti
     Protected WithEvents wuuCMAPPEditMulti As Global.CMAPP.Web.wuuCMAPPEditMulti
     
     '''<summary>
-    '''wucCMAPPEditSingle control.
+    '''ddlTestSiteEditSingle control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents wucCMAPPEditSingle As Global.CMAPP.Web.wucCMAPPEditSingle
+    Protected WithEvents ddlTestSiteEditSingle As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''txtEditProgramIDSingle control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditProgramIDSingle As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtEditRevisionSingle control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditRevisionSingle As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtEditVersionSingle control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditVersionSingle As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''ddlTesterEditSingle control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlTesterEditSingle As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''txtEditDeviceSingle control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditDeviceSingle As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''ddlTempEditSingle control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ddlTempEditSingle As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''txtEditProgNameSingle control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditProgNameSingle As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtEditProgExecSingle control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditProgExecSingle As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtEditEffDateSingle control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditEffDateSingle As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''calEditEffDateSingle control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents calEditEffDateSingle As Global.AjaxControlToolkit.CalendarExtender
+    
+    '''<summary>
+    '''txtEditSiteCount1TestTimeSingle control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditSiteCount1TestTimeSingle As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtEditOverheadSingle control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtEditOverheadSingle As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''btnEditCalculateSingle control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnEditCalculateSingle As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''cblSiteCountSingle control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cblSiteCountSingle As Global.System.Web.UI.WebControls.CheckBoxList
+    
+    '''<summary>
+    '''btnEditCloseSingle control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnEditCloseSingle As Global.System.Web.UI.WebControls.Button
+    
+    '''<summary>
+    '''btnEditTestTimeSingle control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnEditTestTimeSingle As Global.System.Web.UI.WebControls.Button
     
     '''<summary>
     '''wucPopupInfo control.

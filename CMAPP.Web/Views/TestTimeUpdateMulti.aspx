@@ -4,7 +4,6 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolKit" %>
 <%@ Register Src="~/Controls/wucCMAPPEdit.ascx" TagPrefix="uc1" TagName="wucCMAPPEdit" %>
 <%@ Register Src="~/Controls/wuuCMAPPEditMulti.ascx" TagPrefix="uc1" TagName="wuuCMAPPEditMulti" %>
-<%@ Register Src="~/Controls/wucCMAPPEditSingle.ascx" TagPrefix="uc1" TagName="wucCMAPPEditSingle" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
 
@@ -108,21 +107,6 @@
                     <asp:Label Text="text" runat="server" AssociatedControlID="ddlTestSite">Test Site</asp:Label>
                     <asp:DropDownList ID="ddlTestSite" runat="server" CssClass="form-control" AppendDataBoundItems="true">
                         <asp:ListItem Text="" Value=""></asp:ListItem>
-                        <%--<asp:ListItem Text="AIC" Value="AIC"></asp:ListItem>
-                        <asp:ListItem Text="ASCL" Value="ASCL"></asp:ListItem>
-                        <asp:ListItem Text="ASE" Value="ASE"></asp:ListItem>
-                        <asp:ListItem Text="ASE9" Value="ASE9"></asp:ListItem>
-                        <asp:ListItem Text="ASSH" Value="ASSH"></asp:ListItem>
-                        <asp:ListItem Text="ATP7" Value="ATP7"></asp:ListItem>
-                        <asp:ListItem Text="MMT" Value="MMT"></asp:ListItem>
-                        <asp:ListItem Text="MPHL" Value="MPHL"></asp:ListItem>
-                        <asp:ListItem Text="MTAI" Value="MTAI"></asp:ListItem>
-                        <asp:ListItem Text="NSEB" Value="NSEB"></asp:ListItem>
-                        <asp:ListItem Text="OSE" Value="OSE"></asp:ListItem>
-                        <asp:ListItem Text="SIGH" Value="SIGH"></asp:ListItem>
-                        <asp:ListItem Text="SIGN" Value="SIGN"></asp:ListItem>
-                        <asp:ListItem Text="SIGT" Value="SIGT"></asp:ListItem>
-                        <asp:ListItem Text="UNIS" Value="UNIS"></asp:ListItem>--%>
                     </asp:DropDownList>
                 </div>
                 <div class="col-lg-1 col-md-2">
@@ -201,8 +185,10 @@
                     &nbsp;
                     <asp:Button ID="btnExport" runat="server" Text="Export" CssClass="btn btn-success" ForeColor="#ffffff" />
                     &nbsp;
-                    <%--<asp:Button ID="btnNewTestTime" runat="server" Text="New" CssClass="btn btn-primary" Height="35" Style="display: inline-block;" />
-                    &nbsp;--%>
+                    <asp:Button ID="btnNewTestTime" runat="server" Text="New" CssClass="btn btn-primary" Height="35" Style="display: inline-block;" />
+                    &nbsp;
+                    <asp:Button ID="btnDuplicateTestTime" runat="server" Text="Duplicate" CssClass="btn btn-success" Height="35" Style="display: none;" />
+                    &nbsp;
                     <asp:Button ID="btnEditMultiTestTime" runat="server" Text="Edit" CssClass="btn btn-warning" ForeColor="#ffffff" Style="display: none;" />
                     <span id="note1" style="font-weight: bold; font-size: 18px; color: red;">Please click on the record to edit</span>
                 </div>
@@ -249,9 +235,124 @@
 
     </div>
 
-    <!-- Modal -->
+    <!-- Modal Edit Multiple -->
     <uc1:wuuCMAPPEditMulti runat="server" ID="wuuCMAPPEditMulti" />
-    <uc1:wucCMAPPEditSingle runat="server" id="wucCMAPPEditSingle" />
+
+    <!-- Modal Add New -->
+    <div id="modalEditSingle" class="modal fade" role="dialog">
+        <div class="modal-dialog" style="width: 1240px">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="background-color: #b91717; color: #fff;">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Test Time Update (Add New)</h4>
+                </div>
+                <div class="modal-body">
+
+
+                    <div class="row">
+
+                        <div class="col-lg-1 col-md-2">
+                            <asp:Label Text="text" runat="server" AssociatedControlID="ddlTestSiteEditSingle">Test Site</asp:Label>
+                            <asp:DropDownList ID="ddlTestSiteEditSingle" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                                <asp:ListItem Text="" Value=""></asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+                        <div class="col-lg-1 col-md-2">
+                            <asp:Label Text="text" runat="server" AssociatedControlID="txtEditProgramIDSingle">Program ID</asp:Label>
+                            <asp:TextBox ID="txtEditProgramIDSingle" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
+                        </div>
+                        <div class="col-lg-1 col-md-2">
+                            <asp:Label Text="text" runat="server" AssociatedControlID="txtEditRevisionSingle">Revision</asp:Label>
+                            <asp:TextBox ID="txtEditRevisionSingle" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
+                        </div>
+                        <div class="col-lg-1 col-md-2">
+                            <asp:Label Text="text" runat="server" AssociatedControlID="txtEditVersionSingle">Version</asp:Label>
+                            <asp:TextBox runat="server" CssClass="form-control toUppercase" ID="txtEditVersionSingle" Text="0" />
+                        </div>
+                        <div class="col-lg-1 col-md-2">
+                            <asp:Label Text="text" runat="server" AssociatedControlID="ddlTesterEditSingle">Tester Type</asp:Label>
+                            <asp:DropDownList ID="ddlTesterEditSingle" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                                <asp:ListItem Text="" Value=""></asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+                        <div class="col-lg-2 col-md-3">
+                            <asp:Label Text="text" runat="server" AssociatedControlID="txtEditDeviceSingle">Device</asp:Label>
+                            <asp:TextBox ID="txtEditDeviceSingle" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
+                        </div>
+                        <div class="col-lg-1 col-md-2">
+                            <asp:Label Text="text" runat="server" AssociatedControlID="ddlTempEditSingle">Temp</asp:Label>
+                            <%--<asp:TextBox ID="txtEditTemp" runat="server" CssClass="form-control toUppercase"></asp:TextBox>--%>
+                            <asp:DropDownList ID="ddlTempEditSingle" runat="server" CssClass="form-control" AppendDataBoundItems="true">
+                                <asp:ListItem Text="" Value=""></asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+                        <div class="col-lg-2 col-md-3">
+                            <asp:Label Text="text" runat="server" AssociatedControlID="txtEditProgNameSingle">Program Name</asp:Label>
+                            <asp:TextBox ID="txtEditProgNameSingle" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
+                        </div>
+                        <div class="col-lg-2 col-md-3">
+                            <asp:Label Text="text" runat="server" AssociatedControlID="txtEditProgExecSingle">Program Exec</asp:Label>
+                            <asp:TextBox ID="txtEditProgExecSingle" runat="server" CssClass="form-control toUppercase"></asp:TextBox>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-lg-1 col-md-2">
+                            <asp:Label runat="server" AssociatedControlID="txtEditEffDateSingle">Effective Date</asp:Label><br />
+                            <asp:TextBox ID="txtEditEffDateSingle" runat="server" CssClass="form-control" />
+                            <ajaxToolkit:CalendarExtender ID="calEditEffDateSingle" PopupButtonID="imgPopup2" runat="server" TargetControlID="txtEditEffDateSingle" Format="MM/dd/yyyy"></ajaxToolkit:CalendarExtender>
+                        </div>
+                        <div class="col-lg-1 col-md-2">
+                            <asp:Label runat="server" AssociatedControlID="txtEditSiteCount1TestTimeSingle">X1 Test Time</asp:Label><br />
+                            <asp:TextBox ID="txtEditSiteCount1TestTimeSingle" runat="server" CssClass="form-control" />
+                        </div>
+
+                        <div class="col-lg-1 col-md-2">
+                            <asp:Label runat="server" AssociatedControlID="txtEditOverheadSingle">Overhead (%)</asp:Label><br />
+                            <asp:TextBox ID="txtEditOverheadSingle" runat="server" CssClass="form-control" />
+                        </div>
+                        <div class="col-lg-1 col-md-1">
+                            <asp:Label Text="" runat="server" />&nbsp;<br />
+                            <asp:Button ID="btnEditCalculateSingle" Text="Calculate" runat="server" CssClass="btn btn-primary" Style="width: 100%;" />
+                        </div>
+                        <div class="col-lg-8 col-md-5">
+                            <div style="width: 100%; overflow-x: scroll">
+                                <asp:CheckBoxList ID="cblSiteCountSingle" runat="server" RepeatDirection="Horizontal" Style="overflow: auto;">
+                                </asp:CheckBoxList>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row" style="margin-top: 15px;">
+
+                        <ul id="ulSiteCountListSingle" style="list-style: none; display: inline-block; margin: 0; padding: 0;">
+                        </ul>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+
+                    <div class="col-md-12">
+
+                        <div style="float: right;">
+                            <asp:Button ID="btnEditCloseSingle" runat="server" Text="Close" CssClass="btn btn-warning" Height="35" />
+                            &nbsp;
+                            <asp:Button ID="btnEditTestTimeSingle" runat="server" Text="Save" CssClass="btn btn-success" Height="35" />
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
 
     <script type="text/javascript">
 
@@ -272,11 +373,7 @@
         var gTotalCheck = 0;
 
         var gTestSiteList = [];
-        //=[
-        //    { text: '', value: '' }, { text: 'AIC', value: 'AIC' }, { text: 'ASCL', value: 'ASCL' }, { text: 'ASE', value: 'ASE' }, { text: 'ASE9', value: 'ASE9' }, { text: 'ASSH', value: 'ASSH' }, { text: 'ATP7', value: 'ATP7' }
-        //    , { text: 'MMT', value: 'MMT' }, { text: 'MPHL', value: 'MPHL' }, { text: 'MTAI', value: 'MTAI' }, { text: 'NSEB', value: 'NSEB' }, { text: 'OSE', value: 'OSE' }
-        //    , { text: 'SIGH', value: 'SIGH' }, { text: 'SIGN', value: 'SIGN' }, { text: 'SIGT', value: 'SIGT' }, { text: 'UNIS', value: 'UNIS' }
-        //];
+
         var gTesterTypeList = [];
         var gTempList = [];
         var gSiteCountListEdit = [];
@@ -380,9 +477,6 @@
 
             $('#<%=btnExport.ClientID%>').on('click', function (e) {
                 e.preventDefault();
-                //$("#tblListing").table2excel({
-                //    filename: "cmtesttime-export.xls"
-                //});
                 exportData();
             });
 
@@ -456,58 +550,11 @@
 
             });
 
-            $('#MainContent_wuuCMAPPEditMulti_btnDuplicateTestTime').on('click', function (e) {
-                e.preventDefault();
-                $(this).val("Duplicated");
-                resetEditRemainValue();
-            });
-
-            function resetEditRemainValue() {
-                // TODO
-                // Modify this function 
-                // Loop and remove the readonly attributes for the objects as below:
-                var row = 1;
-                $('#divTestTimeEditMulti .row-item').each(function () {
-
-                    $(this).find('#ddlTestSite_Row_' + row).removeAttr('disabled');
-                    $(this).find('#txtEditProgramID_Row_' + row).removeAttr('readonly');
-                    $(this).find('#txtEditRevision_Row_' + row).removeAttr('readonly');
-                    $(this).find('#txtEditVersion_Row_' + row).removeAttr('readonly');
-                    $(this).find('#ddlTesterEdit_Row_' + row).removeAttr('disabled');
-                    $(this).find('#txtEditDevice_Row_' + row).removeAttr('readonly');
-                    $(this).find('#ddlTempEdit_Row_' + row).removeAttr('disabled');
-                    $(this).find('#txtEditProgName_Row_' + row).removeAttr('readonly');
-                    $(this).find('#txtEditProgExec_Row_' + row).removeAttr('readonly');
-                    $(this).find('#txtEditEffDate_Row_' + row).removeAttr('readonly');
-                    $(this).find('#txtEditSiteCount1TestTime_Row_' + row).removeAttr('readonly');
-                    $(this).find('#txtEditOverhead_Row_' + row).removeAttr('readonly');
-
-                    row++;
-                });
-
-
-                <%--$('#<%=ddlTestSiteEdit.ClientID%>').removeAttr('readonly');
-                $('#<%=txtEditProgramID.ClientID%>').removeAttr('readonly');
-                $('#<%=txtEditRevision.ClientID%>').removeAttr('readonly');
-                $('#<%=ddlTesterEdit.ClientID%>').removeAttr('readonly');
-                $('#<%=txtEditVersion.ClientID%>').removeAttr('readonly');
-                $('#<%=txtEditProgName.ClientID%>').removeAttr('readonly');
-                $('#<%=txtEditProgExec.ClientID%>').removeAttr('readonly');
-                $('#<%=txtEditDevice.ClientID%>').removeAttr('readonly');
-                $('#<%=ddlTempEdit.ClientID%>').removeAttr('readonly');
-                $('#<%=txtEditEffDate.ClientID%>').removeAttr('readonly');
-                $('#<%=txtEditOverhead.ClientID%>').removeAttr('readonly');--%>
-            }
-
-            <%--$('#<%=btnNewTestTime.ClientID%>').on('click', function (e) {
-                e.preventDefault();
-                resetEdit();
-
-                $('#divSiteCountListSingle').show('slow');
-                $('#modalEditSingle').modal();
-
-                populateSiteCount(true, "SERVER");
-            });--%>
+            //$('#MainContent_wuuCMAPPEditMulti_btnDuplicateTestTime').on('click', function (e) {
+            //    e.preventDefault();
+            //    $(this).val("Duplicated");
+            //    resetEditRemainValue();
+            //});
 
             $('#MainContent_wucCMAPPEditSingle_btnEditCloseSingle').on('click', function (e) {
                 e.preventDefault();
@@ -522,8 +569,121 @@
 
             });
 
+            // *********************** ADD NEW SECTION *******************************
+
+            $('#<%=btnNewTestTime.ClientID%>').on('click', function (e) {
+                e.preventDefault();
+                resetEditAddNew();
+
+                $('#divSiteCountListSingle').show('slow');
+                $('#modalEditSingle').modal();
+            });
+
+            $('#<%=btnEditCloseSingle.ClientID%>').on('click', function (e) {
+                e.preventDefault();
+
+                resetEditAddNew();
+
+                //close the edit div
+                $('#divSiteCountListSingle').hide('slow');
+                $('#modalEditSingle').modal('hide');
+
+            });
+
+            $("#MainContent_cblSiteCountSingle input").on('change', function () {
+                gSiteCountList = [];
+                $("[id*=<%=cblSiteCountSingle.ClientID%>] input:checked").each(function () {
+                    var data = { label: "X" + $(this).val(), labelValue: $(this).val(), value: "" };
+                    gSiteCountList.push(data);
+                });
+
+                populateSiteCountAddNew();
+            });
+
+            $('#<%=btnEditCalculateSingle.ClientID%>').on('click', function (e) {
+                e.preventDefault();
+
+                if ($('#<%=txtEditSiteCount1TestTimeSingle.ClientID%>').val() === "" || $('#<%=txtEditOverheadSingle.ClientID%>').val() === "") {
+                    showPopupMessage("Please enter X1 Test Time and Overhead value if you want to calculate");
+                    return;
+                }
+
+                populateSiteCountCalculateSingle();
+            });
+
+            $('#<%=btnEditTestTimeSingle.ClientID%>').on('click', function (e) {
+                e.preventDefault();
+                UpdateTestTimeSingle();
+            }); // end of btnEditTestTime click
+
+            // *********************** END OF ADD NEW SECTION ************************
+
+            $('#<%=btnDuplicateTestTime.ClientID%>').on('click', function (e) {
+                e.preventDefault();
+                $(this).val("Duplicated");
+
+                // Loop the checked row
+                displayMultiEdit(function () {
+
+                    resetEditRemainValue();
+                    //Show the modal
+                    $('#modalEditMulti').modal();
+
+                });
+            });
 
         }); // end of document ready 
+
+        function resetEditRemainValue() {
+            var row = 1;
+            $('#divTestTimeEditMulti .row-item').each(function () {
+
+                $(this).find('#ddlTestSite_Row_' + row).removeAttr('disabled');
+                $(this).find('#txtEditProgramID_Row_' + row).removeAttr('readonly');
+                $(this).find('#txtEditRevision_Row_' + row).removeAttr('readonly');
+                $(this).find('#txtEditVersion_Row_' + row).removeAttr('readonly');
+                $(this).find('#ddlTesterEdit_Row_' + row).removeAttr('disabled');
+                $(this).find('#txtEditDevice_Row_' + row).removeAttr('readonly');
+                $(this).find('#ddlTempEdit_Row_' + row).removeAttr('disabled');
+                $(this).find('#txtEditProgName_Row_' + row).removeAttr('readonly');
+                $(this).find('#txtEditProgExec_Row_' + row).removeAttr('readonly');
+                $(this).find('#txtEditEffDate_Row_' + row).removeAttr('readonly');
+                $(this).find('#txtEditSiteCount1TestTime_Row_' + row).removeAttr('readonly');
+                $(this).find('#txtEditOverhead_Row_' + row).removeAttr('readonly');
+
+                row++;
+            });
+        }
+
+        function resetEditAddNew() {
+
+            $('#<%=ddlTestSiteEditSingle.ClientID%>').removeAttr('readonly');
+            $('#<%=ddlTestSiteEditSingle.ClientID%>').val("");
+            $('#<%=txtEditProgramIDSingle.ClientID%>').removeAttr('readonly');
+            $('#<%=txtEditProgramIDSingle.ClientID%>').val("");
+            $('#<%=txtEditRevisionSingle.ClientID%>').removeAttr('readonly');
+            $('#<%=txtEditRevisionSingle.ClientID%>').val("");
+            $('#<%=ddlTesterEditSingle.ClientID%>').removeAttr('readonly');
+            $('#<%=ddlTesterEditSingle.ClientID%>').val("");
+            $('#<%=txtEditVersionSingle.ClientID%>').removeAttr('readonly');
+            $('#<%=txtEditVersionSingle.ClientID%>').val("");
+
+            $('#<%=txtEditProgNameSingle.ClientID%>').removeAttr('readonly');
+            $('#<%=txtEditProgNameSingle.ClientID%>').val("");
+            $('#<%=txtEditProgExecSingle.ClientID%>').removeAttr('readonly');
+            $('#<%=txtEditProgExecSingle.ClientID%>').val("");
+            $('#<%=txtEditDeviceSingle.ClientID%>').removeAttr('readonly');
+            $('#<%=txtEditDeviceSingle.ClientID%>').val("");
+            $('#<%=ddlTempEditSingle.ClientID%>').removeAttr('readonly');
+            $('#<%=ddlTempEditSingle.ClientID%>').val("");
+            $('#<%=txtEditEffDateSingle.ClientID%>').removeAttr('readonly');
+            $('#<%=txtEditEffDateSingle.ClientID%>').val("");
+
+            $('#<%=txtEditSiteCount1TestTimeSingle.ClientID%>').val("");
+
+            $('#<%=txtEditOverheadSingle.ClientID%>').removeAttr('readonly');
+            $('#<%=txtEditOverheadSingle.ClientID%>').val("");
+        }
 
         function exportData() {
 
@@ -953,6 +1113,23 @@
             });
         }
 
+        function populateSiteCountAddNew() {
+
+            var item = "";
+
+            $.each(gSiteCountList, function (key, val) {
+
+                item = item + "<li style='display: inline-block; text-align:center; margin:5px;'>" +
+                    "<div><label>" + val.label + "</label> " +
+                    "<input type='text' class='form-control' value='" + val.value + "' style='width:80px; text-align:center;' /> " +
+                    "</div></li>";
+
+            });
+
+            $('#ulSiteCountListSingle').html("");
+            $('#ulSiteCountListSingle').append(item);
+        }
+
         function LoadSiteCountList(_testSite, _testProgID, _rev, _testerType, _progName, _programExec, _device, _temp, _effDate, objTestTime1, objSiteCount, objUlSiteCount, row) {
             var col = 1;
             var style = "";
@@ -1049,6 +1226,7 @@
             gTotalCheck = 0;
             // hide edit button
             $('#<%=btnEditMultiTestTime.ClientID%>').hide('slow');
+            $('#<%=btnDuplicateTestTime.ClientID%>').hide('slow');
 
             $('#ulTablePaging li').removeClass("selected");
             $('#ulTablePaging li[id="' + gCurrentPage + '"]').addClass("selected");
@@ -1123,8 +1301,10 @@
 
             if (gTotalCheck > 0) {
                 $('#<%=btnEditMultiTestTime.ClientID%>').show('slow');
+                $('#<%=btnDuplicateTestTime.ClientID%>').show('slow');
             } else {
                 $('#<%=btnEditMultiTestTime.ClientID%>').hide('slow');
+                $('#<%=btnDuplicateTestTime.ClientID%>').hide('slow');
             }
         }
 
@@ -1295,6 +1475,7 @@
 
             gTestSiteList = [];
             $("#<%=ddlTestSite.ClientID%>").attr('disabled', true);
+            $("#<%=ddlTestSiteEditSingle.ClientID%>").attr('disabled', true);
 
             $.ajax({
                 url: "TestTimeUpdateMulti.aspx/GetPlantCodeList",
@@ -1309,15 +1490,18 @@
                         $.each(JSON.parse(data.d), function (key, val) {
                             gTestSiteList.push({ text: val.PLANTCODE, value: val.PLANTCODE});
                             $("#<%=ddlTestSite.ClientID%>").append($("<option />").val(val.PLANTCODE).text(val.PLANTCODE));
+                            $("#<%=ddlTestSiteEditSingle.ClientID%>").append($("<option />").val(val.PLANTCODE).text(val.PLANTCODE));
                         });
 
                     }
 
                     $("#<%=ddlTestSite.ClientID%>").removeAttr('disabled');
+                    $("#<%=ddlTestSiteEditSingle.ClientID%>").removeAttr('disabled');
                 },
                 error: function (a, b, c) {
                     console.log('error: ' + JSON.stringify(a));
                     $("#<%=ddlTestSite.ClientID%>").removeAttr('disabled');
+                    $("#<%=ddlTestSiteEditSingle.ClientID%>").removeAttr('disabled');
                 }
             });
         }
@@ -1446,6 +1630,104 @@
                 }
 
                 return 0;
+            }
+        }
+
+        function UpdateTestTimeSingle() {
+
+            $.confirm({
+                title: 'Save confirmation',
+                content: 'Are you sure to save? This will update the selected revision with the new calculated test time values.',
+                buttons: {
+                    cancel: function () {
+                        //$.alert('Canceled!');
+                    },
+                    confirm: {
+                        text: 'Confirm',
+                        btnClass: 'btn-blue',
+                        keys: ['enter', 'shift'],
+                        action: function () {
+
+                            // manual add for site count 1
+                            var dataItem = { label: "X1", labelValue: "1", value: $("#<%=txtEditSiteCount1TestTimeSingle.ClientID%>").val() };
+                            gSiteCountList.push(dataItem);
+
+                            // loop the input in the site count list
+                            $('#ulSiteCountListSingle li').each(function (index) {
+
+                                //alert($(this).find("input").val());
+                                //update the json object (user might change the value manually)
+                                if (gHideFirstItem)
+                                    gSiteCountList[index + 1].value = $(this).find("input").val(); // index + 1 because first item (1) has been hide
+                                else
+                                    gSiteCountList[index].value = $(this).find("input").val();
+                            });
+
+                            // call ajax and update database
+                            $.ajax({
+                                url: "TestTimeUpdate.aspx/UpdateTestTime",
+                                data: "{ 'testSite': '" + $("#<%=ddlTestSiteEditSingle.ClientID%>").val() + "', 'testProgID': '" + $("#<%=txtEditProgramIDSingle.ClientID%>").val() + "', 'rev': '" + $("#<%=txtEditRevisionSingle.ClientID%>").val() + "', 'testerType': '" + $("#<%=ddlTesterEditSingle.ClientID%>").val() + "', 'progName': '" + $("#<%=txtEditProgNameSingle.ClientID%>").val() + "', 'programExec': '" + $("#<%=txtEditProgExecSingle.ClientID%>").val() + "', 'device': '" + $("#<%=txtEditDeviceSingle.ClientID%>").val() + "', 'temp': '" + $("#<%=ddlTempEditSingle.ClientID%>").val() + "', 'effDate': '" + $("#<%=txtEditEffDateSingle.ClientID%>").val() + "', 'siteCountList': '" + JSON.stringify(gSiteCountList) + "', 'overhead': '" + $("#<%=txtEditOverheadSingle.ClientID%>").val() + "', 'updateType': 'Single'}",
+                                dataType: "json",
+                                type: "POST",
+                                contentType: "application/json; charset=utf-8",
+                                success: function (data) {
+
+                                    resetEditAddNew();
+                                    $('#divSiteCountListSingle').hide('slow');
+                                    $('#modalEditSingle').modal('hide');
+
+                                    getListing($("#<%=ddlTestSite.ClientID%>").val(), $("#<%=txtProgramID.ClientID%>").val(), $("#<%=ddlRevision.ClientID%>").val(), $('#<%=txtVersion.ClientID%>').val(), $('#<%=ddlTester.ClientID%>').val(), $("#<%=txtProgramName.ClientID%>").val(), $("#<%=txtProgramExec.ClientID%>").val(), $("#<%=txtDevice.ClientID%>").val(), $("#<%=ddlTemp.ClientID%>").val(), $("input[id='<%=chkMaxDate.ClientID%>']:checked").val());
+                                },
+                                beforeSend: function (request) {
+                                    HoldOn.open({ theme: "sk-rect" });
+                                }
+                                , complete: function () {
+                                    HoldOn.close();
+                                },
+                                error: function (a, b, c) {
+                                    //console.log('error: ' + JSON.stringify(a));
+                                }
+                            });
+
+                        } // end of action 
+                    } // end of confirm
+                } // end of button
+            }); // end of confirm
+        }
+
+        function populateSiteCountCalculateSingle() {
+
+            gHideFirstItem = false;
+
+            if (gSiteCountList.length > 0) {
+
+                var item = "";
+
+                $.each(gSiteCountList, function (key, val) {
+
+                    // use the formula
+                    if ($('#<%=txtEditOverheadSingle.ClientID%>').val() !== "" && $('#<%=txtEditSiteCount1TestTimeSingle.ClientID%>').val() !== "") {
+
+                        var scValue = parseFloat($('#<%=txtEditSiteCount1TestTimeSingle.ClientID%>').val()) + ((parseFloat($('#<%=txtEditOverheadSingle.ClientID%>').val()) / 100) * (parseInt(val.labelValue) - 1) * parseFloat($('#<%=txtEditSiteCount1TestTimeSingle.ClientID%>').val()));
+                        val.value = scValue.toFixed(2);
+
+                    } else {
+
+                        if ($.trim(val.labelValue) === "1")
+                            val.value = $('#<%=txtEditSiteCount1TestTimeSingle.ClientID%>').val();
+                        else
+                            val.value = "";
+                    }
+
+                    item = item + "<li style='display: inline-block; text-align:center; margin:5px;'>" +
+                        "<div><label>" + val.label + "</label> " +
+                        "<input type='text' class='form-control' value='" + val.value + "' style='width:80px; text-align:center;' /> " +
+                        "</div></li>";
+
+                });
+
+                $('#ulSiteCountListSingle').html("");
+                $('#ulSiteCountListSingle').append(item);
             }
         }
 

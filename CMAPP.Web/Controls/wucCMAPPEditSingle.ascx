@@ -113,22 +113,13 @@
 
             </div>
             <div class="modal-footer">
-                <%--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>--%>
 
                 <div class="col-md-12">
-
-                    <div style="float: left;">
-                        <asp:Button ID="btnDuplicateTestTimeSingle" runat="server" Text="Duplicate" CssClass="btn btn-success" Height="35" />
-                    </div>
 
                     <div style="float: right;">
                         <asp:Button ID="btnEditCloseSingle" runat="server" Text="Close" CssClass="btn btn-warning" Height="35" />
                         &nbsp;
                         <asp:Button ID="btnEditTestTimeSingle" runat="server" Text="Save" CssClass="btn btn-success" Height="35" />
-                        &nbsp;
-                        <asp:Button ID="btnDeleteTestTimeSingle" runat="server" Text="Delete" CssClass="btn btn-danger" Height="35" />
-                        <%--&nbsp;
-                        <asp:Button ID="btnEditTestTimeAllSingle" runat="server" Text="Save All" CssClass="btn btn-info" Height="35" />--%>
                     </div>
 
                 </div>

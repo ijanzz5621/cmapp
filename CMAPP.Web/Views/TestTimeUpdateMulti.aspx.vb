@@ -23,6 +23,10 @@ Public Class TestTimeUpdateMulti
             GetTempList()
             GetTesterTypeList()
 
+            GetTempEditList()
+            GetTesterTypeListForEdit()
+            PopulateSiteCountListSingle()
+
         Else
 
             If txtProgramID.Text <> "" Then
@@ -61,6 +65,43 @@ Public Class TestTimeUpdateMulti
         ddlTester.DataTextField = "TESTERTYPE"
         ddlTester.DataValueField = "TESTERTYPE"
         ddlTester.DataBind()
+    End Sub
+
+    Private Sub GetTempEditList()
+        Dim fnData As blGeneral = New blGeneral()
+        fnData.ConnectionString = cnnOraString
+        Dim dsResult As DataTable = fnData.GetTempList()
+        ddlTempEditSingle.DataSource = dsResult
+        ddlTempEditSingle.DataTextField = "TESTSTEPTEMP"
+        ddlTempEditSingle.DataValueField = "TESTSTEPTEMP"
+        ddlTempEditSingle.DataBind()
+    End Sub
+
+    Private Sub GetTesterTypeListForEdit()
+        Dim fnData As blGeneral = New blGeneral()
+        fnData.ConnectionString = cnnOraString
+        Dim dsResult As DataTable = fnData.GetTesterTypeList()
+        ddlTesterEditSingle.DataSource = dsResult
+        ddlTesterEditSingle.DataTextField = "TESTERTYPE"
+        ddlTesterEditSingle.DataValueField = "TESTERTYPE"
+        ddlTesterEditSingle.DataBind()
+    End Sub
+
+    Private Sub PopulateSiteCountListSingle()
+
+        For item As Integer = 1 To 320
+            Dim li As ListItem = New ListItem()
+            li.Text = " X" & item & " "
+            li.Value = item
+
+            If item = 1 Then
+                li.Attributes.Add("style", "display:none")
+            End If
+
+            cblSiteCountSingle.Items.Add(li)
+
+        Next
+
     End Sub
 
 #End Region
