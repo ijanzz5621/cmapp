@@ -763,12 +763,13 @@
                                 var x1TestTime = $(this).find('#txtEditSiteCount1TestTime_Row_' + row).val();
                                 var overhead = $(this).find('#txtEditOverhead_Row_' + row).val();
 
-                                //alert("testSite: " + testSite + ", programID: " + programID + ", revision: " + revision + ", version: " + version + ", testerType: " + testerType + ", device: " + device + ", temp: " + temp + ", progName: " + progName + ", progExec: " + progExec + ", effDate: " + effDate + ", x1TestTime: " + x1TestTime + ", overhead: " + overhead);
-
-                                // manual add for site count 1
-                                var dataItem = { label: "X1", labelValue: "1", value: x1TestTime };
-                                _siteCountList.push(dataItem);
-
+                                // 2018-07-22
+                                //// manual add for site count 1
+                                if (x1TestTime != null && x1TestTime != "") {
+                                    var dataItem = { label: "X1", labelValue: "1", value: x1TestTime };
+                                    _siteCountList.push(dataItem);
+                                }
+                                
                                 $('#ulSiteCountList_Row_' + row + ' li').each(function (index) {
                                     //TODO
                                     var lbl = $(this).find("label").text();
